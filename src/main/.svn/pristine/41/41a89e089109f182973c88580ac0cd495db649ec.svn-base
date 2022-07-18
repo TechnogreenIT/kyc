@@ -1,0 +1,62 @@
+{"properties": [
+  {
+    "name": "spring.datasource.driver-class-oracle.jdbc.driver.OracleDriver",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.driver-class-oracle.jdbc.driver.OracleDriver'"
+  },
+  {
+    "name": "app1.datasource.driverClassName",
+    "type": "java.lang.String",
+    "description": "A description for 'app1.datasource.driverClassName'"
+  },
+  {
+    "name": "app1.datasource.username",
+    "type": "java.lang.String",
+    "description": "A description for 'app1.datasource.username'"
+  },
+  {
+    "name": "app1.datasource.url",
+    "type": "java.lang.String",
+    "description": "A description for 'app1.datasource.url'"
+  },
+  {
+    "name": "app1.datasource.password",
+    "type": "java.lang.String",
+    "description": "A description for 'app1.datasource.password'"
+  },
+  {
+    "name": "spring.datasource.testOnBorrow",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.testOnBorrow'"
+  },
+  {
+    "name": "spring.datasource.validationQuery",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.validationQuery'"
+  },
+  {
+    "name": "spring.datasource.max-active",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.max-active'"
+  },
+  {
+    "name": "tes.kyc.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'tes.kyc.jwtSecret'"
+  },
+  {
+    "name": "tes.kyc.jwtExpiration",
+    "type": "java.lang.String",
+    "description": "A description for 'tes.kyc.jwtExpiration'"
+  },
+  {
+    "name": "spring.devtools.restart.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.devtools.restart.enabled'"
+  },
+  {
+    "name": "multipart.maxFileSize",
+    "type": "java.lang.String",
+    "description": "A description for 'multipart.maxFileSize'"
+  }
+]}

@@ -1,0 +1,18 @@
+package com.tes.repository.environmentalofficer;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import com.tes.model.WaterSewPollOp;
+
+@Repository
+public interface WaterSewPollOpRepository extends JpaRepository<WaterSewPollOp, Long>
+{
+	@Modifying
+	@Transactional
+	@Query("DELETE FROM WaterSewPollOp ws WHERE ws.waterSewPoll.waterSewPollId =:productId")
+	int deleteByWaterSewPollIdOp(@Param("productId") int productId);
+}

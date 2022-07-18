@@ -1,0 +1,11 @@
+package com.tes.services.environmentalofficer;
+
+import com.tes.model.WateriePollutantOp;
+
+public interface WateriePollutantOpServices
+{
+
+	WateriePollutantOp save(WateriePollutantOp wateriePollutantOp);
+
+	int deleteWateriePollutantOp(int productId);
+}

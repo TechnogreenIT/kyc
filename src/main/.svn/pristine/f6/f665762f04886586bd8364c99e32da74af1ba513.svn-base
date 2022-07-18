@@ -1,0 +1,460 @@
+$(document).ready(function () {
+	console.log(" add consent js loaded");
+	var issue_date = "" ; var valid_upto ="";
+	var industryCat = $("#industryCat").val();
+});
+var amalgamationCount = 0;
+
+
+function showForm(id) {
+	console.log(id);
+	
+	if(id == 'EYes'){
+		/*action = "";
+		document.getElementById("consentType").innerHTML = "<label class='text-black'>Consent Type: Consent to Establish</label>"
+															+"<input type='hidden' class='form-control' readonly name='consType' "
+															+"value='Consent to Establish'>";
+		$("#consentform").show();
+		checkEstablish("Consent to Establish");										
+		$("#que2").hide();
+		$("#que3").hide();
+		$("#que4").hide();*/
+		$('#que2').css('display', 'none');
+		$('#que3').css('display', 'none');
+		$('#que4').css('display', 'none');
+		$("#consentform").empty();
+		getConsentToEstablishForm('Consent to Establish');
+	} else if (id == 'ExYes') {
+		$("#consentform").empty();
+		getConsentToEstablishForm('Consent to Establish');
+		$('#que3').css('display', 'none');
+		$('#que4').css('display', 'none');
+	} else if (id == 'ENo') {
+		$("#consentform").empty();
+		$('#que2').css('display', 'block');
+	} else if( id == 'ExNo'){
+		$("#consentform").empty();
+		$('#que3').css('display', 'block');
+	}else if(id == 'MultipleYes' || id == 'MultipleNo'){
+		$("#consentform").empty();
+		$('#que4').css('display', 'block');
+	} else if( id == 'expandOPNo'){
+		$("#consentform").empty();
+		// open operarte
+		getConsentToEstablishForm('Consent to Operate');
+	} else if( id == 'expandOPYes'){
+		$("#consentform").empty();
+		getAmalgamationOpForm();
+	}else {
+		$("#consentform").empty();
+	}
+	 
+}
+
+function validateConsentDates(datepickerId){
+	
+	var datepickerDate = $('#'+datepickerId).val();
+	
+	if(datepickerId == "issue_date"){
+		issue_date =  new Date($('#'+datepickerId).val());
+	} else if(datepickerId == "valid_upto"){
+		valid_upto =  new Date($('#'+datepickerId).val());
+	}
+	
+	if(issue_date != "" && valid_upto != "" && issue_date > valid_upto){
+		jBoxBottomRightBigNotice("Invalid", "Valid upto date should be greater than Issue Date !!", "yellow", "5000");
+	}
+}
+
+function getAmalgamation(consentType){
+	var radioValue = $("input[name='status']:checked").val();
+	if(radioValue == "Amalgamant" && amalgamationCount == 0){
+		amalgamationppend(consentType);
+		amalgamationCount++;
+	} else if (radioValue == 'New') {
+		$('#amalgamation_append').empty();
+		amalgamationCount = 0;
+	}
+}
+
+function getConsentToEstablishForm(consentType){
+	var industryCat = $("#industryCat").val();
+	 var str1 = "Number of Staff";
+	 var str2 = "Number of Worker";
+	 
+		 if (industryCat == "Construction-Residential/Construction") {
+			str1 = "Residential Population";
+			str2 = "Commercial Population";
+		} else if (industryCat == "Commercial-Offices") {
+			str1 = "Number of Staff";
+			str2 = "Number of Worker";
+		} else if (industryCat == "Commercial-Cinemas, concert halls and theatres") {
+			str1 = "Capacity of Theatre";
+			str2 = "Number of Worker";
+		} else if (industryCat == "Industry-Canteen with Cooking") {
+			str1 = "Number of Staff";
+			str2 = "Number of Worker";
+		} else if (industryCat == "Industry-Canteen without Cooking") {
+			str1 = "Number of Staff";
+			str2 = "Number of Worker";
+		} else if (industryCat == "Industry-Without Canteen") {
+			str1 = "Number of Staff";
+			str2 = "Number of Worker";
+		} else if (industryCat == "Hospital (Including Laundry)") {
+			str1 = "Number of Staff";
+			str2 = "Number of Beds";
+		} else if (industryCat == "Hospital-Up to 100 beds") {
+			str1 = "Number of Staff";
+			str2 = "Number of Beds";
+		} else if (industryCat == "Hospital-More than 100 beds") {
+			str1 = "Number of Staff";
+			str2 = "Number of Beds";
+		} else if (industryCat == "Hospital-Nurses homes and medical quarters") {
+			str1 = "Number of Staff";
+			str2 = "Number of Beds";
+		} else if (industryCat == "Educational Institute-School with Hostel") {
+			str1 = "Number of Staff";
+			str2 = "Number of Students";
+		} else if (industryCat == "Educational Institute-School without Hostel") {
+			str1 = "Number of Staff";
+			str2 = "Number of Students";
+		} else if (industryCat == "Hotel-Hotel with Lodging Facility") {
+			str1 = "Number of Worker(Including Staff)";
+			str2 = "Number of Key";
+		} else if (industryCat == "Hotel-Hotel without Lodging Facility") {
+			str1 = "Number of Worker";
+			str2 = "Number of Staff";
+		} else if (industryCat == "Hotel-Up to 4 Star") {
+			str1 = "Number of Worker(Including Staff)";
+			str2 = "Number of Key";
+		} else if (industryCat == "Hotel-5 Star & above") {
+			str1 = "Number of Worker(Including Staff)";
+			str2 = "Number of Key";
+		}
+		 
+		 if (industryCat == "Commercial-Cinemas, concert halls and theatres"){
+			 var temp = "<div class='col-12 col-md-2'>"
+					+"<div class='form-group'>"
+					   +"<label>Number of Shows</label>"
+					   +"<input type='number' class='form-control' name='no_staff1' title='Number of Shows' placeholder='Number of Shows' required> <i class='form-group__bar'></i>"
+					+"</div>"
+				 +"</div>"
+				 +"<div class='col-12 col-md-2'>"
+						+"<div class='form-group'>"
+						   +"<label>"+str1+"</label>"
+						   +"<input type='number' class='form-control' name='no_staff2' title='"+str1+"' placeholder='"+str1+"' required> <i class='form-group__bar'></i>"
+						+"</div>"
+					 +"</div>";
+		 } else {
+			var temp = "<div class='col-12 col-md-4'>"
+				+"<div class='form-group'>"
+				   +"<label>"+str1+"</label>"
+				   +"<input type='number' class='form-control' name='noStaff' title='"+str1+"' placeholder='"+str1+"' required> <i class='form-group__bar'></i>"
+				+"</div>"
+			 +"</div>";
+		 }
+	 
+var htmlContent = "<div class='form-group'>"
+						+ "<label class='font-weight-bold'>Consent Type: "+consentType+"</label>"
+						+ " <input type='hidden' class='form-control' readonly='' name='consType' value='"+consentType+"'>"
+					+ "</div>"
+					+ "<div class='form-group'>"
+						+ "<label> <span class='font-weight-bold'>Consent Number:</span> (Write consent number as specified in Consent granted from MPCB)</label>"
+						+ "<input type='text' class='form-control' id='cons_no' name='consNo' placeholder='Consent Number' title='Consent number' required><i class='form-group__bar'></i>"
+					+ "</div>"
+					+"<div class='row'>"
+						+"<div class='col-4'>"
+							+"<div class='radio radio--inline'>"
+								+"<input type='radio' name='status' id='oper_new' value='New' onclick='getAmalgamation(\""+consentType+"\");'> <label class='radio__label' for='oper_new'>New</label>"
+							+"</div>"
+							+"<div class='radio radio--inline'>"
+								+"<input type='radio' name='status' id='open_amal' value='Amalgamant' onclick='getAmalgamation(\""+consentType+"\");'> <label class='radio__label' for='open_amal'>Amalgamation</label>"
+							+"</div>"
+							+"<div id='amalgamation_append'></div>"
+						+"</div>"
+						+"<div class='col-12 col-md-4'>"
+							+"<div class='form-group'>"
+								+"<label>Issue Date :</label>"
+								+"<input type='date' class='form-control hidden-md-up'>"
+								+"<input type='text' class='form-control date-picker hidden-sm-down' name='issueDate' id='issue_date' onchange='validateConsentDates(\"issue_date\")' placeholder='Issue Date' required>"
+							+"</div>"
+						+"</div>"
+						+"<div class='col-12 col-md-4'>"
+							+"<div class='form-group'>"
+								+"<label>Valid Upto :</label>"
+								+"<input type='date' class='form-control hidden-md-up'>"
+								+"<input type='text' class='form-control date-picker hidden-sm-down' name='validUpto' id='valid_upto' onchange='validateConsentDates(\"valid_upto\")' placeholder='Valid Upto' required>"
+							+"</div>"
+						+"</div>"
+					+"</div>"
+					+"<div class='row'>"
+					 +"<div class='col-12 col-md-4'>"
+						+"<div class='form-group'>"
+						   +"<label>Gross CI</label>"
+						   +"<input type='number' class='form-control' id='gross_ci' name='grossCi' placeholder='Gross CI' title='Gross CI' required> <i class='form-group__bar'></i>"
+						+"</div>"
+					 +"</div>"
+					+temp
+					 +"<div class='col-12 col-md-4'>"
+						+"<div class='form-group'>"
+						   +"<label>Number of Worker</label>"
+						   +"<input type='number' class='form-control' name='noWorker' placeholder='Number of Worker' title='Number of Worker' required> <i class='form-group__bar'></i>"
+						+"</div>"
+					 +"</div>"
+					 
+					 
+					+"</div>"
+					+"<div class='row'>"
+					 +"<div class='col-12 col-md-4'>"
+						+"<div class='form-group'>"
+						   +"<label>Total Plot Area</label>"
+						   +"<div class='row'>"
+							  +"<div class='col-6'>"
+								 +"<input type='number' class='form-control'  id='tot_plot_area' name='totPlotArea' title='Total Plot Area'  required> <i class='form-group__bar'></i>"
+							  +"</div>"
+							  +"<div class='col-6'>"
+								 +"<select class='select2' name='totPlotAreaUnits'>"
+									+"<option>sq. m.</option>"
+									+"<option>sq. feet</option>"
+								+"</select>"
+							  +"</div>"
+						   +"</div>"
+						+"</div>"
+					 +"</div>"
+					 +"<div class='col-12 col-md-4'>"
+						+"<div class='form-group'>"
+						   +"<label>Total Built Up Area</label>"
+						   +"<div class='row'>"
+							  +"<div class='col-6 col-md-6'>"
+								 +"<input type='number' class='form-control'  id='tot_build_area' name='totBuildArea' required='' title='Total Build Area'  required> <i class='form-group__bar'></i>"
+							  +"</div>"
+							  +"<div class='col-6 col-md-'>"
+								 +"<select class='select2' id='tot_build_area_unit' name='totBuildAreaUnits'>"
+									+"<option>sq. m.</option>"
+									+"<option>sq. feet</option>"
+								 +"</select>"
+							  +"</div>"
+						   +"</div>"
+						+"</div>"
+					 +"</div>"
+					 +"<div class='col-12 col-md-4'>"
+						+"<div class='form-group'>"
+						   +"<label>Open Space Available</label>"
+						   +"<div class='row'>"
+							  +"<div class='col-6'>"
+								 +"<input type='number' class='form-control' id='open_space_ava' name='openSpaceAva' required='' title='Open Space Ava.'  required> <i class='form-group__bar'></i>"
+							  +"</div>"
+							  +"<div class='col-6'>"
+								 +"<select class='select2' id='open_space_ava_unit' name='openSpaceAvaUnits'>"
+									+"<option>sq. m.</option>"
+									+"<option>sq. feet</option>"
+								 +"</select>"
+							  +"</div>"
+						   +"</div>"
+						+"</div>"
+					 +"</div>"
+					+"</div>"
+					+"<div class='row'>"
+					 +"<div class='col-12 col-md-4'>"
+						+"<div class='form-group'>"
+						   +"<label>Total Green Area</label>"
+						   +"<div class='row'>"
+							  +"<div class='col-6 col-md-6'>"
+								 +"<input type='number' class='form-control' id='tot_green_area' name='totGreenArea' data-toggle='tooltip' data-placement='top' title='Total Green Area' required> <i class='form-group__bar'></i>"
+							  +"</div>"
+							  +"<div class='col-6 col-md-'>"
+								 +"<select class='select2' id='tot_green_area_unit' name='totGreenAreaUnits'>"
+									+"<option>sq. m.</option>"
+									+"<option>sq. feet</option>"
+								 +"</select>"
+							  +"</div>"
+						   +"</div>"
+						+"</div>"
+					 +"</div>"
+					 +"<div class='col-12 col-md-6'>"
+						+"<div class='form-group'>"
+						   +"<div class='form-group row'>"
+							   +"<div class='fileinput fileinput-new' data-provides='fileinput'>"
+							   +"<label>Consent File : "
+							    +"<span class='btn btn-primary btn-file'>"
+							    +"<span class='fileinput-new'>Select file</span>"
+							    +"<span class='fileinput-exists'>Change</span>"
+							    +"<input type='file' name='consentFilePath' name='dataFile_file' id='dataFile_file' required>"
+							    +"</span>"
+							    +"<span class='fileinput-filename'></span> <a href='#' class='close fileinput-exists' data-dismiss='fileinput'>&times;</a>"
+							  +"</div>"
+							 
+						   +"</div>"
+						+"</div>"
+					 +"</div>"
+					+"</div>"
+					+"<div class='row'>"
+					 +"<div class='col-12'>"
+						+"<center>"
+						   +"<button type='reset' class='btn red lighten-1 text-white'> <i class='zmdi zmdi-close'></i> cancel </button>"
+						   +"<button type='submit' class='btn btn-primary btn--icon-text'> <i class='zmdi zmdi-save'></i> Submit </button>"
+						+"</center>"
+					 +"</div>"
+					+"</div>";
+	
+	$("#consentform").append(htmlContent);
+	makeSelect2();makeDatePicker();
+}
+function getAmalgamationOpForm(){
+	$("#consentform").empty();
+var html =  "<div class='row'>"
+				+"<div class='col-md-12 mb-3'>"
+					+"<center><label class='font-weight-bold'>Select consent to operate which you have Amalgamation copy of consent and Enter the extended consent  no.</label></center>"
+				+"</div>"
+				
+				+"<div class='col-12 col-md-4 offset-md-2'>"
+		   			+"<div class='form-group'>"
+						+"<label class='font-weight-bold'>Consent Number</label>"
+						+"<div id='amalgamation_append'> </div>"
+					+"</div>"
+				+"</div>"
+			
+				+"<div class='col-12 col-md-4'>"
+			   		+"<div class='form-group'>"
+						+"<label class='font-weight-bold'>Enter new consent no.:</label>"
+						+"<input type='text' class='form-control' id='new_consent_no' name='expandedConsNo' placeholder='Enter Consent Number' title='Enter Consent number' required><i class='form-group__bar'></i>"
+					+"</div>"
+				+"</div>"
+				
+				+"<div class='col-12 col-md-4 offset-md-2'>"
+					+"<div class='form-group'>"
+						+"<label>Issue Date :</label>"
+						+"<input type='date' class='form-control hidden-md-up' placeholder='Issue Date'>"
+						+"<input type='text' class='form-control date-picker hidden-sm-down' id='issue_date' placeholder='Issue Date' onchange='validateConsentDates(\"issue_date\")' required>"
+					+"</div>"
+				+"</div>"
+			
+				+"<div class='col-12 col-md-4'>"
+					+"<div class='form-group'>"
+						+"<label>Valid Date :</label>"
+						+"<input type='date' class='form-control hidden-md-up' placeholder='Valid Date'>"
+						+"<input type='text' class='form-control date-picker hidden-sm-down' name='expandedValidUpto' id='valid_upto' placeholder='Valid Date' onchange='validateConsentDates(\"valid_upto\")' required>"
+					+"</div>"
+				+"</div>"
+				
+				+"<div class='col-12 col-md-4 offset-md-2'>"
+					+"<div class='form-group row'>"
+						+"<div class='fileinput fileinput-new' data-provides='fileinput'>"
+						 +"<label>Consent File : "
+						  +"<span class='btn btn-primary btn-file'>"
+						  +"<span class='fileinput-new'>Select file</span>"
+						  +"<span class='fileinput-exists'>Change</span>"
+						  +"<input type='file' name='expandedConsentFilePath' id='dataFile_file' required>"
+						  +"</span>"
+						  +"<span class='fileinput-filename'></span> <a href='#' class='close fileinput-exists' data-dismiss='fileinput'>&times;</a>"
+						+"</div>"
+				  +"</div>"
+				+"</div>"
+				
+				+"<div class='col-md-12 mb-3'>"
+					+"<center><button type='submit' class='btn btn-primary btn--icon-text'> <i class='fas fa-external-link-square-alt'></i>  Extend </button></center>"
+				+"</div>"
+				
+				+"</div>"
+				
+				$("#consentform").append(html);
+				amalgamationppend('Consent to Operate');
+				makeSelect2();makeDatePicker();makeFilePicker();
+}
+function amalgamationppend(consentType){
+	$("#amalgamation_append").empty();
+	$.ajax({	
+		url: 'ajax-getConsentForm?consentType=' + consentType,
+		type: 'post',
+		dataType: 'json',
+		async: true,
+		success: function (data) {
+			var result = JSON.parse(data);
+			var html2= "";
+			var selectOpName = "";
+			if(consentType == 'Consent to Establish'){
+				selectOpName = "aml_e[]";
+			} else {
+				selectOpName = "aml_o[]";
+			}
+			var html = "<div class='mt-2'>" +
+						"<select class='select2' multiple data-placeholder='Select one or more choices' data-max-options='3' title='Choose only upto 3' id='cons_to_establish01' name='"+selectOpName+"'>"
+						$.each(result, function (index, element) {
+							html += "<option value='"+element.consentId+"'>"+element.consentName+"</option>"
+							
+						});
+				html+="</select>" +
+	   					"</div>";
+			$("#amalgamation_append").append(html);
+			makeSelect2();
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			console.log('error(s):' + textStatus, errorThrown);
+		}
+	});
+
+}
+
+function makeSelect2() {
+	if ($('select.select2')[0]) {
+		var select2parent = $('.select2-parent')[0] ? $('.select2-parent') : $('body');
+
+		$('select.select2').select2({
+			dropdownAutoWidth: true,
+			width: '100%',
+			dropdownParent: select2parent
+		});
+	}
+}
+
+function makeFilePicker(){
+   	// file uploads button script 
+   	document.querySelector("html").classList.add('js');
+   	var fileInput  = document.querySelector( ".input-file" ),  
+   	    button     = document.querySelector( ".input-file-trigger" ),
+   	    the_return = document.querySelector(".file-return");
+   	      
+   	button.addEventListener( "keydown", function( event ) {  
+   	    if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+   	        fileInput.focus();  
+   	    }  
+   	});
+   	button.addEventListener( "click", function( event ) {
+   	   fileInput.focus();
+   	   return false;
+   	});  
+   	fileInput.addEventListener( "change", function( event ) {  
+   	    the_return.innerHTML = this.value;  
+   	});  
+}
+/*------------------------------------------------
+Datetime picker (Flatpickr)
+------------------------------------------------*/
+//Date and time
+function makeDatePicker() {
+	if ($('.datetime-picker')[0]) {
+		$('.datetime-picker').flatpickr({
+			enableTime : true,
+			nextArrow : '<i class="zmdi zmdi-long-arrow-right" />',
+			prevArrow : '<i class="zmdi zmdi-long-arrow-left" />'
+		});
+	}
+
+	// Date only
+	if ($('.date-picker')[0]) {
+		$('.date-picker').flatpickr({
+			enableTime : false,
+			nextArrow : '<i class="zmdi zmdi-long-arrow-right" />',
+			prevArrow : '<i class="zmdi zmdi-long-arrow-left" />'
+		});
+	}
+
+	// Time only
+	if ($('.time-picker')[0]) {
+		$('.time-picker').flatpickr({
+			noCalendar : true,
+			enableTime : true
+		});
+	}
+
+}

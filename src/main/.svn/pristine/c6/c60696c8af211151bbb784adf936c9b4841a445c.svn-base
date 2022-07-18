@@ -1,0 +1,34 @@
+package com.tes.repository.environmentalofficer.waterinventory;
+
+import java.util.List;
+import java.util.TreeSet;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.tes.model.DirectUseOfWater;
+
+@Repository
+public interface DirectUseOfWaterRepository extends JpaRepository<DirectUseOfWater, Long>
+{
+
+	@Query("SELECT DISTINCT(whereToUse) FROM DirectUseOfWater ")
+	TreeSet<String> getUsedDirectUseName();
+
+	@Query("SELECT DISTINCT(du.whereToUse) FROM DirectUseOfWater du LEFT JOIN du.waterSource ws LEFT JOIN ws.waterInventory wi WHERE wi.waterInventoryId=:waterInventoryId")
+	TreeSet<String> getDirectUseName(@Param("waterInventoryId") int waterInventoryId);
+
+	@Query("SELECT uof FROM DirectUseOfWater uof")
+	List<DirectUseOfWater> getUsedDirectUseNameList();
+
+	@Query("SELECT NEW DirectUseOfWater(whereToUse,isIndustrial) FROM DirectUseOfWater")
+	List<DirectUseOfWater> getAllWhereToUseAndIsIndustries();
+
+	@Query("SELECT dw.isIndustrial FROM DirectUseOfWater dw WHERE dw.whereToUse=:label")
+	boolean getDirectUseisIndustrial(@Param("label") String label);
+
+	@Query("SELECT new DirectUseOfWater(dw.typeOfUse, dw.whereToUse, dw.isMeter) FROM DirectUseOfWater dw WHERE dw.whereToUse=:whereToUse")
+	List<DirectUseOfWater> getUseOfWaterByWhereToUse(@Param("whereToUse") String whereToUse);
+}

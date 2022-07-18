@@ -1,0 +1,40 @@
+package com.tes.controller.environmentalofficer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.tes.services.environmentalofficer.waterinventory.PrefilterServices;
+
+@RestController
+@RequestMapping(value = {"/env"})
+public class ComparativeWaterInventoryController
+{
+
+	@Autowired
+	PrefilterServices prefilterServices;
+
+	private static final Logger LOGGER = LogManager.getLogger(ComparativeWaterInventoryController.class);
+
+	/**
+	 * @return
+	 */
+	@RequestMapping(value = "add-water-inventory")
+	public ModelAndView addWaterInventory()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		try
+		{
+			modelAndView.addObject("preFilterList", prefilterServices.findAll());
+			modelAndView.setViewName("EnvrOfficer/AddWaterInventory");
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		return modelAndView;
+	}
+}

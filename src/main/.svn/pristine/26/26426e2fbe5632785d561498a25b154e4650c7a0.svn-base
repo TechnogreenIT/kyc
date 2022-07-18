@@ -1,0 +1,266 @@
+var no_data = "<center><img src='img/nodata1.png' style='width:338px'></center>";
+function GetMonitoringDataByDate(el)
+{
+	var selectedDate = $(el).val();
+	
+	if(selectedDate !=""){
+		viewStackList(selectedDate);
+		ViewAmbientList(selectedDate);
+		viewWaterList(selectedDate);
+	}
+	
+}
+function viewStackList(date)
+{
+
+	$("#datastack").empty();
+	//$("#datastack").html("");
+	$.ajax({
+		url: 'ajax-view-getStackList',
+		type: 'POST',
+		dataType: 'json',
+	    data : { pdata : date},
+		//async: true,
+		success: function (data) {
+			var data1 = JSON.parse(data);
+			 var size = Object.keys(data1).length;
+			 if(size > 0) {
+			var count = 0;
+			$.each(data1, function (index, element) {
+				var uniqueId = element.StackName + "_" + element.Attachto;
+				var StackPollDatasList = element.StackPollDatas;
+				var pollCount = 0;
+				
+				var html1 = "<h2><a href='#'> " + element.StackName + "-" + element.Attachto + " </a></h2>" +
+				"<div><div class='card-body'>" +
+				" <center> <h4 class='font-weight-bold'>STACK DETAILS</h4> </center>" +
+				"<table class='table table-bordered'> <thead> <tr> <th>SR. NO.</th> <th>PARTICULARS</th> <th>DETAILS</th> <th>UNIT</th> </tr> </thead> " +
+				"<tbody>" +
+				" <tr> <td>1</td> <td>Material of Stack</td> <td>" + element.ms + "</td> <td>--</td> </tr>" +
+				"<tr> <td>2</td> <td>Stack Height above roof</td> <td>" + element.hight + "</td> <td>" + element.hightUnits + "</td> </tr>" +
+				"<tr> <td>3</td> <td>Type of Stack</td> <td>" + element.Shape + "</td> <td>--</td> </tr>" +
+				"<tr> <td>4</td> <td>Fuel Type</td> <td>" + element.fuletype + "</td> <td>" + element.fuletype + "</td> </tr>" +
+				" <tr> <td>5</td> <td>Flue Gas Temperature</td> <td> <div class='form-group'><input type='text' class='form-control' value="+element.Gastemp+" disabled/><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td><sup>o</sup>K</td> </tr>" +
+				"<tr> <td>6</td> <td>Differential Pressure</td> <td> <div class='form-group'><input type='text' class='form-control' value="+element.pressure+" disabled /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>mmWG</td> </tr>" +
+				" <tr> <td>7</td> <td>Diameter of Stack</td> <td>" + element.Diameter + "</td> <td>" + element.Diameterunit + "</td> </tr>" +
+				"<tr> <td>8</td> <td>Velocity</td> <td> <div class='form-group'><input type='text' class='form-control' value="+element.gasVelocity+" disabled/><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>m/s</td> </tr>" +
+				"<tr> <td>9</td> <td>Hours of Operation</td> <td> <div class='form-group'><input type='text' class='form-control' value="+element.hourseopration+"  disabled /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td></tr>" +
+				"<tr> <td>10</td> <td>Gas Volume</td> <td> <div class='form-group'><input type='text' class='form-control' value="+element.gasqunt+" disabled/><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>Nm<sup>3</sup>/Hr</td> </tr>" +
+				"</tbody> </table>"
+
+				+
+				" <center><h4 class='font-weight-bold'>TEST PARAMETERS</h4> </center> <table class='table table-bordered'><thead> <tr> <th>SR. NO.</th> <th>PARAMETERS</th> <th>RESULT</th> <th>UNIT</th> </tr></thead>" +
+				"<tbody>"
+
+			for (const [key, value] of StackPollDatasList.entries()) {
+				var pollId = value.StackPollName;
+				//if (stId == pollId) {
+					var html2 = "<tr>" +
+						" <td>"+pollCount+"</td>" +
+						"<td>" + value.StackPollName + " </td><td>" +
+						"<div class='form-group'><input type='text' class='form-control' value="+value.StackPollCons+" disabled/></div>" +
+						" </td><td>" + value.StackPollUnit + "</td> </tr>"
+					pollCount++;
+
+				//} else {
+					//html2 = "<tr><td>NO POLLUTANT FOR THIS STACK </td></tr>";
+				//}
+				html1 += html2;
+			}
+
+			var html3 = "</tbody></table>" +
+				" <div class='container'><div class='row'>" +
+				" <h6 class='font-weight-bold'>Stack Monitoring Copy :</h6></div>" +
+				"<div class='row'><button class='btn btn-primary btn--icon-text' onclick='Download(\""+ element.stackFilename + "\",\"eff\")'><i class='zmdi zmdi-save'></i> Download</button>"+ element.stackFilename+"</div><div class='row'></div></div>"
+			"</div></div>";
+			$("#datastack").append(html1 + html3);
+			makeCollapse();
+			makeSelect2();
+			$("#datastack").accordion({
+				heightStyle: 'content',
+				collapsible: true
+			});
+		    });
+			 }else{
+				 $("#datastack").append(no_data);
+			 }
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			console.log('error(s):' + textStatus, errorThrown);
+		},
+		async : false
+	});
+	
+	//$("#accordionStack").accordion({ heightStyle: 'content', collapsible: true });
+}
+
+function ViewAmbientList(date){
+	
+	var x = document.getElementById("dataAmbient").childElementCount;
+	if(x > 0){
+		$("#dataAmbient").empty();
+		$( "#dataAmbient" ).accordion( "destroy" );
+	}
+	
+	$.ajax({
+		url: 'ajax-view-getAmbientList',
+		type: 'POST',
+		dataType: 'json',
+	    data : { pdata : date},
+		//async: true,
+		success: function (data) {
+
+			var data1 = JSON.parse(data);
+			var size = Object.keys(data1).length;
+			 if(size > 0) {
+			var count = 1;
+			$.each(data1, function (index, element) {
+
+				var AmbientName = element.AmbientName;
+				var AmbientId = element.Criteria;
+				var Criteria = element.Criteria;
+				var AmbientPollDatasList = element.AmbientPollDatas;
+				var stId = element.AmbientPollId;
+				var pollCount = 1;
+				uniqueId = AmbientName.replace(/[\. ,:-]+/g, "");
+				//uniqueId = uniqueId.trim()
+				uniqueId = uniqueId + "_" + count;
+				var html1 = "<h2><a href='#'>" + AmbientName + "</a></h2>" +
+					"<div class='card-body'><center><h4 class='font-weight-bold'>TEST PARAMETERS</h4></center>" +
+					"<table class='table table-bordered'>" +
+					"<thead><tr><th>SR. NO.</th><th>PARAMETERS</th><th>RESULT</th><th>UNIT</th></tr></thead>" +
+					"<tbody>"
+
+				for (const [key, value] of AmbientPollDatasList.entries()) {
+					var html2 = "<tr><td>" + pollCount + "</td>" +
+						"<td>" + value.AmbientPollName + "</td>" +
+						"<td><div class='form-group'> <input type='text' class='form-control' value="+ value.Ambienconspoll+" disabled/></td>" +
+						"<td>" + value.AmbientPollUnit + "</td></tr>"
+					pollCount++;
+
+					html1 += html2;
+				}
+
+
+				var html3 = "</tbody></table>" +
+					"<div class='container'>" +
+					"<div class='row'><h6 class='font-weight-bold'>ambient Monitoring Copy :</h6></div>" +
+					"<div class='row'><div class='form-group'><button class='btn btn-primary btn--icon-text' onclick='Download(\""+ element.Filename + "\",\"eff\")'><i class='zmdi zmdi-save'></i> Download</button>"+element.Filename+"</div>" +
+					"</div></div></div></div></div>"
+
+
+				$("#dataAmbient").append(html1 + html3);
+				count++;
+			});
+			 }else{
+				 $("#dataAmbient").append(no_data);
+			 }
+		},
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.log('error(s):' + textStatus, errorThrown);
+			},
+			async : false
+	});
+	makeCollapse();
+	makeSelect2();
+	$("#dataAmbient").accordion({
+		heightStyle: 'content',
+		collapsible: true
+	});
+}
+
+function viewWaterList(date)
+{
+	var x = document.getElementById("dataWater").childElementCount;
+	if(x > 0){
+		$("#dataWater").empty();
+		$( "#dataWater" ).accordion( "destroy" );
+	}
+	
+	$.ajax({
+		url: 'ajax-view-getWaterList',
+		type: 'POST',
+		dataType: 'json',
+	    data : { pdata : date},
+		//async: true,
+		success: function (data) {
+			var data1 = JSON.parse(data);
+			var Pollutantarray = ['Effluent Pollutant', 'Sewage Pollutant'];
+			for(var i = 0; i < Pollutantarray.length; i++){
+				
+				var mainAccordions = "<h2><a href='#'>" + Pollutantarray[i] + "</a></h2><div id='treatment_"+i+"'></div>";
+				$("#dataWater").append(mainAccordions);
+				
+				var subAccordion = "";
+				$.each(data1, function (index, element) {
+					var filename;
+					var poluutantList = element.PollList;
+					if (Pollutantarray[i] == element.Pollutant) {
+						subAccordion += "<h2><a href='#'>"+element.label+"</a></h2>"
+						+"<div><div class='card-body'>"
+						+"<center><h4 class='font-weight-bold'>TEST PARAMETERS</h4></center>"
+						+"<table class='table table-bordered normal'>"
+						+"<thead><tr><th>SR. NO.</th><th>PARAMETER NAME</th><th>INLET (Conc.)</th><th>OUTLET (Conc.)</th><th>UNIT</th></tr></thead>"
+						+"<tbody>"
+						var count = 1;
+						for (const [key, value] of poluutantList.entries()) {
+							filename = value.filName;
+							var html2 = "<tr><td>" + count + "</td>"
+							+"<td>" + value.pollName + "</td>"
+							+"<td>" + value.inCons +"</td>"
+							+"<td>"+value.outCons+"</td>"
+							+"<td>"+value.unit+"</td>"
+							+"</tr>"
+							count++;
+							subAccordion += html2;
+						}
+						subAccordion += "</tbody></table>"
+										+"<div xlass='container'>"
+										+"<div class='row'><h6 class='font-weight-bold'>Water Monitoring Copy :</h6></div>"
+										+"<div class='row'><button class='btn btn-primary btn--icon-text' onclick='Download(\""+ filename + "\",\"eff\")'><i class='zmdi zmdi-save'></i> Download</button>"+ filename +"</div>"
+										+"</div>"
+										+"</div></div>"
+					}
+				});
+				var idd = "treatment_"+i;
+				$("#"+idd).append(subAccordion);
+				$("#"+idd).accordion({ heightStyle: 'content', collapsible: true });
+			}
+			$("#dataWater").accordion({ heightStyle: 'content',collapsible: true});
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			console.log('error(s):' + textStatus, errorThrown);
+		},
+		async : false
+	});
+}
+
+function makeCollapse() {
+	$(".collapse.show").each(function () {
+		$(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus");
+	});
+
+	// Toggle plus minus icon on show hide of collapse element
+	$(".collapse").on('show.bs.collapse', function () {
+		$(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+	}).on('hide.bs.collapse', function () {
+		$(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+	});
+}
+function makeSelect2() {
+	if ($('select.select2')[0]) {
+		var select2parent = $('.select2-parent')[0] ? $('.select2-parent') : $('body');
+
+		$('select.select2').select2({
+			dropdownAutoWidth: true,
+			width: '100%',
+			dropdownParent: select2parent
+		});
+	}
+}
+
+function Download(fileName,fileType) {
+	window.open('view-file?fileName='+fileName.toString()+'&fileType='+fileType, '_blank');
+	//download("hello world", "dlText.txt", "text/plain");
+}

@@ -1,0 +1,12 @@
+package com.tes.services.environmentalofficer;
+
+import com.tes.model.WaterSewPollOp;
+
+public interface WaterSewPollOpServices
+{
+
+	WaterSewPollOp save(WaterSewPollOp waterSewPollOp);
+
+	int deleteByWaterSewPollIdOp(int productId);
+
+}

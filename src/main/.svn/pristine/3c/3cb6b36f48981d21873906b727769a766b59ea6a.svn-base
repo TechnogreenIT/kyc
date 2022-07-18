@@ -1,0 +1,113 @@
+spring.main.banner-mode=off
+#server.port=80
+#server.context-path=
+# create and drop tables and sequences, loads import.sql
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.generate-ddl=true
+
+#spring.datasource.url=jdbc:mysql://localhost:3306/testing1
+#spring.datasource.username=kyc_demo
+#spring.datasource.password=TJ5ndjBGlklFTF5k
+#spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
+
+#stop auto disconnect
+spring.datasource.testOnBorrow=true
+spring.datasource.validationQuery=SELECT 1
+
+spring.datasource.tomcat.testOnBorrow=true 
+spring.datasource.tomcat.validationQuery=SELECT 1
+
+spring.datasource.testWhileIdle = true
+spring.datasource.timeBetweenEvictionRunsMillis = 60000
+
+spring.datasource.url=jdbc:mysql://localhost:3306/kyc_6_1
+spring.datasource.username=root
+spring.datasource.password=Root@123
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+
+# The SQL dialect makes Hibernate generate better SQL for the cho	sen database
+#spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
+
+# number of pool connection
+#spring.datasource.max-active=500
+
+#new property
+#spring.datasource.tomcat.initial-size=15
+#spring.datasource.tomcat.max-wait=20000
+#spring.datasource.tomcat.max-active=500
+#spring.datasource.tomcat.max-idle=500
+#spring.datasource.tomcat.min-idle=500
+#spring.datasource.tomcat.default-auto-commit=true
+
+# Intial P
+spring.mvc.view.prefix: /WEB-INF/jsp/
+spring.mvc.view.suffix: .jsp
+spring.jpa.properties.hibernate.format_sql=true
+
+#file uploading
+multipart.enabled=true
+multipart.file-size-threshold=0
+# Threshold after which files will be written to disk.
+multipart.location= # Intermediate location of uploaded files.
+server.session-timeout=100
+
+spring.http.multipart.max-file-size=30MB
+spring.http.multipart.max-request-size=30MB
+
+# SPRING HATEOAS (HateoasProperties)
+spring.hateoas.use-hal-as-default-json-media-type=true
+
+# HTTP message conversion
+spring.http.converters.preferred-json-mapper= # Preferred JSON mapper to use for HTTP message conversion. By default, auto-detected according to the environment.
+
+#mail sending
+spring.mail.protocol=smtp
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=technogreen.env.solutions@gmail.com
+spring.mail.password=infotech@tes
+spring.mail.properties.mail.smtp.auth = true
+spring.mail.properties.mail.smtp.starttls.enable = true
+#spring.mail.smtp.ssl.trust
+
+#show sql statement
+#logging.level.org.hibernate.SQL=DEBUG
+#logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+#show sql values
+#logging.level.org.hibernate.type.descriptor.sql=trace
+
+# DEVTOOLS (DevToolsProperties)
+#Whether to enable automatic restart.
+spring.devtools.restart.enabled=true
+
+tes.kyc.jwtSecret=TesKycSecretKey
+tes.kyc.jwtExpiration=86400
+
+#logging.level.root=OFF
+
+#spring.datasource.tomcat.validation-query=SELECT 1
+#spring.datasource.tomcat.validation-interval=30000
+#spring.datasource.tomcat.test-on-borrow=true
+#spring.datasource.tomcat.remove-abandoned=true
+#spring.datasource.tomcat.remove-abandoned-timeout=55
+#spring.datasource.tomcat.test-while-idle=true
+
+
+spring.flyway.url = jdbc:mysql://localhost:3306/
+spring.flyway.schemas = kyc_6_1
+spring.flyway.user = root
+spring.flyway.password = Root@123
+
+spring.flyway.baseline-on-migrate= true
+spring.flyway.baselineOnMigrate = true
+flyway.baseline-on-migrate=true
+#app.host= http://14.98.196.180:8080
+
+#spring.cache.cache-names=kycCache
+#spring.cache.type=hazelcast
+
+failed.login.count.max=3

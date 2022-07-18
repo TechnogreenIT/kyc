@@ -1,0 +1,62 @@
+package com.tes.repository.environmentalofficer;
+
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import com.tes.model.WateriePollutant;
+
+@Repository
+public interface WateriePollutantRepository extends JpaRepository<WateriePollutant, Long>
+{
+
+	@Override
+	@SuppressWarnings("unchecked")
+	WateriePollutant save(WateriePollutant wateriePollutant);
+
+	@Query("SELECT  wp FROM WateriePollutantOp wop LEFT JOIN wop.wateriePollutant  wp LEFT JOIN wop.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND  c.consStatus != 'EXPIRED' AND (ce.validUpto >= :today OR c.validUpto >= :today)")
+	List<WateriePollutant> findByTodayDateAndCid(@Param("today") String today);
+
+	@Query("SELECT w FROM WateriePollutant w, Consent c WHERE w.consent=c.consentId AND c.consType='Consent to Establish'")
+	List<WateriePollutant> findbyConsType();
+
+	@Transactional
+	@Modifying
+	@Query("UPDATE WateriePollutant wp SET wp.consentToOperate = 'Yes' WHERE wp.wateriePollutantId = :wateriePollutantId")
+	int updateConsentToOperate(@Param("wateriePollutantId") int wateriePollutantId);
+
+	@Query("SELECT wt FROM WateriePollutant wt")
+	List<WateriePollutant> getwateriepollutantdata();
+
+	@Query("SELECT NEW WateriePollutant(w.wateriePollutantId,w.consent,w.pollName,w.quantity,w.unit,w.consentToOperate) FROM WateriePollutant w, Consent c WHERE c.consentId=w.consent AND w.consent.consentId =:consentId")
+	List<WateriePollutant> findByConsent(@Param("consentId") int consentId);
+
+	@Query("SELECT  wp FROM WateriePollutantOp wop LEFT JOIN wop.wateriePollutant  wp LEFT JOIN wop.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND  c.consStatus != 'EXPIRED' AND wop.consent.consentId= :consentId")
+	List<WateriePollutant> findByConsentToOperateAndConsent(@Param("consentId") int consentId);
+
+	@Query("SELECT NEW WateriePollutant(w.wateriePollutantId,w.consent,w.pollName,w.quantity,w.unit,w.consentToOperate) FROM WateriePollutant w, Consent c WHERE c.consentId=w.consent AND c.validUpto > :todaysDate")
+	List<WateriePollutant> findByValidUpto(@Param("todaysDate") String todaysDate);
+
+	@Query("SELECT NEW WateriePollutant(w.wateriePollutantId,w.consent,w.pollName,w.quantity,w.unit,w.consentToOperate) FROM ConsentExtendedDate ce RIGHT JOIN ce.consent c ON c.consentId=ce.consent,WateriePollutant w WHERE c.consentId=w.consent AND w.consentToOperate='Yes' AND (ce.validUpto >= :todayDate OR c.validUpto >= :todayDate) AND c.consStatus != 'EXPIRED' AND c.consentId =:consentId")
+	List<WateriePollutant> findByTodayDateAndConsentId(@Param("todayDate") String todayDate, @Param("consentId") int consentId);
+
+	WateriePollutant findByWateriePollutantId(int wateriePollutantId);
+
+	@Transactional
+	List<WateriePollutant> deleteByWateriePollutantId(int wateriePollutantId);
+
+	@Query("SELECT w.pollName FROM WateriePollutantOp wp INNER JOIN wp.wateriePollutant w INNER JOIN wp.consent c WHERE c.consStatus!='EXPIRED' AND w.pollName != 'ph'")
+	List<String> getWateriePolls();// change amin
+
+	@Query("SELECT DISTINCT  w FROM WateriePollutantOp wp INNER JOIN wp.wateriePollutant w INNER JOIN wp.consent c WHERE c.consStatus!='EXPIRED' AND w.pollName != 'ph'")
+	List<WateriePollutant> getWateriePollData();
+
+	@Query("SELECT DISTINCT(wm.type),w.pollName,w.quantity FROM WateriePollutantOp wp INNER JOIN wp.wateriePollutant w,WaterMarks wm WHERE  wm.items=w.pollName ")
+	List<Object[]> getWateriePollWaterMarkData();// change amin
+
+	@Query("SELECT DISTINCT  NEW WateriePollutant(w.pollName,w.quantity) FROM WateriePollutantOp wp INNER JOIN wp.wateriePollutant w INNER JOIN wp.consent c WHERE c.consStatus!='EXPIRED'")
+	public List<WateriePollutant> getPollNameAndQuantity();
+}

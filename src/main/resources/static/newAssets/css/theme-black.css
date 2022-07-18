@@ -1,0 +1,123 @@
+/* black theme */
+[data-ma-theme="black"] {
+	background-image: url('../img/custom/data-science-bg-black.png') !important;
+	background-size: cover !important;
+	background-repeat: no-repeat !important;
+	background-attachment: fixed !important;
+}
+
+[data-ma-theme="black"] .header, [data-ma-theme="black"] .login__block__header,
+	[data-ma-theme="black"] .login__block__btn, [data-ma-theme="black"] .top-menu
+	{
+	background-color: #000000 !important;
+}
+
+[data-ma-theme="black"] .navigation__sub--active>a, [data-ma-theme="black"] .navigation__active>a,
+	[data-ma-theme="black"] .navigation__active:before {
+	color: #000000 !important;
+}
+
+.dropdown .dropdown-menu .dropdown-item:active {
+	background-color: #f6f6f6;
+}
+
+[data-ma-theme="black"] .main-card-top-border, [data-ma-theme="black"] .top-thick-border
+	{
+	border-top: 10px solid #000000 !important;
+}
+
+[data-ma-theme="black"] .blockquote {
+	border-left: .40rem solid #000000 !important;
+}
+
+[data-ma-theme="black"] .nav-tabs:not ([class*=nav-tabs--] ) .nav-link.active
+	{
+	color: #000000;
+}
+
+[data-ma-theme="black"] .nav-tabs .nav-link:before {
+	background-color: #000000;
+}
+[data-ma-theme="black"] .nav-tabs:not([class*=nav-tabs--]) .nav-link.active {
+    color: #000000;
+}
+
+/* aside menu on graph tab */
+[data-ma-theme="black"] #test #fpi_content, [data-ma-theme="black"] #test #fpi_title
+	{
+	background-color: #000000;
+}
+
+[data-ma-theme="black"] #test #fpi_title i {
+	color: #ffffff;
+}
+
+[data-ma-theme="black"] #test li a {
+	color: #ffffff;
+}
+
+[data-ma-theme="black"] #test ul ul a {
+	background-color: #000000;
+}
+/* accordions */
+[data-ma-theme="black"] .ui-state-active, [data-ma-theme="black"] .ui-widget-content .ui-state-active,
+	[data-ma-theme="black"] .ui-widget-header .ui-state-active, [data-ma-theme="black"] a.ui-button:active,
+	[data-ma-theme="black"] .ui-button:active, [data-ma-theme="black"] .ui-button.ui-state-active:hover
+	{
+	border: 1px solid #000000 !important;
+	background: #000000 !important;
+}
+
+/* form group */
+[data-ma-theme="black"] .form-group__bar:after, [data-ma-theme="black"] .form-group__bar:before
+	{
+	background-color: #000000;
+}
+
+[data-ma-theme="black"] .form-group--float .form-control:focus ~label {
+	color: #000000;
+}
+
+[data-ma-theme="black"] .select2-container--default .selection:after, [data-ma-theme="black"] .select2-container--default .selection:before
+	{
+	background-color: #000000;
+}
+[data-ma-theme="black"] .checkbox>input[type=checkbox]:checked~.checkbox__label:before,
+[data-ma-theme="black"] .checkbox>input[type=checkbox]:checked~.radio__label:before,
+[data-ma-theme="black"] .checkbox>input[type=radio]:checked~.checkbox__label:before,
+[data-ma-theme="black"] .checkbox>input[type=radio]:checked~.radio__label:before,
+[data-ma-theme="black"] .radio>input[type=checkbox]:checked~.checkbox__label:before,
+[data-ma-theme="black"] .radio>input[type=checkbox]:checked~.radio__label:before,
+[data-ma-theme="black"] .radio>input[type=radio]:checked~.checkbox__label:before,
+[data-ma-theme="black"] .radio>input[type=radio]:checked~.radio__label:before {
+    border-color: #000000;
+}
+[data-ma-theme="black"] .radio__label:after {
+    background-color: #000000;
+}
+/* date picker */
+[data-ma-theme="black"] .flatpickr-months .flatpickr-month, [data-ma-theme="black"] .flatpickr-current-month .flatpickr-monthDropdown-months,
+	[data-ma-theme="black"] .flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month
+	{
+	background: #000000;
+	border: 1px solid #fff;
+}
+
+[data-ma-theme="black"] .flatpickr-weekdays, [data-ma-theme="black"] span.flatpickr-weekday
+	{
+	background: #000000;
+	color: #fff;
+}
+
+/* cards theme */
+[data-ma-theme="black"] .card .card-header {
+	background-color: #000000 !important;
+}
+
+/* main aside menu */
+[data-ma-theme="black"] .sidebar--hidden {
+    background-color: #000000;
+}
+[data-ma-theme="black"] .navigation__sub--active>a, [data-ma-theme="black"] .navigation__active>a, [data-ma-theme="black"] .navigation__active:before {
+    color: #ffffff !important;
+}
