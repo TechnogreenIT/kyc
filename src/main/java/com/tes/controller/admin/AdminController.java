@@ -3,10 +3,8 @@ package com.tes.controller.admin;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.tes.controller.base.BaseAdminController;
 import com.tes.handler.UserAuthenticationSuccessHandler;
 import com.tes.model.CompanyProfile;
@@ -37,7 +34,7 @@ import com.tes.utilities.Validator;
 @SessionAttributes({"counterc", "imgvalue", "emplogindata", "empDataSession", "userRole", "uId", "companyName", "userProfilePic"})
 public class AdminController extends BaseAdminController
 {
-
+	// gfddfdf
 	@Autowired
 	UserAuthenticationSuccessHandler userAuthenticationSuccessHandler;
 
