@@ -1,7 +1,6 @@
 package com.tes.controller;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.tes.handler.UserAuthenticationSuccessHandler;
 import com.tes.model.EmpData;
 import com.tes.model.Settings;
@@ -26,6 +24,7 @@ import com.tes.services.admin.EmpDataServices;
  */
 @Controller
 @RequestMapping(value = {"/admin", "/env"})
+// fdsgfgg
 public class ChangePasswordController
 {
 	@Autowired
