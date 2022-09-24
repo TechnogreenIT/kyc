@@ -186,7 +186,7 @@ function viewWaterList(date)
 		//async: true,
 		success: function (data) {
 			var data1 = JSON.parse(data);
-			var Pollutantarray = ['Effluent Pollutant', 'Sewage Pollutant'];
+			var Pollutantarray = ['Effluent Pollutant','Sewage Pollutant'];
 			for(var i = 0; i < Pollutantarray.length; i++){
 				
 				var mainAccordions = "<h2><a href='#'>" + Pollutantarray[i] + "</a></h2><div id='treatment_"+i+"'></div>";

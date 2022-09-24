@@ -46,7 +46,7 @@
 		<div class="row mt-4 mb-4">
 			<div class="col text-center">
 				<button type="button" class="btn btn-primary btn-sm"
-					onclick="saveStackData(this,'ambient');" id="save-ambient-btn">
+					onclick="saveAmbientData(this,'ambient');" id="save-ambient-btn">
 					<i class='zmdi zmdi-save'></i> Save
 				</button>
 			</div>

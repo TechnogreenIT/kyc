@@ -394,7 +394,7 @@ public class WaterInventoryController
 		{
 			TreeSet<String> filterusedList = new TreeSet<>();
 			// Affected by filter .........by vishal
-			filterusedList = null;// filterUseServices.getUsedFilterUseName();
+			filterusedList = filterUseServices.getUsedFilteruseType();// filterUseServices.getUsedFilterUseName();
 
 			wasteWaterUsedList.addAll(filterusedList);
 

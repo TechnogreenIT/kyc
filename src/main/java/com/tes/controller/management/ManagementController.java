@@ -1300,7 +1300,7 @@ public class ManagementController extends BaseManagementController
 				for (int i = 0; i < waterInvetoryUses.size(); i++)
 				{
 					// Effected By Water Inventory ........by vishal
-					String isDomestic = null;// waterInvetoryUses.get(i).getDomesticUseOfSource();
+					String isDomestic = null; // waterInvetoryUses.get(i).getDomesticUseOfSource();
 					String isIndustrial = null;// waterInvetoryUses.get(i).getIndustrialUseOfSource();
 					String isLaundry = null;// waterInvetoryUses.get(i).getLaundryUseOfSource();
 					String isFireHydrant = null;// waterInvetoryUses.get(i).getFireHydrantUseOfSource();

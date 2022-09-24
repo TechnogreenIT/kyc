@@ -135,7 +135,9 @@ public class ComparativeWaterInventoryController
 			int wsId = waterSourceListElement.getWaterSourceId();
 			priFilterList = prefilterServices.getAllActivePrefilterData(wsId);
 
-			if (priFilterList != null)
+			// /if (priFilterList != null)
+			// if (!priFilterList.equals(null))
+			if (!priFilterList.isEmpty())
 			{
 				priFilterId = priFilterList.get(0).getPrefilterId();
 				wslist.put("acf", priFilterList.get(0).isAcf());

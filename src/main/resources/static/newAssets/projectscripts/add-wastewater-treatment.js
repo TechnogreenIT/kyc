@@ -378,8 +378,7 @@ function saveTreatment(){
 		});
 	}
 }
-function moreWasteWatserForm(){
-	
+function moreWasteWatserForm(){	
 		swal({
 			  text: "Do you want to add more Waste Water Tretment Plant?",
 			  type: "warning",
@@ -396,8 +395,10 @@ function moreWasteWatserForm(){
 			  } else if (res.dismiss == "cancel") {
 				  jBoxBottomRightBigNotice("Success", "You will be redirected to Home", "green", "2000");
 				  setTimeout(function(){
-					  window.location="envrOfficerDesk";
+					  window.location="dashboard";
 					}, 3000);
 			  }
 			});
 }
+	
+

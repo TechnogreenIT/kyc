@@ -243,7 +243,7 @@ function getWaterList() {
 												+"</div>"
 												+"</div></div>"
 												+"<div class='row'> File name should not contain any special characters.</div>"
-												+"<div class='row'><div class='col-12'><center> <button class='btn btn-primary btn--icon-text' id='btn_" + element.label + "' onclick='saveTpwaterData(\"" + element.Pollutant + "\",\"" + element.wwtid + "\",\"" + count + "\",this)'><i class='zmdi zmdi-save'></i> Submit</button></center></div></div>"
+												+"<div class='row'><div class='col-12'><center> <button class='btn btn-primary btn--icon-text' id='btn_" + element.label + "' onclick='saveTpwaterData(\"" + element.label + "\",\"" + element.Pollutant + "\",\"" + element.wwtid + "\",\"" + count + "\",this)'><i class='zmdi zmdi-save'></i> Submit</button></center></div></div>"
 												+"</div></div>"
 												+"</div></div>"
 												
@@ -517,7 +517,7 @@ function saveTpAmbientData(uId, pollId,el) {
 
 
 //water add data
-function saveTpwaterData(str,wwtid,count,el) {
+function saveTpwaterData(label,str,wwtid,count,el) {
 	var poll_name_e = new Array();
 	var in_cons_e = new Array();
 	var ou_cons_e = new Array();
@@ -602,7 +602,7 @@ function saveTpwaterData(str,wwtid,count,el) {
 				if (poll_name_e.length == data) {
 					findNextAccordion(el);
 					jBoxBottomRightBigNotice("Success", str + " Saved !!", "green", "3000");
-					$("#btn_" + str).attr("disabled", true);
+					$("#btn_" + label).attr("disabled", true);
 				} else {
 					jBoxBottomRightBigNotice("Error", "Oopss !! something went wrong", "red", "2000");
 				}

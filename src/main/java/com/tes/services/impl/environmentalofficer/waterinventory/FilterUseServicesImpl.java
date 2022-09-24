@@ -1,6 +1,7 @@
 package com.tes.services.impl.environmentalofficer.waterinventory;
 
 import java.util.List;
+import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tes.model.FilterUse;
@@ -135,11 +136,19 @@ public class FilterUseServicesImpl implements FilterUseServices
 		return filterUseRepository.checkIsIndustrial(filterUseLable);
 	}
 
+	@Override
+	public TreeSet<String> getUsedFilteruseType()
+	{
+		// TODO Auto-generated method stub
+		return filterUseRepository.getUsedFilteruseType();
+	}
+
 	// @Override
-	// public TreeSet<String> getUsedFilterUseName() {
+	// public TreeSet<String> getUsedFilterUseName()
+	// {
 	// return filterUseRepository.getUsedFilterUseName();
 	// }
-	//
+
 	// @Override
 	// public List<String> getFiltersUseByFilterId(int filterId) {
 	// return filterUseRepository.getFiltersUseByFilterId(filterId);

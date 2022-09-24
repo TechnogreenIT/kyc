@@ -30,8 +30,8 @@ $(document).ready(function () {
 //	getSolidWasteGenerationGraphs();
 //	getwasteWaterGenerationGraph();
 //	getFuelConsumptionGraph();
-//	getMonthlyEnvStatistics();
-//	getSummary();
+	getMonthlyEnvStatistics();
+	getSummary();
 //	getStpEfficiency();
 //	getEtpEfficiency();
 });

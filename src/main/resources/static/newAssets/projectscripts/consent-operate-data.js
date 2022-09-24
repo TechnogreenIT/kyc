@@ -183,20 +183,20 @@ function saveStackData(el,type){
 }
 function saveAmbientData(el,type){
 	var consent_no = $("input[name=consent_no]").val();
-	var ambient = new Array();
+	var ambient_id = new Array();
 	$("input[name='ambient_id[]']").each(function() { 
 		if($(this).is(':checked')){
-			 ambient.push($(this).val());
+			ambient_id.push($(this).val());
 		}
 	});
 	
-	if(ambient.length > 0){
+	if(ambient_id.length > 0){
 		$.ajax({
 			type : "POST",
 			url : "ajax-edit-olist-ambient-c2o",
 			data : {
 				consentId : consent_no,
-				ambientId : ambient.toString()
+				ambientId : ambient_id.toString()
 				},
 			success : function(data) {
 				$("#save-" + type + "-btn").attr("disabled", true);

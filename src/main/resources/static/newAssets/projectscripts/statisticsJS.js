@@ -182,7 +182,7 @@ function getStatisticalAnalysis() {
     } else if (source_type == 'fuel') {
         a = "FUEL";
     } else if (source_type == 'hwp') {
-        a = "Hazardous Wastes from Process";
+        a = "Hazardous Wastes from Process"; 
     } else if (source_type == 'hwpcf') {
         a = "Hazardous Wastes from PCF";
     } else if (source_type == 'nhwp') {

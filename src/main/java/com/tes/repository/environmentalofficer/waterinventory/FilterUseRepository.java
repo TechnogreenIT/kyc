@@ -1,6 +1,7 @@
 package com.tes.repository.environmentalofficer.waterinventory;
 
 import java.util.List;
+import java.util.TreeSet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,7 +12,7 @@ import com.tes.model.FilterUse;
 public interface FilterUseRepository extends JpaRepository<FilterUse, Long>
 {
 
-	// @Query("SELECT DISTINCT(filterUseName) FROM FilterUse")
+	// @Query("SELECT DISTINCT(filterUseType) FROM FilterUse")
 	// TreeSet<String> getUsedFilterUseName();
 	//
 	// @Query("SELECT DISTINCT(fu.filterUseName) FROM FilterUse fu LEFT JOIN fu.filters f where f.filtersId= :filterId ")
@@ -82,4 +83,7 @@ public interface FilterUseRepository extends JpaRepository<FilterUse, Long>
 
 	@Query("SELECT fu.isIndustrial FROM FilterUse fu  WHERE fu.filterUseLabel=:filterUseLable ")
 	public boolean checkIsIndustrial(@Param("filterUseLable") String filterUseLable);
+
+	@Query("SELECT DISTINCT(filterUseType) FROM FilterUse")
+	public TreeSet<String> getUsedFilteruseType();
 }

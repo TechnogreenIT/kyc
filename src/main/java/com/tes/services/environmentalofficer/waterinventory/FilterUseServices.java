@@ -1,6 +1,7 @@
 package com.tes.services.environmentalofficer.waterinventory;
 
 import java.util.List;
+import java.util.TreeSet;
 import com.tes.model.FilterUse;
 
 public interface FilterUseServices
@@ -51,5 +52,7 @@ public interface FilterUseServices
 	public List<String> getMultipeFilterByMf(String filterUseLable);
 
 	public boolean checkIsIndustrial(String filterUseLable);
+
+	TreeSet<String> getUsedFilteruseType();
 
 }

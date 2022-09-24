@@ -1004,6 +1004,9 @@ function randomIdNumber() {
 	return Math.round(Math.random() * (+max - +min) + +min);
 }
 
+function removeElement(removeId){
+	$("#"+removeId).remove();
+}
 
 
 

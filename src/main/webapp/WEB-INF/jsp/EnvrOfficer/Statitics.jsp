@@ -96,7 +96,7 @@
                                              Fuel
                                           </c:if> <c:if
 														test="${statiticsName == 'hwp'}">
-                                             Hazardous Wastes from Process
+                                            Hazardous Wastes from Process
                                           </c:if> <c:if
 														test="${statiticsName == 'hwpcf'}">
                                              Hazardous Wastes from PCF
@@ -210,7 +210,7 @@
                                              Fuel
                                           </c:if> <c:if
 														test="${statiticsName == 'hwp'}">
-                                             Hazardous Wastes from Process
+                                          Hazardous Wastes from Process
                                           </c:if> <c:if
 														test="${statiticsName == 'hwpcf'}">
                                              Hazardous Wastes from PCF
@@ -304,7 +304,7 @@
                                              Fuel
                                           </c:if> <c:if
 														test="${statiticsName == 'hwp'}">
-                                             Hazardous Wastes from Process
+                                            Hazardous Wastes from Process
                                           </c:if> <c:if
 														test="${statiticsName == 'hwpcf'}">
                                              Hazardous Wastes from PCF
@@ -397,7 +397,7 @@
                                              Fuel
                                           </c:if> <c:if
 														test="${statiticsName == 'hwp'}">
-                                             Hazardous Wastes from Process
+                                            Hazardous Wastes from Process
                                           </c:if> <c:if
 														test="${statiticsName == 'hwpcf'}">
                                              Hazardous Wastes from PCF
