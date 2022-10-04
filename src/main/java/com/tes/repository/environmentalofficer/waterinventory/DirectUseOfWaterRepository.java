@@ -32,4 +32,14 @@ public interface DirectUseOfWaterRepository extends JpaRepository<DirectUseOfWat
 
 	@Query("select du from DirectUseOfWater du where du.waterSource.waterSourceId= :wsId ")
 	List<DirectUseOfWater> directUseOfWaterList(@Param("wsId") int wsId);
+
+	///// mmmm
+	@Query("SELECT case WHEN count(du)>0 then true else false end FROM DirectUseOfWater du LEFT JOIN du.waterSource ws LEFT JOIN ws.waterInventory wi where du.whereToUse like (:type%) And wi.waterInventoryId=:wiid")
+	boolean getDomesticUseType(@Param("wiid") int wiid, @Param("type") String type);
+
+	@Query("SELECT du.waterLoss FROM DirectUseOfWater du WHERE du.whereToUse LIKE (:type%)")
+	Float getWaterLoss(@Param("type") String type);
+
+	@Query("SELECT du FROM DirectUseOfWater du WHERE du.whereToUse LIKE (:type%)")
+	List<DirectUseOfWater> getIndustrialAllData(@Param("type") String type);
 }

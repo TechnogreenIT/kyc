@@ -8,7 +8,7 @@
 
 <script>
 function waterBudgetPopUP(){
-	var fwd_url = "ajax-consentNoPopUpValues";
+	var fwd_url = "L";
 	$.ajax({
 		type : 'POST',
 		url : fwd_url,

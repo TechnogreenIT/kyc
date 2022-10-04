@@ -41,7 +41,7 @@ public interface AllProductsRepository extends JpaRepository<AllProducts, Long>
 	@Query("SELECT p.allProductsId,p.consent,p.allProductName.productName FROM AllProducts p WHERE p.consent.consentId = 3")
 	List<AllProducts> findByTesting();// this is for only testing after CrudRepository
 
-	@Query("SELECT DISTINCT  (u.units) FROM AllProductComparativeSheet apc LEFT JOIN apc.allProducts a   LEFT JOIN a.consent c LEFT JOIN a. allProductName an	 LEFT JOIN a.unit u WHERE c.consType ='Consent to Operate' AND  an.type=:productType")
+	@Query("SELECT DISTINCT  (u.units) FROM AllProductComparativeSheet apc LEFT JOIN apc.allProducts a  LEFT JOIN a.consent c LEFT JOIN a. allProductName an LEFT JOIN a.unit u WHERE c.consType LIKE 'Consent to Operate' AND  an.type LIKE :productType")
 	List<String> findGetunitByProductType(@Param("productType") String productType);
 
 	@Query("SELECT u.units FROM Unit u, AllProducts a, Consent c WHERE  a.consent=c.consentId AND c.consType = 'Consent to Operate' AND a.allProductName.productName = :productName")

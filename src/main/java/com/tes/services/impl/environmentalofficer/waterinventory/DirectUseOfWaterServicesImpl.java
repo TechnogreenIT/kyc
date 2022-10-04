@@ -62,4 +62,27 @@ public class DirectUseOfWaterServicesImpl implements DirectUseOfWaterServices
 	{
 		return directUseOfWaterRepository.directUseOfWaterList(wsId);
 	}
+
+	@Override
+	public boolean getDomesticUseType(int wiid, String type)
+	// int wiid, String type
+	{
+		return directUseOfWaterRepository.getDomesticUseType(wiid, type);
+		// wiid, type
+	}
+
+	@Override
+	public Float getWaterLoss(String type)
+	{
+		// TODO Auto-generated method stub
+		return directUseOfWaterRepository.getWaterLoss(type);
+	}
+
+	@Override
+	public List<DirectUseOfWater> getIndustrialAllData(String type)
+	{
+		// TODO Auto-generated method stub
+		return directUseOfWaterRepository.getIndustrialAllData(type);
+	}
+
 }

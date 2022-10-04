@@ -225,7 +225,7 @@ function saveAllDirectUse(el){
     }
     
     Obj.arrDirectUseData = arrDirectUseData;
-    console.log(Obj);
+//    console.log(Obj);
     $.ajax({
       type : "POST",
       url : "ajax-save-inventory-direct-use",

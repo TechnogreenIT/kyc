@@ -110,7 +110,7 @@ public interface RegDirectUseOfWaterDataRepository extends JpaRepository<RegDire
 	@Query("SELECT sum(rd.actualReading) FROM RegDirectUseOfWaterData rd WHERE (EXTRACT(YEAR FROM DATE_FORMAT(date(rd.createDateTime), '%Y-%m-%d'))) =:year AND (EXTRACT(MONTH FROM DATE_FORMAT(date(rd.createDateTime), '%Y-%m-%d'))) =:month AND rd.whereToUse = :sourceType ORDER BY rd.regDirectUseOfWaterDataId ASC")
 	Float actualReadingByYearSourceTypeMonth(@Param("year") int year, @Param("sourceType") String sourceType, @Param("month") int month);
 
-	@Query("SELECT rd.actualReading FROM RegDirectUseOfWaterData rd  WHERE DATE_FORMAT(date(rd.createDateTime), '%Y-%m-%d')= :date AND rd.whereToUse = :sourceType ORDER BY rd.regDirectUseOfWaterDataId ASC")
+	@Query("SELECT rd.actualReading FROM RegDirectUseOfWaterData rd  WHERE DATE_FORMAT(date(rd.createDateTime), '%Y-%m-%d')= :date AND rd.whereToUse like (:sourceType%) ORDER BY rd.regDirectUseOfWaterDataId ASC")
 	Float getActualReadingByDateAndSourceType(@Param("date") String date, @Param("sourceType") String sourceType);
 
 	@Query("SELECT rd.actualReading FROM RegDirectUseOfWaterData rd  WHERE rd.whereToUse =:sourceType AND DATE_FORMAT(date(rd.createDateTime), '%Y-%m-%d') BETWEEN :fDate AND :sDate ORDER BY rd.actualReading ASC")

@@ -23,4 +23,13 @@ public interface DirectUseOfWaterServices
 
 	List<DirectUseOfWater> directUseOfWaterList(int wsId);
 
+	//// mmm
+	boolean getDomesticUseType(int wiid, String type);
+	// int waterInventoryId, String type
+
+	/// mmmm for water loss purpose
+	Float getWaterLoss(String type);
+
+	List<DirectUseOfWater> getIndustrialAllData(String type);
+
 }

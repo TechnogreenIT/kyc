@@ -37,6 +37,7 @@ import com.tes.controller.base.BaseManagementController;
 import com.tes.controller.environmentalofficer.consent.ConsentController;
 import com.tes.handler.UserAuthenticationSuccessHandler;
 import com.tes.model.CompanyProfile;
+import com.tes.model.DirectUseOfWater;
 import com.tes.model.EmpData;
 import com.tes.model.RegEffPoll;
 import com.tes.model.RegSewPoll;
@@ -54,6 +55,7 @@ import com.tes.services.environmentalofficer.UnitServices;
 import com.tes.services.environmentalofficer.WaterConGenComparativeSheetServices;
 import com.tes.services.environmentalofficer.WaterSewPollServices;
 import com.tes.services.environmentalofficer.WateriePollutantServices;
+import com.tes.services.environmentalofficer.waterinventory.DirectUseOfWaterServices;
 import com.tes.services.environmentalofficer.waterinventory.RegDirectUseOfWaterDataServices;
 import com.tes.services.environmentalofficer.waterinventory.RegWaterSourceDataServices;
 import com.tes.services.environmentalofficer.waterinventory.WastewaterTreatmentServices;
@@ -132,6 +134,9 @@ public class ManagementController extends BaseManagementController
 
 	@Autowired
 	RegWaterSourceDataRepository regWaterSourceDataRepository;
+
+	@Autowired
+	DirectUseOfWaterServices directUseOfWaterServices;
 
 	private static final Logger LOGGER = LogManager.getLogger(ConsentController.class);
 
@@ -1290,7 +1295,8 @@ public class ManagementController extends BaseManagementController
 			List<String> waterSourceNameList = new ArrayList<>();
 			List<String> directUseList = new ArrayList<>();
 			// Effected By Water Inventory ........by vishal
-			// List<Industrial> industrialList = new ArrayList<>();
+			// mmmm
+			List<DirectUseOfWater> industrialList = new ArrayList<>();
 			List<Float> waterLossList = new ArrayList<>();
 
 			// check use of source checked or not
@@ -1300,18 +1306,18 @@ public class ManagementController extends BaseManagementController
 				for (int i = 0; i < waterInvetoryUses.size(); i++)
 				{
 					// Effected By Water Inventory ........by vishal
-					String isDomestic = null; // waterInvetoryUses.get(i).getDomesticUseOfSource();
-					String isIndustrial = null;// waterInvetoryUses.get(i).getIndustrialUseOfSource();
-					String isLaundry = null;// waterInvetoryUses.get(i).getLaundryUseOfSource();
-					String isFireHydrant = null;// waterInvetoryUses.get(i).getFireHydrantUseOfSource();
-
+					boolean isDomestic = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Domestic");
+					boolean isIndustrial = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Industrial");
+					boolean isLaundry = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Laundary");
+					boolean isFireHydrant = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Fire Hydrant");
 					// add domestic to waterUse List list
-					if (isDomestic.equalsIgnoreCase("checked"))
+
+					if (isDomestic == true)
 					{
 						directUseList.add("Domestic");
 						Float loss = 0.0f;
 						// Effected By Water Inventory ........by vishal
-						loss = null;// useOfWaterServices.getUseOfWaterDataByDomesticLoss();
+						loss = directUseOfWaterServices.getWaterLoss("Domestic");
 
 						if (loss == null)
 						{
@@ -1325,40 +1331,39 @@ public class ManagementController extends BaseManagementController
 					}
 
 					// to check industrial waste
-					if (isIndustrial.equalsIgnoreCase("checked"))
+					if (isIndustrial == true)
 					{
 						// Effected By Water Inventory ........by vishal
-						/*
-						 * industrialList = new ArrayList<>();//industrialServices.getIndustrialAllData();
-						 * if (!Validator.isEmpty(industrialList))
-						 * {
-						 * for (int j = 0; j < industrialList.size(); j++)
-						 * {
-						 * directUseList.add(industrialList.get(j).getIndName());
-						 * waterLossList.add(industrialList.get(j).getWaterLoss());
-						 * }
-						 * }
-						 */
+
+						industrialList = directUseOfWaterServices.getIndustrialAllData("Industrial");
+						if (!Validator.isEmpty(industrialList))
+						{
+							for (int j = 0; j < industrialList.size(); j++)
+							{
+								directUseList.add(industrialList.get(j).getTypeOfUse());
+								waterLossList.add(industrialList.get(j).getWaterLoss());
+							}
+						}
+
 					}
-					if (isLaundry.equalsIgnoreCase("checked"))
+					if (isLaundry == true)
 					{
-						directUseList.add("Laundry");
+						directUseList.add("Laundary");
 						Float loss = 0.0f;
 						// Effected By Water Inventory ........by vishal
-						loss = null;// useOfWaterServices.getUseOfWaterDataByLaundryLoss();
-
+						loss = directUseOfWaterServices.getWaterLoss("Laundary");
 						if (loss == null)
 							waterLossList.add(0.0f);
 						else
 							waterLossList.add(loss);
 
 					}
-					if (isFireHydrant.equalsIgnoreCase("checked"))
+					if (isFireHydrant == true)
 					{
 						directUseList.add("Fire Hydrant");
 						Float loss = 0.0f;
 						// Effected By Water Inventory ........by vishal
-						loss = null;// useOfWaterServices.getUseOfWaterDataByFireHydrantLoss();
+						loss = directUseOfWaterServices.getWaterLoss("Fire Hydrant");
 						if (loss == null)
 							waterLossList.add(0.0f);
 						else
@@ -1414,7 +1419,7 @@ public class ManagementController extends BaseManagementController
 				{
 					Float con = 0.0f;
 					// Effected By Water Inventory ........by vishal
-					con = 0.0f;// regularWaterUseDataServices.getActualReadingByDateAndSourceType(date, directUseList.get(l));
+					con = regularWaterUseDataServices.getActualReadingByDateAndSourceType(date, directUseList.get(l));
 
 					if (con == null)
 						con = 0.0f;

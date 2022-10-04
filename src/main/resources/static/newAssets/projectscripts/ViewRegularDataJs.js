@@ -81,6 +81,8 @@ $(document).ready(function () {
 	   console.log(today_date);
 	   	getTitle(today_date, "str");
 	    dailyDataStat();
+	    dailyDataStatAir();
+		dailyDataStatWater();
 });
 
 
