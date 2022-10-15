@@ -472,7 +472,7 @@ public class ViewMonitoringReportController
 		// return jsonarray.toString();
 		return FinalArray.toString();
 	}
-
+	//here waterinvetory affected
 	@PostMapping(value = "ajax-view-getWaterList")
 	public @ResponseBody String getWaterDate(@RequestParam(value = "pdata") String pdata)
 	{
