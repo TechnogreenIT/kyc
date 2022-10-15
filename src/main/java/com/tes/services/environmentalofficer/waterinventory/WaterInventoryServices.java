@@ -1,9 +1,12 @@
 package com.tes.services.environmentalofficer.waterinventory;
 
 import java.util.List;
-import org.springframework.data.domain.PageRequest;
-import com.tes.model.WaterInventory;
 
+import org.springframework.data.domain.PageRequest;
+//import org.springframework.stereotype.Service;
+
+import com.tes.model.WaterInventory;
+//@Service
 public interface WaterInventoryServices
 {
 
@@ -16,7 +19,7 @@ public interface WaterInventoryServices
 
 	public List<WaterInventory> findByConsentId(int companyId);
 
-	public int getWaterInventoryId(int companyId, String todaysDate);
+	public List<WaterInventory>  getWaterInventorygetId(int companyId, String todaysDate , PageRequest pageRequest);
 
 	List<WaterInventory> getUseOfSource();
 

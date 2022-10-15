@@ -167,7 +167,7 @@ function saveHWManifest(){
     }
     var checkedBoxes = $("input[name='wasteProductName[]']:checked");
     for (var a = 0; a < checkedBoxes.length; a++) {
-        var checkBox = checkedBoxes[a].val();
+        var checkBox = checkedBoxes[a].value;
 
         wasteName.push(checkBox);
 

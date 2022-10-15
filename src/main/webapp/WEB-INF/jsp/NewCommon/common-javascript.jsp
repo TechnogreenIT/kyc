@@ -80,7 +80,7 @@
 	<script src="../newAssets/projectscripts/officer-menu.js"></script>
 </c:if>
 <c:if test="${userRole == 'Management'}">
-	<script src="../newAssets/projectscripts/officer-menu.js"></script>
+	<script src="../newAssets/projectscripts/man-menu.js"></script>
 </c:if>
 
 

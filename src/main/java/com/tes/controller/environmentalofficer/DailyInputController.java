@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -98,9 +99,8 @@ import com.tes.utilities.Validator;
  * @author Sushama Dadas
  */
 @Controller
-@RequestMapping(value = {"/env"})
-public class DailyInputController extends Constant
-{
+@RequestMapping(value = { "/env" })
+public class DailyInputController extends Constant {
 
 	// Effected By Water Inventory ........by sushama
 	// @Autowired
@@ -197,50 +197,37 @@ public class DailyInputController extends Constant
 	/**
 	 * This method used to save daily input of product data.
 	 * 
-	 * @param action
-	 *        the SaveRegularData.
-	 * @param productName
-	 *        the name of product.
-	 * @param quantity
-	 *        the quantity of product.
-	 * @param request
-	 *        the servlet request we are processing.
+	 * @param action      the SaveRegularData.
+	 * @param productName the name of product.
+	 * @param quantity    the quantity of product.
+	 * @param request     the servlet request we are processing.
 	 * @return it return value of flag
-	 * @throws ParseException
-	 *         if parsing causes an error
+	 * @throws ParseException if parsing causes an error
 	 */
 	@RequestMapping("/ajax-save-regular-data")
 	public @ResponseBody int getSaveRegularData(@RequestParam(value = "action", required = false) String action,
 			@RequestParam(value = "a_name", required = false) String[] productName,
 			@RequestParam(value = "a_quantity", required = false) Float[] quantity, HttpServletRequest request)
-			throws ParseException
-	{
+			throws ParseException {
 		int flag = 0;
-		try
-		{
+		try {
 			String today = Utilities.getTodaysDate();
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			int id = empDataSession.getUsers().getUsersId();
 			int apcId = 0;
 
-			if (action.equalsIgnoreCase("SaveRegularData"))
-			{
+			if (action.equalsIgnoreCase("SaveRegularData")) {
 				Users users = new Users();
 				users.setUsersId(id);
-				for (int i = 0; i < productName.length; i++)
-				{
+				for (int i = 0; i < productName.length; i++) {
 					// changes
 					List<Integer> apcIdList = allProductComparativeSheetServices
 							.getAllProductComparativeSheetIdByProductName(productName[i], new PageRequest(0, 1));
-					if (!Validator.isEmpty(apcIdList))
-					{
-						for (int j = 0; j < apcIdList.size(); j++)
-						{
+					if (!Validator.isEmpty(apcIdList)) {
+						for (int j = 0; j < apcIdList.size(); j++) {
 							apcId = apcIdList.get(j);
 						}
-					}
-					else
-					{
+					} else {
 						apcId = 0;
 					}
 					AllProductComparativeSheet allProductComparativeSheet = new AllProductComparativeSheet();
@@ -254,9 +241,7 @@ public class DailyInputController extends Constant
 					flag++;
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 
@@ -266,39 +251,28 @@ public class DailyInputController extends Constant
 	/**
 	 * This method used to save daily input of apc system.
 	 * 
-	 * @param action
-	 *        return SaveRegularAPCData.
-	 * @param apcStackId
-	 *        the Air pollution control ID
-	 * @param apcStart
-	 *        the apc Start reading
-	 * @param apcEnd
-	 *        the apc End reading
-	 * @param apcAvg
-	 *        the apc Avg reading
-	 * @param request
-	 *        the servlet request we are processing.
+	 * @param action     return SaveRegularAPCData.
+	 * @param apcStackId the Air pollution control ID
+	 * @param apcStart   the apc Start reading
+	 * @param apcEnd     the apc End reading
+	 * @param apcAvg     the apc Avg reading
+	 * @param request    the servlet request we are processing.
 	 * @return flag it return value of flag
-	 * @throws ParseException
-	 *         if parsing causes an error
+	 * @throws ParseException if parsing causes an error
 	 */
-	@RequestMapping(value = {"ajax-save-regular-apc-data"}, method = RequestMethod.POST)
+	@RequestMapping(value = { "ajax-save-regular-apc-data" }, method = RequestMethod.POST)
 	public @ResponseBody int getSaveAPCData(@RequestParam(value = "action", required = false) String action,
 			@RequestParam(value = "apc_stack_id", required = false) int[] apcStackId,
 			@RequestParam(value = "apc_start", required = false) Float[] apcStart,
 			@RequestParam(value = "apc_end", required = false) Float[] apcEnd,
 			@RequestParam(value = "apc_avg", required = false) Float[] apcAvg, HttpServletRequest request)
-			throws ParseException
-	{
+			throws ParseException {
 		int apcflag = 0;
-		try
-		{
+		try {
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			int userId = empDataSession.getUsers().getUsersId();
-			if (action.equalsIgnoreCase("SaveRegularAPCData"))
-			{
-				for (int i = 0; i < apcStackId.length; i++)
-				{
+			if (action.equalsIgnoreCase("SaveRegularAPCData")) {
+				for (int i = 0; i < apcStackId.length; i++) {
 					RegAPC regAPC = new RegAPC();
 					Users users = new Users();
 					users.setUsersId(userId);
@@ -312,15 +286,12 @@ public class DailyInputController extends Constant
 					regAPC.setApcDate(today);
 					regAPC.setUsers(users);
 					regAPC = regAPCServices.save(regAPC);
-					if (regAPC != null)
-					{
+					if (regAPC != null) {
 						apcflag = 1;
 					}
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		return apcflag;
@@ -329,64 +300,49 @@ public class DailyInputController extends Constant
 	/**
 	 * This method used to save daily input of water source data.
 	 * 
-	 * @param action
-	 *        return Save Regular Source Data.
-	 * @param wi_id
-	 *        the Id of water inventory ID.
-	 * @param staff
-	 *        the number of staff
-	 * @param sourceName
-	 *        the name of the water source name.
-	 * @param sourceStart
-	 *        the Start Reading of the water source.
-	 * @param sourceEnd
-	 *        the End Reading of the water source
-	 * @param sourceAvg
-	 *        the Actual reading of the water source.
-	 * @param request
-	 *        the servlet request we are processing.
+	 * @param action      return Save Regular Source Data.
+	 * @param wi_id       the Id of water inventory ID.
+	 * @param staff       the number of staff
+	 * @param sourceName  the name of the water source name.
+	 * @param sourceStart the Start Reading of the water source.
+	 * @param sourceEnd   the End Reading of the water source
+	 * @param sourceAvg   the Actual reading of the water source.
+	 * @param request     the servlet request we are processing.
 	 * @return flag 0 or 1
-	 * @throws ParseException
-	 *         if parsing causes an error
+	 * @throws ParseException if parsing causes an error
 	 */
 
 	@RequestMapping(value = "ajax-save-regular-source-data", method = RequestMethod.POST)
-	public @ResponseBody String saveRegularSourceData(
-			@RequestBody JsonObject regularSourceObj, HttpServletRequest request)
-			throws ParseException
-	{
+	public @ResponseBody String saveRegularSourceData(@RequestBody JsonObject regularSourceObj,
+			HttpServletRequest request) throws ParseException {
 		String status = "";
-		try
-		{
+		try {
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
-			if (!Validator.isEmpty(empDataSession))
-			{
+			if (!Validator.isEmpty(empDataSession)) {
 				Users users = new Users();
 				users.setUsersId(empDataSession.getUsers().getUsersId());
-				if (!Validator.isEmpty(regularSourceObj))
-				{
+				if (!Validator.isEmpty(regularSourceObj)) {
 					JsonArray regSourceArray = regularSourceObj.getAsJsonArray("regularSourceData");
-					if (!Validator.isEmpty(regSourceArray))
-					{
-						for (JsonElement regSourceData : regSourceArray)
-						{
+					if (!Validator.isEmpty(regSourceArray)) {
+						for (JsonElement regSourceData : regSourceArray) {
 							RegWaterSourceData regularSourceData = new RegWaterSourceData();
 							WaterSource waterSource = new WaterSource();
 							waterSource.setWaterSourceId(regSourceData.getAsJsonObject().get("sourceId").getAsInt());
 							regularSourceData.setWaterSource(waterSource);
 							regularSourceData.setStaff(regularSourceObj.get("staff").getAsInt());
-							regularSourceData.setStartReading(regSourceData.getAsJsonObject().get("sourceStart").getAsFloat());
-							regularSourceData.setEndReading(regSourceData.getAsJsonObject().get("sourceEnd").getAsFloat());
-							regularSourceData.setActualReading(regSourceData.getAsJsonObject().get("avgSourceStart").getAsFloat());
-							regularSourceData.setStartReading(regSourceData.getAsJsonObject().get("sourceStart").getAsFloat());
+							regularSourceData
+									.setStartReading(regSourceData.getAsJsonObject().get("sourceStart").getAsFloat());
+							regularSourceData
+									.setEndReading(regSourceData.getAsJsonObject().get("sourceEnd").getAsFloat());
+							regularSourceData.setActualReading(
+									regSourceData.getAsJsonObject().get("avgSourceStart").getAsFloat());
+							regularSourceData
+									.setStartReading(regSourceData.getAsJsonObject().get("sourceStart").getAsFloat());
 							regularSourceData.setUsers(users);
 							regularSourceData = regularSourceDataServices.save(regularSourceData);
-							if (regularSourceData != null)
-							{
+							if (regularSourceData != null) {
 								status = "success";
-							}
-							else
-							{
+							} else {
 								status = "fail";
 							}
 						}
@@ -394,9 +350,7 @@ public class DailyInputController extends Constant
 				}
 			}
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		return status;
@@ -405,40 +359,28 @@ public class DailyInputController extends Constant
 	/**
 	 * This method used to return Yes- if category contain industry. else return No-
 	 * 
-	 * @param action
-	 *        the getProduction.
-	 * @param request
-	 *        the servlet request we are processing.
+	 * @param action  the getProduction.
+	 * @param request the servlet request we are processing.
 	 * @return isproduction it return value of isproduction
 	 */
 	@RequestMapping(value = "getProduction-saveData", method = RequestMethod.POST)
 	public @ResponseBody String getProductionSaveData(@RequestParam(value = "action", required = false) String action,
-			HttpServletRequest request)
-	{
+			HttpServletRequest request) {
 		String isproduction = YES;
-		try
-		{
+		try {
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			String industry_category = empDataSession.getCompanyProfile().getIndustryCategory();
-			if (action.equalsIgnoreCase("getProduction"))
-			{
+			if (action.equalsIgnoreCase("getProduction")) {
 				isproduction = YES;
-				if (industry_category.contains("Industry"))
-				{
+				if (industry_category.contains("Industry")) {
 					isproduction = YES;
-				}
-				else if (industry_category.contains("Hospital"))
-				{
+				} else if (industry_category.contains("Hospital")) {
 					isproduction = "Bio-Medical";
-				}
-				else
-				{
+				} else {
 					isproduction = NO;
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		return isproduction;
@@ -447,28 +389,22 @@ public class DailyInputController extends Constant
 	/**
 	 * This method used to Display all product data of daily input.
 	 * 
-	 * @param action
-	 *        the getData
-	 * @param type
-	 *        the type of product type.
-	 * @param request
-	 *        the servlet request we are processing.
+	 * @param action  the getData
+	 * @param type    the type of product type.
+	 * @param request the servlet request we are processing.
 	 * @return it returns String value of json array
 	 * @throws JsonProcessingException
-	 * @throws JSONException
-	 *         indicates that some exception happened during JSON processing.
-	 * @throws ParseException
-	 *         if parsing causes an error
+	 * @throws JSONException           indicates that some exception happened during
+	 *                                 JSON processing.
+	 * @throws ParseException          if parsing causes an error
 	 */
-	@RequestMapping(value = {"/ajax-getRegulardata"})
+	@RequestMapping(value = { "/ajax-getRegulardata" })
 	@ResponseBody
 	public @JsonRawValue String getRegulardata(@RequestParam(value = "action", required = false) String action,
 			@RequestParam(value = "type", required = false) String type, HttpServletRequest request)
-			throws JsonProcessingException, JSONException, ParseException
-	{
+			throws JsonProcessingException, JSONException, ParseException {
 		JSONArray jsonArray = new JSONArray();
-		try
-		{
+		try {
 			int apcId = 0, currentYear, currentMonth, currentDay, i = 0, d1 = 0, diff = 0, productId = 0, unitDays = 0,
 					d = 0, totalDays = 0;
 			String today = Utilities.getTodaysDate(), cm1 = null, cm2 = null, status = "Fill", productName = null,
@@ -480,14 +416,12 @@ public class DailyInputController extends Constant
 			List<Object[]> productNameLists = new ArrayList<>();
 			List<RegularData> rgData = new ArrayList<>();
 
-			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
-			{
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession"))) {
 				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			}
 			int noDays = empDataSession.getCompanyProfile().getNoWorkDays();
 
-			if (action.equalsIgnoreCase("getData"))
-			{
+			if (action.equalsIgnoreCase("getData")) {
 				currentYear = now.getYear();
 				currentMonth = now.getMonthValue();
 				currentDay = now.getDayOfMonth();
@@ -501,10 +435,8 @@ public class DailyInputController extends Constant
 				productNameLists = allProductComparativeSheetServices.getAllProductComparativeSheetForDailyInput(type,
 						today);
 
-				if (!Validator.isEmpty(productNameLists))
-				{
-					for (Object[] allProductsListData : productNameLists)
-					{
+				if (!Validator.isEmpty(productNameLists)) {
+					for (Object[] allProductsListData : productNameLists) {
 
 						productName = (String) allProductsListData[1]; // get product name
 						quantityCons = (float) allProductsListData[0]; // get max quentity to generate exceed error
@@ -513,87 +445,59 @@ public class DailyInputController extends Constant
 						i = 0;
 						a = (float) 0;
 						filledValue = (float) 0;
-						if (unitName.contains("/"))
-						{
+						if (unitName.contains("/")) {
 							u = unitName.split("/");
 						}
-						if (u[1].equals("Year"))
-						{
+						if (u[1].equals("Year")) {
 							unitDays = totalDays;
-						}
-						else if (u[1].equals("Month"))
-						{
+						} else if (u[1].equals("Month")) {
 							unitDays = noDays * 4;
-						}
-						else if (u[1].equals("Week"))
-						{
+						} else if (u[1].equals("Week")) {
 							unitDays = noDays * 7;
-						}
-						else if (u[1].equals("Day"))
-						{
+						} else if (u[1].equals("Day")) {
 							unitDays = 1;
-						}
-						else if (u[1].equals("Hr"))
-						{
+						} else if (u[1].equals("Hr")) {
 							unitDays = 60;
 						}
 						unitP = u[0] + "/Day";
 						List<Integer> apcIdList = allProductComparativeSheetServices
 								.getAllProductComparativeSheetIdByProductName(productName, new PageRequest(0, 1));
 
-						if (!Validator.isEmpty(apcIdList))
-						{
-							for (int j = 0; j < apcIdList.size(); j++)
-							{
+						if (!Validator.isEmpty(apcIdList)) {
+							for (int j = 0; j < apcIdList.size(); j++) {
 								apcId = apcIdList.get(j);
 							}
-						}
-						else
-						{
+						} else {
 							apcId = 0;
 						}
-						if (apcId != 0)
-						{
+						if (apcId != 0) {
 							rgData = regularDataServices.getRegularData(apcId, today, new PageRequest(0, 1));
 						}
-						if (rgData != null)
-						{
-							for (int i1 = 0; i1 < rgData.size(); i1++)
-							{
+						if (rgData != null) {
+							for (int i1 = 0; i1 < rgData.size(); i1++) {
 								filledValue = rgData.get(i1).getQuantity();
 								status = "Filled";
 							}
 						}
 						a = (float) 0;
 						quantityR = 0.0f;
-						if (u[1].equals("Hr"))
-						{
+						if (u[1].equals("Hr")) {
 							a = quantityCons * 24;
-						}
-						else if (u[1].equals("Day"))
-						{
+						} else if (u[1].equals("Day")) {
 							a = quantityCons;
 
-						}
-						else if (u[1].equals("Week"))
-						{
-						}
-						else if (u[1].equals("Month"))
-						{
+						} else if (u[1].equals("Week")) {
+						} else if (u[1].equals("Month")) {
 							cm1 = currentYear + "-" + currentMonth + "-" + "01";
 							cm2 = currentYear + "-" + currentMonth + "-" + currentDay;
-							if (currentMonth <= 12 && currentMonth > 04)
-							{
-								qtySumRgData = regularDataServices.qtySumRegDataWithNextYear(apcId, currentYear,
-										cm1, cm2);
-							}
-							else
-							{
+							if (currentMonth <= 12 && currentMonth > 04) {
+								qtySumRgData = regularDataServices.qtySumRegDataWithNextYear(apcId, currentYear, cm1,
+										cm2);
+							} else {
 								qtySumRgData = regularDataServices.qtySumRegDataWithPreviousYear(apcId, currentYear,
 										cm1, cm2);
 							}
-							if (qtySumRgData != null)
-							{
+							if (qtySumRgData != null) {
 								quantityR = qtySumRgData;
 							}
 							d = Utilities.getMaxDaysInMonth(currentMonth, currentYear);
@@ -601,19 +505,14 @@ public class DailyInputController extends Constant
 								a = (quantityCons - quantityR) / d;
 							else
 								a = 0.0f;
-						}
-						else if (u[1].equals("Year"))
-						{
-							if (currentMonth <= 12 && currentMonth > 04)
-							{
+						} else if (u[1].equals("Year")) {
+							if (currentMonth <= 12 && currentMonth > 04) {
 								cm1 = currentYear + "-" + "04-01";
 								cm2 = currentYear + "-" + currentMonth + "-" + currentDay;
 								d = Utilities.getMaxDaysInMonth(currentMonth, currentYear);
-								qtySumRgData = regularDataServices.qtySumRegDataWithNextYear(apcId, currentYear,
-										cm1, cm2);
-							}
-							else
-							{
+								qtySumRgData = regularDataServices.qtySumRegDataWithNextYear(apcId, currentYear, cm1,
+										cm2);
+							} else {
 								cm1 = currentYear - 1 + "-04-01";
 								cm2 = currentYear + "-" + currentMonth + "-" + currentDay;
 								d1 = Utilities.getMaxDaysInMonth(04, currentDay);
@@ -621,8 +520,7 @@ public class DailyInputController extends Constant
 								qtySumRgData = regularDataServices.qtySumRegDataWithPreviousYear(apcId, currentYear,
 										cm1, cm2);
 							}
-							while (qtySumRgData != null)
-							{
+							while (qtySumRgData != null) {
 								quantityR = qtySumRgData;
 							}
 							date1 = new SimpleDateFormat("yyyy-MM-dd").parse(cm1);
@@ -636,17 +534,13 @@ public class DailyInputController extends Constant
 
 						} // year end
 
-						if (u[0].equalsIgnoreCase("Nos"))
-						{
+						if (u[0].equalsIgnoreCase("Nos")) {
 							a = (float) Math.round(a);
-						}
-						else
-						{
+						} else {
 							a = Utilities.round(a, 1);
 						}
 
-						if (empDataSession == null)
-						{
+						if (empDataSession == null) {
 							return ("redirect:/logout");
 						}
 						// HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -662,9 +556,7 @@ public class DailyInputController extends Constant
 					} // prodNameList for loop
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return jsonArray.toString();
@@ -673,15 +565,12 @@ public class DailyInputController extends Constant
 	/**
 	 * This method is used to open daily input form
 	 * 
-	 * @param request
-	 *        the servlet request we are processing.
+	 * @param request the servlet request we are processing.
 	 * @return it returns RegularDailyData model
-	 * @throws ParseException
-	 *         if parsing causes an error
+	 * @throws ParseException if parsing causes an error
 	 */
 	@RequestMapping("regular-daily-data")
-	public ModelAndView getRegularDailyData(HttpServletRequest request) throws ParseException
-	{
+	public ModelAndView getRegularDailyData(HttpServletRequest request) throws ParseException {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("EnvrOfficer/RegularDailyData");
 		return modelAndView;
@@ -690,22 +579,18 @@ public class DailyInputController extends Constant
 	/**
 	 * This method used to upload Daily data sheet
 	 * 
-	 * @param regularFile
-	 *        the uploaded daily data file.
-	 * @param request
-	 *        the servlet request we are processing.
+	 * @param regularFile the uploaded daily data file.
+	 * @param request     the servlet request we are processing.
 	 * @return msg it returns success or fail
 	 */
 	@SuppressWarnings("finally")
 	@PostMapping("ajax-dailydata-sheet-upload")
 	public @ResponseBody String getExcelSheetForDailyInput(@RequestParam("file") MultipartFile regularFile,
-			HttpServletRequest request)
-	{
+			HttpServletRequest request) {
 		String fileUploadingMsg = null;
 		int regularCounter = 0;
 		String msg = SUCCESS;
-		try
-		{
+		try {
 			Files.write(Paths.get(DAILY_DATA_FILE + regularFile.getOriginalFilename()), regularFile.getBytes());
 			fileUploadingMsg = Utilities.uploadFile(DAILY_DATA_FILE, regularFile.getSize());
 
@@ -718,11 +603,9 @@ public class DailyInputController extends Constant
 			XSSFSheet regularDataSheet = regularDataWorkbook.getSheetAt(0);
 			Iterator<Row> regularDataIterator = regularDataSheet.iterator();
 
-			while (regularDataIterator.hasNext())
-			{
+			while (regularDataIterator.hasNext()) {
 				Row regularDataRow = regularDataIterator.next();
-				if (regularDataRow.getRowNum() != 0)
-				{
+				if (regularDataRow.getRowNum() != 0) {
 					RegularData objRegularData = new RegularData();
 					int allProductComparativeId = allProductComparativeSheetServices
 							.findComparativeSheetIdByPName(regularDataRow.getCell(0).toString());
@@ -735,39 +618,29 @@ public class DailyInputController extends Constant
 					regularCounter++;
 				}
 			}
-			if (regularCounter != 0 && regularDataSheet.getLastRowNum() != 0)
-			{
-				if (regularCounter == regularDataSheet.getLastRowNum())
-				{
+			if (regularCounter != 0 && regularDataSheet.getLastRowNum() != 0) {
+				if (regularCounter == regularDataSheet.getLastRowNum()) {
 					// stack is uploaded successfully
 					fileUploadingMsg += "<br>Stack details saved successfully";
 					msg = SUCCESS;
-				}
-				else
-				{
+				} else {
 					fileUploadingMsg += "<br>Incorrect Data in file.";
 					msg = FAILURE;
 				}
-			}
-			else
-			{
+			} else {
 				fileUploadingMsg += "<br>No data Available";
 			}
 			return msg + "-" + fileUploadingMsg;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 			return "";
 		}
 	}
 
 	@RequestMapping("/ajax-getRegAPCData")
-	public @ResponseBody String GetStackList()
-	{
+	public @ResponseBody String GetStackList() {
 		JSONArray jsonArray = new JSONArray();
-		try
-		{
+		try {
 			int stackId = 0;
 			String apc = "";
 			String today = Utilities.getTodaysDate();
@@ -777,19 +650,16 @@ public class DailyInputController extends Constant
 			List<Stack> stackDataList = new ArrayList<>();
 
 			stackData = stackServices.findStackData(today);
-			for (int i = 0; i < stackData.size(); i++)
-			{
+			for (int i = 0; i < stackData.size(); i++) {
 				apc = stackData.get(i).getApc();
 				Stack stack = new Stack();
 				stack = stackData.get(i);
 				stackId = stack.getStackId();
-				if (apc.equalsIgnoreCase("Yes"))
-				{
+				if (apc.equalsIgnoreCase("Yes")) {
 					regapc = regAPCServices.getRegAPCData(stackId, new PageRequest(0, 1));
 					if (Validator.isEmpty(regapc))
 						regapc = null;
-					else if (!Validator.isEmpty(regapc))
-					{
+					else if (!Validator.isEmpty(regapc)) {
 						stack.setRegAPCList(regapc);
 					}
 				}
@@ -798,19 +668,16 @@ public class DailyInputController extends Constant
 			Float startReading = 0.0f;
 			Float endReading = 0.0f;
 			Float actualReading = 0.0f;
-			for (int i = 0; i < stackDataList.size(); i++)
-			{
+			for (int i = 0; i < stackDataList.size(); i++) {
 
 				String apcSysName = stackDataList.get(i).getApcSystem();
 				int stackIdd = stackDataList.get(i).getStackId();
 
 				List<RegAPC> regapc1 = new ArrayList<>();
 				regapc1 = stackDataList.get(i).getRegAPCList();
-				if (regapc1.size() > 0)
-				{
+				if (regapc1.size() > 0) {
 
-					for (int j = 0; j < regapc1.size(); j++)
-					{
+					for (int j = 0; j < regapc1.size(); j++) {
 
 						String regApcDate = stackDataList.get(i).getRegAPCList().get(j).getApcDate();
 
@@ -822,17 +689,14 @@ public class DailyInputController extends Constant
 						hashMap.put("stackId", new Integer(stackIdd));
 						hashMap.put("apcSysName", new String(apcSysName));
 
-						if (regApcDate.equalsIgnoreCase(today))
-						{
+						if (regApcDate.equalsIgnoreCase(today)) {
 							status = "Filled";
 							hashMap.put("status", new String(status));
 							hashMap.put("startReading", new Float(startReading));
 							hashMap.put("endReading", new Float(endReading));
 							hashMap.put("actualReading", new Float(actualReading));
 
-						}
-						else
-						{
+						} else {
 							status = "Fill";
 							hashMap.put("status", new String(status));
 							hashMap.put("endReading", new Float(endReading));
@@ -843,17 +707,14 @@ public class DailyInputController extends Constant
 
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		return jsonArray.toString();
 	}
 
 	@RequestMapping("/ajax-getDailyWaterSource")
-	public @ResponseBody String getDailyWaterSource(HttpServletRequest request)
-	{
+	public @ResponseBody String getDailyWaterSource(HttpServletRequest request) {
 
 		List<WaterInventory> waterInventoryData = new ArrayList<>();
 		ArrayList<Object> waterInventoryList = new ArrayList<>();
@@ -867,108 +728,102 @@ public class DailyInputController extends Constant
 		JSONObject waterSourceObject = new JSONObject();
 		JSONArray waterSourceArray = new JSONArray();
 		JSONObject waterSourceDataObject = new JSONObject();
-		try
-		{
-			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
-			{
+		try {
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession"))) {
 				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			}
 			companyId = empDataSession.getCompanyProfile().getCompanyProfileId();
 			waterInventoryData = waterInventoryServices.getwaterInventoryData(companyId, Utilities.getTodaysDate());
 
-			if (!Validator.isEmpty(waterInventoryData))
-			{
-				for (int i = 0; i < waterInventoryData.size(); i++)
-				{
+			if (!Validator.isEmpty(waterInventoryData)) {
+				for (int i = 0; i < waterInventoryData.size(); i++) {
 					WaterInventory wiDetail = new WaterInventory();
 					wiDetail = waterInventoryData.get(i);
 					waterSourceData = waterSourceServices.getWaterSourceData(wiDetail.getWaterInventoryId());
 
-					if (!Validator.isEmpty(waterSourceData))
-					{
-						for (int j = 0; j < waterSourceData.size(); j++)
-						{
+					if (!Validator.isEmpty(waterSourceData)) {
+						for (int j = 0; j < waterSourceData.size(); j++) {
 							WaterSource watersourceDetail = new WaterSource();
 							watersourceDetail = waterSourceData.get(j);
-							regularSourceData = regularSourceDataServices.regularSourceDataBySourceId(watersourceDetail.getWaterSourceId(), new PageRequest(0, 1));
-							if (!regularSourceDataList.containsAll(regularSourceData))
-							{
+							regularSourceData = regularSourceDataServices.regularSourceDataBySourceId(
+									watersourceDetail.getWaterSourceId(), new PageRequest(0, 1));
+							if (!regularSourceDataList.containsAll(regularSourceData)) {
 								regularSourceDataList.addAll(regularSourceData);
 							}
 							watersourceDetail.setRegularSourceDataList(regularSourceData);
-							if (!waterSourceList.contains(watersourceDetail))
-							{
+							if (!waterSourceList.contains(watersourceDetail)) {
 								waterSourceList.add(watersourceDetail);
 							}
 						}
 					}
 					wiDetail.setWaterSourceList(waterSourceList);
 
-					if (!Validator.isEmpty(wiDetail.getWaterSourceList()))
-					{
-						for (WaterSource waterSource : wiDetail.getWaterSourceList())
-						{
+					if (!Validator.isEmpty(wiDetail.getWaterSourceList())) {
+						for (WaterSource waterSource : wiDetail.getWaterSourceList()) {
 							HashMap<String, Object> wiList = new HashMap<String, Object>();
-							if (!Validator.isEmpty(waterSource.getRegularSourceDataList()))
-							{
+							if (!Validator.isEmpty(waterSource.getRegularSourceDataList())) {
 								wiList.put("wsId", waterSource.getWaterSourceId());
 								// timestamp in string
-								Timestamp regWaterSourceDate = waterSource.getRegularSourceDataList().get(0).getCreateDateTime();
-								if (!Validator.isEmpty(regWaterSourceDate))
-								{
+								Timestamp regWaterSourceDate = waterSource.getRegularSourceDataList().get(0)
+										.getCreateDateTime();
+								if (!Validator.isEmpty(regWaterSourceDate)) {
 									regSourceDate = Utilities.getDateinStringFromTimestamp(regWaterSourceDate);
-									if ((regSourceDate.equals(Utilities.getTodaysDate())) && (waterSource.isSourceMeter() == true))
-									{
+									if ((regSourceDate.equals(Utilities.getTodaysDate()))
+											&& (waterSource.isSourceMeter() == true)) {
 										cnt1 = 0;
 										wiList.put("status", "Filled");
 										wiList.put("sourceMeter", waterSource.isSourceMeter());
-										wiList.put("noOfStaff", waterSource.getRegularSourceDataList().get(0).getStaff());
+										wiList.put("noOfStaff",
+												waterSource.getRegularSourceDataList().get(0).getStaff());
 										wiList.put("sourceName", waterSource.getSourceName());
-										wiList.put("startReading", waterSource.getRegularSourceDataList().get(0).getStartReading());
-										wiList.put("endReading", waterSource.getRegularSourceDataList().get(0).getEndReading());
-										wiList.put("actualReading", waterSource.getRegularSourceDataList().get(0).getActualReading());
+										wiList.put("startReading",
+												waterSource.getRegularSourceDataList().get(0).getStartReading());
+										wiList.put("endReading",
+												waterSource.getRegularSourceDataList().get(0).getEndReading());
+										wiList.put("actualReading",
+												waterSource.getRegularSourceDataList().get(0).getActualReading());
 
-									}
-									else if (!(regSourceDate.equals(Utilities.getTodaysDate())) && (waterSource.isSourceMeter() == true))
-									{
+									} else if (!(regSourceDate.equals(Utilities.getTodaysDate()))
+											&& (waterSource.isSourceMeter() == true)) {
 										cnt2 = 1;
 										wiList.put("status", "Fill");
 										wiList.put("sourceMeter", waterSource.isSourceMeter());
-										wiList.put("noOfStaff", waterSource.getRegularSourceDataList().get(0).getStaff());
+										wiList.put("noOfStaff",
+												waterSource.getRegularSourceDataList().get(0).getStaff());
 										wiList.put("sourceName", waterSource.getSourceName());
 										wiList.put("startReading", "");
-										wiList.put("endReading", waterSource.getRegularSourceDataList().get(0).getEndReading());
+										wiList.put("endReading",
+												waterSource.getRegularSourceDataList().get(0).getEndReading());
 										wiList.put("actualReading", "");
 
-									}
-									else if (!(regSourceDate.equals(Utilities.getTodaysDate())) && (waterSource.isSourceMeter() == false))
-									{
+									} else if (!(regSourceDate.equals(Utilities.getTodaysDate()))
+											&& (waterSource.isSourceMeter() == false)) {
 										cnt3 = 1;
 										wiList.put("status", "Fill");
 										wiList.put("sourceMeter", waterSource.isSourceMeter());
-										wiList.put("noOfStaff", waterSource.getRegularSourceDataList().get(0).getStaff());
+										wiList.put("noOfStaff",
+												waterSource.getRegularSourceDataList().get(0).getStaff());
 										wiList.put("sourceName", waterSource.getSourceName());
 										wiList.put("startReading", "");
 										wiList.put("endReading", "");
 										wiList.put("actualReading", "");
 
-									}
-									else if ((regSourceDate.equals(Utilities.getTodaysDate())) && (waterSource.isSourceMeter() == false))
-									{
+									} else if ((regSourceDate.equals(Utilities.getTodaysDate()))
+											&& (waterSource.isSourceMeter() == false)) {
 										cnt4 = 0;
 										wiList.put("status", "Filled");
 										wiList.put("sourceMeter", waterSource.isSourceMeter());
-										wiList.put("noOfStaff", waterSource.getRegularSourceDataList().get(0).getStaff());
+										wiList.put("noOfStaff",
+												waterSource.getRegularSourceDataList().get(0).getStaff());
 										wiList.put("sourceName", waterSource.getSourceName());
 										wiList.put("startReading", "");
 										wiList.put("endReading", "");
-										wiList.put("actualReading", waterSource.getRegularSourceDataList().get(0).getActualReading());
+										wiList.put("actualReading",
+												waterSource.getRegularSourceDataList().get(0).getActualReading());
 									}
 
 								}
-							}
-							else
-							{
+							} else {
 								cnt5 = 1;
 								wiList.put("wsId", waterSource.getWaterSourceId());
 								wiList.put("status", "New");
@@ -980,38 +835,28 @@ public class DailyInputController extends Constant
 								wiList.put("actualReading", "");
 							}
 
-							if (!waterInventoryList.contains(wiList))
-							{
+							if (!waterInventoryList.contains(wiList)) {
 								waterInventoryList.add(wiList);
 							}
 						}
 						inputResult = cnt1 | cnt2 | cnt3 | cnt4 | cnt5;
-						if (inputResult == 1)
-						{
+						if (inputResult == 1) {
 							waterSourceDataObject.put("Input", true);
-						}
-						else
-						{
+						} else {
 							waterSourceDataObject.put("Input", false);
 						}
 						waterSourceObject.put("Result", true);
 						waterSourceDataObject.put("regularSourceDataList", waterInventoryList);
-					}
-					else
-					{
+					} else {
 						waterSourceObject.put("Result", false);
 					}
 				}
 				waterSourceObject.put("Data", waterSourceDataObject);
-			}
-			else
-			{
+			} else {
 				waterSourceObject.put("Data", waterSourceDataObject);
 				waterSourceObject.put("Result", false);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		waterSourceArray.put(waterSourceObject);
@@ -1019,8 +864,7 @@ public class DailyInputController extends Constant
 	}
 
 	@RequestMapping("/ajax-getDailyPreFilterData")
-	public @ResponseBody String getDailyPrefilterData(HttpServletRequest request)
-	{
+	public @ResponseBody String getDailyPrefilterData(HttpServletRequest request) {
 		List<WaterInventory> waterInventoryData = new ArrayList<>();
 		ArrayList<Object> waterInventoryList = new ArrayList<>();
 		List<WaterSource> waterSourceData = new ArrayList<>();
@@ -1033,108 +877,85 @@ public class DailyInputController extends Constant
 		EmpData empDataSession = null;
 		String regpfDate = null;
 		int companyId = 0, cnt = 0, cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt5 = 0, inputResult = 0;
-		try
-		{
-			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
-			{
+		try {
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession"))) {
 				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			}
 			companyId = empDataSession.getCompanyProfile().getCompanyProfileId();
 			waterInventoryData = waterInventoryServices.getwaterInventoryData(companyId, Utilities.getTodaysDate());
 
-			if (!Validator.isEmpty(waterInventoryData))
-			{
-				for (int i = 0; i < waterInventoryData.size(); i++)
-				{
+			if (!Validator.isEmpty(waterInventoryData)) {
+				for (int i = 0; i < waterInventoryData.size(); i++) {
 					WaterInventory wiDetail = new WaterInventory();
 					wiDetail = waterInventoryData.get(i);
-					waterSourceData = waterSourceServices.getWaterSourceData(waterInventoryData.get(i).getWaterInventoryId());
-					if (!Validator.isEmpty(waterSourceData))
-					{
-						for (int j = 0; j < waterSourceData.size(); j++)
-						{
+					waterSourceData = waterSourceServices
+							.getWaterSourceData(waterInventoryData.get(i).getWaterInventoryId());
+					if (!Validator.isEmpty(waterSourceData)) {
+						for (int j = 0; j < waterSourceData.size(); j++) {
 							WaterSource watersourceDetail = new WaterSource();
 							watersourceDetail = waterSourceData.get(j);
-							prefilterData = prefilterServices.getAllActivePrefilterData(watersourceDetail.getWaterSourceId());
+							prefilterData = prefilterServices
+									.getAllActivePrefilterData(watersourceDetail.getWaterSourceId());
 							List<Prefilter> prefilterDataList = new ArrayList<>();
 
-							if (!Validator.isEmpty(prefilterData))
-							{
-								for (int k = 0; k < prefilterData.size(); k++)
-								{
+							if (!Validator.isEmpty(prefilterData)) {
+								for (int k = 0; k < prefilterData.size(); k++) {
 									Prefilter prefilterDetail = new Prefilter();
 									prefilterDetail = prefilterData.get(k);
-									regPrefilterData = regPrefilterServices.getregPrefilterDataByPrefilterId(prefilterData.get(k).getPrefilterId(), new PageRequest(0, 1));
+									regPrefilterData = regPrefilterServices.getregPrefilterDataByPrefilterId(
+											prefilterData.get(k).getPrefilterId(), new PageRequest(0, 1));
 									prefilterDetail.setRegPrefilterList(regPrefilterData);
-									if (!prefilterDataList.contains(prefilterDetail))
-									{
+									if (!prefilterDataList.contains(prefilterDetail)) {
 										prefilterDataList.add(prefilterDetail);
 									}
 								}
 							}
-							if (!waterSourceDataList.contains(watersourceDetail))
-							{
+							if (!waterSourceDataList.contains(watersourceDetail)) {
 								waterSourceDataList.add(watersourceDetail);
 							}
 							watersourceDetail.setPrefilterList(prefilterDataList);
 						}
 					}
 					wiDetail.setWaterSourceList(waterSourceDataList);
-					if (!Validator.isEmpty(wiDetail.getWaterSourceList()))
-					{
-						for (WaterSource waterSource : wiDetail.getWaterSourceList())
-						{
+					if (!Validator.isEmpty(wiDetail.getWaterSourceList())) {
+						for (WaterSource waterSource : wiDetail.getWaterSourceList()) {
 							HashMap<String, Object> wiList = new HashMap<String, Object>();
-							if (!Validator.isEmpty(waterSource.getPrefilterList()))
-							{
+							if (!Validator.isEmpty(waterSource.getPrefilterList())) {
 								cnt++;
 								prefilterObject.put("Result", true);
-								for (Prefilter prefilter : waterSource.getPrefilterList())
-								{
+								for (Prefilter prefilter : waterSource.getPrefilterList()) {
 									wiList.put("sourceName", waterSource.getSourceName());
 									wiList.put("isMeter", prefilter.isMeter());
 									wiList.put("count", cnt);
 									wiList.put("prefilterId", prefilter.getPrefilterId());
 
-									if (!Validator.isEmpty(prefilter.getRegPrefilterList()))
-									{
-										for (RegPrefilter regprefilter : prefilter.getRegPrefilterList())
-										{
+									if (!Validator.isEmpty(prefilter.getRegPrefilterList())) {
+										for (RegPrefilter regprefilter : prefilter.getRegPrefilterList()) {
 											Timestamp rpfDate = regprefilter.getCreateDateTime();
-											if (!Validator.isEmpty(rpfDate))
-											{
+											if (!Validator.isEmpty(rpfDate)) {
 												regpfDate = Utilities.getDateinStringFromTimestamp(rpfDate);
-												if (regpfDate.equals(Utilities.getTodaysDate()))
-												{
-													if (prefilter.isMeter() == true)
-													{
+												if (regpfDate.equals(Utilities.getTodaysDate())) {
+													if (prefilter.isMeter() == true) {
 														cnt1 = 0;
 														wiList.put("status", "Filled");
 														wiList.put("startReading", regprefilter.getStartReading());
 														wiList.put("endReading", regprefilter.getEndReading());
 														wiList.put("actualReading", regprefilter.getActualReading());
-													}
-													else
-													{
+													} else {
 														cnt2 = 0;
 														wiList.put("status", "Filled");
 														wiList.put("startReading", "");
 														wiList.put("endReading", "");
 														wiList.put("actualReading", regprefilter.getActualReading());
 													}
-												}
-												else
-												{
-													if (prefilter.isMeter() == true)
-													{
+												} else {
+													if (prefilter.isMeter() == true) {
 														cnt3 = 1;
 														wiList.put("status", "Fill");
 														wiList.put("startReading", regprefilter.getEndReading());
 														wiList.put("endReading", "");
 														wiList.put("actualReading", "");
-													}
-													else
-													{
+													} else {
 														cnt4 = 1;
 														wiList.put("status", "Fill");
 														wiList.put("startReading", "");
@@ -1144,9 +965,7 @@ public class DailyInputController extends Constant
 												}
 											}
 										}
-									}
-									else
-									{
+									} else {
 										cnt5 = 1;
 										wiList.put("status", "New");
 										wiList.put("startReading", "");
@@ -1155,41 +974,29 @@ public class DailyInputController extends Constant
 									}
 								}
 								inputResult = cnt1 | cnt2 | cnt3 | cnt4 | cnt5;
-								if (inputResult == 1)
-								{
+								if (inputResult == 1) {
 									prefilterDataObject.put("Input", true);
-								}
-								else
-								{
+								} else {
 									prefilterDataObject.put("Input", false);
 								}
-								if (!waterInventoryList.contains(wiList))
-								{
+								if (!waterInventoryList.contains(wiList)) {
 									waterInventoryList.add(wiList);
 								}
 								prefilterDataObject.put("prefilterList", waterInventoryList);
-							}
-							else
-							{
+							} else {
 								prefilterObject.put("Result", false);
 							}
 						}
-					}
-					else
-					{
+					} else {
 						prefilterObject.put("Result", false);
 					}
 				}
 				prefilterObject.put("Data", prefilterDataObject);
-			}
-			else
-			{
+			} else {
 				prefilterObject.put("Data", prefilterDataObject);
 				prefilterObject.put("Result", false);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		prefilterArray.put(prefilterObject);
@@ -1198,38 +1005,32 @@ public class DailyInputController extends Constant
 
 	@RequestMapping(value = "ajax-save-regular-prefilter-data", method = RequestMethod.POST)
 	public @ResponseBody String saveRegularPrefilterData(@RequestBody JsonObject prefilterObj,
-			HttpServletRequest request) throws ParseException
-	{
+			HttpServletRequest request) throws ParseException {
 		String result = "";
-		try
-		{
+		try {
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
-			if (!Validator.isEmpty(empDataSession))
-			{
+			if (!Validator.isEmpty(empDataSession)) {
 				Users users = new Users();
 				users.setUsersId(empDataSession.getUsers().getUsersId());
-				if (!Validator.isEmpty(prefilterObj))
-				{
+				if (!Validator.isEmpty(prefilterObj)) {
 					JsonArray regPrefilterArray = prefilterObj.getAsJsonArray("regPrefilterData");
-					if (!Validator.isEmpty(regPrefilterArray))
-					{
-						for (JsonElement regPrefilterData : regPrefilterArray)
-						{
+					if (!Validator.isEmpty(regPrefilterArray)) {
+						for (JsonElement regPrefilterData : regPrefilterArray) {
 							RegPrefilter regPrefilter = new RegPrefilter();
 							Prefilter prefilter = new Prefilter();
 							prefilter.setPrefilterId(regPrefilterData.getAsJsonObject().get("prefilterId").getAsInt());
 							regPrefilter.setPrefilter(prefilter);
-							regPrefilter.setStartReading(regPrefilterData.getAsJsonObject().get("prefilterStart").getAsFloat());
-							regPrefilter.setEndReading(regPrefilterData.getAsJsonObject().get("prefilterEnd").getAsFloat());
-							regPrefilter.setActualReading(regPrefilterData.getAsJsonObject().get("prefilterAvg").getAsFloat());
+							regPrefilter.setStartReading(
+									regPrefilterData.getAsJsonObject().get("prefilterStart").getAsFloat());
+							regPrefilter
+									.setEndReading(regPrefilterData.getAsJsonObject().get("prefilterEnd").getAsFloat());
+							regPrefilter.setActualReading(
+									regPrefilterData.getAsJsonObject().get("prefilterAvg").getAsFloat());
 							regPrefilter.setUsers(users);
 							regPrefilter = regPrefilterServices.save(regPrefilter);
-							if (regPrefilter != null)
-							{
+							if (regPrefilter != null) {
 								result = "success";
-							}
-							else
-							{
+							} else {
 								result = "fail";
 							}
 						}
@@ -1237,17 +1038,14 @@ public class DailyInputController extends Constant
 				}
 			}
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		return result;
 	}
 
 	@RequestMapping("/ajax-getDailyFilterData")
-	public @ResponseBody String getDailyFilterWater(HttpServletRequest request)
-	{
+	public @ResponseBody String getDailyFilterWater(HttpServletRequest request) {
 		List<WaterInventory> waterInventoryData = new ArrayList<>();
 		List<MultipleFilter> filterData = new ArrayList<>();
 		List<MultipleFilter> filterDataList = new ArrayList<>();
@@ -1260,133 +1058,110 @@ public class DailyInputController extends Constant
 		String filterDailyDate = null;
 		boolean isMeter = false;
 		int companyId = 0, cnt1 = 0, cnt2 = 0, cnt3 = 0;
-		try
-		{
-			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
-			{
+		try {
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession"))) {
 				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			}
 			companyId = empDataSession.getCompanyProfile().getCompanyProfileId();
 			waterInventoryData = waterInventoryServices.getwaterInventoryData(companyId, Utilities.getTodaysDate());
-			if (!Validator.isEmpty(waterInventoryData))
-			{
-				for (int i = 0; i < waterInventoryData.size(); i++)
-				{
+			if (!Validator.isEmpty(waterInventoryData)) {
+				for (int i = 0; i < waterInventoryData.size(); i++) {
 					WaterInventory wiDetail = new WaterInventory();
 					wiDetail = waterInventoryData.get(i);
 					filterData = multipleFilterServices.findAllMultipleFiltersData(wiDetail.getWaterInventoryId());
-					if (!Validator.isEmpty(filterData))
-					{
-						for (int j = 0; j < filterData.size(); j++)
-						{
+					if (!Validator.isEmpty(filterData)) {
+						for (int j = 0; j < filterData.size(); j++) {
 							MultipleFilter multipleFilter = new MultipleFilter();
 							multipleFilter = filterData.get(j);
-							regMultipleFilterData = regMultipleFilterDataServices.getRegularFiltersData(multipleFilter.getMultipleFilterId(), new PageRequest(0, 1));
+							regMultipleFilterData = regMultipleFilterDataServices
+									.getRegularFiltersData(multipleFilter.getMultipleFilterId(), new PageRequest(0, 1));
 							multipleFilter.setRegMultipleFilterData(regMultipleFilterData);
-							if (!filterDataList.contains(multipleFilter))
-							{
+							if (!filterDataList.contains(multipleFilter)) {
 								filterDataList.add(multipleFilter);
 							}
 						}
 					}
 					wiDetail.setMultipleFiltersData(filterDataList);
-					if (!Validator.isEmpty(wiDetail.getMultipleFiltersData()))
-					{
+					if (!Validator.isEmpty(wiDetail.getMultipleFiltersData())) {
 						filterObject.put("Result", true);
-						for (MultipleFilter multipleFilter : wiDetail.getMultipleFiltersData())
-						{
+						for (MultipleFilter multipleFilter : wiDetail.getMultipleFiltersData()) {
 							HashMap<String, Object> filterMap = new HashMap<>();
 							isMeter = multipleFilter.isMeter();
 							filterMap.put("filterId", multipleFilter.getMultipleFilterId());
-							filterMap.put("filterName", multipleFilter.getFilterLabel() + " " + "(" + multipleFilter.getFilters().getFilterType() + ")");
+							filterMap.put("filterName", multipleFilter.getFilterLabel() + " " + "("
+									+ multipleFilter.getFilters().getFilterType() + ")");
 							filterMap.put("isMeter", multipleFilter.isMeter());
 							filterMap.put("filterType", multipleFilter.getFilters().getFilterType());
-							if (!Validator.isEmpty(multipleFilter.getRegMultipleFilterData()))
-							{
-								Timestamp filterDate = multipleFilter.getRegMultipleFilterData().get(0).getCreateDateTime();
-								if (!Validator.isEmpty(filterDate))
-								{
+							if (!Validator.isEmpty(multipleFilter.getRegMultipleFilterData())) {
+								Timestamp filterDate = multipleFilter.getRegMultipleFilterData().get(0)
+										.getCreateDateTime();
+								if (!Validator.isEmpty(filterDate)) {
 									filterDailyDate = Utilities.getDateinStringFromTimestamp(filterDate);
-									if (filterDailyDate.equalsIgnoreCase(Utilities.getTodaysDate()))
-									{
+									if (filterDailyDate.equalsIgnoreCase(Utilities.getTodaysDate())) {
 										cnt1 = 0;
-										if (isMeter == true)
-										{
-											filterMap.put("startReading", multipleFilter.getRegMultipleFilterData().get(0).getStartReading());
-											filterMap.put("endReading", multipleFilter.getRegMultipleFilterData().get(0).getEndReading());
-											filterMap.put("actualConsumtion", multipleFilter.getRegMultipleFilterData().get(0).getActualReading());
+										if (isMeter == true) {
+											filterMap.put("startReading",
+													multipleFilter.getRegMultipleFilterData().get(0).getStartReading());
+											filterMap.put("endReading",
+													multipleFilter.getRegMultipleFilterData().get(0).getEndReading());
+											filterMap.put("actualConsumtion", multipleFilter.getRegMultipleFilterData()
+													.get(0).getActualReading());
 											filterMap.put("status", "Filled");
-										}
-										else
-										{
+										} else {
 											filterMap.put("startReading", "");
 											filterMap.put("endReading", "");
-											filterMap.put("actualConsumtion", multipleFilter.getRegMultipleFilterData().get(0).getActualReading());
+											filterMap.put("actualConsumtion", multipleFilter.getRegMultipleFilterData()
+													.get(0).getActualReading());
 											filterMap.put("status", "Filled");
 										}
-									}
-									else
-									{
+									} else {
 										cnt2 = 1;
-										if (isMeter == true)
-										{
-											filterMap.put("startReading", multipleFilter.getRegMultipleFilterData().get(0).getEndReading());
+										if (isMeter == true) {
+											filterMap.put("startReading",
+													multipleFilter.getRegMultipleFilterData().get(0).getEndReading());
 											filterMap.put("endReading", "");
 											filterMap.put("actualConsumtion", "");
 											filterMap.put("status", "Fill");
-										}
-										else
-										{
+										} else {
 											filterMap.put("startReading", "");
 											filterMap.put("endReading", "");
-											filterMap.put("actualConsumtion", multipleFilter.getRegMultipleFilterData().get(0).getActualReading());
+											filterMap.put("actualConsumtion", multipleFilter.getRegMultipleFilterData()
+													.get(0).getActualReading());
 											filterMap.put("status", "Fill");
 										}
 									}
 								}
-							}
-							else
-							{
+							} else {
 								cnt3 = 1;
 								filterMap.put("startReading", "");
 								filterMap.put("endReading", "");
 								filterMap.put("actualConsumtion", "");
 								filterMap.put("status", "New");
 							}
-							if (!filterList.contains(filterMap))
-							{
+							if (!filterList.contains(filterMap)) {
 								filterList.add(filterMap);
 							}
 						}
 						int inputResult = cnt1 | cnt2 | cnt3;
-						if (inputResult == 1)
-						{
+						if (inputResult == 1) {
 							filterDataObject.put("Input", true);
-						}
-						else
-						{
+						} else {
 							filterDataObject.put("Input", false);
 						}
 						filterDataObject.put("UiOption", "Advanced");
 						filterDataObject.put("filterList", filterList);
-					}
-					else
-					{
+					} else {
 						filterDataObject.put("filterList", filterList);
 						filterObject.put("Result", false);
 					}
 				}
 				filterObject.put("Data", filterDataObject);
-			}
-			else
-			{
+			} else {
 				filterObject.put("Data", filterDataObject);
 				filterObject.put("Result", false);
 			}
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		filterArray.put(filterObject);
@@ -1395,38 +1170,33 @@ public class DailyInputController extends Constant
 
 	@RequestMapping(value = "ajax-save-regular-filter-data", method = RequestMethod.POST)
 	public @ResponseBody String saveRegularFilterData(@RequestBody JsonObject filterObj, HttpServletRequest request)
-			throws ParseException
-	{
+			throws ParseException {
 		String result = "";
-		try
-		{
+		try {
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
-			if (!Validator.isEmpty(empDataSession))
-			{
+			if (!Validator.isEmpty(empDataSession)) {
 				Users users = new Users();
 				users.setUsersId(empDataSession.getUsers().getUsersId());
-				if (!Validator.isEmpty(filterObj))
-				{
+				if (!Validator.isEmpty(filterObj)) {
 					JsonArray regFilterArray = filterObj.getAsJsonArray("regfilterData");
-					if (!Validator.isEmpty(regFilterArray))
-					{
-						for (JsonElement regFilterData : regFilterArray)
-						{
+					if (!Validator.isEmpty(regFilterArray)) {
+						for (JsonElement regFilterData : regFilterArray) {
 							RegMultipleFilterData regMultipleFilterData = new RegMultipleFilterData();
 							MultipleFilter multipleFilter = new MultipleFilter();
-							multipleFilter.setMultipleFilterId(regFilterData.getAsJsonObject().get("filterId").getAsInt());
+							multipleFilter
+									.setMultipleFilterId(regFilterData.getAsJsonObject().get("filterId").getAsInt());
 							regMultipleFilterData.setMultipleFilter(multipleFilter);
-							regMultipleFilterData.setStartReading(regFilterData.getAsJsonObject().get("filterStart").getAsFloat());
-							regMultipleFilterData.setEndReading(regFilterData.getAsJsonObject().get("filterEnd").getAsFloat());
-							regMultipleFilterData.setActualReading(regFilterData.getAsJsonObject().get("filterAvg").getAsFloat());
+							regMultipleFilterData
+									.setStartReading(regFilterData.getAsJsonObject().get("filterStart").getAsFloat());
+							regMultipleFilterData
+									.setEndReading(regFilterData.getAsJsonObject().get("filterEnd").getAsFloat());
+							regMultipleFilterData
+									.setActualReading(regFilterData.getAsJsonObject().get("filterAvg").getAsFloat());
 							regMultipleFilterData.setUsers(users);
 							regMultipleFilterData = regMultipleFilterDataServices.save(regMultipleFilterData);
-							if (regMultipleFilterData != null)
-							{
+							if (regMultipleFilterData != null) {
 								result = "success";
-							}
-							else
-							{
+							} else {
 								result = "fail";
 							}
 						}
@@ -1434,17 +1204,14 @@ public class DailyInputController extends Constant
 				}
 			}
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 		return result;
 	}
 
 	@RequestMapping("/ajax-getDailyFilterUseData")
-	public @ResponseBody String getDailyFilterUseWater(HttpServletRequest request)
-	{
+	public @ResponseBody String getDailyFilterUseWater(HttpServletRequest request) {
 		List<String> filterUseLabelList = new ArrayList<>();
 		List<FilterUse> filterUseData = new ArrayList<>();
 		List<FilterUse> filterUseDataList = new ArrayList<>();
@@ -1455,87 +1222,71 @@ public class DailyInputController extends Constant
 		JSONObject filterUseDataObject = new JSONObject();
 		EmpData empDataSession = null;
 
-		int cnt1 = 0, cnt2 = 0, cnt3 = 0, companyId = 0, waterInventoryId = 0;
-		try
-		{
-			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
-			{
+		int cnt1 = 0, cnt2 = 0, cnt3 = 0, companyId = 0;
+		List<WaterInventory> waterInventoryGetId = new ArrayList<>();
+		
+		try {
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession"))) {
 				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 				companyId = empDataSession.getCompanyProfile().getCompanyProfileId();
 
 			}
-			waterInventoryId = waterInventoryServices.getWaterInventoryId(companyId, Utilities.getTodaysDate());
-			if (!Validator.isEmpty(waterInventoryId))
-			{
+			//waterInventoryId.get(1).getWaterInventoryId();
+			waterInventoryGetId = waterInventoryServices.getWaterInventorygetId(companyId, Utilities.getTodaysDate(),new PageRequest(0,1));
+
+			if (!Validator.isEmpty(waterInventoryGetId)) {
 				filterUseLabelList = filterUseServices.getFilterUseData();
 
-				if (!Validator.isEmpty(filterUseLabelList))
-				{
-					for (int i = 0; i < filterUseLabelList.size(); i++)
-					{
+				if (!Validator.isEmpty(filterUseLabelList)) {
+					for (int i = 0; i < filterUseLabelList.size(); i++) {
 						filterUseData = filterUseServices.getFilterUseDataByLabel(filterUseLabelList.get(i));
-						if (!Validator.isEmpty(filterUseData))
-						{
-							for (int j = 0; j < filterUseData.size(); j++)
-							{
+						if (!Validator.isEmpty(filterUseData)) {
+							for (int j = 0; j < filterUseData.size(); j++) {
 								FilterUse filterUse = new FilterUse();
 								filterUse = filterUseData.get(j);
-								regFiltersUseDataList = regFiltersUseDataServices.getRegFiltersUseDataByFilterUseLabel(filterUse.getFilterUseLabel(), new PageRequest(0, 1));
+								regFiltersUseDataList = regFiltersUseDataServices.getRegFiltersUseDataByFilterUseLabel(
+										filterUse.getFilterUseLabel(), new PageRequest(0, 1));
 								filterUse.setRegFiltersUseData(regFiltersUseDataList);
-								if (!filterUseDataList.contains(filterUse))
-								{
+								if (!filterUseDataList.contains(filterUse)) {
 									filterUseDataList.add(filterUse);
 								}
 							}
 						}
 					}
-					if (!Validator.isEmpty(filterUseDataList))
-					{
+					if (!Validator.isEmpty(filterUseDataList)) {
 						filterUseObject.put("Result", true);
-						for (FilterUse filterUse : filterUseDataList)
-						{
+						for (FilterUse filterUse : filterUseDataList) {
 							HashMap<String, Object> filterUseMap = new HashMap<>();
 							filterUseMap.put("filterUseLabel", filterUse.getFilterUseLabel());
 							filterUseMap.put("filterUseType", filterUse.getFilterUseType());
 							filterUseMap.put("isMeter", filterUse.isMeter());
-							if (!Validator.isEmpty(filterUse.getRegFiltersUseData()))
-							{
-								for (RegFiltersUseData regFiltersUseData : filterUse.getRegFiltersUseData())
-								{
+							if (!Validator.isEmpty(filterUse.getRegFiltersUseData())) {
+								for (RegFiltersUseData regFiltersUseData : filterUse.getRegFiltersUseData()) {
 									Timestamp filterUseDate = regFiltersUseData.getCreateDateTime();
-									if (!Validator.isEmpty(filterUseDate))
-									{
-										String filterUseDailyDate = Utilities.getDateinStringFromTimestamp(filterUseDate);
-										if (filterUseDailyDate.equalsIgnoreCase(Utilities.getTodaysDate()))
-										{
+									if (!Validator.isEmpty(filterUseDate)) {
+										String filterUseDailyDate = Utilities
+												.getDateinStringFromTimestamp(filterUseDate);
+										if (filterUseDailyDate.equalsIgnoreCase(Utilities.getTodaysDate())) {
 											cnt1 = 0;
 											filterUseMap.put("status", "Filled");
-											if (filterUse.isMeter() == true)
-											{
+											if (filterUse.isMeter() == true) {
 												filterUseMap.put("startReading", regFiltersUseData.getStartReading());
 												filterUseMap.put("endReading", regFiltersUseData.getEndReading());
 												filterUseMap.put("actualReading", regFiltersUseData.getActualReading());
-											}
-											else
-											{
+											} else {
 												filterUseMap.put("startReading", "");
 												filterUseMap.put("endReading", "");
 												filterUseMap.put("actualReading", regFiltersUseData.getActualReading());
 											}
 
-										}
-										else
-										{
+										} else {
 											cnt2 = 1;
 											filterUseMap.put("status", "Fill");
-											if (filterUse.isMeter() == true)
-											{
+											if (filterUse.isMeter() == true) {
 												filterUseMap.put("startReading", regFiltersUseData.getEndReading());
 												filterUseMap.put("endReading", "");
 												filterUseMap.put("actualReading", "");
-											}
-											else
-											{
+											} else {
 												filterUseMap.put("startReading", "");
 												filterUseMap.put("endReading", "");
 												filterUseMap.put("actualReading", "");
@@ -1543,64 +1294,47 @@ public class DailyInputController extends Constant
 										}
 									}
 								}
-							}
-							else
-							{
+							} else {
 								cnt3 = 1;
 								filterUseMap.put("status", "New");
-								if (filterUse.isMeter() == true)
-								{
+								if (filterUse.isMeter() == true) {
 									filterUseMap.put("startReading", "");
 									filterUseMap.put("endReading", "");
 									filterUseMap.put("actualReading", "");
-								}
-								else
-								{
+								} else {
 									filterUseMap.put("startReading", "");
 									filterUseMap.put("endReading", "");
 									filterUseMap.put("actualReading", "");
 								}
 							}
-							if (!filterUseList.contains(filterUseMap))
-							{
+							if (!filterUseList.contains(filterUseMap)) {
 								filterUseList.add(filterUseMap);
 							}
 							int inputResult = cnt1 | cnt2 | cnt3;
-							if (inputResult == 1)
-							{
+							if (inputResult == 1) {
 								filterUseDataObject.put("Input", true);
-							}
-							else
-							{
+							} else {
 								filterUseDataObject.put("Input", false);
 							}
 						}
 						filterUseDataObject.put("UiOption", "Normal");
 						filterUseDataObject.put("filterUseList", filterUseList);
 						filterUseObject.put("Data", filterUseDataObject);
-					}
-					else
-					{
+					} else {
 						filterUseObject.put("Data", filterUseDataObject);
 						filterUseObject.put("Result", false);
 					}
 
-				}
-				else
-				{
+				} else {
 					filterUseObject.put("Data", filterUseDataObject);
 					filterUseObject.put("Result", false);
 				}
-			}
-			else
-			{
+			} else {
 				filterUseObject.put("Data", filterUseDataObject);
 				filterUseObject.put("Result", false);
 			}
 
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e);
 		}
 
@@ -1609,54 +1343,46 @@ public class DailyInputController extends Constant
 	}
 
 	@RequestMapping(value = "ajax-save-regular-filter-use-data", method = RequestMethod.POST)
-	public @ResponseBody String saveRegularFilterUseData(@RequestBody JsonObject filterUseObj, HttpServletRequest request)
-			throws ParseException
-	{
+	public @ResponseBody String saveRegularFilterUseData(@RequestBody JsonObject filterUseObj,
+			HttpServletRequest request) throws ParseException {
 		String result = "";
-		try
-		{
+		try {
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
-			if (!Validator.isEmpty(empDataSession))
-			{
+			if (!Validator.isEmpty(empDataSession)) {
 				Users users = new Users();
 				users.setUsersId(empDataSession.getUsers().getUsersId());
-				if (!Validator.isEmpty(filterUseObj))
-				{
+				if (!Validator.isEmpty(filterUseObj)) {
 					JsonArray regFilterUseArray = filterUseObj.getAsJsonArray("regfilterUseData");
-					if (!Validator.isEmpty(regFilterUseArray))
-					{
-						for (JsonElement regFilterUse : regFilterUseArray)
-						{
+					if (!Validator.isEmpty(regFilterUseArray)) {
+						for (JsonElement regFilterUse : regFilterUseArray) {
 							RegFiltersUseData regFilterUseData = new RegFiltersUseData();
-							regFilterUseData.setFilterUseLabel(regFilterUse.getAsJsonObject().get("filterUseLabel").getAsString());
-							regFilterUseData.setStartReading(regFilterUse.getAsJsonObject().get("filterUseStart").getAsFloat());
-							regFilterUseData.setEndReading(regFilterUse.getAsJsonObject().get("filterUseEnd").getAsFloat());
-							regFilterUseData.setActualReading(regFilterUse.getAsJsonObject().get("filterUseAvg").getAsFloat());
+							regFilterUseData.setFilterUseLabel(
+									regFilterUse.getAsJsonObject().get("filterUseLabel").getAsString());
+							regFilterUseData
+									.setStartReading(regFilterUse.getAsJsonObject().get("filterUseStart").getAsFloat());
+							regFilterUseData
+									.setEndReading(regFilterUse.getAsJsonObject().get("filterUseEnd").getAsFloat());
+							regFilterUseData
+									.setActualReading(regFilterUse.getAsJsonObject().get("filterUseAvg").getAsFloat());
 							regFilterUseData.setUsers(users);
 							regFilterUseData = regFiltersUseDataServices.save(regFilterUseData);
-							if (regFilterUseData != null)
-							{
+							if (regFilterUseData != null) {
 								result = "success";
-							}
-							else
-							{
+							} else {
 								result = "fail";
 							}
 						}
 					}
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 
 		}
 		return result;
 	}
 
 	@RequestMapping("/ajax-getDailyUseOfWaterData")
-	public @ResponseBody String getDailyUseOfWater(HttpServletRequest request)
-	{
+	public @ResponseBody String getDailyUseOfWater(HttpServletRequest request) {
 		EmpData empDataSession = null;
 		TreeSet<String> directUseName = new TreeSet<>();
 		List<DirectUseOfWater> directUseOfWaterData = new ArrayList<>();
@@ -1668,100 +1394,84 @@ public class DailyInputController extends Constant
 		JSONObject directUseOfWaterDataObject = new JSONObject();
 		List<WaterInventory> waterInventoryData = new ArrayList<>();
 		int cnt1 = 0, cnt2 = 0, cnt3 = 0, companyId = 0, waterInventoryId = 0;
-		try
-		{
-			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
-			{
+		try {
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession"))) {
 				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			}
 			companyId = empDataSession.getCompanyProfile().getCompanyProfileId();
-			waterInventoryData = waterInventoryServices.getwaterInventoryById(companyId, Utilities.getTodaysDate(), new PageRequest(0, 1));
-			// waterInventoryId = waterInventoryServices.getWaterInventoryId(companyId, Utilities.getTodaysDate());
-			if (!Validator.isEmpty(waterInventoryData))
-			{
-				for (int k = 0; k < waterInventoryData.size(); k++)
-				{
+			waterInventoryData = waterInventoryServices.getwaterInventoryById(companyId, Utilities.getTodaysDate(),new PageRequest(0, 1));
+			// waterInventoryId = waterInventoryServices.getWaterInventoryId(companyId,Utilities.getTodaysDate(),new PageRequest(0, 1));
+			// Utilities.getTodaysDate());
+			if (!Validator.isEmpty(waterInventoryData)) {
+				for (int k = 0; k < waterInventoryData.size(); k++) {
 					WaterInventory wiDetail = new WaterInventory();
 					wiDetail = waterInventoryData.get(k);
 					int id = wiDetail.getWaterInventoryId();
 
 					directUseName = directUseOfWaterServices.getDirectUseName(id);
-					if (!Validator.isEmpty(directUseName))
-					{
-						for (String directUse : directUseName)
-						{
+					if (!Validator.isEmpty(directUseName)) {
+						for (String directUse : directUseName) {
 							directUseOfWaterData = directUseOfWaterServices.getUseOfWaterByWhereToUse(directUse);
-							if (!Validator.isEmpty(directUseOfWaterData))
-							{
-								for (int i = 0; i < directUseOfWaterData.size(); i++)
-								{
+							if (!Validator.isEmpty(directUseOfWaterData)) {
+								for (int i = 0; i < directUseOfWaterData.size(); i++) {
 									DirectUseOfWater directUseOfWater = new DirectUseOfWater();
 									directUseOfWater = directUseOfWaterData.get(i);
-									regDirectUseOfWaterDataList = regDirectUseOfWaterServices.getRegDirectUseOfWaterData(
-											directUseOfWater.getWhereToUse(), new PageRequest(0, 1));
-									if (!Validator.isEmpty(regDirectUseOfWaterDataList))
-									{
+									regDirectUseOfWaterDataList = regDirectUseOfWaterServices
+											.getRegDirectUseOfWaterData(directUseOfWater.getWhereToUse(),
+													new PageRequest(0, 1));
+									if (!Validator.isEmpty(regDirectUseOfWaterDataList)) {
 										directUseOfWater.setRegDirectUseOfWaterData(regDirectUseOfWaterDataList);
 									}
-									if (!directUseOfWaterDataList.contains(directUseOfWater))
-									{
+									if (!directUseOfWaterDataList.contains(directUseOfWater)) {
 										directUseOfWaterDataList.add(directUseOfWater);
 									}
 								}
 							}
 						}
 					}
-					if (!Validator.isEmpty(directUseOfWaterDataList))
-					{
+					if (!Validator.isEmpty(directUseOfWaterDataList)) {
 						directUseOfWaterObject.put("Result", true);
-						for (DirectUseOfWater directUseOfWater : directUseOfWaterDataList)
-						{
+						for (DirectUseOfWater directUseOfWater : directUseOfWaterDataList) {
 							HashMap<String, Object> directUseOfWaterMap = new HashMap<>();
 							directUseOfWaterMap.put("typeOfUse", directUseOfWater.getTypeOfUse());
 							directUseOfWaterMap.put("whereToUse", directUseOfWater.getWhereToUse());
 							directUseOfWaterMap.put("isMeter", directUseOfWater.isMeter());
-							if (!Validator.isEmpty(directUseOfWater.getRegDirectUseOfWaterData()))
-							{
-								for (RegDirectUseOfWaterData regDirectUseOfWaterData : directUseOfWater.getRegDirectUseOfWaterData())
-								{
+							if (!Validator.isEmpty(directUseOfWater.getRegDirectUseOfWaterData())) {
+								for (RegDirectUseOfWaterData regDirectUseOfWaterData : directUseOfWater
+										.getRegDirectUseOfWaterData()) {
 									Timestamp regDirectUseOfWaterDate = regDirectUseOfWaterData.getCreateDateTime();
-									if (!Validator.isEmpty(regDirectUseOfWaterDate))
-									{
-										String regDirectUseDailyDate = Utilities.getDateinStringFromTimestamp(regDirectUseOfWaterDate);
-										if (!Validator.isEmpty(regDirectUseDailyDate))
-										{
-											if (regDirectUseDailyDate.equalsIgnoreCase(Utilities.getTodaysDate()))
-											{
+									if (!Validator.isEmpty(regDirectUseOfWaterDate)) {
+										String regDirectUseDailyDate = Utilities
+												.getDateinStringFromTimestamp(regDirectUseOfWaterDate);
+										if (!Validator.isEmpty(regDirectUseDailyDate)) {
+											if (regDirectUseDailyDate.equalsIgnoreCase(Utilities.getTodaysDate())) {
 												cnt1 = 0;
 												directUseOfWaterMap.put("status", "Filled");
 
-												if (directUseOfWater.isMeter() == true)
-												{
-													directUseOfWaterMap.put("startReading", regDirectUseOfWaterData.getStartReading());
-													directUseOfWaterMap.put("endReading", regDirectUseOfWaterData.getEndReading());
-													directUseOfWaterMap.put("actualReading", regDirectUseOfWaterData.getActualReading());
+												if (directUseOfWater.isMeter() == true) {
+													directUseOfWaterMap.put("startReading",
+															regDirectUseOfWaterData.getStartReading());
+													directUseOfWaterMap.put("endReading",
+															regDirectUseOfWaterData.getEndReading());
+													directUseOfWaterMap.put("actualReading",
+															regDirectUseOfWaterData.getActualReading());
 
-												}
-												else
-												{
+												} else {
 													directUseOfWaterMap.put("startReading", "");
 													directUseOfWaterMap.put("endReading", "");
-													directUseOfWaterMap.put("actualReading", regDirectUseOfWaterData.getActualReading());
+													directUseOfWaterMap.put("actualReading",
+															regDirectUseOfWaterData.getActualReading());
 												}
-											}
-											else
-											{
+											} else {
 												cnt2 = 1;
 												directUseOfWaterMap.put("status", "Fill");
-												if (directUseOfWater.isMeter() == true)
-												{
-													directUseOfWaterMap.put("startReading", regDirectUseOfWaterData.getEndReading());
+												if (directUseOfWater.isMeter() == true) {
+													directUseOfWaterMap.put("startReading",
+															regDirectUseOfWaterData.getEndReading());
 													directUseOfWaterMap.put("endReading", "");
 													directUseOfWaterMap.put("actualReading", "");
 
-												}
-												else
-												{
+												} else {
 													directUseOfWaterMap.put("startReading", "");
 													directUseOfWaterMap.put("endReading", "");
 													directUseOfWaterMap.put("actualReading", "");
@@ -1771,57 +1481,42 @@ public class DailyInputController extends Constant
 									}
 								}
 
-							}
-							else
-							{
+							} else {
 								cnt3 = 1;
 								directUseOfWaterMap.put("status", "New");
-								if (directUseOfWater.isMeter() == true)
-								{
+								if (directUseOfWater.isMeter() == true) {
 									directUseOfWaterMap.put("startReading", "");
 									directUseOfWaterMap.put("endReading", "");
 									directUseOfWaterMap.put("actualReading", "");
 
-								}
-								else
-								{
+								} else {
 									directUseOfWaterMap.put("startReading", "");
 									directUseOfWaterMap.put("endReading", "");
 									directUseOfWaterMap.put("actualReading", "");
 								}
 							}
-							if (!directUseOfWaterList.contains(directUseOfWaterMap))
-							{
+							if (!directUseOfWaterList.contains(directUseOfWaterMap)) {
 								directUseOfWaterList.add(directUseOfWaterMap);
 							}
 						}
 						int inputResult = cnt1 | cnt2 | cnt3;
-						if (inputResult == 1)
-						{
+						if (inputResult == 1) {
 							directUseOfWaterDataObject.put("Input", true);
-						}
-						else
-						{
+						} else {
 							directUseOfWaterDataObject.put("Input", false);
 						}
 						directUseOfWaterDataObject.put("useOfWaterData", directUseOfWaterList);
 						directUseOfWaterDataObject.put("UiOption", "Normal");
 						directUseOfWaterObject.put("Data", directUseOfWaterDataObject);
-					}
-					else
-					{
+					} else {
 						directUseOfWaterObject.put("Result", false);
 					}
 				}
-			}
-			else
-			{
+			} else {
 				directUseOfWaterObject.put("Data", directUseOfWaterDataObject);
 				directUseOfWaterObject.put("Result", false);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
 		directUseOfWaterArray.put(directUseOfWaterObject);
@@ -1829,53 +1524,46 @@ public class DailyInputController extends Constant
 	}
 
 	@RequestMapping("/ajax-save-regular-direct-use-of-water")
-	public @ResponseBody String saveRegularDirectUseOFWater(@RequestBody JsonObject directUseOfWaterObj, HttpServletRequest request)
-	{
+	public @ResponseBody String saveRegularDirectUseOFWater(@RequestBody JsonObject directUseOfWaterObj,
+			HttpServletRequest request) {
 		String result = "";
-		try
-		{
+		try {
 			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
-			if (!Validator.isEmpty(empDataSession))
-			{
+			if (!Validator.isEmpty(empDataSession)) {
 				Users users = new Users();
 				users.setUsersId(empDataSession.getUsers().getUsersId());
-				if (!Validator.isEmpty(directUseOfWaterObj))
-				{
+				if (!Validator.isEmpty(directUseOfWaterObj)) {
 					JsonArray regDirectUseOfWaterArray = directUseOfWaterObj.getAsJsonArray("regDirectUseOfWaterData");
-					if (!Validator.isEmpty(regDirectUseOfWaterArray))
-					{
-						for (JsonElement regDirectUseOfWater : regDirectUseOfWaterArray)
-						{
+					if (!Validator.isEmpty(regDirectUseOfWaterArray)) {
+						for (JsonElement regDirectUseOfWater : regDirectUseOfWaterArray) {
 							RegDirectUseOfWaterData regDirectUseOfWaterData = new RegDirectUseOfWaterData();
-							regDirectUseOfWaterData.setWhereToUse(regDirectUseOfWater.getAsJsonObject().get("whereToUse").getAsString());
-							regDirectUseOfWaterData.setStartReading(regDirectUseOfWater.getAsJsonObject().get("directUseStart").getAsFloat());
-							regDirectUseOfWaterData.setEndReading(regDirectUseOfWater.getAsJsonObject().get("directUseEnd").getAsFloat());
-							regDirectUseOfWaterData.setActualReading(regDirectUseOfWater.getAsJsonObject().get("directUseAvg").getAsFloat());
+							regDirectUseOfWaterData.setWhereToUse(
+									regDirectUseOfWater.getAsJsonObject().get("whereToUse").getAsString());
+							regDirectUseOfWaterData.setStartReading(
+									regDirectUseOfWater.getAsJsonObject().get("directUseStart").getAsFloat());
+							regDirectUseOfWaterData.setEndReading(
+									regDirectUseOfWater.getAsJsonObject().get("directUseEnd").getAsFloat());
+							regDirectUseOfWaterData.setActualReading(
+									regDirectUseOfWater.getAsJsonObject().get("directUseAvg").getAsFloat());
 							regDirectUseOfWaterData.setUsers(users);
 							regDirectUseOfWaterData = regDirectUseOfWaterServices.save(regDirectUseOfWaterData);
-							if (regDirectUseOfWaterData != null)
-							{
+							if (regDirectUseOfWaterData != null) {
 								result = "success";
-							}
-							else
-							{
+							} else {
 								result = "fail";
 							}
 						}
 					}
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
 		return result;
 	}
 
 	@RequestMapping("/ajax-getDailyTreatmentWaterData")
-	public @ResponseBody String getDailyTreatmentWater(HttpServletRequest request)
-	{
+	public @ResponseBody String getDailyTreatmentWater(HttpServletRequest request) {
 		List<WaterInventory> waterInventoryData = new ArrayList<>();
 		ArrayList<Object> waterInventoryList = new ArrayList<>();
 		List<WastewaterTreatment> wastewaterTreatmentData = new ArrayList<>();
@@ -1889,74 +1577,64 @@ public class DailyInputController extends Constant
 		EmpData empDataSession = null;
 		String regtreatmentDate = null, regRecycleDate = null;
 		int companyId = 0;
-		try
-		{
-			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
-			{
+		try {
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession"))) {
 				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 			}
 			companyId = empDataSession.getCompanyProfile().getCompanyProfileId();
 			waterInventoryData = waterInventoryServices.getwaterInventoryData(companyId, Utilities.getTodaysDate());
-			if (!Validator.isEmpty(waterInventoryData))
-			{
-				for (int i = 0; i < waterInventoryData.size(); i++)
-				{
+			if (!Validator.isEmpty(waterInventoryData)) {
+				for (int i = 0; i < waterInventoryData.size(); i++) {
 					WaterInventory wiDetail = new WaterInventory();
 					wiDetail = waterInventoryData.get(i);
-					wastewaterTreatmentData = wastewaterTreatmentServices.getAllWasteWaterTreatmentData(wiDetail.getWaterInventoryId());
-					if (!Validator.isEmpty(wastewaterTreatmentData))
-					{
-						for (int j = 0; j < wastewaterTreatmentData.size(); j++)
-						{
+					wastewaterTreatmentData = wastewaterTreatmentServices
+							.getAllWasteWaterTreatmentData(wiDetail.getWaterInventoryId());
+					if (!Validator.isEmpty(wastewaterTreatmentData)) {
+						for (int j = 0; j < wastewaterTreatmentData.size(); j++) {
 							List<WastewaterRecycle> wasteWaterRecycleList = new ArrayList<>();
 							WastewaterTreatment wastewaterTreatment = new WastewaterTreatment();
 							wastewaterTreatment = wastewaterTreatmentData.get(j);
-							regularTreatmentData = regularTreatmentDataServices.getRegularTreatementDataByDate(wastewaterTreatment.getWastewaterTreatmentId(), new PageRequest(0, 1));
+							regularTreatmentData = regularTreatmentDataServices.getRegularTreatementDataByDate(
+									wastewaterTreatment.getWastewaterTreatmentId(), new PageRequest(0, 1));
 							wastewaterTreatment.setRegularTreatmentData(regularTreatmentData);
-							wasteWaterRecycleData = wasteWaterRecycleSevices.getWasteWaterRecycle(wastewaterTreatment.getWastewaterTreatmentId());
+							wasteWaterRecycleData = wasteWaterRecycleSevices
+									.getWasteWaterRecycle(wastewaterTreatment.getWastewaterTreatmentId());
 
-							if (!Validator.isEmpty(wasteWaterRecycleData))
-							{
-								for (int k = 0; k < wasteWaterRecycleData.size(); k++)
-								{
+							if (!Validator.isEmpty(wasteWaterRecycleData)) {
+								for (int k = 0; k < wasteWaterRecycleData.size(); k++) {
 									WastewaterRecycle wastewaterRecycle = new WastewaterRecycle();
 									wastewaterRecycle = wasteWaterRecycleData.get(k);
-									regWastewaterRecycleData = regWastewaterRecycleServices.getRegWastewaterRecycleByRecycleId(wastewaterRecycle.getWastewaterRecycleId(), new PageRequest(0, 1));
+									regWastewaterRecycleData = regWastewaterRecycleServices
+											.getRegWastewaterRecycleByRecycleId(
+													wastewaterRecycle.getWastewaterRecycleId(), new PageRequest(0, 1));
 									wastewaterRecycle.setRegWastewaterRecycleData(regWastewaterRecycleData);
-									if (!wasteWaterRecycleList.contains(wastewaterRecycle))
-									{
+									if (!wasteWaterRecycleList.contains(wastewaterRecycle)) {
 										wasteWaterRecycleList.add(wastewaterRecycle);
 									}
 									wastewaterTreatment.setWasteWaterRecycleData(wasteWaterRecycleList);
 								}
 							}
-							if (!wastewaterTreatmentList.contains(wastewaterTreatment))
-							{
+							if (!wastewaterTreatmentList.contains(wastewaterTreatment)) {
 								wastewaterTreatmentList.add(wastewaterTreatment);
 							}
 						}
 					}
 					wiDetail.setWastewaterTreatmentList(wastewaterTreatmentList);
-					if (!Validator.isEmpty(wiDetail.getWastewaterTreatmentList()))
-					{
+					if (!Validator.isEmpty(wiDetail.getWastewaterTreatmentList())) {
 						wastewaterTreatmentObject.put("Result", true);
-						for (WastewaterTreatment wastewaterTreatment : wiDetail.getWastewaterTreatmentList())
-						{
+						for (WastewaterTreatment wastewaterTreatment : wiDetail.getWastewaterTreatmentList()) {
 							HashMap<String, Object> wiList = new HashMap<String, Object>();
 							wiList.put("type", wastewaterTreatment.getTreatmentType());
 							wiList.put("label", wastewaterTreatment.getLabel());
 							wiList.put("capacity", wastewaterTreatment.getCapacity());
 							wiList.put("wastewaterTreatmentId", wastewaterTreatment.getWastewaterTreatmentId());
-							if (!Validator.isEmpty(wastewaterTreatment.getRegularTreatmentData()))
-							{
-								for (RegularTreatmentData regularTreatment : wastewaterTreatment.getRegularTreatmentData())
-								{
+							if (!Validator.isEmpty(wastewaterTreatment.getRegularTreatmentData())) {
+								for (RegularTreatmentData regularTreatment : wastewaterTreatment
+										.getRegularTreatmentData()) {
 									Timestamp rtDate = regularTreatment.getCreateDateTime();
-									if (!Validator.isEmpty(rtDate))
-									{
+									if (!Validator.isEmpty(rtDate)) {
 										regtreatmentDate = Utilities.getDateinStringFromTimestamp(rtDate);
-										if (regtreatmentDate.equals(Utilities.getTodaysDate()))
-										{
+										if (regtreatmentDate.equals(Utilities.getTodaysDate())) {
 											wiList.put("status", "Filled");
 											wiList.put("startReading", regularTreatment.getStartReading());
 											wiList.put("endReading", regularTreatment.getEndReading());
@@ -1964,9 +1642,7 @@ public class DailyInputController extends Constant
 											wiList.put("energystartReading", regularTreatment.getEnergyStartReading());
 											wiList.put("energyendReading", regularTreatment.getEnergyEndReading());
 											wiList.put("energyActualReading", regularTreatment.getEnergyAvg());
-										}
-										else
-										{
+										} else {
 											wiList.put("status", "Fill");
 											wiList.put("startReading", "");
 											wiList.put("endReading", regularTreatment.getEndReading());
@@ -1977,9 +1653,7 @@ public class DailyInputController extends Constant
 										}
 									}
 								}
-							}
-							else
-							{
+							} else {
 								wiList.put("status", "New");
 								wiList.put("startReading", "");
 								wiList.put("endReading", "");
@@ -1989,51 +1663,44 @@ public class DailyInputController extends Constant
 								wiList.put("energyActualReading", "");
 							}
 							ArrayList<Object> wastewaterRecycleList = new ArrayList<>();
-							if (!Validator.isEmpty(wastewaterTreatment.getWasteWaterRecycleData()))
-							{
-								for (WastewaterRecycle wastewaterRecycle : wastewaterTreatment.getWasteWaterRecycleData())
-								{
+							if (!Validator.isEmpty(wastewaterTreatment.getWasteWaterRecycleData())) {
+								for (WastewaterRecycle wastewaterRecycle : wastewaterTreatment
+										.getWasteWaterRecycleData()) {
 									HashMap<String, Object> wwrList = new HashMap<String, Object>();
 									wwrList.put("wastewaterRecycleId", wastewaterRecycle.getWastewaterRecycleId());
 									wwrList.put("usedType", wastewaterRecycle.getUseType());
 									wwrList.put("recycleTo", wastewaterRecycle.getRecycledTo());
 									wwrList.put("quantity", wastewaterRecycle.getQuantity());
 									wwrList.put("isMeter", wastewaterRecycle.isMeter());
-									if (!Validator.isEmpty(wastewaterRecycle.getRegWastewaterRecycleData()))
-									{
-										for (RegWastewaterRecycle regWastewaterRecycle : wastewaterRecycle.getRegWastewaterRecycleData())
-										{
+									if (!Validator.isEmpty(wastewaterRecycle.getRegWastewaterRecycleData())) {
+										for (RegWastewaterRecycle regWastewaterRecycle : wastewaterRecycle
+												.getRegWastewaterRecycleData()) {
 											Timestamp rwrDate = regWastewaterRecycle.getCreateDateTime();
-											if (!Validator.isEmpty(rwrDate))
-											{
+											if (!Validator.isEmpty(rwrDate)) {
 												regRecycleDate = Utilities.getDateinStringFromTimestamp(rwrDate);
-												if (regRecycleDate.equals(Utilities.getTodaysDate()))
-												{
+												if (regRecycleDate.equals(Utilities.getTodaysDate())) {
 													wwrList.put("recycleStatus", "Filled");
-													if (wastewaterRecycle.isMeter() == true)
-													{
-														wwrList.put("recycleStartReading", regWastewaterRecycle.getStartReading());
-														wwrList.put("recycleEndReading", regWastewaterRecycle.getEndReading());
-														wwrList.put("recycleActualReading", regWastewaterRecycle.getActualReading());
-													}
-													else
-													{
+													if (wastewaterRecycle.isMeter() == true) {
+														wwrList.put("recycleStartReading",
+																regWastewaterRecycle.getStartReading());
+														wwrList.put("recycleEndReading",
+																regWastewaterRecycle.getEndReading());
+														wwrList.put("recycleActualReading",
+																regWastewaterRecycle.getActualReading());
+													} else {
 														wwrList.put("recycleStartReading", "");
 														wwrList.put("recycleEndReading", "");
-														wwrList.put("recycleActualReading", regWastewaterRecycle.getActualReading());
+														wwrList.put("recycleActualReading",
+																regWastewaterRecycle.getActualReading());
 													}
-												}
-												else
-												{
+												} else {
 													wwrList.put("recycleStatus", "Fill");
-													if (wastewaterRecycle.isMeter() == true)
-													{
+													if (wastewaterRecycle.isMeter() == true) {
 														wwrList.put("recycleStartReading", "");
-														wwrList.put("recycleEndReading", regWastewaterRecycle.getEndReading());
+														wwrList.put("recycleEndReading",
+																regWastewaterRecycle.getEndReading());
 														wwrList.put("recycleActualReading", "");
-													}
-													else
-													{
+													} else {
 														wwrList.put("recycleStartReading", "");
 														wwrList.put("recycleEndReading", "");
 														wwrList.put("recycleActualReading", "");
@@ -2041,52 +1708,39 @@ public class DailyInputController extends Constant
 												}
 											}
 										}
-									}
-									else
-									{
+									} else {
 										wwrList.put("recycleStatus", "New");
-										if (wastewaterRecycle.isMeter() == true)
-										{
+										if (wastewaterRecycle.isMeter() == true) {
 											wwrList.put("recycleStartReading", "");
 											wwrList.put("recycleEndReading", "");
 											wwrList.put("recycleActualReading", "");
-										}
-										else
-										{
+										} else {
 											wwrList.put("recycleStartReading", "");
 											wwrList.put("recycleEndReading", "");
 											wwrList.put("recycleActualReading", "");
 										}
 									}
-									if (!wastewaterRecycleList.contains(wwrList))
-									{
+									if (!wastewaterRecycleList.contains(wwrList)) {
 										wastewaterRecycleList.add(wwrList);
 									}
 									wiList.put("recycleList", wastewaterRecycleList);
 								}
 							}
-							if (!waterInventoryList.contains(wiList))
-							{
+							if (!waterInventoryList.contains(wiList)) {
 								waterInventoryList.add(wiList);
 							}
 						}
 						wastewaterTreatmentDataObject.put("treatmentData", waterInventoryList);
-					}
-					else
-					{
+					} else {
 						wastewaterTreatmentObject.put("Result", false);
 					}
 				}
 				wastewaterTreatmentObject.put("Data", wastewaterTreatmentDataObject);
-			}
-			else
-			{
+			} else {
 				wastewaterTreatmentObject.put("Data", wastewaterTreatmentDataObject);
 				wastewaterTreatmentObject.put("Result", false);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
 		wastewaterTreatmentArray.put(wastewaterTreatmentObject);
@@ -2095,17 +1749,14 @@ public class DailyInputController extends Constant
 
 	@PostMapping("/ajax-save-regular-treatmentData")
 	public @ResponseBody String saveRegularTreatmentData(@RequestBody JsonObject wasteWaterTreatmentObj,
-			HttpServletRequest request)
-	{
+			HttpServletRequest request) {
 		JsonObject regTreatmentObj = wasteWaterTreatmentObj.getAsJsonObject("regularTreatmentData");
 		String result = "";
 		EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
 		Users users = new Users();
 		users.setUsersId(empDataSession.getUsers().getUsersId());
-		try
-		{
-			if (!Validator.isEmpty(regTreatmentObj))
-			{
+		try {
+			if (!Validator.isEmpty(regTreatmentObj)) {
 				WastewaterTreatment wasteWaterTreatment = new WastewaterTreatment();
 				wasteWaterTreatment.setWastewaterTreatmentId(regTreatmentObj.get("treatmentId").getAsInt());
 				RegularTreatmentData regularTreatmentData = new RegularTreatmentData();
@@ -2119,44 +1770,39 @@ public class DailyInputController extends Constant
 				regularTreatmentData.setUsers(users);
 				regularTreatmentData = regularTreatmentDataServices.save(regularTreatmentData);
 
-				if (regularTreatmentData != null)
-				{
+				if (regularTreatmentData != null) {
 					result = "success";
-				}
-				else
-				{
+				} else {
 					result = "fail";
 				}
 				JsonArray regRecycleArray = regTreatmentObj.getAsJsonArray("regRecycleList");
 
-				if (!Validator.isEmpty(regRecycleArray))
-				{
-					for (JsonElement regWasteWaterRecycleObj : regRecycleArray)
-					{
+				if (!Validator.isEmpty(regRecycleArray)) {
+					for (JsonElement regWasteWaterRecycleObj : regRecycleArray) {
 						RegWastewaterRecycle regWasteWaterRecycle = new RegWastewaterRecycle();
 						WastewaterRecycle wastewaterRecycle = new WastewaterRecycle();
-						wastewaterRecycle.setWastewaterRecycleId(regWasteWaterRecycleObj.getAsJsonObject().get("recycleId").getAsInt());
-						regWasteWaterRecycle.setRegWastewaterRecycleId(regWasteWaterRecycleObj.getAsJsonObject().get("recycleId").getAsInt());
+						wastewaterRecycle.setWastewaterRecycleId(
+								regWasteWaterRecycleObj.getAsJsonObject().get("recycleId").getAsInt());
+						regWasteWaterRecycle.setRegWastewaterRecycleId(
+								regWasteWaterRecycleObj.getAsJsonObject().get("recycleId").getAsInt());
 						regWasteWaterRecycle.setWastewaterRecycle(wastewaterRecycle);
-						regWasteWaterRecycle.setStartReading(regWasteWaterRecycleObj.getAsJsonObject().get("recycleStartReading").getAsFloat());
-						regWasteWaterRecycle.setEndReading(regWasteWaterRecycleObj.getAsJsonObject().get("recycleEndReading").getAsFloat());
-						regWasteWaterRecycle.setActualReading(regWasteWaterRecycleObj.getAsJsonObject().get("recycleActReading").getAsFloat());
+						regWasteWaterRecycle.setStartReading(
+								regWasteWaterRecycleObj.getAsJsonObject().get("recycleStartReading").getAsFloat());
+						regWasteWaterRecycle.setEndReading(
+								regWasteWaterRecycleObj.getAsJsonObject().get("recycleEndReading").getAsFloat());
+						regWasteWaterRecycle.setActualReading(
+								regWasteWaterRecycleObj.getAsJsonObject().get("recycleActReading").getAsFloat());
 						regWasteWaterRecycle.setUsers(users);
 						regWasteWaterRecycle = regWastewaterRecycleServices.save(regWasteWaterRecycle);
-						if (regWasteWaterRecycle != null)
-						{
+						if (regWasteWaterRecycle != null) {
 							result = "success";
-						}
-						else
-						{
+						} else {
 							result = "fail";
 						}
 					}
 				}
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
 		return result;

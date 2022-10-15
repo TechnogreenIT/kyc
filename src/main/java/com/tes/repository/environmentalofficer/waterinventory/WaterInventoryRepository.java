@@ -1,11 +1,14 @@
 package com.tes.repository.environmentalofficer.waterinventory;
 
 import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import com.tes.model.WaterInventory;
 
 @Repository
@@ -19,8 +22,10 @@ public interface WaterInventoryRepository extends JpaRepository<WaterInventory, 
 	@Query("SELECT NEW WaterInventory(w.waterInventoryId) FROM WaterInventory w LEFT JOIN w.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND c.consStatus!='Expired' AND c.companyProfile.companyProfileId = :companyId AND (c.validUpto>=:todaysDate OR ce.validUpto>=:todaysDate)")
 	public List<WaterInventory> getwaterInventoryData(@Param("companyId") int companyId, @Param("todaysDate") String todaysDate);
 
-	@Query("SELECT w.waterInventoryId FROM WaterInventory w LEFT JOIN w.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND c.consStatus!='Expired' AND c.companyProfile.companyProfileId = :companyId AND (c.validUpto>=:todaysDate OR ce.validUpto>=:todaysDate) ")
-	public int getWaterInventoryId(@Param("companyId") int companyId, @Param("todaysDate") String todaysDate);
+	@Query("SELECT NEW WaterInventory(w.waterInventoryId) FROM WaterInventory w LEFT JOIN w.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType = 'Consent to Operate' AND c.consStatus!='Expired' AND c.companyProfile.companyProfileId=:companyId AND (c.validUpto >= :todaysDate OR ce.validUpto >= :todaysDate) ORDER BY c.consentId DESC")
+	public List<WaterInventory>  getWaterInventorygetId(@Param("companyId") int companyId, @Param("todaysDate") String todaysDate ,Pageable pageable);
+	//@Query("SELECT NEW WaterInventory(w.waterInventoryId) FROM WaterInventory w LEFT JOIN w.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND c.consStatus!='Expired' AND c.companyProfile.companyProfileId = :companyId AND (c.validUpto>=:todaysDate OR ce.validUpto>=:todaysDate) ORDER BY w.waterInventoryId DESC")
+	
 
 	// Effected By Water Inventory ........by vishal
 	/*

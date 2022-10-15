@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.tes.model.RegEffPoll;
+import com.tes.model.RegSewPoll;
 import com.tes.model.WastewaterTreatment;
 
 @Repository
@@ -62,6 +63,9 @@ public interface WastewaterTreatmentRepository extends JpaRepository<WastewaterT
 
 	@Query("SELECT wt FROM WastewaterTreatment wt WHERE wt.waterInventory.waterInventoryId=:waterInventoryId AND wt.treatmentType=:treatemetType")
 	List<WastewaterTreatment> getTreatmentType(@Param("waterInventoryId") int waterInventoryId, @Param("treatemetType") String treatemetType);
+
+	@Query("SELECT DISTINCT NEW RegSewPoll(ref.wastewaterTreatment) FROM RegSewPoll ref LEFT JOIN  ref.wastewaterTreatment wt WHERE ref.sampS=:pdata")
+	List<RegSewPoll> getSewlabelListBydate(@Param("pdata") String pdata);
 
 	/*
 	 * @Query("SELECT DISTINCT wt.typeName FROM WastewaterTreatment wt WHERE wt.waterInventory.waterInventoryId = :waterInv"

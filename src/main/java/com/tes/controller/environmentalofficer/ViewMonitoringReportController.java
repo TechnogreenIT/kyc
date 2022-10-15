@@ -480,14 +480,14 @@ public class ViewMonitoringReportController
 		JSONObject json;
 		try
 		{
-			List<RegEffPoll> labelList = wastewaterTreatmentServices.getlabelListBydate(pdata);
-			for (int i = 0; i < labelList.size(); i++)
+			List<RegEffPoll> labelEffList = wastewaterTreatmentServices.getlabelListBydate(pdata);
+			List<RegSewPoll> labelSewList = wastewaterTreatmentServices.getSewlabelListBydate(pdata);
+			for (int i = 0; i < labelEffList.size(); i++)
 			{
 				json = new JSONObject();
-				json.put("label", labelList.get(i).getLabel());
-				int tretmentId = labelList.get(i).getTrementId();
-				if (labelList.get(i).getTreatmentType().equals("ETP"))
-				{
+				json.put("label", labelEffList.get(i).getLabel());
+				int tretmentId = labelEffList.get(i).getTrementId();
+				
 					json.put("Pollutant", new String("Effluent Pollutant"));
 					List<RegEffPoll> regeffpollList = regEffPollServices.getRegEffPollDataDateAndId(tretmentId, pdata);
 					JSONArray dataList = new JSONArray();
@@ -502,9 +502,14 @@ public class ViewMonitoringReportController
 						dataList.put(jsonObject);
 					}
 					json.put("PollList", dataList);
+					FinalArray.put(json);
 				}
-				else
+			 for (int i = 0; i < labelSewList.size(); i++)
 				{
+				    json = new JSONObject();
+				    json.put("label", labelSewList.get(i).getLabel());
+					int tretmentId = labelSewList.get(i).getTrementId();
+					
 					json.put("Pollutant", new String("Sewage Pollutant"));
 					List<RegSewPoll> regsewagepollList = regSewPollServices.getRegSewPollDataDateAndId(tretmentId, pdata);
 					JSONArray dataList = new JSONArray();
@@ -518,7 +523,7 @@ public class ViewMonitoringReportController
 						dataList.put(jsonObject);
 					}
 					json.put("PollList", dataList);
-				}
+				
 				FinalArray.put(json);
 			}
 		}

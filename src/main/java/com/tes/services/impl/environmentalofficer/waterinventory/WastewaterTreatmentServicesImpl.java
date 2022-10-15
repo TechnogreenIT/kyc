@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tes.model.RegEffPoll;
+import com.tes.model.RegSewPoll;
 import com.tes.model.WastewaterTreatment;
 import com.tes.repository.environmentalofficer.waterinventory.WastewaterTreatmentRepository;
 import com.tes.services.environmentalofficer.waterinventory.WastewaterTreatmentServices;
@@ -122,6 +123,17 @@ public class WastewaterTreatmentServicesImpl implements WastewaterTreatmentServi
 	{
 		return waterTreatmentRepository.getTreatmentType(waterInventoryId, treatemetType);
 	}
+
+	@Override
+	public List<RegSewPoll> getSewlabelListBydate(String pdata) {
+		return waterTreatmentRepository.getSewlabelListBydate(pdata);
+	}
+
+//	@Override
+//	public List<RegSewPoll> getSewlabelListBydate(String pdata) {
+//		// TODO Auto-generated method stub
+//		return waterTreatmentRepository.getSewlabelListBydate(pdata);
+	//}
 
 	/*
 	 * @Override public Float getQuantityByWIdTypeNameTypeRecycledTo(int waterInvId,

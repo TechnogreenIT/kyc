@@ -2,6 +2,7 @@ package com.tes.services.environmentalofficer.waterinventory;
 
 import java.util.List;
 import com.tes.model.RegEffPoll;
+import com.tes.model.RegSewPoll;
 import com.tes.model.WastewaterTreatment;
 
 public interface WastewaterTreatmentServices
@@ -42,6 +43,8 @@ public interface WastewaterTreatmentServices
 	List<RegEffPoll> getlabelListBydate(String date);
 
 	List<WastewaterTreatment> getTreatmentType(int waterInventoryId, String treatemetType);
+
+    List<RegSewPoll> getSewlabelListBydate(String pdata);
 
 	// Float getQuantityByWIdTypeNameTypeRecycledTo(int waterInvId,String treatmentType,String recyledTo);
 	// List<String> getRecyclerToByWIdTreatmentTypeAndName(int waterInvId, String treatmentType);

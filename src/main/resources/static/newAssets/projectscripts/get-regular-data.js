@@ -1002,7 +1002,7 @@ function getWaterFilterDailyInputData(){
   									        				 	"<td><input type='hidden' class='form-control' name='filterName[]' id='filter_name_"+ index + "' value='" + filterName+ "'>"+filterName+"</td>" +
   									        				 	"<td>" +
   									        				 		"<div class='form-group mb-0'>" +
-  									        				 			"<input type='text' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='" + endReading + "' disabled/> <i class='form-group__bar'></i>" +
+  									        				 			"<input type='text' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='" + startReading+ "' disabled/> <i class='form-group__bar'></i>" +
   									        				 		"</div>" +
   									        					 "</td>" +
   									        					 "<td>" +

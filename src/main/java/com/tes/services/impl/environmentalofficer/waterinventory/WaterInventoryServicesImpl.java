@@ -1,9 +1,12 @@
 package com.tes.services.impl.environmentalofficer.waterinventory;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.tes.model.WaterInventory;
 import com.tes.repository.environmentalofficer.waterinventory.WaterInventoryRepository;
 import com.tes.services.environmentalofficer.waterinventory.WaterInventoryServices;
@@ -85,9 +88,9 @@ public class WaterInventoryServicesImpl implements WaterInventoryServices
 	}
 
 	@Override
-	public int getWaterInventoryId(int companyId, String todaysDate)
+	public List<WaterInventory> getWaterInventorygetId(int companyId, String todaysDate, PageRequest pageRequest)
 	{
-		return waterInventoryRepository.getWaterInventoryId(companyId, todaysDate);
+		return waterInventoryRepository. getWaterInventorygetId(companyId,todaysDate,pageRequest);
 	}
 
 	@Override
