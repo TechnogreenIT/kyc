@@ -200,7 +200,8 @@ public class StatisticsController
 
 			try
 			{
-				allUnits = allProductsServices.findGetunitByProductType(decodedStatiticsName);
+				// allUnits = allProductsServices.findGetunitByProductType(decodedStatiticsName);
+				allUnits = allProductsServices.findOnlyUnit(decodedStatiticsName);
 			}
 			catch (Exception e)
 			{
@@ -239,17 +240,30 @@ public class StatisticsController
 			String unit = null;
 			if (action.equalsIgnoreCase("getUnits"))
 			{
-				List<String> allUnits = new ArrayList<>();
-				allUnits = allProductsServices.findGetunitByProductType(type);
-				if (!Validator.isEmpty(allUnits))
+
+				// List<String> allUnits = new ArrayList<>();
+				List<String> allUnits1 = new ArrayList<>();
+				// allUnits = allProductsServices.findGetunitByProductType(type);
+				allUnits1 = allProductsServices.findOnlyUnit(type);
+				if (!Validator.isEmpty(allUnits1))
 				{
-					for (String allUnit : allUnits)
+					// for (String allUnit : allUnits)
+					// {
+					// unit = allUnit;
+					// HashMap<String, Object> hashMap = new HashMap<String, Object>();
+					// hashMap.put("unit", new String(unit));
+					// jsonArray.put(hashMap);
+					// }
+
+					for (int i = 0; i < allUnits1.size(); i++)
 					{
-						unit = allUnit;
+						unit = allUnits1.get(i);
 						HashMap<String, Object> hashMap = new HashMap<String, Object>();
-						hashMap.put("unit", new String(allUnit));
+						hashMap.put("unit", new String(unit));
 						jsonArray.put(hashMap);
+
 					}
+
 				}
 			}
 		}

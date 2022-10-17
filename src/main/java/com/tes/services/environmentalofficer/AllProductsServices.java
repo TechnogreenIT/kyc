@@ -48,4 +48,7 @@ public interface AllProductsServices
 
 	Float getQuantityByProductName(String pName);
 
+	/// mmmm
+	public List<String> findOnlyUnit(String productType);
+
 }

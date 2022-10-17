@@ -157,4 +157,11 @@ public class AllProductsServicesImpl implements AllProductsServices
 	{
 		return allProductsRepository.getQuantityByProductName(pName);
 	}
+
+	/// mmm
+	@Override
+	public List<String> findOnlyUnit(String productType)
+	{
+		return allProductsRepository.findOnlyUnit(productType);
+	}
 }

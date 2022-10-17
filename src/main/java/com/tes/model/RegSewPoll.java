@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -52,4 +52,28 @@ public class RegSewPoll
 
 	@Column(name = "reason")
 	private String reason;
+
+	@Transient
+	private String label;
+
+	@Transient
+	private String treatmentType;
+
+	@Transient
+	private int trementId;
+
+	// method create for wastewater treatment
+	//
+	public RegSewPoll(WastewaterTreatment wastewaterTreatment)
+	{
+		super();
+		this.label = wastewaterTreatment.getLabel();
+		this.treatmentType = wastewaterTreatment.getTreatmentType();
+		this.trementId = wastewaterTreatment.getWastewaterTreatmentId();
+	}
+
+	public RegSewPoll()
+	{
+		super();
+	}
 }

@@ -41,7 +41,7 @@ public interface AllProductsRepository extends JpaRepository<AllProducts, Long>
 	@Query("SELECT p.allProductsId,p.consent,p.allProductName.productName FROM AllProducts p WHERE p.consent.consentId = 3")
 	List<AllProducts> findByTesting();// this is for only testing after CrudRepository
 
-	@Query("SELECT DISTINCT  (u.units) FROM AllProductComparativeSheet apc LEFT JOIN apc.allProducts a  LEFT JOIN a.consent c LEFT JOIN a. allProductName an LEFT JOIN a.unit u WHERE c.consType LIKE 'Consent to Operate' AND  an.type LIKE :productType")
+	@Query("SELECT DISTINCT  (u.units) FROM AllProductComparativeSheet apc LEFT JOIN apc.allProducts a  LEFT JOIN a.consent c LEFT JOIN a. allProductName an LEFT JOIN a.unit u WHERE c.consType LIKE 'Consent to Operate' AND  an.type LIKE (:productType)")
 	List<String> findGetunitByProductType(@Param("productType") String productType);
 
 	@Query("SELECT u.units FROM Unit u, AllProducts a, Consent c WHERE  a.consent=c.consentId AND c.consType = 'Consent to Operate' AND a.allProductName.productName = :productName")
@@ -73,9 +73,14 @@ public interface AllProductsRepository extends JpaRepository<AllProducts, Long>
 	@Query("SELECT MAX(apc.quantity) AS quantity  FROM AllProductComparativeSheet apc  INNER JOIN apc.allProducts a  INNER JOIN a.consent c  INNER JOIN a. allProductName an INNER JOIN a.unit u 	  WHERE  c.issueDate <=:today    AND c.consType ='Consent to Operate'   AND an.type =:productName GROUP BY  an.productName")
 	public float getSumOfQuantity(@Param("today") String today, @Param("productName") String productName);
 
-	@Query("SELECT  DISTINCT(apn.productName),u.units  FROM RegularData r  LEFT JOIN r.allProductComparativeSheet apc   LEFT JOIN apc.allProducts a  LEFT JOIN a.allProductName apn   LEFT JOIN a.unit u WHERE apn.type= :productType ")
+	@Query("SELECT  DISTINCT(apn.productName),u.units FROM RegularData r LEFT JOIN r.allProductComparativeSheet apc LEFT JOIN apc.allProducts a LEFT JOIN a.allProductName apn LEFT JOIN a.unit u WHERE apn.type = :productType")
 	List<Object[]> getProductByType(@Param("productType") String productType);
 
 	@Query("SELECT DISTINCT (a.quantity)  FROM AllProductComparativeSheet apc  INNER JOIN apc.allProducts a   INNER JOIN a.consent c  INNER JOIN a. allProductName an WHERE  c.consType ='Consent to Operate'   AND an.productName =:pName")
 	Float getQuantityByProductName(@Param("pName") String pName);
+
+	// mmm
+	@Query("SELECT DISTINCT  (u.units) FROM AllProductComparativeSheet apc LEFT JOIN apc.allProducts a  LEFT JOIN a.consent c LEFT JOIN a. allProductName an LEFT JOIN a.unit u WHERE c.consType LIKE 'Consent to Operate' AND  an.type LIKE (:productType)")
+	List<String> findOnlyUnit(@Param("productType") String productType);
+
 }
