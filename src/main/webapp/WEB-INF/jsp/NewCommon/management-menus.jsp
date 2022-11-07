@@ -89,14 +89,14 @@
 							class="zmdi zmdi-file-text zmdi-hc-fw"></i> Environmental
 							Statement Report(ESR) <i class="zmdi zmdi-plus float-right"></i></a>
 						<ul>
-							<li><a onclick="makeYearlyEsrPopUP()"> <i
+							<li><a onclick="makeYearlyEsrPopUP('Man')"> <i
 									class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Yearly
 							</a></li>
 						</ul></li>
 					<li><a onclick="waterBudgetPopUP()"> <i class="fa fa-tint"
 							aria-hidden="true"></i> Water Budget
 					</a></li>
-					<li><a onclick="makeHazardousReturnPopUP()"> <i
+					<li><a onclick="makeHazardousReturnPopUP1()"> <i
 							class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Hazardous Return
 							Form
 					</a></li>

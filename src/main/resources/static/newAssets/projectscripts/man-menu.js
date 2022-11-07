@@ -2,7 +2,7 @@
 
 function makeYearlyEsrPopUP(){
 	var html= "";
-	var fwd_url = "ajax-getYearlyEsrValues";
+	var fwd_url = "ajax-getYearlyEsrValuesMan";
 	$.ajax({
 		type: 'POST',
 		url: fwd_url,
@@ -56,7 +56,8 @@ function getYearlyESRData(){
 	var year = btoa($("#esrYearlyYear").val());
 	flag += customSelectValidator(year, "esrYearlyYear");
 	if(flag == 0 ){
-		window.location="yearly-esr?year="+year;
+		window.location="management-esr-form?year="+year;
+
 	}
 	
 }
@@ -133,10 +134,10 @@ function getWaterBudget(){
 	
 }
 
-function makeHazardousReturnPopUP(){
+function makeHazardousReturnPopUP1(){
 
 	var html= "";
-	var fwd_url = "ajax-getHazardousValues";
+	var fwd_url = "ajax-getHazardousValuesMan";
 	$.ajax({
 		type: 'POST',
 		url: fwd_url,
@@ -195,6 +196,6 @@ function getHzReturnData(){
 	flag += customSelectValidator(year, "hzReturnYear");
 	
 	if(flag == 0){
-		window.location="envr-officer-hazardous-return?year="+year;
+		window.location="envr-officer-hazardous-return-man?year="+year;
 	}
 }

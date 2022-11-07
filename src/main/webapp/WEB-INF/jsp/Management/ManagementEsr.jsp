@@ -5,20 +5,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="jquery/themes/base/jquery.ui.all.css">
-<script src="jquery/tests/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="js/esr.js"></script>
-<script type="text/javascript" src="js/management-esr.js"></script>
-<script type="text/javascript" src="js/addElements.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="icon" href="img/faviconkyc.png" type="image/gif"
-	sizes="12x12">
+<jsp:include page="../NewCommon/common-css.jsp" />
 <title>E.S.R Yearly</title>
 
 </head>
 <body>
-
-	<jsp:include page="../CommonWebpages/HeaderWebpages/CommonHeader.jsp" />
+<jsp:include page="../NewCommon/common-header.jsp" />
+	<!--<jsp:include page="../CommonWebpages/HeaderWebpages/CommonHeader.jsp" />-->
 	<c:choose>
 		<c:when test="${emplogindata.contPerDesig=='admin'}">
 			<c:import url="../CommonWebpages/MenusWebpages/AdminMenus.jsp" />
@@ -1159,6 +1152,12 @@
 		</div>
 	</div>
 	</section> </section>
+	<!-- Javascript --> <!-- include common css start--> <jsp:include
+		page="../NewCommon/common-javascript.jsp" /> <!-- include common css end-->
+	<script type="text/javascript" src="../newAssets/projectscripts/common-functions.js"></script>
+		<script type="text/javascript" src="../newAssets/projectscripts/esr-Yearly.js"></script>
+	<jsp:include page="../NewCommon/common-footer.jsp" />
+	
 	<script type="text/javascript">
 
 $(document).ready(function(){
@@ -1198,7 +1197,6 @@ $(document).ready(function(){
 		
 });
 </script>
-	<jsp:include page="../CommonWebpages/FooterWebpages/Footer.jsp" />
 
 </body>
 </html>

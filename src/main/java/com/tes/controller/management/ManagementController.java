@@ -18,7 +18,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -1442,31 +1441,31 @@ public class ManagementController extends BaseManagementController
 		return data;
 	}
 
-	@RequestMapping(value = "/ajax-getYearlyEsrValues")
-	@ResponseBody
-	public String getYearlyEsrValues() throws JSONException
-	{
-		String jsonString = null, todayDate = Utilities.getTodaysDate(), today_date[] = todayDate.split("-");
-		int esrMaxYear = Integer.parseInt(today_date[0]) + 1, esrMinYear = 0;
-		JSONArray jsonArray = new JSONArray();
-		try
-		{
-			esrMinYear = consentServices.consentMinYearForEsr();
-			int maxYearDiff = esrMaxYear - esrMinYear;
-			for (int i = 0; i <= maxYearDiff; i++)
-			{
-				String yearPair = (esrMaxYear - 1) + "-" + esrMaxYear;
-				HashMap<String, String> hashMap = new HashMap<String, String>();
-				hashMap.put("esrYear", new String(yearPair));
-				jsonArray.put(hashMap);
-				esrMaxYear = esrMaxYear - 1;
-			}
-			jsonString = jsonArray.toString();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error(e);
-		}
-		return jsonString;
-	}
+	// @RequestMapping(value = "/ajax-getYearlyEsrValuesMan")
+	// @ResponseBody
+	// public String getYearlyEsrValues() throws JSONException
+	// {
+	// String jsonString = null, todayDate = Utilities.getTodaysDate(), today_date[] = todayDate.split("-");
+	// int esrMaxYear = Integer.parseInt(today_date[0]) + 1, esrMinYear = 0;
+	// JSONArray jsonArray = new JSONArray();
+	// try
+	// {
+	// esrMinYear = consentServices.consentMinYearForEsr();
+	// int maxYearDiff = esrMaxYear - esrMinYear;
+	// for (int i = 0; i <= maxYearDiff; i++)
+	// {
+	// String yearPair = (esrMaxYear - 1) + "-" + esrMaxYear;
+	// HashMap<String, String> hashMap = new HashMap<String, String>();
+	// hashMap.put("esrYear", new String(yearPair));
+	// jsonArray.put(hashMap);
+	// esrMaxYear = esrMaxYear - 1;
+	// }
+	// jsonString = jsonArray.toString();
+	// }
+	// catch (Exception e)
+	// {
+	// LOGGER.error(e);
+	// }
+	// return jsonString;
+	// }
 }

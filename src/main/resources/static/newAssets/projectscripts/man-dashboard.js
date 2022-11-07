@@ -1086,3 +1086,55 @@ $.ajax({
 });
  
 }
+
+//function makeYearlyEsrPopUP(){
+//	var html= "";
+//	var fwd_url = "/ajax-getYearlyEsrValuesMan";
+//	$.ajax({
+//		type: 'POST',
+//		url: fwd_url,
+//		success: function (data) {
+//			var parseData = JSON.parse(data);
+//			var esrMinY = "";
+//			var esrMaxY = "";
+//			var yearArray=[];
+//			yearArray=parseData;
+//			$.each(parseData, function(index, element) { 
+//				var esrYear = element.esrYear;
+//				
+//				if(esrYear != "NA"){
+//					var res = esrYear.split("-");
+//					html += "<option value='"+esrYear+"'>April "+res[0]+" - March "+res[1]+"</option>"
+//				} else {
+//					html += "<option value='selectcard'>You have no any consent to Operate</option>"
+//				}
+//			});
+//
+//		},
+//		async: false
+//	});
+//	var modelTitle = "SELECT YEAR FOR ENVIRONMENTAL STATEMENT REPORT";
+//
+//	var bodyForm = "<div class='row'>"
+//			+ "<div class='col-12'>"
+//			+ "<div class='form-group'>"
+//			+ "<select class='select2' data-placeholder='Select Year' name='esrYearlyYear' id='esrYearlyYear'>"
+//			+ "<option value=''>Select Year</option>"
+//			+ html
+//			+ "</select>"
+//			+ "<div class='invalid-feedback'>Please select any !</div>"
+//			+ "</div>"
+//			+ "</div>"
+//			+ "</div>";
+//	$.showModal({
+//		title: modelTitle,
+//		modalDialogClass: '',
+//		body: bodyForm,
+//		footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Cancel</button><button type='button' onclick='getYearlyESRData()' class='btn btn-primary'>GET STATEMENT</button>",
+//		onCreate: function (modal) {
+//			// create event handler for form submit and handle values
+//
+//		}
+//	})
+//	makeSelect2();
+//}

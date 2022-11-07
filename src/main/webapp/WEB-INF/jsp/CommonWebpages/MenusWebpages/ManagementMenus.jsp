@@ -62,7 +62,7 @@ function waterBudgetPopUP(){
 		}
 	});
 }
-function makeYearlyEsrPopUP() {
+function makeYearlyEsrPopUP1() {
 	var fwd_url = "ajax-getYearlyEsrValues";
 	$.ajax({
 		type : "POST",
@@ -108,7 +108,7 @@ function makeYearlyEsrPopUP() {
 			    		html += "</div>"
 			    	html+="<div class='col-sm-2'></div>"
 			    	html+="<div class='col-sm-3'>"
-								html +=	"<button type='button' class='btn btn-default' style='background-color:#9161cc;color:white;' data-dismiss='modal' onclick='javascript:return selectESRValidateYear();'>GET STATEMENT</button>"
+								html +=	"<button type='button' class='btn btn-default' style='background-color:#9161cc;color:white;' data-dismiss='modal' onclick='javascript:return selectESRValidateYear1();'>GET STATEMENT</button>"
 								html +="</div>"
 								html +=	"</div>"
 								html +=	"</div>"
@@ -125,7 +125,7 @@ function makeYearlyEsrPopUP() {
                           }
 	         });
 }
-function selectESRValidateYear() {
+function selectESRValidateYear1() {
 	 var ddl1 = document.getElementById("esr_year");
 	 var selectedValue1 = ddl1.options[ddl1.selectedIndex].value;
 	 var flag1 = 1;
@@ -143,10 +143,10 @@ function selectESRValidateYear() {
 	        return false;
 	    }
 		if(flag2 == 1 && flag2 == 1){
-			addESRData();
+			addESRData1();
 		}
 	}
-function addESRData(){
+function addESRData1(){
 	var year = document.getElementById("esr_year").value;
 	var encodedYear = btoa(year);
 	console.log("esr-year"+year);
@@ -349,11 +349,28 @@ for(int i = 0; i < urlstring.size() ; i++)
 				class="zmdi zmdi-file-text zmdi-hc-fw"></i>Compliance Forms</a>
 			<ul>
 				<!-- <li><a href="comparative_main.php"><i class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Comparative Sheet</a></li>-->
-				<li><a href="" data-toggle='modal' data-target='#myModal'>
-						<a onclick="javascript:makeYearlyEsrPopUP()"
+				<!--  <li><a href="" data-toggle='modal' data-target='#myModal'>
+						<a onclick="javascript:makeYearlyEsrPopUP1()"
 						style="cursor: pointer;"> <i
 							class="zmdi zmdi-view-headline zmdi-hc-fw"></i> ESR Form
-					</a></li>
+					</a></li>-->
+					
+					
+		<li class="sub-menu"><a href="#"><i
+						class="zmdi zmdi-file-text zmdi-hc-fw"></i>Environmental Statement
+						Report(ESR)</a>
+					<ul>
+						<!--  <li><a onclick="javascript:makeMonthlyEsrPopUP()"
+							style="cursor: pointer;"> <i
+								class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Monthly
+						</a></li>-->
+						<li><a onclick="javascript:makeYearlyEsrPopUP()"
+							style="cursor: pointer;"> <i
+								class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Yearly
+						</a></li>
+					</ul></li>			
+					
+					
 				<li><a onclick="javascript:waterBudgetPopUP()"
 					style="cursor: pointer;"> <i
 						class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Water Budget
@@ -462,24 +479,26 @@ for(int i = 0; i < urlstring.size() ; i++)
 </aside>
 <div id="idMyModal"></div>
 <div id="idMyModalconsent"></div>
-<!-- <div class="modal fade" id="myModal" role="dialog">
+ <div class="modal fade" id="esrYearly" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width: 950px;">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<div class='col-sm-12'>
-				<h4 class="modal-title">SELECT YEAR FOR ENVIRONMENTAL STATEMENT REPORT<br></h4></div>
+				<h4 class="modal-title">
+				SELECT YEAR FOR ENVIRONMENTAL STATEMENT REPORT<br>
+				</h4>
+				</div>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class='col-sm-12'>
-						<div class='col-sm-6'>
-						
-						</div>
+						<div class='col-sm-6'></div>
 						<div class='col-sm-2'></div>
 						<div class='col-sm-3'>
-							<button type="button" class='btn btn-default' style='margin-left:85px;background-color:#9161cc;color:white;' 
-							data-dismiss='modal' onclick='javascript:addESRData();'>GET STATEMENT</button>
+							<button type="button" class='btn btn-default' 
+							style='margin-left: 85px; background-color: #9161cc; color:white;' 
+							data-dismiss='modal' onclick='javascript:addESRData1();'>GET STATEMENT</button>
 						</div>
 					</div>
 				</div>
@@ -489,7 +508,7 @@ for(int i = 0; i < urlstring.size() ; i++)
 			</div>
 		</div>
 	</div>
-</div> -->
+</div> 
 <!-- <div class="modal fade" id="waterBudget" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">

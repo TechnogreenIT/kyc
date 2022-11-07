@@ -140,7 +140,6 @@ function getYearlyESRData(){
 	
 }
 function waterBudgetPopUP(){
-
 	var html= "";
 	var fwd_url = "ajax-consentNoPopUpValues";
 	$.ajax({
@@ -151,11 +150,16 @@ function waterBudgetPopUP(){
 			$.each(parseData, function(index, element) { 
 				var consentNo = element.consentNo;
 				var consentName = element.consentName;
-				if(parseData != "NA"){
+				if(parseData != "NA")
+				{
 					html += "<option value='"+consentNo+"'>"+consentName+"</option>"
-				} else {
+				} 
+				
+				else 
+				{
 					html += "<option value=''>You have no any consent to Operate</option>"
 				}
+			
 			}); 
 
 		},
@@ -184,9 +188,10 @@ function waterBudgetPopUP(){
 
 		}
 	})
+
 	makeSelect2();
-*/
 }
+
 
 
 function getWaterBudget(){

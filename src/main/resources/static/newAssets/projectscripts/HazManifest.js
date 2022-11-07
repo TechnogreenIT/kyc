@@ -267,7 +267,7 @@ function openDaysHazManifest(){
 	var month = $("#viewManifest_month").val();
 	$.ajax({
         type: "POST",
-        url: "ajax-day-hw-manifest",
+        url: "/ajax-day-hw-manifest",
         data: ({
             year: year,
             month: month
@@ -296,7 +296,7 @@ function onDaySetGetDataHazData(){
 	today = year+"-"+month+"-"+day;
 	$.ajax({
         type: "POST",
-        url: "ajax-hw-manifest-data",
+        url: "/ajax-hw-manifest-data",
         data: ({
         	selectedDate : today
         }),
