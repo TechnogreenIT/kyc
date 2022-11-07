@@ -623,8 +623,9 @@ for(int i = 0; i < urlstring.size() ; i++)
 							class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Bio-Medical Waste</a></li>
 				</c:if>
 
+				<!--cmnt by pallavi
 				<li><a href="water-performance"><i
-						class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Water Performance</a></li>
+						class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Water Performance</a></li>-->
 				<!-- <li><a href="wasteWater.php"><i class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Wastewater Generation</a></li> -->
 
 			</ul></li>

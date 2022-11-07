@@ -256,10 +256,11 @@
 								class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Bio-Medical
 								Waste</a></li>
 					</c:if>
+					<!--cmnt by pallavi
 					<li><a href="water-performance"><i
 							class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Water Performance
 					</a></li>
-				</ul></li>
+				</ul></li>-->
 
 			<li class="navigation__sub"><a href=""><i
 					class="zmdi zmdi-assignment-check zmdi-hc-fw"></i> Overall

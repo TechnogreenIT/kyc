@@ -55,6 +55,7 @@ public class ViewManifestController
 	 * @throws JSONException indicates that some exception happened during JSON processing.
 	 */
 	@RequestMapping(value = "/ajax-day-hw-manifest", method = RequestMethod.POST)
+	
 	@ResponseBody
 	public List<Integer> countDays(@RequestParam(value = "year", required = false) int year,
 			@RequestParam(value = "month", required = false) int month) throws JSONException
@@ -74,6 +75,32 @@ public class ViewManifestController
 		return arrayDay;
 
 	}
+
+	
+	
+	
+	
+/*@RequestMapping(value = "/ajax-day-hw-manifest", method = RequestMethod.POST)
+	
+	@ResponseBody
+	public List<Integer> countDays(@RequestParam(value = "year", required = false) int year,
+			@RequestParam(value = "month", required = false) int month) throws JSONException
+	{
+		List<Integer> arrayDay = new ArrayList<Integer>();
+		try
+		{
+
+			arrayDay = hazardousManifestServices.HazardousManifestDayByYearandMonth(year, month);
+
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+
+		return arrayDay;
+
+	}*/
 
 	@RequestMapping(value = "/ajax-hw-manifest-data", method = RequestMethod.POST)
 	@ResponseBody

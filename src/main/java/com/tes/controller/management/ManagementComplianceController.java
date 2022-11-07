@@ -1,14 +1,20 @@
 package com.tes.controller.management;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.tes.model.CompanyProfile;
 import com.tes.model.Consent;
@@ -40,6 +46,7 @@ import com.tes.utilities.Validator;
  * @author Tushar Chougule
  */
 @Controller
+@RequestMapping("/management")
 public class ManagementComplianceController
 {
 
@@ -88,7 +95,8 @@ public class ManagementComplianceController
 	 * @param request The servlet request we are processing.
 	 * @return ManagementEsr
 	 */
-	@RequestMapping("management-esr-form")
+//	@RequestMapping("management-esr-form")
+	@RequestMapping("/management-esr-form")
 	public ModelAndView getYearlyESRform(@RequestParam(value = "year", required = false) String encodedYear,
 			HttpServletRequest request)
 	{
@@ -212,5 +220,125 @@ public class ManagementComplianceController
 	{
 		return new ModelAndView("Management/WaterBudget");
 	}
+	
+	@RequestMapping(value = "/ajax-getHazardousValuesMan")
+	@ResponseBody
+	public String getHazardousValues() throws JSONException
+	{
+		JSONArray jsonArray = new JSONArray();
+		String todayDate = Utilities.getTodaysDate();
+		String today_date[] = todayDate.split("-");
+		String jsonString = null;
+		int esrMinYear = 0, esrMaxYear = Integer.parseInt(today_date[0]);
+		try
+		{
+			esrMinYear = consentServices.consentMinYear();
+			JSONObject jsonobject = new JSONObject();
+			jsonobject.put("esrMinYear", new Integer(esrMinYear));
+			jsonobject.put("esrMaxYear", new Integer(esrMaxYear));
+			jsonArray.put(jsonobject);
+			jsonString = jsonArray.toString();
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		return jsonString;
+	}
+	
+	
+	@RequestMapping("envr-officer-hazardous-return-man")
+	public ModelAndView getHazardousReturn(@RequestParam(value = "year", required = false) String encodedYear,
+			HttpServletRequest request) throws ParseException
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		try
+		{
+			String issueDate = "", consNo = "";
+			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
+			int usersId = empDataSession.getUsers().getUsersId();
+			EmpData userlogindata = empDataServices.getUserProfileData(usersId);
+			modelAndView.setViewName("EnvrOfficer/HazardousReturn");
+			String today = Utilities.getTodaysDate();
+			String year = Utilities.decodeString(encodedYear);
+			String dateRes[] = year.split("-");
+			String fromDate = (dateRes[0]) + "-04-01";
+			String toDate = (dateRes[1]) + "-03-31";
+			List<Consent> getissueDateAndconsentNumber = new ArrayList<>();
+			List<String> issueDateList = new ArrayList<String>();
+			List<String> consentNumberList = new ArrayList<String>();
+			List<CompanyProfile> companyData = empDataServices.getCompanydata();
+			getissueDateAndconsentNumber = consentServices.getIssueDateAndConsNoByIssueDate(fromDate, toDate, today);
+			for (int i = 0; i < getissueDateAndconsentNumber.size(); i++)
+			{
+				issueDate = getissueDateAndconsentNumber.get(i).getIssueDate();
+				consNo = getissueDateAndconsentNumber.get(i).getConsNo();
+				if (!issueDateList.contains(issueDate))
+				{
+					issueDateList.add(issueDate);
+				}
+				if (!consentNumberList.contains(consNo))
+				{
+					consentNumberList.add(consNo);
+				}
+			}
+			modelAndView.addObject("userlogindata", userlogindata);
+			modelAndView.addObject("companyData", companyData);
+			modelAndView.addObject("issueDateList", issueDateList);
+			modelAndView.addObject("consentNumberList", consentNumberList);
+			modelAndView.addObject("today", today);
+			modelAndView.addObject("selectedYear", year);
+
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		return modelAndView;
+	}
+	// made by monali
+		@RequestMapping(value = "/ajax-getYearlyEsrValuesMan")
+		@ResponseBody
+		public String getYearlyEsrValues() throws JSONException
+		{
+			String jsonString = null, todayDate = Utilities.getTodaysDate(), today_date[] = todayDate.split("-");
+			int esrMaxYear = Integer.parseInt(today_date[0]) + 1, esrMinYear = 0;
+			JSONArray jsonArray = new JSONArray();
+			try
+			{
+				esrMinYear = consentServices.consentMinYearForEsr();
+				int maxYearDiff = esrMaxYear - esrMinYear;
+				for (int i = 0; i <= maxYearDiff; i++)
+				{
+					String yearPair = (esrMaxYear - 1) + "-" + esrMaxYear;
+					HashMap<String, String> hashMap = new HashMap<String, String>();
+					hashMap.put("esrYear", new String(yearPair));
+					jsonArray.put(hashMap);
+					esrMaxYear = esrMaxYear - 1;
+				}
+				jsonString = jsonArray.toString();
+			}
+			catch (Exception e)
+			{
+				LOGGER.error(e);
+			}
+			return jsonString;
+		}
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
 
 }
