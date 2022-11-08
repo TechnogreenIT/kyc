@@ -386,9 +386,9 @@
 						</tbody>
 					</table>
 					<div id="hidden_esr_product"></div>
-					 <div  class="col-sm-12">
+					<!--   <div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_product_water_consumption_button" onclick="saveProductYearESR()"><i class="zmdi zmdi-save"></i> Save</button>
-					</div>
+					</div>-->
 				</div>
 				<div class="row">
 					<div class="col-sm-12 mt-4">
@@ -407,9 +407,9 @@
 						</tbody>
 					</table>
 					<div id="hidden_esr_rawmaterial"></div>
-					 <div  class="col-sm-12">
+				<!--  	 <div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_product_rawmaterial_button" onclick="saveRawMaterialYearESR()"><i class="zmdi zmdi-save"></i> Save</button>
-					</div>
+					</div> -->
 				</div>
 				<div class="row">
 					<div class="col-sm-12 mt-4">
@@ -468,9 +468,9 @@
 					</table>
 					<div id="esr-div-effluentHidden-pollutant"></div>
 					<div id="esr-div-sewageHidden-pollutant"></div>
-					<div  class="col-sm-12">
+					<!--  <div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="effSaveMonthly" onclick="saveEffSewResonYear()"><i class="zmdi zmdi-save"></i> Save</button>
-					</div>
+					</div>-->
 					
 					<div class="col-sm-12 mt-4">
 						<h5>B) Air(Stack)<h5>
@@ -497,9 +497,9 @@
 						
 						</tbody>
 					</table>
-					<div  class="col-sm-12">
+					<!-- <div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="airSaveYearly" onclick="saveAirSewResonYear()"><i class="zmdi zmdi-save"></i> Save</button>
-					</div>
+					</div> -->
 				</div>
 				<div class="row">
 					<div class="col-sm-12 mt-4">
@@ -607,9 +607,9 @@
 					</div>
 					<div  id="appendContainers"></div>
 					</div>
-					<div  class="col-sm-12">
+					<!--  <div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_recylced_data" onclick="saveRecyledData()"><i class="zmdi zmdi-save"></i> Save</button>
-					</div>
+					</div>-->
 				</div>
 				<div class="row">
 				<div class="col-sm-12">
@@ -637,9 +637,9 @@
 				
 				</div>
 				<div  id="appendHWdata"></div>
-				<div  class="col-sm-12">
+				<!-- <div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_Haz_data" onclick="saveHazData()"><i class="zmdi zmdi-save"></i> Save</button>
-				</div>
+				</div> -->
 				<div class="row">
 				<div class="col-sm-12 mt-4">
 				<h5>2) Solid Waste</h5></div>
@@ -662,11 +662,11 @@
 				
 				</div>
 				<div  id="appendSoliddata"></div>
-				<div class="row">
+				<!--  <div class="row">
 					<div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_Solid_data" onclick="saveSolidData()"><i class="zmdi zmdi-save"></i> Save</button>
 				</div>
-				</div>
+				</div>-->
 				<div class="row">
 					<div class="col-sm-12">
 						<h4>Impact of the pollution Control measures taken on
@@ -701,11 +701,11 @@
 					</div>
 				</div>
 				<div  id="appendPollutionControldata"></div>
-				<div class="row">
+				<!-- <div class="row">
 					<div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_Polution_data" onclick="savePollutionControlData()"><i class="zmdi zmdi-save"></i> Save</button>
 				</div>
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="col-sm-12">
 						<h4>[A] Investment made during the period of Environmental Statement.</h4>
@@ -723,11 +723,11 @@
 					</div>
 				</div>
 				<div  id="appendInvestmentstatedata"></div>
-				<div class="row">
+				<!--  <div class="row">
 					<div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_Investment_data" onclick="saveInvestmentData()"><i class="zmdi zmdi-save"></i> Save</button>
 				    </div>
-				</div>
+				</div>-->
 				<div class="row">
 					<div class="col-sm-12">
 						<h4>[B]  Investment Proposed for next Year.</h4>
@@ -745,11 +745,11 @@
 					</div>
 				</div>
 				<div id="appendInvestmentstateNextdata"></div>
-				<div class="row">
+				<!--  <div class="row">
 					<div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_InvestmentNext_data" onclick="saveInvestmentNextData()"><i class="zmdi zmdi-save"></i> Save</button>
 				    </div>
-				</div>
+				</div>-->
 				<div class="row">
 					<div class="col-sm-12">
 						<h5>Any other particulars in respect of environmental protection and abatement of pollution.</h5>
@@ -759,11 +759,11 @@
 					</div>
 				</div>
 				<div id="appendParticulardata"></div>
-				<div class="row">
+			<!--  	<div class="row">
 					<div  class="col-sm-12">
 						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_Particular_data" onclick="saveParticularData()"><i class="zmdi zmdi-save"></i> Save</button>
 				    </div>
-				</div>
+				</div>-->
 			</div>
 				
 			<!-- include common footer start-->
