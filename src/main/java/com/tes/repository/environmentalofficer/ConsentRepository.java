@@ -94,11 +94,15 @@ public interface ConsentRepository extends JpaRepository<Consent, Long>
 	@Query("SELECT NEW Consent(c.consNo, c.issueDate) FROM Consent c WHERE c.issueDate between :fromDate AND :toDate AND c.validUpto>:today AND c.consType='Consent to Operate' ORDER BY c.issueDate ASC")
 	List<Consent> getIssueDateAndConsNoByIssueDate(@Param("fromDate") String fromDate, @Param("toDate") String toDate, @Param("today") String today);
 
-	@Query("SELECT c.consentId,c.consNo FROM Consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND c.consStatus!= 'EXPIRED'  AND (c.validUpto >= :today OR ce.validUpto >= :today) ORDER BY c.consentId DESC")
+	@Query("SELECT c.consentId,c.consNo FROM Consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND c.consStatus!= 'EXPIRED' AND (c.validUpto >= :today OR ce.validUpto >= :today) ORDER BY c.consentId DESC")
 	List<Object[]> getListOfConsentByTodayDate(@Param("today") String today);
 
 	@Query("SELECT DISTINCT NEW Consent(c.consentId,c.consNo,c.validUpto,c.grossCi,c.issueDate) FROM Consent c WHERE c.consType = 'Consent to Operate' AND c.consStatus != 'EXPIRED' AND c.issueDate <=:selectedDate")
 	List<Consent> getConsentDataByIssueDate(@Param("selectedDate") String selectedDate);
+
+	// // // mmmm
+	// @Query("SELECT DISTINCT NEW Consent(c.consentId,c.consNo,c.validUpto,c.grossCi,c.issueDate) FROM Consent c WHERE c.consType = 'Consent to Operate' AND c.consStatus != 'EXPIRED' AND c.issueDate <=:dateTo ORDER BY c.consentId DESC")
+	// List<Consent> getConsentDataByIssueDate1(@Param("dateTo") String dateTo, Pageable pageable);
 
 	@Transactional
 	@Modifying

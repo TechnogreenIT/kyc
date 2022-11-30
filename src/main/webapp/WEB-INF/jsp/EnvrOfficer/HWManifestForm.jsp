@@ -27,6 +27,7 @@
 		<!-- include menus here start-->
 		<jsp:include page="../NewCommon/env-menus.jsp" />
 		<!-- include menus here end-->
+		<form name="form" action="#" id="hwmanifest-form">
 		<section class="content content--full">
 			<!-- inner container div start -->
 			<div class="content__inner top-thick-border grey lighten-4">
@@ -45,7 +46,7 @@
 					<div class="row">
 						<div class="col-sm-1">1</div>
 						<div class="col-sm-3">
-							<label>SEnder's Name & Mailing Address (including Phone
+							<label>Sender's Name & Mailing Address (including Phone
 								No. and e-mail):</label>
 						</div>
 						<div class="col-sm-8">
@@ -61,8 +62,8 @@
 
 								<div class="col-4">
 									<div class="form-group">
-										<input type="text" name="sendersMailingAddress"
-											class="form-control" placeholder="Enter Email">
+										<input type="email" name="sendersMailingAddress"
+											class="form-control" placeholder="Enter Email Address" pattern="[^ @]*@[^ @]*"> 
 										<div class="invalid-feedback">Required !</div>
 										<i class="form-group__bar"></i>
 									</div>
@@ -70,9 +71,9 @@
 
 								<div class="col-4">
 									<div class="form-group">
-										<input type="text" name="sendersPhoneNo" id="sendersPhoneNo"
-											class="form-control" placeholder="Enter Phone Number">
-										<div class="invalid-feedback">Required !</div>
+										<input type="tel" name="sendersPhoneNo" id="sendersPhoneNo"
+											class="form-control" placeholder="Enter Phone Number" pattern="[1-9]{1}[0-9]{9}">
+										<div class="invalid-feedback">Required !</div><div id="sensmob"></div>
 										<i class="form-group__bar"></i>
 									</div>
 								</div>
@@ -120,8 +121,8 @@
 
 								<div class="col-4">
 									<div class="form-group">
-										<input type="text" name="transporterAddress"
-											class="form-control" placeholder="Enter Address">
+										<input type="email" name="transporterAddress"
+											class="form-control" placeholder="Enter Email Address">
 										<div class="invalid-feedback">Required !</div>
 										<i class="form-group__bar"></i>
 									</div>
@@ -129,9 +130,9 @@
 
 								<div class="col-4">
 									<div class="form-group">
-										<input type="text" name="transportermobilepNo"
+										<input type="tel" name="transportermobilepNo"
 											id="transportermobilepNo" class="form-control"
-											placeholder="Enter Phone Number">
+											placeholder="Enter Phone Number" pattern="[1-9]{1}[0-9]{9}">
 										<div class="invalid-feedback">Required !</div>
 										<i class="form-group__bar"></i>
 									</div>
@@ -216,8 +217,8 @@
 
 								<div class="col-4">
 									<div class="form-group">
-										<input type="text" name="receiversAddress"
-											class="form-control" placeholder="Enter Address">
+										<input type="email" name="receiversAddress"
+											class="form-control" placeholder="Enter Email Address" pattern="[^ @]*@[^ @]*">
 										<div class="invalid-feedback">Required !</div>
 										<i class="form-group__bar"></i>
 									</div>
@@ -225,9 +226,9 @@
 
 								<div class="col-4">
 									<div class="form-group">
-										<input type="text" name="receiversPhoneNo"
+										<input type="tel" name="receiversPhoneNo"
 											id="receiversPhoneNo" class="form-control"
-											placeholder="Enter Phone Number">
+											placeholder="Enter Phone Number" pattern="[1-9]{1}[0-9]{9}">
 										<div class="invalid-feedback">Required !</div>
 										<i class="form-group__bar"></i>
 									</div>
@@ -283,7 +284,7 @@
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
-										<input type="text" id="tot_quantity_container"
+										<input type="number" id="tot_quantity_container"
 											name="tot_quantity_container" class="form-control"
 											placeholder="Total Quantity Container ">
 										<div class="invalid-feedback">Required ! !</div>
@@ -313,7 +314,7 @@
 								<div class="col-sm-1"></div>
 
 								<div class="col-sm-3">
-									<label>Containers Naumber:</label>
+									<label>Containers Number:</label>
 								</div>
 
 								<div class="col-sm-8">
@@ -394,8 +395,8 @@
 								</div>
 								<input type="date" class="form-control hidden-md-up"
 									placeholder="Pick a date"> <input type="text"
-									name="subdate" class="form-control date-picker hidden-sm-down"
-									placeholder="Pick a date">
+									name="subdate" class="form-control date-picker hidden-sm-down" onchange='validatedt()' 
+									placeholder="Pick a date"><div id='pickdt'></div>
 								<div class="invalid-feedback">Required ! !</div>
 								<i class="form-group__bar"></i>
 							</div>
@@ -422,7 +423,9 @@
 						<div class="col-sm-8">
 							<div class="form-group">
 								<input type="text" class="form-control">
-							</div>
+								<div class="invalid-feedback">Required ! !</div>
+								<i class="form-group__bar"></i>	
+							</div> 
 						</div>
 
 						<div class="col-sm-1">15</div>
@@ -439,7 +442,9 @@
 
 						<div class="col-sm-8">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Enter date">
+								<input type="text" class="form-control" placeholder="Enter date" >	
+									<div class="invalid-feedback">Required ! !</div>
+										<i class="form-group__bar"></i>							
 							</div>
 						</div>
 
@@ -460,11 +465,13 @@
 			</div>
 			<!-- inner container div end -->
 		</section>
+		</form>
 		<!-- Javascript -->
 		<!-- include common css start-->
 		<jsp:include page="../NewCommon/common-javascript.jsp" />
-		<!-- include common css end-->
-		<script type="text/javascript"
+		<!-- include common css end-->		
+		
+			<script type="text/javascript"
 			src="../newAssets/projectscripts/common-functions.js"></script>
 		<script type="text/javascript"
 			src="../newAssets/projectscripts/HazManifest.js"></script>

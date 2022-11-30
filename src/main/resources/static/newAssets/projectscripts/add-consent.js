@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 	console.log(" add consent js loaded");
 	var issue_date = "" ; var valid_upto ="";
@@ -53,21 +54,49 @@ function showForm(id) {
 
 function validateConsentDates(datepickerId){
 	
-	var datepickerDate = $('#'+datepickerId).val();
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 01
+	var yyyy = today.getFullYear();
+	var today_date = yyyy + "-" + mm + "-" + dd;
+	var validdt= $("#valid_upto").val();
+	var isdt = $("#issue_date").val();
 	
+	var datepickerDate = $('#'+datepickerId).val();
+
 	if(datepickerId == "issue_date"){
 		issue_date =  new Date($('#'+datepickerId).val());
+		if (isdt > today_date) {	
+			$("#isdtvalidation").html("<label class='text-red'>Enter lees than or equal to Today Date</label>");
+			$("#btnsv_").attr("disabled", true);		
+			} 	
+		else {
+			$("#isdtvalidation").empty();
+			$("#btnsv_").attr("disabled", false);
+		}
 	} else if(datepickerId == "valid_upto"){
 		valid_upto =  new Date($('#'+datepickerId).val());
+		if (isdt > validdt) {	
+			$("#validdtval").html("<label class='text-red'>Valid upto date should be greater than Issue Date !!</label>");
+			$("#btnsv_").attr("disabled", true);
+			} 
+		else {
+			$("#validdtval").empty();
+			$("#btnsv_").attr("disabled", false);			
+		}
 	}
 	
-	if(issue_date != "" && valid_upto != "" && issue_date > valid_upto){
-		jBoxBottomRightBigNotice("Invalid", "Valid upto date should be greater than Issue Date !!", "yellow", "5000");
-	}
+	
+//	if(issue_date != "" && valid_upto != "" && issue_date > valid_upto){
+//		jBoxBottomRightBigNotice("Invalid", "Valid upto date should be greater than Issue Date !!", "yellow", "5000");
+//	}
+	
+
 }
 
-function getAmalgamation(consentType){
-	var radioValue = $("input[name='status']:checked").val();
+
+function getAmalgamation(consentType){	
+	var radioValue = $("input[name='status']:checked").val();	
 	if(radioValue == "Amalgamant" && amalgamationCount == 0){
 		amalgamationppend(consentType);
 		amalgamationCount++;
@@ -76,7 +105,7 @@ function getAmalgamation(consentType){
 		amalgamationCount = 0;
 	}
 }
-
+    
 function getConsentToEstablishForm(consentType){
 	var industryCat = $("#industryCat").val();
 	 var str1 = "Number of Staff";
@@ -165,35 +194,54 @@ var htmlContent = "<div class='form-group'>"
 					+"<div class='row'>"
 						+"<div class='col-4'>"
 							+"<div class='radio radio--inline'>"
-								+"<input type='radio' name='status' id='oper_new' value='New' onclick='getAmalgamation(\""+consentType+"\");'> <label class='radio__label' for='oper_new'>New</label>"
+								+"<input type='radio' name='status' id='oper_new' value='New' onclick='getAmalgamation(\""+consentType+"\");' required><label class='radio__label' for='oper_new' >New</label>"
 							+"</div>"
 							+"<div class='radio radio--inline'>"
-								+"<input type='radio' name='status' id='open_amal' value='Amalgamant' onclick='getAmalgamation(\""+consentType+"\");'> <label class='radio__label' for='open_amal'>Amalgamation</label>"
+								+"<input type='radio' name='status' id='open_amal' value='Amalgamant' onclick='getAmalgamation(\""+consentType+"\");' required><label class='radio__label' for='open_amal'>Amalgamation</label>"
 							+"</div>"
 							+"<div id='amalgamation_append'></div>"
 						+"</div>"
 						+"<div class='col-12 col-md-4'>"
-							+"<div class='form-group'>"
+							+"<div class='form-group' id='issueDate'>"
 								+"<label>Issue Date :</label>"
 								+"<input type='date' class='form-control hidden-md-up'>"
-								+"<input type='text' class='form-control date-picker hidden-sm-down' name='issueDate' id='issue_date' onchange='validateConsentDates(\"issue_date\")' placeholder='Issue Date' required>"
+								+"<input type='text' class='form-control date-picker hidden-sm-down' name='issueDate' id='issue_date' onchange='validateConsentDates(\"issue_date\")' placeholder='Issue Date' required> &nbsp; <div id='isdtvalidation'></div>"
 							+"</div>"
 						+"</div>"
 						+"<div class='col-12 col-md-4'>"
 							+"<div class='form-group'>"
 								+"<label>Valid Upto :</label>"
 								+"<input type='date' class='form-control hidden-md-up'>"
-								+"<input type='text' class='form-control date-picker hidden-sm-down' name='validUpto' id='valid_upto' onchange='validateConsentDates(\"valid_upto\")' placeholder='Valid Upto' required>"
+								+"<input type='text' class='form-control date-picker hidden-sm-down' name='validUpto' id='valid_upto' onchange='validateConsentDates(\"valid_upto\")' placeholder='Valid Upto' required> &nbsp; <div id='validdtval'></div>"
 							+"</div>"
 						+"</div>"
 					+"</div>"
-					+"<div class='row'>"
+					
+//					+"<div class='row'>"
+//					 +"<div class='col-12 col-md-4'>"
+//						+"<div class='form-group'>"
+//						   +"<label>Gross CI</label>"
+//						   +"<input type='number' class='form-control' id='gross_ci' name='grossCi' placeholder='Gross CI' title='Gross CI' required> <i class='form-group__bar'></i>"											  
+//						   +"</div>"		
+//					 +"</div>"
+					 +"<div class='row'>"
 					 +"<div class='col-12 col-md-4'>"
 						+"<div class='form-group'>"
 						   +"<label>Gross CI</label>"
-						   +"<input type='number' class='form-control' id='gross_ci' name='grossCi' placeholder='Gross CI' title='Gross CI' required> <i class='form-group__bar'></i>"
+						   +"<div class='row'>"
+							  +"<div class='col-6'>"
+								 +"<input type='number' class='form-control'  id='gross_ci'  placeholder='Gross CI' name='grossCi' title='Gross CI' required> <i class='form-group__bar'></i>"
+							  +"</div>"
+							  +"<div class='col-6'>"
+							  +"<select class='select2' id='gsunit' name='grossunit'>"
+								+"<option>Lakhs.</option>"
+								+"<option>Cr.</option>"
+							 +"</select>"
+							  +"</div>"
+						   +"</div>"
 						+"</div>"
 					 +"</div>"
+					
 					+temp
 					 +"<div class='col-12 col-md-4'>"
 						+"<div class='form-group'>"
@@ -210,7 +258,7 @@ var htmlContent = "<div class='form-group'>"
 						   +"<label>Total Plot Area</label>"
 						   +"<div class='row'>"
 							  +"<div class='col-6'>"
-								 +"<input type='number' class='form-control'  id='tot_plot_area' name='totPlotArea' title='Total Plot Area'  required> <i class='form-group__bar'></i>"
+								 +"<input type='number' class='form-control'  id='tot_plot_area' name='totPlotArea' placeholder='Total Plot Area' title='Total Plot Area'  required> <i class='form-group__bar'></i>"
 							  +"</div>"
 							  +"<div class='col-6'>"
 								 +"<select class='select2' name='totPlotAreaUnits'>"
@@ -226,7 +274,7 @@ var htmlContent = "<div class='form-group'>"
 						   +"<label>Total Built Up Area</label>"
 						   +"<div class='row'>"
 							  +"<div class='col-6 col-md-6'>"
-								 +"<input type='number' class='form-control'  id='tot_build_area' name='totBuildArea' required='' title='Total Build Area'  required> <i class='form-group__bar'></i>"
+								 +"<input type='number' class='form-control'  id='tot_build_area' name='totBuildArea' required=''  placeholder='Total Build Area' title='Total Build Area'  required> <i class='form-group__bar'></i>"
 							  +"</div>"
 							  +"<div class='col-6 col-md-'>"
 								 +"<select class='select2' id='tot_build_area_unit' name='totBuildAreaUnits'>"
@@ -242,7 +290,7 @@ var htmlContent = "<div class='form-group'>"
 						   +"<label>Open Space Available</label>"
 						   +"<div class='row'>"
 							  +"<div class='col-6'>"
-								 +"<input type='number' class='form-control' id='open_space_ava' name='openSpaceAva' required='' title='Open Space Ava.'  required> <i class='form-group__bar'></i>"
+								 +"<input type='number' class='form-control' id='open_space_ava' name='openSpaceAva' required=''  placeholder='Open Space Ava.'  title='Open Space Ava.'  required> <i class='form-group__bar'></i>"
 							  +"</div>"
 							  +"<div class='col-6'>"
 								 +"<select class='select2' id='open_space_ava_unit' name='openSpaceAvaUnits'>"
@@ -260,7 +308,7 @@ var htmlContent = "<div class='form-group'>"
 						   +"<label>Total Green Area</label>"
 						   +"<div class='row'>"
 							  +"<div class='col-6 col-md-6'>"
-								 +"<input type='number' class='form-control' id='tot_green_area' name='totGreenArea' data-toggle='tooltip' data-placement='top' title='Total Green Area' required> <i class='form-group__bar'></i>"
+								 +"<input type='number' class='form-control' id='tot_green_area' name='totGreenArea' data-toggle='tooltip' data-placement='top' placeholder='Total Green Area' title='Total Green Area' required> <i class='form-group__bar'></i>"
 							  +"</div>"
 							  +"<div class='col-6 col-md-'>"
 								 +"<select class='select2' id='tot_green_area_unit' name='totGreenAreaUnits'>"
@@ -292,7 +340,7 @@ var htmlContent = "<div class='form-group'>"
 					 +"<div class='col-12'>"
 						+"<center>"
 						   +"<button type='reset' class='btn red lighten-1 text-white'> <i class='zmdi zmdi-close'></i> cancel </button>"
-						   +"<button type='submit' class='btn btn-primary btn--icon-text'> <i class='zmdi zmdi-save'></i> Submit </button>"
+						   +"<button type='submit' id='btnsv_' class='btn btn-primary btn--icon-text'> <i class='zmdi zmdi-save'></i> Submit </button>"
 						+"</center>"
 					 +"</div>"
 					+"</div>";
@@ -378,11 +426,12 @@ function amalgamationppend(consentType){
 				selectOpName = "aml_o[]";
 			}
 			var html = "<div class='mt-2'>" +
-						"<select class='select2' multiple data-placeholder='Select one or more choices' data-max-options='3' title='Choose only upto 3' id='cons_to_establish01' name='"+selectOpName+"'>"
+						"<select class='select2' multiple data-placeholder='Select one or more choices' data-max-options='3' title='Choose only upto 3' id='cons_to_establish01' name='"+selectOpName+"' required></div><div id='consty'></div>"
 						$.each(result, function (index, element) {
 							html += "<option value='"+element.consentId+"'>"+element.consentName+"</option>"
 							
 						});
+			
 				html+="</select>" +
 	   					"</div>";
 			$("#amalgamation_append").append(html);

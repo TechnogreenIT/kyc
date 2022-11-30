@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-5 mt-2">
 				<div class="checkbox">
-					<input type="checkbox" name="eff_poll[]" id="effpollCheckBox1"
+					<input type="checkbox" name="eff_poll[]" id="effpollCheckBox1" 
 						value="pH" onclick="addLimitsUnits(1, 'eff')"> <label
 						class="checkbox__label" for="effpollCheckBox1">pH</label>
 				</div>
@@ -21,7 +21,7 @@
 			<div class="col-5 mt-2">
 				<div class="checkbox">
 					<input type="checkbox" name="eff_poll[]" id="effpollCheckBox2"
-						value="Biological Oxygen Demand (BOD)"
+						value="Biological Oxygen Demand (BOD)" 
 						onclick="addLimitsUnits(2, 'eff')"> <label
 						class="checkbox__label" for="effpollCheckBox2">Biological
 						Oxygen Demand (BOD)</label>

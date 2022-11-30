@@ -61,6 +61,10 @@ public class Consent implements Serializable
 	@Column(name = "gross_ci")
 	private float grossCi;
 
+	// mm
+	@Column(name = "gross_ci_units")
+	private String grossunit;
+
 	@Column(name = "no_staff")
 	private int noStaff;
 
@@ -208,6 +212,17 @@ public class Consent implements Serializable
 	public void setGrossCi(float grossCi)
 	{
 		this.grossCi = grossCi;
+	}
+
+	// mm
+	public String getGrossunit()
+	{
+		return grossunit;
+	}
+
+	public void setGrossunit(String grossunit)
+	{
+		this.grossunit = grossunit;
 	}
 
 	public int getNoStaff()

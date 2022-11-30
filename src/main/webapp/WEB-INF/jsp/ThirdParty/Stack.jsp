@@ -109,7 +109,7 @@
 										<tr>
 											<td>5</td>
 											<td>Flue Gas Temperature</td>
-											<td><input type="text" required class="form-control"
+											<td><input type="number" required class="form-control"
 												id="gas_temp_${stackName}"
 												onkeypress="numberValidate(event)">
 												<div id="error_gas_temp_${stackName}"></div></td>
@@ -118,7 +118,7 @@
 										<tr>
 											<td>6</td>
 											<td>Differential Pressure</td>
-											<td><input type="text" class="form-control"
+											<td><input type="number" class="form-control"
 												id="pressure_${stackName}"
 												onkeypress="numberValidate(event)">
 												<div id="error_pressure_${stackName}"></div></td>

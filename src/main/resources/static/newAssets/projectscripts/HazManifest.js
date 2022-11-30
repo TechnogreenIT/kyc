@@ -1,7 +1,13 @@
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 01
+	var yyyy = today.getFullYear();
+	var today_date = yyyy + "-" + mm + "-" + dd;
+
 function setQuantityUnit(id){
 		 if ($("#wasteProductName"+ id).is(":checked")) {
 			 var html = "<div class='col-3'><div class='form-group'>"
-					+"<input type='text' name='tot_quantity_waste[]' id='tot_green_area' class='form-control' placeholder='Total Quantity of Waste'>"
+					+"<input type='number' name='tot_quantity_waste[]' id='tot_green_area' class='form-control' placeholder='Total Quantity of Waste'>"
 					+"<div class='invalid-feedback'>Required !</div>"
 					+"<i class='form-group__bar'></i>"
 					+"</div></div>"
@@ -77,12 +83,23 @@ function saveHWManifest(){
 	var containersType=new Array();
 	var sendersName=$("input[name=sendersName]").val();
 	flag += customInputValidator(sendersName, "sendersName");
+	
 
 	var sendersMailingAddress=$("input[name=sendersMailingAddress]").val();
 	flag += customInputValidator(sendersMailingAddress, "sendersMailingAddress");
+	if(!sendersMailingAddress.match("[^ @]*@[^ @]*"))
+		{
+		flag++;
+		}
+	
 	
 	var sendersPhoneNo=$("input[name=sendersPhoneNo]").val();
 	flag += customInputValidator(sendersPhoneNo, "sendersPhoneNo");
+	if(!sendersPhoneNo.match("[1-9]{1}[0-9]{9}"))
+	{
+	flag++;
+	}
+	
 	
 	var sendersAuthorizationNo=$("input[name=sendersAuthorizationNo]").val();
 	flag += customInputValidator(sendersAuthorizationNo, "sendersAuthorizationNo");
@@ -95,9 +112,17 @@ function saveHWManifest(){
 	
 	var transporterAddress=$("input[name=transporterAddress]").val();
 	flag += customInputValidator(transporterAddress, "transporterAddress");
+	if(!transporterAddress.match("[^ @]*@[^ @]*"))
+	{
+	flag++;
+	}
 	
 	var transportermobilepNo=$("input[name=transportermobilepNo]").val();
 	flag += customInputValidator(transportermobilepNo, "transportermobilepNo");
+	if(!transportermobilepNo.match("[1-9]{1}[0-9]{9}"))
+	{
+	flag++;
+	}
 	
 	var vehicle_type=$("input[name=vehicle_type]").val();
 	var transporterRegistrationNo=$("input[name=transporterRegistrationNo]").val();
@@ -111,12 +136,21 @@ function saveHWManifest(){
 	
 	var receiversAddress=$("input[name=receiversAddress]").val();
 	flag += customInputValidator(receiversAddress, "receiversAddress");
+	if(!receiversAddress.match("[^ @]*@[^ @]*"))
+	{
+	flag++;
+	}
 	
 	var receiversAuthorizationNo=$("input[name=receiversAuthorizationNo]").val();
 	flag += customInputValidator(receiversAuthorizationNo, "receiversAuthorizationNo");
 	
 	var receiversPhoneNo=$("input[name=receiversPhoneNo]").val();
 	flag += customInputValidator(receiversPhoneNo, "receiversPhoneNo");
+	if(!receiversPhoneNo.match("[1-9]{1}[0-9]{9}"))
+	{
+	flag++;
+	}
+	
 	
 	var transport_desc_waste=$("input[name=transport_desc_waste]").val();
 	flag += customInputValidator(transport_desc_waste, "transport_desc_waste");
@@ -139,7 +173,7 @@ function saveHWManifest(){
 	var wasteQuantity=new Array();
 	var consistency=new Array();
 	
-	
+
 	//xskjd
 	var inps1 = document.getElementsByName("containers_Number[]");
     var inps2 = document.getElementsByName("containers_Type[]");
@@ -205,7 +239,9 @@ function saveHWManifest(){
     
 	
 	form_data.append('sendersName',sendersName);
+	
 	form_data.append('sendersMailingAddress',sendersMailingAddress);
+	
 	form_data.append('sendersPhoneNo',sendersPhoneNo);
 	form_data.append('sendersAuthorizationNo',sendersAuthorizationNo);
 	
@@ -262,6 +298,23 @@ function saveHWManifest(){
 		});
 	}
 }
+
+
+///
+function validatedt(){
+	var subdate=$("input[name=subdate]").val();
+if(subdate > today_date){
+	$("#pickdt").html("<label class='text-red'>Enter lees than or equal to todays date</label>")
+	
+}
+else
+	{
+	$("#pickdt").empty();
+	}
+}
+
+////mmm
+
 function openDaysHazManifest(){
 	var year = $("#viewManifest_year").val();
 	var month = $("#viewManifest_month").val();
@@ -319,7 +372,7 @@ function onDaySetGetDataHazData(){
 							+"<input type='text' class='form-control' value="+element.SendersMailAddress+" disabled>"
 							+"</div></div>"
 							+"<div class='col-4'><div class='form-group'>"
-							+"<input type='text' class='form-control' value="+element.SendersPhoneNo+" disabled>"
+							+"<input type='number' class='form-control' value="+element.SendersPhoneNo+" disabled>"
 							+"</div></div>"
 							+"</div></div>"
 							+"<div class='col-sm-1'>2</div><div class='col-sm-3'>"

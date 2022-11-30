@@ -1750,7 +1750,7 @@ public class EsrController
 			@RequestParam(value = "recycled_previous", required = false) String[] prevDataList,
 			@RequestParam(value = "recycled_current", required = false) String[] currDataList,
 			@RequestParam(value = "ptype", required = false) String pTypeList,
-			@RequestParam(value = "recycled_unit") String[] unitList,
+			@RequestParam(value = "recycled_units") String[] unitList,
 			@RequestParam(value = "selected_year") String selected_year,
 			@RequestParam(value = "esrMonth") String esrMonth) throws JSONException
 	{
@@ -2101,6 +2101,37 @@ public class EsrController
 		return status;
 	}
 
+	//// mmmm
+	// @RequestMapping(value = "/ajax-getRecycledDataYearm", method = RequestMethod.POST)
+	// public @ResponseBody String getEsrRecycledDataYear(
+	// @RequestParam(value = "type", required = false) String type,
+	// @RequestParam(value = "selectedYear", required = false) String selectedYear) throws JSONException
+	// {
+	// String jsonString = null;
+	// List<EsrProductWater> esrProductWaterDatas = new ArrayList<>();
+	// esrProductWaterDatas = esrProductWaterServices.getAllDataByYear(selectedYear, type);
+	// JSONArray jsonArray = new JSONArray();
+	// JSONObject json;
+	// for (int i = 0; i < esrProductWaterDatas.size(); i++)
+	// {
+	// json = new JSONObject();
+	// json.put("PollName", esrProductWaterDatas.get(i).getProductName());
+	// json.put("PrivieousData", esrProductWaterDatas.get(i).getPreviousData());
+	// json.put("CurrantData", esrProductWaterDatas.get(i).getCurrentData());
+	// json.put("Uom", esrProductWaterDatas.get(i).getUnit());
+	//
+	// jsonArray.put(json);
+	// }
+	// int size = jsonArray.length();
+	// if (size != 0)
+	// {
+	// jsonString = jsonArray.toString();
+	// }
+	//
+	// return jsonString;
+	// }
+
+	///////
 	/**
 	 * This method used to save particular data of the monthly esr
 	 * 

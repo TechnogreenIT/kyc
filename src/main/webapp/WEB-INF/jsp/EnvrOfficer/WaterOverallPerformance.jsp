@@ -62,12 +62,14 @@
 	<jsp:include page="../CommonWebpages/HeaderWebpages/CommonHeader.jsp" />
 
 	<c:if test="${userRole == 'Environmental Officer'}">
+	
 		<jsp:include page="../CommonWebpages/MenusWebpages/OfficerMenus.jsp" />
 	</c:if>
 
 	<c:if test="${userRole == 'Management'}">
 		<jsp:include
 			page="../CommonWebpages/MenusWebpages/ManagementMenus.jsp" />
+			
 	</c:if>
 	<section id="main"> <section id="content">
 	<div class="container">

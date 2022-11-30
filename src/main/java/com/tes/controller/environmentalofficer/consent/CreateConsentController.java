@@ -213,6 +213,7 @@ public class CreateConsentController
 				consent.setIssueDate(request.getParameter("issueDate"));
 				consent.setValidUpto(request.getParameter("validUpto"));
 				consent.setGrossCi(Float.parseFloat(request.getParameter("grossCi")));
+				consent.setGrossunit(request.getParameter("grossunit"));
 				consent.setNoStaff(noStaff);
 				consent.setNoWorker(Integer.parseInt(request.getParameter("noWorker")));
 				consent.setTotPlotArea(Float.parseFloat(request.getParameter("totPlotArea")));

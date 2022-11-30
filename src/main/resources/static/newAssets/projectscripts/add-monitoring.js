@@ -31,12 +31,13 @@ function getStackList() {
 					"<tr> <td>2</td> <td>Stack Height above roof</td> <td>" + element.StackHeight + "</td> <td>" + element.StackHeightUnit + "</td> </tr>" +
 					"<tr> <td>3</td> <td>Type of Stack</td> <td>" + element.StackShape + "</td> <td>--</td> </tr>" +
 					"<tr> <td>4</td> <td>Fuel Type</td> <td>" + element.StackFuelType + "</td> <td>" + element.StackFuelUnit + "</td> </tr>" +
-					" <tr> <td>5</td> <td>Flue Gas Temperature</td> <td> <div class='form-group'><input type='text' class='form-control' placeholder='Flue Gas Temperature' id='gas_temp_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td><sup>o</sup>K</td> </tr>" +
-					"<tr> <td>6</td> <td>Differential Pressure</td> <td> <div class='form-group'><input type='text' class='form-control' placeholder='Differential Pressure' id='pressure_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>mmWG</td> </tr>" +
+					" <tr> <td>5</td> <td>Flue Gas Temperature</td> <td> <div class='form-group'><input type='number' class='form-control' placeholder='Flue Gas Temperature' id='gas_temp_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td><sup>o</sup>K</td> </tr>" +
+					"<tr> <td>6</td> <td>Differential Pressure</td> <td> <div class='form-group'><input type='number' class='form-control' placeholder='Differential Pressure' id='pressure_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>mmWG</td> </tr>" +
 					" <tr> <td>7</td> <td>Diameter of Stack</td> <td>" + element.StackDia + "</td> <td>" + element.StackDiaUnit + "</td> </tr>" +
-					"<tr> <td>8</td> <td>Velocity</td> <td> <div class='form-group'><input type='text' class='form-control' placeholder='Enter Velocity' id='velocity_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>m/s</td> </tr>" +
-					"<tr> <td>9</td> <td>Hours of Operation</td> <td> <div class='form-group'><input type='text' class='form-control' placeholder='Enter Hours of Operation' id='hrsOfOperation_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td> <div class='form-group'><select class='select2' data-placeholder='Select a unit' id='hrsOfOpUnit_" + uniqueId + "'> <option></option> <option>Minutes</option> <option>Hours</option> <option>Days</option></select> </div> </td> </tr>" +
-					"<tr> <td>10</td> <td>Gas Volume</td> <td> <div class='form-group'><input type='text' class='form-control' placeholder='Enter Hours of Operation' id='volume_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>Nm<sup>3</sup>/Hr</td> </tr>" +
+					"<tr> <td>8</td> <td>Velocity</td> <td> <div class='form-group'><input type='number' class='form-control' placeholder='Enter Velocity' id='velocity_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>m/s</td> </tr>" +
+					"<tr> <td>9</td> <td>Hours of Operation</td> <td> <div class='form-group'><input type='number' class='form-control' placeholder='Enter Hours of Operation' id='hrsOfOperation_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td>" +
+							" <td> <div class='form-group'><select class='select2' data-placeholder='Select a unit' id='hrsOfOpUnit_" + uniqueId + "' required> <option></option> <option>Minutes</option> <option>Hours</option> <option>Days</option></select></i> &nbsp;<div id='unitnm'></div> </div> </td> </tr>" +
+					"<tr> <td>10</td> <td>Gas Volume</td> <td> <div class='form-group'><input type='number' class='form-control' placeholder='Enter Hours of Operation' id='volume_" + uniqueId + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i> </div> </td> <td>Nm<sup>3</sup>/Hr</td> </tr>" +
 					"</tbody> </table>"
 
 					+
@@ -51,7 +52,7 @@ function getStackList() {
 							"<td>" +
 							"<input type='hidden' id='pollutant_name_" + uniqueId + "_" + pollCount + "' value='" + value.StackPollName + "'>" + value.StackPollName +
 							" </td><td>" +
-							"<div class='form-group'><input type='text' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_quantity_" + uniqueId + "_" + pollCount + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i></div>" +
+							"<div class='form-group'><input type='number' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_quantity_" + uniqueId + "_" + pollCount + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div><i class='form-group__bar'></i></div>" +
 							" </td>  <td>" +
 							"<input type='hidden' id='pollutant_unit_" + uniqueId + "_" + pollCount + "' value='" + value.StackPollUnit + "'>" + value.StackPollUnit +
 							"</td> </tr>"
@@ -143,7 +144,7 @@ function getAmbientList() {
 				for (const [key, value] of AmbientPollDatasList.entries()) {
 					var html2 = "<tr><td>" + pollCount + "</td>" +
 						"<td> <input type='hidden' id='pollutant_name_" + uniqueId + "_" + pollCount + "' value='" + value.AmbientPollName + "'>" + value.AmbientPollName + "</td>" +
-						"<td><div class='form-group'> <input type='text' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_quantity_" + uniqueId + "_" + pollCount + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div> <i class='form-group__bar'></i></div></td>" +
+						"<td><div class='form-group'> <input type='number' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_quantity_" + uniqueId + "_" + pollCount + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div> <i class='form-group__bar'></i></div></td>" +
 						"<td> <input type='hidden' id='pollutant_unit_" + uniqueId + "_" + pollCount + "' value='mg/Nm3'>" + value.AmbientPollUnit + "</td></tr>"
 					pollCount++;
 
@@ -219,8 +220,8 @@ function getWaterList() {
 								for (const [key, value] of poluutantList.entries()) {
 									var html2 = "<tr><td>" + count + "</td>"
 									+"<td> <input type='hidden' name='polutant_name[]' id='pollutant_name_" + element.wwtid + "_" + count + "' value='" + value.pollutantId + "'>" + value.WaterPollutantName + "</td>"
-									+"<td><div class='form-group'> <input type='text' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_inlet_" + element.wwtid + "_" + count + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div> <i class='form-group__bar'></i></div></td>"
-									+"<td><div class='form-group'> <input type='text' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_outlet_" + element.wwtid + "_" + count + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div> <i class='form-group__bar'></i></div><i class='form-group__bar'></i></div></td>"
+									+"<td><div class='form-group'> <input type='number' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_inlet_" + element.wwtid + "_" + count + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div> <i class='form-group__bar'></i></div></td>"
+									+"<td><div class='form-group'> <input type='number' class='form-control' placeholder='Enter Pollutant Quantity' id='pollutant_outlet_" + element.wwtid + "_" + count + "' required /><div class='invalid-feedback' hidden>Please provide a valid input</div> <i class='form-group__bar'></i></div><i class='form-group__bar'></i></div></td>"
 									+"<td> <input type='hidden' name='polutant_unit[]' id='pollutant_unit_" + element.wwtid + "_" + count + "' value='" + value.WaterPollutantUnit + "'> " + value.WaterPollutantUnit + "</td>"
 									+"</tr>"
 									count++;
@@ -297,6 +298,15 @@ function saveTpStackData(stId, pollCount, accordionId,el) {
 	var volume = $("#volume_" + stId).val();
 	var filename = $("#stackfile_" + stId).val();
 
+	///mmmm
+		if (hrs_units == "") {
+			$("#unitnm").html("<label class='text-red'>Please select the unit.</label>");	
+		} 
+		else {
+			$("#unitnm").empty();
+		}
+
+	
 	for (i = 0; i < pollCount; i++) {
 		var pollutant_name = $("#pollutant_name_" + stId + "_" + i).val();
 		var pollutant_quantity = $("#pollutant_quantity_" + stId + "_" + i).val();
@@ -602,7 +612,7 @@ function saveTpwaterData(label,str,wwtid,count,el) {
 				if (poll_name_e.length == data) {
 					findNextAccordion(el);
 					jBoxBottomRightBigNotice("Success", str + " Saved !!", "green", "3000");
-					$("#btn_" + label).attr("disabled", true);
+					
 				} else {
 					jBoxBottomRightBigNotice("Error", "Oopss !! something went wrong", "red", "2000");
 				}

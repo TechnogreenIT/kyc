@@ -67,6 +67,9 @@ public interface ConsentServices
 
 	public List<Consent> getConsentDataByIssueDate(String selectedDate);
 
+	// //// mmmmm
+	// public List<Consent> getConsentDataByIssueDate1(String dateTo, Pageable pageable);
+
 	List<Consent> findLastAddedConsentByConsType(String consType, Pageable pageable);
 
 	public List<Consent> findAllConsentByConsentType(String consentType);

@@ -998,6 +998,173 @@ function AddSolidContainer(){
 	$(html).insertAfter("#appendContainers");
 	makeSelect2();
 }
+/////mmmmm
+//function RecycledDataYear(selected_year){
+//	var id ="appendContainers";
+//	$("#"+id).empty();
+//	var fwd_url = "ajax-getRecycledDataYearm";
+//	$.ajax({
+//		type : 'POST',
+//		url : fwd_url,
+//		data : ({
+//			selectedYear : selected_year,
+//			type:  "Recycled"
+//		}),
+//
+//		success : function(data) {
+//			var size= data.length;
+//			if(size != 0){
+////				$("#esrmonthly_recylced_data").hide();
+//				var parseData = JSON.parse(data);
+//				$.each(parseData, function(index, element) {
+//					var html = "<div class='row'>"
+//					   +"<div class='col-3'><div class='form-group'>"
+//					   +"<lable>"+element.PollName+"<lable>"
+//					   +"<div class='invalid-feedback'>Required ! !</div>"
+//					   +"<i class='form-group__bar'></i>"
+//					   +"</div></div>"
+//					   +"<div class='col-3'><div class='form-group'>"
+//					   +"<lable>"+element.PrivieousData+"<lable>"
+//					   +"<div class='invalid-feedback'>Required ! !</div>"
+//					   +"<i class='form-group__bar'></i>"
+//					   +"</div></div>"
+//					   +"<div class='col-3'><div class='form-group'>"
+//					   +"<lable>"+element.CurrantData+"<lable>"
+//					   +"<div class='invalid-feedback'>Required ! !</div>"
+//					   +"<i class='form-group__bar'></i>"
+//					   +"</div></div>"
+//					   +"<div class='col-2'><div class='form-group'>"
+//					   +"<lable>"+element.Uom+"<lable>"
+//					   +"<div class='invalid-feedback'>Required ! !</div>"
+//					   +"<i class='form-group__bar'></i>"
+//					   +"</div></div>"
+//					   +"<div class='col-1'></div>"
+//			           +"</div>"
+//			           
+//			           $("#"+id).append(html); 
+//				
+//				})
+//			}else{
+//				var html = "<div class='row'>"
+//				   +"<div class='col-3'><div class='form-group'>"
+//				   +"<input type='text' name='WasteName[]' class='form-control' placeholder='Enter Waste Type'>"
+//				   +"<div class='invalid-feedback'>Required ! !</div>"
+//				   +"<i class='form-group__bar'></i>"
+//				   +"</div></div>"
+//				   +"<div class='col-3'><div class='form-group'>"
+//				   +"<input type='text' name='PreviousMonth[]' class='form-control'>"
+//				   +"<div class='invalid-feedback'>Required ! !</div>"
+//				   +"<i class='form-group__bar'></i>"
+//				   +"</div></div>"
+//				   +"<div class='col-3'><div class='form-group'>"
+//				   +"<input type='text' name='CurrentMonth[]' class='form-control'>"
+//				   +"<div class='invalid-feedback'>Required ! !</div>"
+//				   +"<i class='form-group__bar'></i>"
+//				   +"</div></div>"
+//				   +"<div class='col-2'><div class='form-group'>"
+//				   +"<input type='text' name='Uom[]' class='form-control'>"
+//				   +"<div class='invalid-feedback'>Required ! !</div>"
+//				   +"<i class='form-group__bar'></i>"
+//				   +"</div></div>"
+//				   +"<div class='col-1'><div class='form-group'>"
+//				   +"<button type='button' class='btn btn-sm btn-light pt-1 pb-1 waves-effect waves-light' onclick='AddSolidContainer(\""+id+"\")'>"
+//				   +"<i class='zmdi zmdi-fw'></i> ADD</button>"
+//				   +"</div></div>"
+//		           +"</div>"
+//		           
+//		           $("#"+id).append(html); 
+//			}
+//			
+//		},
+//	error : function(xhr, type) {
+//		alert('server error occoured at RecycledDataMonthly');
+//	},
+//	async: false
+//	});
+//
+//}
+//mm
+//function saveRecyledData1(){
+//	var wasteName=new Array();
+//	var PreviousMonth=new Array();
+//	var CurrentMonth=new Array();
+//	var Uom=new Array();
+//	var esrMonth = $('#esr_month').val();
+//	var selected_year = $('#selected_year').val();
+//	var inps1 = document.getElementsByName("WasteName[]");
+//    var inps2 = document.getElementsByName("PreviousMonth[]");
+//    var inps3 = document.getElementsByName("CurrentMonth[]");
+//    var inps4 = document.getElementsByName("Uom[]");
+//    
+//    for (var i = 0; i < inps1.length; i++) {
+//        var inp1 = inps1[i];
+//        var inp2 = inps2[i];
+//        var inp3 = inps3[i];
+//        var inp4 = inps4[i];
+//
+//        if (inp1.value == "") {
+//            inp1.classList.add("is-invalid");
+//            return;
+//        } else {
+//        	wasteName.push(inp1.value);
+//            inp1.classList.remove("is-invalid");
+//        }
+//
+//        if (inp2.value == "") {
+//            inp2.classList.add("is-invalid");
+//            return;
+//        } else {
+//        	PreviousMonth.push(inp2.value);
+//            inp2.classList.remove("is-invalid");
+//        }
+//        
+//        if (inp3.value == "") {
+//            inp3.classList.add("is-invalid");
+//            return;
+//        } else {
+//        	CurrentMonth.push(inp3.value);
+//            inp3.classList.remove("is-invalid");
+//        }
+//        
+//        if (inp4.value == "") {
+//            inp4.classList.add("is-invalid");
+//            return;
+//        } else {
+//        	Uom.push(inp4.value);
+//            inp4.classList.remove("is-invalid");
+//        }
+//
+//    }
+//    
+//    $.ajax({
+//		type : "POST",
+//		url : "ajax-saveRecycledMonthly",
+//		data : ({
+//			selected_year : esrMonth,selected_year,
+//			ptype:  "Recycled",
+//			recycled: wasteName.toString(),
+//			recycled_prev: PreviousMonth.toString(),
+//			recycled_curr: CurrentMonth.toString(),
+//			recycled_units: Uom.toString()
+//			
+//		}),
+//
+//		success : function(data) {
+//			$.each(parseData, function(index, element) { 
+//				year=element.selectedYear;
+//				month=element.esrMonth;
+//				
+//			});
+//			RecycledDataYear(sesrMonth,selected_year);
+//		},
+//		error : function(xhr, type) {
+//			jBoxBottomRightBigNotice("Error", "Oopss !! session expired /n","red", "2000");
+//			//window.setTimeout(window.location = "logout",7000)
+//		},
+//		async: false
+//	});
+//}
+/////
 function randomIdNumber() {
 	var min = 1;
 	var max = 5000;

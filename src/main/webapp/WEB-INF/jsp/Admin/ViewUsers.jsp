@@ -209,8 +209,8 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" name="contPerNo"
-											placeholder="Contact No." required> <i
+										<input type="number" class="form-control" name="contPerNo" onkeypress="validatePhoneNumber()"
+											placeholder="Contact No." maxlength="12" required> <i
 											class="form-group__bar"></i>
 									</div>
 								</div>
@@ -356,6 +356,13 @@
       	});
       }
 
+      ///mmmm
+      function validatePhoneNumber(input_str) {
+      	  var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+      	  return re.test(input_str);
+      	}  
+  	///
       function changeStatus(empDataId, currentStatus) {
       	$.ajax({
       		type: "POST",

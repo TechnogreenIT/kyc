@@ -693,6 +693,8 @@
 									<label>UOM</label>
 								</div>
 							</div>
+							
+				</div>
 						</div>
 						<div class="col-12">
 							<div class="row" id="appendContainers">
@@ -738,6 +740,21 @@
 										</button>
 									</div>
 								</div>
+								
+								<!-- mmmmmm -->
+							 <!-- <div  id="appendContainers"></div> -->
+				
+					<!--<div  class="col-sm-12">
+						<button class="btn btn-primary btn--icon-text float-right" id="esrmonthly_recylced_data" onclick="saveRecyledData1()"><i class="zmdi zmdi-save"></i> Save</button>
+					</div>-->
+					
+					<div class="col-sm-12">
+							<button class="btn btn-primary btn--icon-text float-right"
+								id="esrmonthly_recylced_data" onclick="saveRecyledData1()">
+								<i class="zmdi zmdi-save"></i> Save
+							</button>
+						</div>
+					
 							</div>
 						</div>
 					</div>

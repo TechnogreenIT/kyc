@@ -274,17 +274,17 @@ function getWaterSourceDailyInputData() {
 											"<td><input type='hidden' name='sourceId[]' value='" + sourceId + "'><input type='hidden' class='form-control' name='sourceName[]' value='" + sourceName + "'>" + sourceName +"</td>" +
 											"<td>" +
 												"<div class='form-group mb-0'>" +
-												"<input type='text' name='sourceStart[]' id='source_startid_" + index + "' class='form-control' value='" + endReading + "' disabled/> <i class='form-group__bar'></i>" +
+												"<input type='number' name='sourceStart[]' id='source_startid_" + index + "' class='form-control' value='" + endReading + "' disabled/> <i class='form-group__bar'></i>" +
 												"</div>" +
 										    "</td>" +
 										    "<td>" +
 												"<div class='form-group mb-0'>" +
-												"<input type='text' class='form-control' placeholder='End Reading' name='sourceEnd[]' id='source_endid_" + index + "' onkeypress='numberValidate(event,\"source_Error_" + index + "\")' onchange='setConsumption(\"source\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+												"<input type='number' class='form-control' placeholder='End Reading' name='sourceEnd[]' id='source_endid_" + index + "' onkeypress='numberValidate(event,\"source_Error_" + index + "\")' onchange='setConsumption(\"source\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 												"</div>" +
 										"</td>" +
 										"<td>" +
 											"<div class='form-group mb-0'>" +
-											"<input type='text' placeholder='Act Consumption' name='avgSourceStart[]' class='form-control' id='source_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+											"<input type='number' placeholder='Act Consumption' name='avgSourceStart[]' class='form-control' id='source_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 											"</div>" +
 										"</td>" +
 										"<td>" +
@@ -298,7 +298,7 @@ function getWaterSourceDailyInputData() {
 											"<td>-<input type='hidden' class='form-control' name='sourceEnd[]' value='0'></td>" +
 											"<td>" +
 												"<div class='form-group mb-0'>" +
-												"<input type='text' placeholder='Act Consumption' name='avgSourceStart[]' class='form-control' id='source_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+												"<input type='number' placeholder='Act Consumption' name='avgSourceStart[]' class='form-control' id='source_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 												"</div>" +
 											"</td>" +
 											"<td>" +
@@ -311,16 +311,16 @@ function getWaterSourceDailyInputData() {
 											"<td><input type='hidden' name='sourceId1[]' value='" + sourceId + "'><input type='hidden' class='form-control' name='sourceName1[]' value='" + sourceName + "'>" + sourceName + "</td>" +
 											"<td>" +
 												"<div class='form-group mb-0'>" +
-												"<input type='text' name='sourceStart1[]'  class='form-control' value='" + startReading + "' disabled/>"+
+												"<input type='number' name='sourceStart1[]'  class='form-control' value='" + startReading + "' disabled/>"+
 												"</div>" +
 											"</td>" +
 										    "<td>" +
 												"<div class='form-group mb-0'>" +
-												"<input type='text' name='sourceEnd1[]'  class='form-control' value='" + endReading + "' disabled/>"+								"</div>" +
+												"<input type='number' name='sourceEnd1[]'  class='form-control' value='" + endReading + "' disabled/>"+								"</div>" +
 										    "</td>" +
 										    "<td>" +
 												"<div class='form-group mb-0'>" +
-												"<input type='text' name='avgSourceStart1[]' class='form-control'   value='" + actualReading + "' disabled/>"+								"</div>" +
+												"<input type='number' name='avgSourceStart1[]' class='form-control'   value='" + actualReading + "' disabled/>"+								"</div>" +
 										    "</td>" +
 										    "<td>" +
 												"<div class='form-group'> <div><label class='text-cyan'> <i class='zmdi zmdi-check-circle zmdi-hc-fw'></i>Data Filled!</label></div> </div>" +
@@ -334,7 +334,7 @@ function getWaterSourceDailyInputData() {
 											"<td>-<input type='hidden' class='form-control' name='sourceEnd1[]' value='0'></td>" +
 											"<td>" +
 												"<div class='form-group mb-0'>" +
-												"<input type='text' name='avgSourceStart1[]' class='form-control' value='" + actualReading + "' disabled/>"+
+												"<input type='number' name='avgSourceStart1[]' class='form-control' value='" + actualReading + "' disabled/>"+
 												"</div>" +
 											"</td>" +
 											"<td>" +
@@ -348,7 +348,7 @@ function getWaterSourceDailyInputData() {
 										"<td>-<input type='hidden' class='form-control' name='sourceEnd[]' value='0'></td>" +
 										"<td>" +
 											"<div class='form-group mb-0'>" +
-											"<input type='text' placeholder='Actual Consumption' name='avgSourceStart[]' onkeypress='numberValidate(event,\"source_Error_" + index + "\")' class='form-control'/> <i class='form-group__bar'></i></div>";
+											"<input type='number' placeholder='Actual Consumption' name='avgSourceStart[]' onkeypress='numberValidate(event,\"source_Error_" + index + "\")' class='form-control'/> <i class='form-group__bar'></i></div>";
 								        "</td>"+
 										"<td>"+
 										"<div class='form-group'> <div id='source_Error_" + index + "'></div> </div>" +
@@ -362,17 +362,17 @@ function getWaterSourceDailyInputData() {
 											"<td><input type='hidden' name='sourceId[]' value='" + sourceId + "'><input type='hidden' class='form-control' name='sourceName[]' value='" + sourceName + "'>" + sourceName + "</td>" +
 											"<td>" +
 												"<div class='form-group mb-0'>" +
-													"<input type='text' name='sourceStart[]' value='0' id='source_startid_" + index + "' class='form-control' value='" + index + "' /> <i class='form-group__bar'></i>" +
+													"<input type='number' name='sourceStart[]' value='0' id='source_startid_" + index + "' class='form-control' value='" + index + "' /> <i class='form-group__bar'></i>" +
 												"</div>" +
 											"</td>" +
 											"<td>" +
 												"<div class='form-group mb-0'>" +
-													"<input type='text' class='form-control' placeholder='End Reading' name='sourceEnd[]' id='source_endid_" + index + "' onkeypress='numberValidate(event,\"source_Error_" + index + "\")' onchange='setConsumption(\"source\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+													"<input type='number' class='form-control' placeholder='End Reading' name='sourceEnd[]' id='source_endid_" + index + "' onkeypress='numberValidate(event,\"source_Error_" + index + "\")' onchange='setConsumption(\"source\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 												"</div>" +
 											"</td>" +
 											"<td>" +
 												"<div class='form-group mb-0'>" +
-													"<input type='text' placeholder='Act Consumption' name='avgSourceStart[]' class='form-control' id='source_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+													"<input type='number' placeholder='Act Consumption' name='avgSourceStart[]' class='form-control' id='source_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 												"</div>" +
 											"</td>" +
 											"<td>" +
@@ -630,17 +630,17 @@ function getWaterPreFilterDailyInputData(){
 										   		"<td><input type='hidden' class='form-control' name='prefilterName[]' value='" + sourceName+count+ "'>" + sourceName +'- Prefilter'+count+ "</td>" +
 										   		"<td>" +
 										   			"<div class='form-group mb-0'>" +
-										   				"<input type='text' name='prefilterStart[]' id='prefilter_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+										   				"<input type='number' name='prefilterStart[]' id='prefilter_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 													"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' class='form-control' placeholder='End Reading' name='prefilterEnd[]' id='prefilter_endid_" + index + "' onkeypress='numberValidate(event,\"prefilter_Error_" + index + "\")' onchange='setConsumption(\"prefilter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+														"<input type='number' class='form-control' placeholder='End Reading' name='prefilterEnd[]' id='prefilter_endid_" + index + "' onkeypress='numberValidate(event,\"prefilter_Error_" + index + "\")' onchange='setConsumption(\"prefilter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 													"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+														"<input type='number' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 													"</div>" +
 												"</td>" +
 												"<td>" +
@@ -655,7 +655,7 @@ function getWaterPreFilterDailyInputData(){
 									        	    "<td>-<input type='hidden' class='form-control' name='prefilterEnd[]' value='0'></td>" +
 									        	    "<td>" +
 									         			"<div class='form-group mb-0'>" +
-									         				"<input type='text' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+									         				"<input type='number' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 									         			"</div>" +
 									         		"</td>" +
 									         		"<td>" +
@@ -670,16 +670,16 @@ function getWaterPreFilterDailyInputData(){
 												"<td><input type='hidden' class='form-control' name='prefilterName1[]' value='" + sourceName+count+ "'>" + sourceName +'- Prefilter'+count+ "</td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' name='prefilterStart1[]'  class='form-control' value='" + startReading + "' disabled/>"+
+														"<input type='number' name='prefilterStart1[]'  class='form-control' value='" + startReading + "' disabled/>"+
 													"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' name='prefilterEnd1[]'  class='form-control' value='" + endReading + "' disabled/>"+"</div>" +
+														"<input type='number' name='prefilterEnd1[]'  class='form-control' value='" + endReading + "' disabled/>"+"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' name='avgprefilterStart1[]' class='form-control' value='" + actualReading + "' disabled/>"+"</div>" +
+														"<input type='number' name='avgprefilterStart1[]' class='form-control' value='" + actualReading + "' disabled/>"+"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group'> <div><label class='text-cyan'> <i class='zmdi zmdi-check-circle zmdi-hc-fw'></i>Data Filled!</label></div> </div>" +
@@ -693,7 +693,7 @@ function getWaterPreFilterDailyInputData(){
 												"<td>-<input type='hidden' class='form-control' name='prefilterEnd1[]' value='0'></td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' name='avgprefilterStart1[]' class='form-control' value='" + actualReading + "' disabled/>"+"</div>" +
+														"<input type='number' name='avgprefilterStart1[]' class='form-control' value='" + actualReading + "' disabled/>"+"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group'> <div><label class='text-cyan'> <i class='zmdi zmdi-check-circle zmdi-hc-fw'></i>Data Filled!</label></div> </div>" +
@@ -707,17 +707,17 @@ function getWaterPreFilterDailyInputData(){
 										   		"<td><input type='hidden' class='form-control' name='prefilterName[]' value='" + sourceName +count+ "'>" + sourceName +'- Prefilter'+count+ "</td>" +
 										   		"<td>" +
 										   			"<div class='form-group mb-0'>" +
-										   				"<input type='text' value='0' name='prefilterStart[]' id='prefilter_startid_" + index + "' class='form-control' /> <i class='form-group__bar'></i>" +
+										   				"<input type='number' value='0' name='prefilterStart[]' id='prefilter_startid_" + index + "' class='form-control' /> <i class='form-group__bar'></i>" +
 										   			"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' class='form-control' placeholder='End Reading' name='prefilterEnd[]' id='prefilter_endid_" + index + "' onkeypress='numberValidate(event,\"prefilter_Error_" + index + "\")' onchange='setConsumption(\"prefilter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+														"<input type='number' class='form-control' placeholder='End Reading' name='prefilterEnd[]' id='prefilter_endid_" + index + "' onkeypress='numberValidate(event,\"prefilter_Error_" + index + "\")' onchange='setConsumption(\"prefilter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 													"</div>" +
 												"</td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+														"<input type='number' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 													"</div>" +
 												"</td>" +
 									            "<td>" +
@@ -732,7 +732,7 @@ function getWaterPreFilterDailyInputData(){
 												"<td>-<input type='hidden' class='form-control' name='prefilterEnd[]' value='0'></td>" +
 												"<td>" +
 													"<div class='form-group mb-0'>" +
-														"<input type='text' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+														"<input type='number' placeholder='Act Consumption' name='avgprefilterStart[]' class='form-control' id='prefilter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 												    "</div>" +
 												"</td>" +
 												"<td>" +
@@ -850,17 +850,17 @@ function getWaterFilterDailyInputData(){
 												"<td><input type='hidden' class='form-control' name='filterName[]' value='" + filterName+ "'>"+filterName+"</td>" +
 												"<td>" +
 										    	 	"<div class='form-group mb-0'>" +
-										    	 		"<input type='text' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+										    	 		"<input type='number' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 										    	 	"</div>" +
 										    	 "</td>" +
 										    	 "<td>" +
 										    	 	"<div class='form-group mb-0'>" +
-										   		 		"<input type='text' class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+										   		 		"<input type='number' class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 										   		 	"</div>" +
 										   		 "</td>" +
 										   		 "<td>" +
 										   		 	"<div class='form-group mb-0'>" +
-										   		 		"<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+										   		 		"<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 										   		 	"</div>" +
 										   		 "</td>" +
 										   		 "<td>" +
@@ -875,7 +875,7 @@ function getWaterFilterDailyInputData(){
 						        	            "<td>-<input type='hidden' class='form-control' name='filterEnd[]' value='0'></td>" +
 						        	            "<td>" +
 						         		             "<div class='form-group mb-0'>" +
-						         		                "<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+						         		                "<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 						         		             "</div>" +
 						         	           "</td>" +
 						         	            "<td>" +
@@ -890,17 +890,17 @@ function getWaterFilterDailyInputData(){
 									            "<td><input type='hidden' class='form-control' name='filterName[]' value='" + filterName+ "'>"+filterName+"</td>" +
 									            "<td>" +
 										             "<div class='form-group mb-0'>" +
-											         	 "<input type='text' name='filterStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+											         	 "<input type='number' name='filterStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 											         "</div>" +
 								               "</td>" +
 								               "<td>" +
 										            "<div class='form-group mb-0'>" +
-										            	"<input type='text' name='filterEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
+										            	"<input type='number' name='filterEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
 										             "</div>" +
 										       "</td>" +
 										       "<td>" +
 										       		"<div class='form-group mb-0'>" +
-										       			"<input type='text' name='avgfilterStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
+										       			"<input type='number' name='avgfilterStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
 										            "</div>" +
 										      "</td>" +
 									          "<td>" +
@@ -915,7 +915,7 @@ function getWaterFilterDailyInputData(){
 												"<td>-</td>" +
 												"<td>" +
 													 "<div class='form-group mb-0'>" +
-													 	"<input type='text' name='avgfilterStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
+													 	"<input type='number' name='avgfilterStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
 													 "</div>" +
 											    "</td>" +
 											    "<td>" +
@@ -930,17 +930,17 @@ function getWaterFilterDailyInputData(){
 											   "<td><input type='hidden' class='form-control' name='filterName[]' value='" + filterName+ "'>"+filterName+"</td>" +
 									           "<td>" +
 									           		"<div class='form-group mb-0'>" +
-									           			"<input type='text' class='form-control' placeholder='Start Reading' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
+									           			"<input type='number' class='form-control' placeholder='Start Reading' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
 									           		"</div>" +
 									           "</td>" +
 									           "<td>" +
 									           		"<div class='form-group mb-0'>" +
-									           			"<input type='text'  class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+									           			"<input type='number'  class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 									           		"</div>" +
 									           "</td>" +
 									           "<td>" +
 									           		"<div class='form-group mb-0'>" +
-									           			"<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+									           			"<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 									           		"</div>" +
 									           "</td>" +
 									           "<td>" +
@@ -955,7 +955,7 @@ function getWaterFilterDailyInputData(){
 						        				"<td>-<input type='hidden' class='form-control' name='filterEnd[]' value='0'></td>" +
 						        				"<td>" +
 						        					 "<div class='form-group mb-0'>" +
-						        					 	"<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+						        					 	"<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 						        					 "</div>" +
 						        				"</td>" +
 						        				"<td>" +
@@ -1002,17 +1002,17 @@ function getWaterFilterDailyInputData(){
   									        				 	"<td><input type='hidden' class='form-control' name='filterName[]' id='filter_name_"+ index + "' value='" + filterName+ "'>"+filterName+"</td>" +
   									        				 	"<td>" +
   									        				 		"<div class='form-group mb-0'>" +
-  									        				 			"<input type='text' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='" + startReading+ "' disabled/> <i class='form-group__bar'></i>" +
+  									        				 			"<input type='number' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='" + startReading+ "' disabled/> <i class='form-group__bar'></i>" +
   									        				 		"</div>" +
   									        					 "</td>" +
   									        					 "<td>" +
   									        					 	"<div class='form-group mb-0'>" +
-  									        					 		"<input type='text' class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+  									        					 		"<input type='number' class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
   									        					 	"</div>" +
   									        					 "</td>" +
   									        					 "<td>" +
   									        					 	"<div class='form-group mb-0'>" +
-  									        					 		"<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+  									        					 		"<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
   									        					 	"</div>" +
   									        					 "</td>" +
   									        					 "<td>" +
@@ -1027,7 +1027,7 @@ function getWaterFilterDailyInputData(){
   						        					 	"<td>-<input type='hidden' class='form-control' name='filterEnd[]' id='filter_endid_" + index + "' value='0'></td>" +
   						        					 	"<td>" +
   						        					 		"<div class='form-group mb-0'>" +
-  						        					 			"<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+  						        					 			"<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
   						        					 		"</div>" +
   						        					 	"</td>" +
   						        					 	"<td>" +
@@ -1042,17 +1042,17 @@ function getWaterFilterDailyInputData(){
   													 	"<td><input type='hidden' class='form-control' name='filterName[]' value='" + filterName+ "'>"+filterName+"</td>" +
   													 	"<td>" +
   													 		"<div class='form-group mb-0'>" +
-  													 			"<input type='text' name='filterStart1[]'  class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+  													 			"<input type='number' name='filterStart1[]'  class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
   													 		"</div>" +
   													 	"</td>" +
   													 	"<td>" +
   													 		"<div class='form-group mb-0'>" +
-  													 			"<input type='text' name='filterEnd1[]'  class='form-control' value='" + endReading + "' disabled/> <i class='form-group__bar'></i>" +
+  													 			"<input type='number' name='filterEnd1[]'  class='form-control' value='" + endReading + "' disabled/> <i class='form-group__bar'></i>" +
   													 		"</div>" +
   													 	"</td>" +
   													 	"<td>" +
   													 		"<div class='form-group mb-0'>" +
-  													 			"<input type='text' name='avgfilterStart1[]' class='form-control' id='filter_avgid_" + index + "' value='" + actualReading + "' disabled/> <i class='form-group__bar'></i>" +
+  													 			"<input type='number' name='avgfilterStart1[]' class='form-control' id='filter_avgid_" + index + "' value='" + actualReading + "' disabled/> <i class='form-group__bar'></i>" +
   													 		"</div>" +
   													 	"</td>" +
   													 	"<td>" +
@@ -1067,7 +1067,7 @@ function getWaterFilterDailyInputData(){
   													 	"<td>-</td>" +
   													 	"<td>" +
   													 		"<div class='form-group mb-0'>" +
-  													 			"<input type='text' name='avgfilterStart1[]' class='form-control'  value='"+actualReading+"' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+  													 			"<input type='number' name='avgfilterStart1[]' class='form-control'  value='"+actualReading+"' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
   													 		"</div>" +
   													 	"</td>" +
   													 	"<td>" +
@@ -1082,17 +1082,17 @@ function getWaterFilterDailyInputData(){
   													 	"<td><input type='hidden' class='form-control' name='filterName[]' id='filter_name_"+ index + "' value='" + filterName+ "'>"+filterName+"</td>" +
   													 	"<td>" +
   													 		"<div class='form-group mb-0'>" +
-  													 			"<input type='text' class='form-control' placeholder='Start Reading' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
+  													 			"<input type='number' class='form-control' placeholder='Start Reading' name='filterStart[]' id='filter_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
   													 		"</div>" +
   													 	"</td>" +
   													 	"<td>" +
   													 		"<div class='form-group mb-0'>" +
-  													 			"<input type='text'  class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+  													 			"<input type='number'  class='form-control' placeholder='End Reading' name='filterEnd[]' id='filter_endid_" + index + "' onkeypress='numberValidate(event,\"filter_Error_" + index + "\")' onchange='setConsumption(\"filter\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
   													 		"</div>" +
   													 	"</td>" +
   													 	"<td>" +
   													 		"<div class='form-group mb-0'>" +
-  													 			"<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+  													 			"<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
   													 		"</div>" +
   													 	"</td>" +
   													 	"<td>" +
@@ -1107,7 +1107,7 @@ function getWaterFilterDailyInputData(){
   						        					 	"<td>-<input type='hidden' class='form-control' name='filterEnd[]' id='filter_endid_" + index + "' value='0'></td>" +
   						        					 	"<td>" +
   						        					 		"<div class='form-group mb-0'>" +
-  						        					 			"<input type='text' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+  						        					 			"<input type='number' placeholder='Act Consumption' name='avgfilterStart[]' class='form-control' id='filter_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
   						        					 		"</div>" +
   						        					 	"</td>" +
   						        					 	"<td>" +
@@ -1256,17 +1256,17 @@ function getWaterFilterUseDailyData(){
 										 			"<td><input type='hidden' class='form-control' name='filterUseName[]' value='" + filterUseLabel+ "' +' (' +'"+filterUseType+"'+ ')' >"+filterUseLabel+" ("+filterUseType+")"+"</td>" +
 													"<td>" +
 											    		"<div class='form-group mb-0'>" +
-											    	 		"<input type='text' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+											    	 		"<input type='number' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 											    	 	"</div>" +
 											    	 "</td>" +
 											    	 "<td>" +
 											    	 	"<div class='form-group mb-0'>" +
-											   		 		"<input type='text' class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+											   		 		"<input type='number' class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 											   		 	"</div>" +
 											   		 "</td>" +
 											   		 "<td>" +
 											   		 	"<div class='form-group mb-0'>" +
-											   		 		"<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+											   		 		"<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 											   		 	"</div>" +
 											   		 "</td>" +
 											   		 "<td>" +
@@ -1281,7 +1281,7 @@ function getWaterFilterUseDailyData(){
 										 	    	"<td>-<input type='hidden' class='form-control' name='filterUseEnd[]' value='0'></td>" +
 										 	    	"<td>" +
 							         		        	"<div class='form-group mb-0'>" +
-							         		                "<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+							         		                "<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 							         		             "</div>" +
 							         	           "</td>" +
 							         	           "<td>" +
@@ -1296,17 +1296,17 @@ function getWaterFilterUseDailyData(){
 										 	   		"<td><input type='hidden' class='form-control' name='filterUseName1[]' value='" + filterUseLabel+ "' +' (' +'"+filterUseType+"'+ ')' >"+filterUseLabel+" ("+filterUseType+")"+"</td>" +
 										            "<td>" +
 											        	"<div class='form-group mb-0'>" +
-												        	"<input type='text' name='filterUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+												        	"<input type='number' name='filterUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 												         "</div>" +
 												    "</td>" +
 												    "<td>" +
 											            "<div class='form-group mb-0'>" +
-											            	"<input type='text' name='filterUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
+											            	"<input type='number' name='filterUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
 											             "</div>" +
 											       "</td>" +
 											       "<td>" +
 											       		"<div class='form-group mb-0'>" +
-											       			"<input type='text' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
+											       			"<input type='number' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
 											            "</div>" +
 											      "</td>" +
 										          "<td>" +
@@ -1321,7 +1321,7 @@ function getWaterFilterUseDailyData(){
 													"<td>-</td>" +
 													"<td>" +
 														 "<div class='form-group mb-0'>" +
-														 	"<input type='text' name='avgfilterUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
+														 	"<input type='number' name='avgfilterUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
 														 "</div>" +
 												    "</td>" +
 												    "<td>" +
@@ -1336,17 +1336,17 @@ function getWaterFilterUseDailyData(){
 											   		"<td><input type='hidden' class='form-control' name='filterUseName[]' value='" + filterUseLabel+ "' +' (' +'"+filterUseType+"'+ ')' >"+filterUseLabel+" ("+filterUseType+")"+"</td>" +
 										            "<td>" +
 										           		"<div class='form-group mb-0'>" +
-										           			"<input type='text' class='form-control' placeholder='Start Reading' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
+										           			"<input type='number' class='form-control' placeholder='Start Reading' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
 										           		"</div>" +
 										           	"</td>" +
 										           	"<td>" +
 										           		"<div class='form-group mb-0'>" +
-										           			"<input type='text'  class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+										           			"<input type='number'  class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 										           		"</div>" +
 										           "</td>" +
 										           "<td>" +
 										           		"<div class='form-group mb-0'>" +
-										           			"<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+										           			"<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 										           		"</div>" +
 										           "</td>" +
 										           "<td>" +
@@ -1361,7 +1361,7 @@ function getWaterFilterUseDailyData(){
 							        				"<td>-<input type='hidden' class='form-control' name='filterUseEnd[]' value='0'></td>" +
 							        				"<td>" +
 							        					 "<div class='form-group mb-0'>" +
-							        					 	"<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+							        					 	"<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 							        					 "</div>" +
 							        				"</td>" +
 							        				"<td>" +
@@ -1409,17 +1409,17 @@ function getWaterFilterUseDailyData(){
 																"<td><input type='hidden' class='form-control' name='filterUseName[]' value='" + filterUseLabel+ "' +' (' +'"+filterUseType+"'+ ')' >"+filterUseLabel+" ("+filterUseType+")"+"</td>" +
 																"<td>" +
 																	"<div class='form-group mb-0'>" +
-																    	"<input type='text' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+																    	"<input type='number' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 																    "</div>" +
 																"</td>" +
 																"<td>" +
 																	"<div class='form-group mb-0'>" +
-																   		"<input type='text' class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+																   		"<input type='number' class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 																   	"</div>" +
 																"</td>" +
 																"<td>" +
 																	"<div class='form-group mb-0'>" +
-																    	"<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+																    	"<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 																   	"</div>" +
 																"</td>" +
 																"<td>" +
@@ -1434,7 +1434,7 @@ function getWaterFilterUseDailyData(){
 															 						"<td>-<input type='hidden' class='form-control' name='filterUseEnd[]' value='0'></td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+															 								"<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
@@ -1450,17 +1450,17 @@ function getWaterFilterUseDailyData(){
 															 							"<input type='hidden' class='form-control' name='filterUseName1[]' value='" + filterUseLabel+ "' +' (' +'"+filterUseType+"'+ ')' >"+filterUseLabel+" ("+filterUseType+")"+"</td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text' name='filterUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+															 								"<input type='number' name='filterUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text' name='filterUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
+															 								"<input type='number' name='filterUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
+															 								"<input type='number' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
@@ -1475,7 +1475,7 @@ function getWaterFilterUseDailyData(){
 													         						"<td>-</td>" +
 													         						"<td>" +
 													         							"<div class='form-group mb-0'>" +
-													         								"<input type='text' name='avgfilterUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
+													         								"<input type='number' name='avgfilterUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
 													         							"</div>" +
 													         						"</td>" +
 													         						"<td>" +
@@ -1490,17 +1490,17 @@ function getWaterFilterUseDailyData(){
 															 						"<td><input type='hidden' class='form-control' name='filterUseName[]' value='" + filterUseLabel+ "' +' (' +'"+filterUseType+"'+ ')' >"+filterUseLabel+" ("+filterUseType+")"+"</td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text' class='form-control' placeholder='Start Reading' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
+															 								"<input type='number' class='form-control' placeholder='Start Reading' name='filterUseStart[]' id='filterUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text'  class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+															 								"<input type='number'  class='form-control' placeholder='End Reading' name='filterUseEnd[]' id='filterUse_endid_" + index + "' onkeypress='numberValidate(event,\"filterUse_Error_" + index + "\")' onchange='setConsumption(\"filterUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+															 								"<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
@@ -1515,7 +1515,7 @@ function getWaterFilterUseDailyData(){
 															 						"<td>-<input type='hidden' class='form-control' name='filterUseEnd[]' value='0'></td>" +
 															 						"<td>" +
 															 							"<div class='form-group mb-0'>" +
-															 								"<input type='text' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+															 								"<input type='number' placeholder='Act Consumption' name='avgfilterUseStart[]' class='form-control' id='filterUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 															 							"</div>" +
 															 						"</td>" +
 															 						"<td>" +
@@ -1660,17 +1660,17 @@ function getUseOfWaterDailyInputData() {
 											 			"<td><input type='hidden' class='form-control' name='directUseName[]' value='" + whereToUse+ "' +' (' +'"+typeOfUse+"'+ ')' >"+whereToUse+" ("+typeOfUse+")"+"</td>" +
 														"<td>" +
 												    		"<div class='form-group mb-0'>" +
-												    	 		"<input type='text' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+												    	 		"<input type='number' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 												    	 	"</div>" +
 												    	 "</td>" +
 												    	 "<td>" +
 												    	 	"<div class='form-group mb-0'>" +
-												   		 		"<input type='text' class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+												   		 		"<input type='number' class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 												   		 	"</div>" +
 												   		 "</td>" +
 												   		 "<td>" +
 												   		 	"<div class='form-group mb-0'>" +
-												   		 		"<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+												   		 		"<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 												   		 	"</div>" +
 												   		 "</td>" +
 												   		 "<td>" +
@@ -1685,7 +1685,7 @@ function getUseOfWaterDailyInputData() {
 											 	    	"<td>-<input type='hidden' class='form-control' name='directUseEnd[]' value='0' id='directUse_endid_" + index + "'></td>" +
 											 	    	"<td>" +
 								         		        	"<div class='form-group mb-0'>" +
-								         		                "<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+								         		                "<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 								         		             "</div>" +
 								         	           "</td>" +
 								         	           "<td>" +
@@ -1700,17 +1700,17 @@ function getUseOfWaterDailyInputData() {
 											 	   		"<td><input type='hidden' class='form-control' name='directUseName1[]' value='" + whereToUse+ "' +' (' +'"+typeOfUse+"'+ ')' >"+whereToUse+" ("+typeOfUse+")"+"</td>" +
 											            "<td>" +
 												        	"<div class='form-group mb-0'>" +
-													        	"<input type='text' name='directUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+													        	"<input type='number' name='directUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 													         "</div>" +
 													    "</td>" +
 													    "<td>" +
 												            "<div class='form-group mb-0'>" +
-												            	"<input type='text' name='directUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
+												            	"<input type='number' name='directUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
 												             "</div>" +
 												       "</td>" +
 												       "<td>" +
 												       		"<div class='form-group mb-0'>" +
-												       			"<input type='text' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
+												       			"<input type='number' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
 												            "</div>" +
 												      "</td>" +
 											          "<td>" +
@@ -1725,7 +1725,7 @@ function getUseOfWaterDailyInputData() {
 														"<td>-</td>" +
 														"<td>" +
 															 "<div class='form-group mb-0'>" +
-															 	"<input type='text' name='avgDirectUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
+															 	"<input type='number' name='avgDirectUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
 															 "</div>" +
 													    "</td>" +
 													    "<td>" +
@@ -1740,17 +1740,17 @@ function getUseOfWaterDailyInputData() {
 												   		"<td><input type='hidden' class='form-control' name='directUseName[]' value='" + whereToUse+ "' +' (' +'"+typeOfUse+"'+ ')' >"+whereToUse+" ("+typeOfUse+")"+"</td>" +
 											            "<td>" +
 											           		"<div class='form-group mb-0'>" +
-											           			"<input type='text' class='form-control' placeholder='Start Reading' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
+											           			"<input type='number' class='form-control' placeholder='Start Reading' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
 											           		"</div>" +
 											           	"</td>" +
 											           	"<td>" +
 											           		"<div class='form-group mb-0'>" +
-											           			"<input type='text'  class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+											           			"<input type='number'  class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 											           		"</div>" +
 											           "</td>" +
 											           "<td>" +
 											           		"<div class='form-group mb-0'>" +
-											           			"<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+											           			"<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 											           		"</div>" +
 											           "</td>" +
 											           "<td>" +
@@ -1765,7 +1765,7 @@ function getUseOfWaterDailyInputData() {
 								        				"<td>-<input type='hidden' class='form-control' name='directUseEnd[]' value='0' id='directUse_endid_" + index + "'></td>" +
 								        				"<td>" +
 								        					 "<div class='form-group mb-0'>" +
-								        					 	"<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+								        					 	"<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 								        					 "</div>" +
 								        				"</td>" +
 								        				"<td>" +
@@ -1814,17 +1814,17 @@ function getUseOfWaterDailyInputData() {
 									 						"<td><input type='hidden' class='form-control' name='directUseName[]' value='" + whereToUse+ "' +' (' +'"+typeOfUse+"'+ ')' >"+whereToUse+" ("+typeOfUse+")"+"</td>" +
 									 						"<td>" +
 									 							"<div class='form-group mb-0'>" +
-									 								"<input type='text' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+									 								"<input type='number' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 									 							"</div>" +
 									 						"</td>" +
 									 						"<td>" +
 									 							"<div class='form-group mb-0'>" +
-									 								"<input type='text' class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+									 								"<input type='number' class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 									 							"</div>" +
 									 						"</td>" +
 									 						"<td>" +
 									 							"<div class='form-group mb-0'>" +
-									 								"<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+									 								"<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 									 							"</div>" +
 									 						"</td>" +
 									 					"<td>" +
@@ -1839,7 +1839,7 @@ function getUseOfWaterDailyInputData() {
 									 	   					"<td>-<input type='hidden' class='form-control' name='directUseEnd[]' value='0' id='directUse_endid_" + index + "'></td>" +
 									 	   					"<td>" +
 									 	   						"<div class='form-group mb-0'>" +
-									 	   							"<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+									 	   							"<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 									 	   						"</div>" +
 									 	   					"</td>" +
 									 	   					"<td>" +
@@ -1854,17 +1854,17 @@ function getUseOfWaterDailyInputData() {
 									 	   					"<td><input type='hidden' class='form-control' name='directUseName1[]' value='" + whereToUse+ "' +' (' +'"+typeOfUse+"'+ ')' >"+whereToUse+" ("+typeOfUse+")"+"</td>" +
 									 	   					"<td>" +
 									 	   						"<div class='form-group mb-0'>" +
-									 	   							"<input type='text' name='directUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
+									 	   							"<input type='number' name='directUseStart1[]' class='form-control' value='" + startReading + "' disabled/> <i class='form-group__bar'></i>" +
 									 	   						"</div>" +
 									 	   					"</td>" +
 									 	   					"<td>" +
 									 	   						"<div class='form-group mb-0'>" +
-									 	   							"<input type='text' name='directUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
+									 	   							"<input type='number' name='directUseEnd1[]' class='form-control' value='"+ endReading +"' disabled/> <i class='form-group__bar'></i>" +
 									 	   						"</div>" +
 									 	   					"</td>" +
 									 	   					"<td>" +
 									 	   						"<div class='form-group mb-0'>" +
-									 	   							"<input type='text' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
+									 	   							"<input type='number' name='avgfilterUseStart1[]' class='form-control'  value='"+ actualReading +"' disabled/> <i class='form-group__bar'></i>" +
 									 	   						"</div>" +
 									 	   					"</td>" +
 									 	   					"<td>" +
@@ -1879,7 +1879,7 @@ function getUseOfWaterDailyInputData() {
 									 						"<td>-</td>" +
 									 						"<td>" +
 									 							"<div class='form-group mb-0'>" +
-									 								"<input type='text' name='avgDirectUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
+									 								"<input type='number' name='avgDirectUseStart1[]' class='form-control' value='"+actualReading+"' disabled/> <i class='form-group__bar'></i>" +
 									 							"</div>" +
 									 						"</td>" +
 									 						"<td>" +
@@ -1894,17 +1894,17 @@ function getUseOfWaterDailyInputData() {
 										   					"<td><input type='hidden' class='form-control' name='directUseName[]' value='" + whereToUse+ "' +' (' +'"+typeOfUse+"'+ ')' >"+whereToUse+" ("+typeOfUse+")"+"</td>" +
 										   					"<td>" +
 										   						"<div class='form-group mb-0'>" +
-										   							"<input type='text' class='form-control' placeholder='Start Reading' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
+										   							"<input type='number' class='form-control' placeholder='Start Reading' name='directUseStart[]' id='directUse_startid_" + index + "' class='form-control' value='0'/> <i class='form-group__bar'></i>" +
 										   						"</div>" +
 										   					"</td>" +
 										   					"<td>" +
 										   						"<div class='form-group mb-0'>" +
-										   							"<input type='text'  class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
+										   							"<input type='number'  class='form-control' placeholder='End Reading' name='directUseEnd[]' id='directUse_endid_" + index + "' onkeypress='numberValidate(event,\"directUse_Error_" + index + "\")' onchange='setConsumption(\"directUse\",\"" + index + "\")'/> <i class='form-group__bar'></i>" +
 										   						"</div>" +
 										   					"</td>" +
 										   					"<td>" +
 										   						"<div class='form-group mb-0'>" +
-										   							"<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
+										   							"<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' disabled/> <i class='form-group__bar'></i>" +
 										   						"</div>" +
 										   					"</td>" +
 										   					"<td>" +
@@ -1919,7 +1919,7 @@ function getUseOfWaterDailyInputData() {
 									 						"<td>-<input type='hidden' class='form-control' name='directUseEnd[]' value='0' id='directUse_endid_" + index + "'></td>" +
 									 						"<td>" +
 									 							"<div class='form-group mb-0'>" +
-									 								"<input type='text' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
+									 								"<input type='number' placeholder='Act Consumption' name='avgDirectUseStart[]' class='form-control' id='directUse_avgid_" + index + "' /> <i class='form-group__bar'></i>" +
 									 							"</div>" +
 									 						"</td>" +
 									 						"<td>" +
@@ -2139,17 +2139,17 @@ function getTreatmentWaterDailyInputData() {
 									                "</td>" +
 									                "<td>" +
 										                "<div class='form-group mb-0'>" +
-										                	"<input type='text' class='form-control' placeholder='Inlet' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_start_" + label + "' value='" + treatmentEndReading + "' disabled /> <i class='form-group__bar'></i>" +
+										                	"<input type='number' class='form-control' placeholder='Inlet' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_start_" + label + "' value='" + treatmentEndReading + "' disabled /> <i class='form-group__bar'></i>" +
 										                "</div>" +
 									                "</td>" +
 									                "<td>" +
 										                "<div class='form-group mb-0'>" +
-										                	"<input type='text' class='form-control' placeholder='Outlet' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_end_" + label + "' /> <i class='form-group__bar'></i>" +
+										                	"<input type='number' class='form-control' placeholder='Outlet' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_end_" + label + "' /> <i class='form-group__bar'></i>" +
 										                "</div>" +
 									                "</td>" +
 									                "<td>" +
 										                "<div class='form-group mb-0'>" +
-										                	"<input type='text' placeholder='Act Consumption'  id='treatmentwater_waterReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+										                	"<input type='number' placeholder='Act Consumption'  id='treatmentwater_waterReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 										                "</div>" +
 									                "</td>" +
 									                "<td style='width: 184px;'>" +
@@ -2164,17 +2164,17 @@ function getTreatmentWaterDailyInputData() {
 									                "</td>" +
 									                "<td>" +
 										                "<div class='form-group mb-0'>" +
-										                "<input type='text' class='form-control' placeholder='Start Reading' name='energyStart[]' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_start_" + label + "' value='" + energyEndReading + "' disabled/> <i class='form-group__bar'></i>" +
+										                "<input type='number' class='form-control' placeholder='Start Reading' name='energyStart[]' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_start_" + label + "' value='" + energyEndReading + "' disabled/> <i class='form-group__bar'></i>" +
 										                "</div>" +
 									                "</td>" +
 									                "<td>" +
 										                "<div class='form-group mb-0'>" +
-										                	"<input type='text' class='form-control' placeholder='End Reading' name='energyEnd[]'  onkeypress='numberValidate(event,\"treatmentenergy_Error_" + index + "\")' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_end_" + label + "'/> <i class='form-group__bar'></i>" +
+										                	"<input type='number' class='form-control' placeholder='End Reading' name='energyEnd[]'  onkeypress='numberValidate(event,\"treatmentenergy_Error_" + index + "\")' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_end_" + label + "'/> <i class='form-group__bar'></i>" +
 										                "</div>" +
 									                "</td>" +
 									                "<td>" +
 										                "<div class='form-group mb-0'>" +
-										                	"<input type='text' placeholder='Act Consumption' name='avgTreatmentStart[]' id='treatmentwater_energyReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+										                	"<input type='number' placeholder='Act Consumption' name='avgTreatmentStart[]' id='treatmentwater_energyReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 										                "</div>" +
 									                "</td>" +
 									                "<td style='width: 184px;'>" +
@@ -2188,17 +2188,17 @@ function getTreatmentWaterDailyInputData() {
 											                "</td>" +
 											                "<td>" +
 												                "<div class='form-group mb-0'>" +
-												                	"<input type='text' class='form-control' placeholder='Inlet' name='treatment_start[]'  value='" + treatmentStartReading + "' disabled /> <i class='form-group__bar'></i>" +
+												                	"<input type='number' class='form-control' placeholder='Inlet' name='treatment_start[]'  value='" + treatmentStartReading + "' disabled /> <i class='form-group__bar'></i>" +
 												                "</div>" +
 											                "</td>" +
 											                "<td>" +
 												                "<div class='form-group mb-0'>" +
-												                	"<input type='text' class='form-control' placeholder='Outlet' name='treatment_end[]' value='" + treatmentEndReading + "' disabled /> <i class='form-group__bar'></i>" +
+												                	"<input type='number' class='form-control' placeholder='Outlet' name='treatment_end[]' value='" + treatmentEndReading + "' disabled /> <i class='form-group__bar'></i>" +
 												                "</div>" +
 											                "</td>" +
 											                "<td>" +
 												                "<div class='form-group mb-0'>" +
-												                	"<input type='text' placeholder='Act Consumption' name='avg_treatment_start[]'  value='" + treatmentActualReading + "' disabled class='form-control' disabled/> <i class='form-group__bar'></i>" +
+												                	"<input type='number' placeholder='Act Consumption' name='avg_treatment_start[]'  value='" + treatmentActualReading + "' disabled class='form-control' disabled/> <i class='form-group__bar'></i>" +
 												                "</div>" +
 											                "</td>" +
 											                "<td>" +
@@ -2212,17 +2212,17 @@ function getTreatmentWaterDailyInputData() {
 										                "</td>" +
 										                "<td>" +
 											                "<div class='form-group mb-0'>" +
-											                	"<input type='text' class='form-control' placeholder='Start Reading' name='energyStart[]' value='" + energyStartReading + "' disabled  /> <i class='form-group__bar'></i>" +
+											                	"<input type='number' class='form-control' placeholder='Start Reading' name='energyStart[]' value='" + energyStartReading + "' disabled  /> <i class='form-group__bar'></i>" +
 											                "</div>" +
 										                "</td>" +
 										                "<td>" +
 											                "<div class='form-group mb-0'>" +
-											                	"<input type='text' class='form-control' placeholder='End Reading' name='energyEnd[]' value='" + energyEndReading + "' disabled  /> <i class='form-group__bar'></i>" +
+											                	"<input type='number' class='form-control' placeholder='End Reading' name='energyEnd[]' value='" + energyEndReading + "' disabled  /> <i class='form-group__bar'></i>" +
 											                "</div>" +
 										                "</td>" +
 										                "<td>" +
 											                "<div class='form-group mb-0'>" +
-											                	"<input type='text' placeholder='Act Consumption' name='avgTreatmentStart[]' value='" + energyActualReading + "' disabled  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+											                	"<input type='number' placeholder='Act Consumption' name='avgTreatmentStart[]' value='" + energyActualReading + "' disabled  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 											                "</div>" +
 										                "</td>" +
 										                "<td>" +
@@ -2236,17 +2236,17 @@ function getTreatmentWaterDailyInputData() {
 												                "</td>" +
 												                "<td>" +
 													                "<div class='form-group mb-0'>" +
-													                	"<input type='text' class='form-control' placeholder='Inlet' name='treatment_start[]' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_start_" + label + "' /> <i class='form-group__bar'></i>" +
+													                	"<input type='number' class='form-control' placeholder='Inlet' name='treatment_start[]' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_start_" + label + "' /> <i class='form-group__bar'></i>" +
 													                "</div>" +
 												                "</td>" +
 												                "<td>" +
 													                "<div class='form-group mb-0'>" +
-													                	"<input type='text' class='form-control' placeholder='Outlet' name='treatment_end[]' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_end_" + label + "' /> <i class='form-group__bar'></i>" +
+													                	"<input type='number' class='form-control' placeholder='Outlet' name='treatment_end[]' onchange='setTreatmentNewReadingConsumption(\"waterReading\",\"" + label + "\")' id='treatmentwater_waterReading_end_" + label + "' /> <i class='form-group__bar'></i>" +
 													                "</div>" +
 												                "</td>" +
 												                "<td>" +
 													                "<div class='form-group mb-0'>" +
-													                	"<input type='text' placeholder='Act Consumption' name='avg_treatment_start[]' id='treatmentwater_waterReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+													                	"<input type='number' placeholder='Act Consumption' name='avg_treatment_start[]' id='treatmentwater_waterReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 													                "</div>" +
 												                "</td>" +
 												                "<td style='width: 184px;'>" +
@@ -2260,17 +2260,17 @@ function getTreatmentWaterDailyInputData() {
 												                "</td>" +
 												                "<td>" +
 													                "<div class='form-group mb-0'>" +
-													                "<input type='text' class='form-control' placeholder='Start Reading' name='energyStart[]' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_start_" + label + "' /> <i class='form-group__bar'></i>" +
+													                "<input type='number' class='form-control' placeholder='Start Reading' name='energyStart[]' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_start_" + label + "' /> <i class='form-group__bar'></i>" +
 													                "</div>" +
 												                "</td>" +
 												                "<td>" +
 													                "<div class='form-group mb-0'>" +
-													                	"<input type='text' class='form-control' placeholder='End Reading' name='energyEnd[]' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_end_" + label + "' /> <i class='form-group__bar'></i>" +
+													                	"<input type='number' class='form-control' placeholder='End Reading' name='energyEnd[]' onchange='setTreatmentNewReadingConsumption(\"energyReading\",\"" + label + "\")' id='treatmentwater_energyReading_end_" + label + "' /> <i class='form-group__bar'></i>" +
 													                "</div>" +
 												                "</td>" +
 												                "<td>" +
 													                "<div class='form-group mb-0'>" +
-													                	"<input type='text' placeholder='Act Consumption' name='avgTreatmentStart[]' id='treatmentwater_energyReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+													                	"<input type='number' placeholder='Act Consumption' name='avgTreatmentStart[]' id='treatmentwater_energyReading_avg_" + label + "'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 													                "</div>" +
 												                "</td>" +
 												                "<td style='width: 184px;'>" +
@@ -2300,17 +2300,17 @@ function getTreatmentWaterDailyInputData() {
 																"</td>" +
 																"<td>" +
 																	"<div class='form-group mb-0'>" +
-																		"<input type='text' class='form-control' name='treatmentwaterRecycle_start_" + label + "_[]' id='treatmentwater_recycleReading_start_" + wrid + "_" + label + "' name='recycleStart[]' value='" + recycleEndReading + "' disabled  /> <i class='form-group__bar'></i>" +
+																		"<input type='number' class='form-control' name='treatmentwaterRecycle_start_" + label + "_[]' id='treatmentwater_recycleReading_start_" + wrid + "_" + label + "' name='recycleStart[]' value='" + recycleEndReading + "' disabled  /> <i class='form-group__bar'></i>" +
 																	"</div>" +
 																"</td>" +
 																"<td>" +
 																	"<div class='form-group mb-0'>" +
-																		"<input type='text' class='form-control'name='treatmentwaterRecycle_end_" + label + "_[]' id='treatmentwater_recycleReading_end_" + wrid + "_" + label + "'   name='recycleEnd[]' placeholder='End Reading' onchange='setTreatmentNewReadingConsumption(\"recycleReading\",\"" + wrid + "_" + label + "\")'/> <i class='form-group__bar'></i>" +
+																		"<input type='number' class='form-control'name='treatmentwaterRecycle_end_" + label + "_[]' id='treatmentwater_recycleReading_end_" + wrid + "_" + label + "'   name='recycleEnd[]' placeholder='End Reading' onchange='setTreatmentNewReadingConsumption(\"recycleReading\",\"" + wrid + "_" + label + "\")'/> <i class='form-group__bar'></i>" +
 																	"</div>" +
 																"</td>" +
 																"<td>" +
 																	"<div class='form-group mb-0'>" +
-																		"<input type='text' placeholder='Act Consumption' name='treatmentwaterRecycle_avg_" + label + "_[]' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='avgRecycleStart[]'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+																		"<input type='number' placeholder='Act Consumption' name='treatmentwaterRecycle_avg_" + label + "_[]' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='avgRecycleStart[]'  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 																	"</div>" +
 																"</td>" +
 																"<td style='width: 184px;'>" +
@@ -2327,7 +2327,7 @@ function getTreatmentWaterDailyInputData() {
 																"<td>-<input type='hidden' class='form-control' id='treatmentwater_recycleReading_end_" + wrid + "_" + label + "' name='treatmentwaterRecycle_end_" + label + "_[]' value='0'></td>" +
 																"<td>" +
 																	"<div class='form-group mb-0'>" +
-																	"<input type='text' placeholder='Act Consumption' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='treatmentwaterRecycle_avg_" + label + "_[]'  class='form-control'/> <i class='form-group__bar'></i>" +
+																	"<input type='number' placeholder='Act Consumption' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='treatmentwaterRecycle_avg_" + label + "_[]'  class='form-control'/> <i class='form-group__bar'></i>" +
 																	"</div>" +
 																"</td>" +
 																"<td style='width: 184px;'>" +
@@ -2345,17 +2345,17 @@ function getTreatmentWaterDailyInputData() {
 																	"</td>" +
 																	"<td>" +
 																		"<div class='form-group mb-0'>" +
-																			"<input type='text' class='form-control'  name='recycleStart1[]' value='" + recycleStartReading + "' disabled  /> <i class='form-group__bar'></i>" +
+																			"<input type='number' class='form-control'  name='recycleStart1[]' value='" + recycleStartReading + "' disabled  /> <i class='form-group__bar'></i>" +
 																		"</div>" +
 																	"</td>" +
 																	"<td>" +
 																		"<div class='form-group mb-0'>" +
-																			"<input type='text' class='form-control'  name='recycleEnd1[]' value='" + recycleEndReading + "' disabled  /> <i class='form-group__bar'></i>" +
+																			"<input type='number' class='form-control'  name='recycleEnd1[]' value='" + recycleEndReading + "' disabled  /> <i class='form-group__bar'></i>" +
 																		"</div>" +
 																	"</td>" +
 																	"<td>" +
 																		"<div class='form-group mb-0'>" +
-																			"<input type='text' placeholder='Act Consumption' name='avgRecycleStart1[]' value='" + recycleActualReading + "' disabled  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+																			"<input type='number' placeholder='Act Consumption' name='avgRecycleStart1[]' value='" + recycleActualReading + "' disabled  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 																		"</div>" +
 																	"</td>" +
 																	"<td>" +
@@ -2374,7 +2374,7 @@ function getTreatmentWaterDailyInputData() {
 																		"<td>-<input type='hidden' class='form-control' name='recycleEnd1[]' value='0'></td>" +
 																		"<td>" +
 																			"<div class='form-group mb-0'>" +
-																			"<input type='text' placeholder='Act Consumption' name='avgRecycleStart[]' value='" + recycleActualReading + "' disabled  class='form-control' disabled/> <i class='form-group__bar'></i>" +
+																			"<input type='number' placeholder='Act Consumption' name='avgRecycleStart[]' value='" + recycleActualReading + "' disabled  class='form-control' disabled/> <i class='form-group__bar'></i>" +
 																			"</div>" +
 																		"</td>" +
 																		"<td>" +
@@ -2391,17 +2391,17 @@ function getTreatmentWaterDailyInputData() {
 																	"</td>" +
 																	"<td>" +
 																		"<div class='form-group mb-0'>" +
-																		"<input type='text' class='form-control' id='treatmentwater_recycleReading_start_" + wrid + "_" + label + "' name='treatmentwaterRecycle_start_" + label + "_[]' /> <i class='form-group__bar'></i>" +
+																		"<input type='number' class='form-control' id='treatmentwater_recycleReading_start_" + wrid + "_" + label + "' name='treatmentwaterRecycle_start_" + label + "_[]' /> <i class='form-group__bar'></i>" +
 																		"</div>" +
 																	"</td>" +
 																	"<td>" +
 																		"<div class='form-group mb-0'>" +
-																			"<input type='text' class='form-control' id='treatmentwater_recycleReading_end_" + wrid + "_" + label + "' name='treatmentwaterRecycle_end_" + label + "_[]' onchange='setTreatmentNewReadingConsumption(\"recycleReading\",\"" + wrid + "_" + label + "\")'  /> <i class='form-group__bar'></i>" +
+																			"<input type='number' class='form-control' id='treatmentwater_recycleReading_end_" + wrid + "_" + label + "' name='treatmentwaterRecycle_end_" + label + "_[]' onchange='setTreatmentNewReadingConsumption(\"recycleReading\",\"" + wrid + "_" + label + "\")'  /> <i class='form-group__bar'></i>" +
 																		"</div>" +
 																	"</td>" +
 																	"<td>" +
 																		"<div class='form-group mb-0'>" +
-																			"<input type='text' placeholder='Act Consumption' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='treatmentwaterRecycle_avg_" + label + "_[]'  class='form-control'/> <i class='form-group__bar'></i>" +
+																			"<input type='number' placeholder='Act Consumption' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='treatmentwaterRecycle_avg_" + label + "_[]'  class='form-control'/> <i class='form-group__bar'></i>" +
 																		"</div>" +
 																	"</td>" +
 																	"<td style='width: 184px;'>" +
@@ -2418,7 +2418,7 @@ function getTreatmentWaterDailyInputData() {
 																	"<td>-<input type='hidden' class='form-control' id='treatmentwater_recycleReading_end_" + wrid + "_" + label + "' name='treatmentwaterRecycle_end_" + label + "_[]' value='0'></td>" +
 																	"<td>" +
 																		"<div class='form-group mb-0'>" +
-																		"<input type='text' placeholder='Act Consumption' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='treatmentwaterRecycle_avg_" + label + "_[]'  class='form-control'/> <i class='form-group__bar'></i>" +
+																		"<input type='number' placeholder='Act Consumption' id='treatmentwater_recycleReading_avg_" + wrid + "_" + label + "' name='treatmentwaterRecycle_avg_" + label + "_[]'  class='form-control'/> <i class='form-group__bar'></i>" +
 																		"</div>" +
 																	"</td>" +
 																	"<td style='width: 184px;'>" +
