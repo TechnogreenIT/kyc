@@ -93,9 +93,16 @@
 									class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Yearly
 							</a></li>
 						</ul></li>
-					<li><a onclick="waterBudgetPopUP()"> <i class="fa fa-tint"
+					
+					<li><a href="Water-budget"> <i class="fa fa-tint"
 							aria-hidden="true"></i> Water Budget
 					</a></li>
+					
+					<!--by pallavi..
+					<li><a href="view-mData?msg=operate"> <i class="fa fa-tint"
+							aria-hidden="true"></i> Water Budget
+					</a></li>-->
+					
 					<li><a onclick="makeHazardousReturnPopUP1()"> <i
 							class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Hazardous Return
 							Form
@@ -187,11 +194,14 @@
 							href="management-performance?performancefor=<%=urlencpt.get(8)%>"><i
 								class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Bio-Medical
 								Waste</a></li>
-					</c:if>
+								</c:if>
+					<!--
+						by pallavi 
+					
 					<li><a href="water-performance"><i
 							class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Water Performance
 					</a></li>
-				</ul></li>
+				</ul></li>-->
 
 			<li class="navigation__sub"><a href=""><i
 					class="zmdi zmdi-assignment-check zmdi-hc-fw"></i> Overall

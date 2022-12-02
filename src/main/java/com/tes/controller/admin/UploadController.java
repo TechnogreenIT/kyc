@@ -31,7 +31,7 @@ import com.tes.utilities.Utilities;
  * @author Sushama Dadas
  */
 @Controller
-@RequestMapping(value = {"/thirdParty", "/admin", "/management", "/env"})
+@RequestMapping(value = {"/thirdParty", "/admin", "/management", "/env","/superadmin"})
 public class UploadController
 {
 	@Autowired

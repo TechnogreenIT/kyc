@@ -153,7 +153,7 @@ public class CreateConsentController
 	 * @param redirectAttributes the redirect the attribute of the consent.
 	 * @return msg, unit, consentId
 	 */
-	@RequestMapping(value = "worker-create-consent", method = RequestMethod.POST) // do not refresh repeat ......by vishal
+	@RequestMapping(value = "/worker-create-consent", method = RequestMethod.POST) // do not refresh repeat ......by vishal
 	public ModelAndView setWorkerCreateConsent(
 			@RequestParam(value = "consentFilePath", required = false) MultipartFile concentFile,
 			@RequestParam(value = "expande6dConsentFilePath", required = false) MultipartFile expandedFile,

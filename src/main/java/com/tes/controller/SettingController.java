@@ -24,7 +24,7 @@ import com.tes.services.admin.EmpDataServices;
  */
 @Controller
 @SessionAttributes("ImageId")
-@RequestMapping(value = {"/thirdParty", "/admin", "/env"})
+@RequestMapping(value = {"/thirdParty", "/admin", "/env","/management"})
 public class SettingController
 {
 	@Autowired

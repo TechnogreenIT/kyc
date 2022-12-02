@@ -139,7 +139,7 @@ function getYearlyESRData(){
 	}
 	
 }
-function waterBudgetPopUP(){
+/*function waterBudgetPopUP(){
 	var html= "";
 	var fwd_url = "ajax-consentNoPopUpValues";
 	$.ajax({
@@ -191,7 +191,7 @@ function waterBudgetPopUP(){
 
 	makeSelect2();
 }
-
+*/
 
 
 function getWaterBudget(){

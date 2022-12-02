@@ -265,11 +265,11 @@
 						<i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
 						<div
 							class="dropdown-menu dropdown-menu-right custom-dropdown-menu">
-							<a class="ml-2" href="newAssets/documents/Ambient.xlsx"><button
+							<a class="ml-2" href="../newAssets/documents/Ambient.xlsx"><button
 									class="btn btn-success">
 									<i class="zmdi zmdi-download"></i> Ambient details
 								</button></a> <a class="ml-2"
-								href="newAssets/documents/AmbientParameter.xlsx"><button
+								href="../newAssets/documents/AmbientParameter.xlsx"><button
 									class="btn btn-success">
 									<i class="zmdi zmdi-download"></i> Ambient parameter
 								</button></a>

@@ -39,8 +39,7 @@ function getConsentToEData(consentType) {
 			$.each(data, function (index, element) {
 				msg_data = "<div class='col-10 offset-1 mt-4'><table class='table' border='1'>" +
 					"<tr>" +
-					"<td height='50px' width='170px' style='color:#000000'><b>Consent No.:</b></td>" +
-					"<td width='300px' ><font color='#00688B'> " + element.consNo + " </font></td>" +
+ 					"<td width='300px' ><font color='#00688B'> " + element.consNo + " </font></td>" +
 					"<td><b style='color:#000000'>Consent Type:</b></td>" +
 					"<td width='200px' colspan='3'><font color='#00688B'> " + element.consType + " </font></td>" +
 					"</tr>" +

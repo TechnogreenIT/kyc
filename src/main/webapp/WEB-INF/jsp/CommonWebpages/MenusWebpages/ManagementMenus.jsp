@@ -6,7 +6,7 @@
 <%@ page import="java.util.*"%>
 
 <script>
-function waterBudgetPopUP(){
+function waterBudgetPopUP1(){
 	var fwd_url = "ajax-consentNoPopUpValues";
 	$.ajax({
 		type : 'POST',
@@ -371,7 +371,7 @@ for(int i = 0; i < urlstring.size() ; i++)
 					</ul></li>			
 					
 					
-				<li><a onclick="javascript:waterBudgetPopUP()"
+				<li><a onclick="javascript:waterBudgetPopUP1()"
 					style="cursor: pointer;"> <i
 						class="zmdi zmdi-view-headline zmdi-hc-fw"></i> Water Budget
 				</a></li>
@@ -536,3 +536,4 @@ for(int i = 0; i < urlstring.size() ; i++)
 		</div>
 	</div>
 </div> -->
+

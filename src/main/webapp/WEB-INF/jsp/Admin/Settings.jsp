@@ -32,7 +32,7 @@
 		</c:if>
 		<c:if test="${userRole == 'Management'}">
 			<jsp:include
-				page="../CommonWebpages/MenusWebpages/ManagementMenus.jsp" />
+				page="../NewCommon/management-menus.jsp" />
 		</c:if>
 		<!-- include menus here end-->
 

@@ -61,10 +61,12 @@ function getYearlyESRData(){
 	}
 	
 }
-function waterBudgetPopUP(){
+
+//BY PALLAVI..
+/*function waterBudgetPopUP1(){
 
 	var html= "";
-	var fwd_url = "ajax-consentNoPopUpValues";
+	var fwd_url ="ajax-consentNoPopUpValues?msg=operate";
 	$.ajax({
 		type: 'POST',
 		url: fwd_url,
@@ -74,7 +76,7 @@ function waterBudgetPopUP(){
 				var consentNo = element.consentNo;
 				var consentName = element.consentName;
 				if(parseData != "NA"){
-					html += "<option value='"+consentNo+"'>"+consentName+"</option>"
+					html += "<option value='"+consentNo+"'>"+consentNo+"</option>"
 				} else {
 					html += "<option value=''>You have no any consent to Operate</option>"
 				}
@@ -110,29 +112,7 @@ function waterBudgetPopUP(){
 
 }
 
-
-function getWaterBudget(){
-	var flag = 0;
-	var consent = $("#waterBudgetConsent").val();
-	
-	flag += customSelectValidator(consent, "waterBudgetConsent");
-	
-	if(flag == 0){
-		$.ajax({
-			type : "POST",
-			url : "water-budgetView?consent="+consent,
-			dataType : 'json',
-			success : function(data) {
-				if(data=="Success"){
-					window.open('getpdf1', '_blank');
-				}else{
-					alert("Sorry Data is Not Available!");
-				}
-			}
-		});
-	}
-	
-}
+*/
 
 function makeHazardousReturnPopUP1(){
 

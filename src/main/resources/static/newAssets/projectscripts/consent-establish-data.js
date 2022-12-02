@@ -100,7 +100,7 @@ function saveProductionDatas(type, el) {
 
 }
 
-function showStackForm(data) {
+function showStackForm(data,el) {
     if (data == "Yes") {
         $("#stackForm").show();
     } else if (data == "Popup") {
@@ -112,7 +112,75 @@ function showStackForm(data) {
     }
 }
 
-function showAmbientForm(data) {
+
+
+/*function showStackForm(data) {
+	var modelTitle='<div class="modal fade" id="upload-stack-excel-modal"'+
+	    'data-backdrop="static" tabindex="-1">'+
+	    '<div class="modal-dialog">'+
+		'<div class="modal-content">'+
+	    '<div class="modal-header">'+
+		'<h4 class="modal-title font-weight-bold">Upload multiple stack data</h4>'+
+		'<div class="actions">'+
+		'<span class="mantooltip hover" data-jbox-title=" " data-jbox-content="download stack and stack parameter <br>files and add multiple stack data easily.">'+
+         '<a class="actions__item zmdi zmdi-help"></a></span>'+
+		 '<div class="dropdown actions__item">'+ '</div>'+
+		 '<i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>'+
+		 '<div class="dropdown-menu dropdown-menu-right custom-dropdown-menu">'+
+		 '<a class="ml-2" href="../newAssets/documents/Stack.xlsx">'+
+          '<button class="btn btn-success">'+ '</div>'+
+		  '<i class="zmdi zmdi-download"></i> Stack details</button>'+
+           '</a> <a class="ml-2" href="../newAssets/documents/StackParameter.xlsx">'+
+          '<button class="btn btn-success"><i class="zmdi zmdi-download"></i> Stack parameter</button></a>'+
+		 '</div>'+
+		  '</div>'+
+		  '</div>'+
+	      '</div>'+
+		  '</div>';
+	var bodyForm=
+         '<div class="modal-body row">'+
+		  '<div class="col-6">'+
+		  '<div class="fileinput fileinput-new" data-provides="fileinput">'+
+		  '<label>Upload .csv file of stack details:</label>'+
+           '<span class="btn btn-primary btn-file"> '+
+           '<span class="fileinput-new">Select file</span>'+
+           '<span class="fileinput-exists">Change</span>'+
+           '<input type="file" name="stackFile" id="stackFile" accept=".xlsx" required></span>'+
+           '<span class="fileinput-filename"></span>'+ 
+           '<a href="#"class="close fileinput-exists" data-dismiss="fileinput">&times;</a></div>'+
+			'</div>'+
+			'<div class="col-6">'+
+			'<div class="fileinput fileinput-new" data-provides="fileinput">'+
+			'<label>Upload .csv file of stack parameter details</label>'+ 
+            '<span class="btn btn-primary btn-file">'+ 
+            '<span class="fileinput-new">Select file</span>'+
+            '<span class="fileinput-exists">Change</span>'+
+            '<input type="file"name="stackParameter" id="stackParameter" accept=".xlsx" required></span>'+
+			  '<span class="fileinput-filename"></span>'+
+             '<a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>'+
+			 '</div>'+
+			 '</div>'+
+			'<div class="col-12 text-center">'+
+			'<button class="btn btn-primary btn--icon-text mt-4" id="saveD" onclick="saveExcelSheet('+"stack"+')">'+
+			 '<i class="zmdi zmdi-upload"></i> Upload </button>'+
+			'</div>'+
+			'</div>'+
+			'<div class="modal-footer">'+
+			'<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>'+
+			 '</div>';
+	$.showModal({
+		title: modelTitle,
+		modalDialogClass: 'modal-lg',
+		body: bodyForm,
+		//footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Upload</button><button type='upload' onclick='saveExcelSheet(\"" + type + "\",this)' class='btn btn-primary'>close</button>",
+		onCreate: function (modal) {
+			// create event handler for form submit and handle values
+
+		}
+	})
+}*/
+
+function showAmbientForm(data,el) {
     if (data == "Yes") {
         $("#ambientForm").show();
     } else if (data == "Popup") {
@@ -762,7 +830,10 @@ function saveExcelSheet(type) {
             data: form_data,
             type: 'post',
             success: function(res) {
-                $('#upload-' + type + '-excel-modal').modal('hide');
+	            //$("#save-" + type + "-btn").attr("disabled", true);
+	            // $('#upload-' + type + '-btn').attr("disabled", true)
+               $('#upload-' + type +'-excel-modal').modal('hide');
+               // findNextAccordion(el);
             }
         });
     }

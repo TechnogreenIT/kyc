@@ -39,7 +39,7 @@ import com.tes.services.admin.IndustryTypeListServices;
  * @author Sushama Dadas
  */
 @RestController
-@RequestMapping(value = {"/admin", "/env", "/management"})
+@RequestMapping(value = {"/admin", "/env", "/management","/superadmin"})
 public class CompanyController
 {
 

@@ -66,7 +66,7 @@ import com.tes.utilities.Validator;
  */
 @Controller
 @SessionAttributes({"empDataSession"})
-@RequestMapping(value = {"/admin", "/env", "/management", "/thirdParty"})
+@RequestMapping(value = {"/admin", "/env", "/management", "/thirdParty","/superadmin"})
 public class EmpDataController
 {
 	@Autowired

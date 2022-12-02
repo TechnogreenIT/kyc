@@ -46,6 +46,7 @@ import com.tes.services.environmentalofficer.EsrProductWaterServices;
 import com.tes.services.environmentalofficer.EsrStackPollReasonsServices;
 import com.tes.services.environmentalofficer.EsrWaterPollReasonsServices;
 import com.tes.services.environmentalofficer.RegularDataServices;
+import com.tes.services.environmentalofficer.UnitServices;
 import com.tes.services.environmentalofficer.WasteDescriptionConsistencyServices;
 import com.tes.services.environmentalofficer.WaterConGenComparativeSheetServices;
 import com.tes.services.environmentalofficer.WaterSewPollServices;
@@ -72,6 +73,9 @@ import com.tes.utilities.Validator;
 @RequestMapping("/management")
 public class ManagementComplianceController
 {
+	@Autowired
+	UnitServices unitServices;
+
 
 	@Autowired
 	EmpDataServices empDataServices;
@@ -287,7 +291,7 @@ public class ManagementComplianceController
 	@RequestMapping("management-water-budget")
 	public ModelAndView getWaterBudget()
 	{
-		return new ModelAndView("Management/WaterBudget");
+		return new ModelAndView("management/WaterBudget");
 	}
 
 	@RequestMapping(value = "/ajax-getHazardousValuesMan")
@@ -1331,4 +1335,57 @@ public class ManagementComplianceController
 
 	//// mmm
 
+	///BY PALLAVI..
+	/*@RequestMapping("/ajax-consentNoPopUpValues")
+	
+	public @ResponseBody String getViewMData(@RequestParam(value = "msg", required = false) String msg,
+			 HttpServletRequest request) throws JSONException
+	{
+		
+		JSONArray jsonArray = new JSONArray();
+		JSONObject json;
+		String jsonString = null;
+		EmpData empDataSession = null;
+		
+		try
+		{
+			List<Consent> consent = null;
+			if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
+			{
+				empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
+				if (msg.equalsIgnoreCase("establish"))
+				{
+					consent = consentServices.findByCmpIdAndCtoE(empDataSession.getCompanyProfile().getCompanyProfileId());
+				}
+				else if (msg.equalsIgnoreCase("operate"))
+				{
+					consent = consentServices.findByCmpIdAndCtoO(empDataSession.getCompanyProfile().getCompanyProfileId());
+				}
+			}
+			
+			
+			
+			for(Consent con: consent) {
+				String consentNo = (String) con.getConsNo();
+				String consentName = (String) con.getConsType();
+
+
+				json = new JSONObject();
+				json.put("consentNo", consentNo);
+				json.put("consentName", consentName);
+				jsonArray.put(json);
+			}
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		
+		jsonString = jsonArray.toString();
+		return jsonString;
+		
+	}
+	*/
+	
+	
 }

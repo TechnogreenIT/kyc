@@ -390,10 +390,10 @@
 						<i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
 						<div
 							class="dropdown-menu dropdown-menu-right custom-dropdown-menu">
-							<a class="ml-2" href="newAssets/documents/Stack.xlsx"><button
+							<a class="ml-2" href="../newAssets/documents/Stack.xlsx"><button
 									class="btn btn-success">
 									<i class="zmdi zmdi-download"></i> Stack details
-								</button></a> <a class="ml-2" href="newAssets/documents/StackParameter.xlsx"><button
+								</button></a> <a class="ml-2" href="../newAssets/documents/StackParameter.xlsx"><button
 									class="btn btn-success">
 									<i class="zmdi zmdi-download"></i> Stack parameter
 								</button></a>
