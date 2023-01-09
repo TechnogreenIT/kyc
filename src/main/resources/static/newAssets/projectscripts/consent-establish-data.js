@@ -249,6 +249,20 @@ function saveStackData(el) {
     var diam_units = $("input[name=diam_units]").val();
     var fuel_quant = $("input[name=fuel_quant]").val();
     var fuel_units = $("select[name=fuel_units]").val();
+     //changes by pallavi
+    var gas_quant = $("input[name=gas_quant]").val();
+    var gas_unit = $("input[name=gas_unit]").val();
+    var gas_temp = $("input[name=gas_temp]").val();
+    var gas_temp_unit = $("input[name=gas_temp_unit]").val()
+    var Exit_gas_vel = $("input[name=Exit_gas_vel]").val();
+     var Exit_gas_unit = $("input[name=Exit_gas_unit]").val();
+      var preceding_stack = $("input[name=preceding_stack]").val();
+       var pollu_present = $("input[name=pollu_present]").val();
+      var ECS_provided = $("input[name=ECS_provided]").val();
+       var gen_capacity = $("input[name=gen_capacity]").val();
+        var gen_Cap_unit = $("input[name=gen_Cap_unit]").val();
+   
+    
     var apc = $("input[name='apc']:checked").val();
     var apc_system = null;
 
@@ -272,7 +286,19 @@ function saveStackData(el) {
     flag += customInputValidator(fuel_quant, "fuel_quant");
     flag += customSelectValidator(fuel_units, "fuel_units");
     flag += customSelectValidator(attached_to, "attached_to");
-
+    //changes by pallavi..
+     flag += customSelectValidator(gas_quant, "gas_quant");
+     flag += customSelectValidator(gas_unit, "gas_unit");
+     flag += customSelectValidator(gas_temp, "gas_temp");
+     flag += customSelectValidator(gas_temp_unit, "gas_temp_unit");
+     flag += customSelectValidator(Exit_gas_vel, "Exit_gas_vel");
+     flag += customSelectValidator(Exit_gas_unit, "Exit_gas_unit");
+     flag += customSelectValidator(preceding_stack, "preceding_stack");
+     flag += customSelectValidator(pollu_present, "pollu_present");
+     flag += customSelectValidator(ECS_provided, "ECS_provided");
+     flag += customSelectValidator(gen_capacity, "gen_capacity");
+     flag += customSelectValidator(gen_Cap_unit, "gen_Cap_unit");
+ 
     var checkedBoxes = $("input[name='stack_poll[]']:checked");
     for (var a = 0; a < checkedBoxes.length; a++) {
         var checkBox = checkedBoxes[a].value;
@@ -357,6 +383,20 @@ function saveStackData(el) {
         main.push(apc);
         main.push(apc_system);
 
+        //changes by pallavi..
+        main.push(gas_quant);
+        main.push(gas_unit);
+        main.push(gas_temp);
+        main.push(gas_temp_unit);
+        main.push(Exit_gas_vel);
+        main.push(Exit_gas_unit);
+        main.push(preceding_stack);
+        main.push(pollu_present);
+        main.push(ECS_provided);
+        main.push(gen_capacity);  
+        main.push(gen_Cap_unit);
+                            
+       
         $(document).ready(function() {
             $.ajax({
                 type: "POST",

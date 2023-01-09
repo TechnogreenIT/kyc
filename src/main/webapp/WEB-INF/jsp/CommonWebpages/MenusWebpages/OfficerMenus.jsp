@@ -482,8 +482,8 @@ for(int i = 0; i < urlstring.size() ; i++)
 						class="zmdi zmdi-comment-edit zmdi-hc-fw"></i>Add</a>
 				</li>
 				<li data-toggle="tooltip" data-placement="bottom" data-html="true"
-					class="other-tooltip" title="Click here to view daily data"><a
-					href="envr-officer-view-regular-data"><i
+					class="other-tooltip" title="Click here to view daily data">
+					<a href="envr-officer-view-regular-data"><i
 						class="zmdi zmdi-view-list zmdi-hc-fw"></i> View</a></li>
 				<li data-toggle="tooltip" data-placement="bottom" data-html="true"
 					class="other-tooltip" title="Click here to view modified data">

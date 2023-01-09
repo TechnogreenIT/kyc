@@ -65,8 +65,132 @@ public class Stack
 	@Column(name = "diam_units")
 	private String diamUnits;
 
+	//chhanges by pallavi...
+	public float getGasQuant() {
+		return gasQuant;
+	}
+
+	public void setGasQuant(float gasQuant) {
+		this.gasQuant = gasQuant;
+	}
+
+	public String getGasUnit() {
+		return gasUnit;
+	}
+
+	public void setGasUnit(String gasUnit) {
+		this.gasUnit = gasUnit;
+	}
+
+	public float getGasTemp() {
+		return gasTemp;
+	}
+
+	public void setGasTemp(float gasTemp) {
+		this.gasTemp = gasTemp;
+	}
+
+	public String getGasTempUnit() {
+		return gasTempUnit;
+	}
+
+	public void setGasTempUnit(String gasTempUnit) {
+		this.gasTempUnit = gasTempUnit;
+	}
+
+	public float getExitGasVel() {
+		return exitGasVel;
+	}
+
+	public void setExitGasVel(float exitGasVel) {
+		this.exitGasVel = exitGasVel;
+	}
+
+	public String getExitGasUnit() {
+		return exitGasUnit;
+	}
+
+	public void setExitGasUnit(String exitGasUnit) {
+		this.exitGasUnit = exitGasUnit;
+	}
+
+	public String getPrecedingStack() {
+		return precedingStack;
+	}
+
+	public void setPrecedingStack(String precedingStack) {
+		this.precedingStack = precedingStack;
+	}
+
+	public String getPolluPresent() {
+		return polluPresent;
+	}
+
+	public void setPolluPresent(String polluPresent) {
+		this.polluPresent = polluPresent;
+	}
+
+	public String getECSProvided() {
+		return eCSProvided;
+	}
+
+	public void setECSProvided(String eCSProvided) {
+		this.eCSProvided = eCSProvided;
+	}
+
+
+	public void setGenCapacity(float genCapacity) {
+		this.genCapacity = genCapacity;
+	}
+
+	public String getGenCapUnit() {
+		return genCapUnit;
+	}
+
+	public void setGenCapUnit(String genCapUnit) {
+		this.genCapUnit = genCapUnit;
+	}
+
 	@Column(name = "mat_cons")
 	private String matCons;
+	
+	//Changes by pallavi..
+	@Column(name="gas_quant")
+	private float  gasQuant;
+	
+	@Column(name="gas_unit")
+	private String  gasUnit;
+	
+	@Column(name="gas_temp")
+	private float  gasTemp;
+	
+	@Column(name="gas_temp_unit")
+	private String  gasTempUnit;
+	
+	@Column(name="exit_gas_vel")
+	private float  exitGasVel;
+	
+	@Column(name="exit_gas_unit")
+	private String  exitGasUnit;
+	
+	@Column(name="preceding_stack")
+	private String  precedingStack;
+	
+	@Column(name="pollu_present")
+	private String  polluPresent;
+	
+	@Column(name="ecs_provided")
+	private String  eCSProvided;
+	
+	@Column(name="gen_capacity")
+	private float  genCapacity;
+	
+	public float getGenCapacity() {
+		return genCapacity;
+	}
+
+	@Column(name="gen_Cap_unit")
+	private String  genCapUnit;
 
 	@Column(name = "apc")
 	private String apc;
@@ -299,6 +423,8 @@ public class Stack
 	public Stack()
 	{
 	}
+	
+	
 
 	public Stack(Consent consent)
 	{
@@ -306,7 +432,9 @@ public class Stack
 		this.consent = consent;
 	}
 
-	public Stack(int stackId, String stackName, String attachedTo, String matCons, float height, String htUnits, String shape, String fuelType, float diam, String diamUnits)
+	public Stack(int stackId, String stackName, String attachedTo, String matCons, float height, String htUnits, String shape, String fuelType, 
+			float diam, String diamUnits, float gasQuant, String gasUnit, float gasTemp, String gasTempUnit, float exitGasVel, String precedingStack, 
+			String exitGasUnit, String polluPresent, float genCapacity, String eCSProvided, String genCapUnit)
 	{
 		super();
 		this.stackId = stackId;
@@ -319,6 +447,18 @@ public class Stack
 		this.fuelType = fuelType;
 		this.diam = diam;
 		this.diamUnits = diamUnits;
+		this.gasQuant=gasQuant;
+		this.gasUnit=gasUnit;
+	    this.gasTemp=gasTemp;
+	    this.gasTempUnit=gasTempUnit;
+	    this.exitGasVel=exitGasVel;
+	    this.exitGasUnit= exitGasUnit;
+		this.precedingStack=precedingStack;
+		this.polluPresent=polluPresent;
+		this.eCSProvided=eCSProvided;
+		this.genCapacity=genCapacity;
+		this.genCapUnit=genCapUnit;
+		
 	}
 
 	public Stack(int stackId, String apc, String apcSystem, String stackName)
@@ -333,7 +473,7 @@ public class Stack
 	public Stack(int stackId, Consent consent, String stackName, String attachedTo, float capacity,
 			String capacityUnits, String fuelType, float fuelQuant, String fuelUnits, String shape, float height,
 			String htUnits, float diam, String diamUnits, String matCons, String apc, String apcSystem,
-			String consentToOperate)
+			String consentToOperate, float gasQuant, String gasUnit, float gasTemp, String gasTempUnit, float exitGasVel, String exitGasUnit, String precedingStack, String polluPresent, String eCSProvided, float genCapacity, String genCapUnit)
 	{
 		super();
 		Consent cn = new Consent();
@@ -356,6 +496,21 @@ public class Stack
 		this.apc = apc;
 		this.apcSystem = apcSystem;
 		this.consentToOperate = consentToOperate;
+		//this.exitGasVel=exitGasVel;
+		this.gasQuant=gasQuant;
+		this.gasUnit=gasUnit;
+		this.gasTemp=gasTemp;
+		this.gasTempUnit=gasTempUnit;
+	    this.exitGasVel=exitGasVel;
+	    this.exitGasUnit= exitGasUnit;
+		this.precedingStack=precedingStack;
+		this.polluPresent=polluPresent;
+		this.eCSProvided=eCSProvided;
+		this.genCapacity=genCapacity;
+		this.genCapUnit=genCapUnit;
+			
+		
+		
 	}
 
 	public void setStackDetails(Row row, int consentId)
@@ -378,8 +533,25 @@ public class Stack
 		matCons = row.getCell(13).toString();
 		apc = row.getCell(14).toString();
 		apcSystem = row.getCell(15).toString();
-		// consentToOperate = row.getCell(16).toString();
-	}
+		
+		
+		//changes by pallavi
+			
+		gasQuant = Float.parseFloat(row.getCell(16).toString());
+		gasUnit = row.getCell(17).toString();
+	    gasTemp = Float.parseFloat(row.getCell(18).toString());
+		gasTempUnit =row.getCell(19).toString();
+		exitGasVel = Float.parseFloat(row.getCell(20).toString());
+		exitGasUnit = row.getCell(21).toString();
+		precedingStack = row.getCell(22).toString();
+	    polluPresent = row.getCell(23).toString();
+		eCSProvided = row.getCell(24).toString();
+		genCapacity = Float.parseFloat(row.getCell(25).toString());
+	    genCapUnit = row.getCell(26).toString();
+	  
+	    consentToOperate = row.getCell(27).toString();
+		
+		}
 
 	public Stack(int stackId, String stackName, String attachedTo)
 	{
@@ -388,5 +560,12 @@ public class Stack
 		this.stackName = stackName;
 		this.attachedTo = attachedTo;
 	}
+
+	
+	
+	
+	//changes by pallavi..
+
+	
 
 }

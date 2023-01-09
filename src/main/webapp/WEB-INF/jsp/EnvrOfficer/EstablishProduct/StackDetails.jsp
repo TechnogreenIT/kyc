@@ -87,39 +87,7 @@
 		</div>
 		<div class="col-2">
 			<div class="form-group">
-				<label>Height</label> <input type="number" class="form-control"
-					id="height" name="height" placeholder="Height">
-				<div class="invalid-feedback">Please enter something !</div>
-				<i class="form-group__bar"></i>
-			</div>
-		</div>
-		<div class="col-2">
-			<div class="form-group">
-				<label>Units</label> <input type="text" class="form-control"
-					id="ht_units" name="ht_units" placeholder="Height">
-				<div class="invalid-feedback">Please enter something !</div>
-				<i class="form-group__bar"></i>
-			</div>
-		</div>
-		<div class="col-2">
-			<div class="form-group">
-				<label>Diameter</label> <input type="number" class="form-control"
-					id="diam" name="diam" placeholder="Diameter">
-				<div class="invalid-feedback">Please enter something !</div>
-				<i class="form-group__bar"></i>
-			</div>
-		</div>
-		<div class="col-2">
-			<div class="form-group">
-				<label>Units</label> <input type="text" class="form-control"
-					id="diam_units" name="diam_units" placeholder="m or mm">
-				<div class="invalid-feedback">Please enter something !</div>
-				<i class="form-group__bar"></i>
-			</div>
-		</div>
-		<div class="col-2">
-			<div class="form-group">
-				<label>Fuel Quantity</label> <input type="text" class="form-control"
+				<label>Fuel Quantity</label> <input type="number" class="form-control"
 					id="fuel_quant" name="fuel_quant" placeholder="Fuel Quantity">
 				<div class="invalid-feedback">Please enter something !</div>
 				<i class="form-group__bar"></i>
@@ -192,8 +160,134 @@
 					<option value="Mwh">Mwh</option>
 				</select>
 				<div class="invalid-feedback">Please select any !</div>
+			
 			</div>
 		</div>
+		<div class="col-2">
+			<div class="form-group">
+				<label>Height</label> <input type="number" class="form-control"
+					id="height" name="height" placeholder="Height">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			<div class="form-group">
+				<label>Units</label> <input type="text" class="form-control"
+					id="ht_units" name="ht_units" placeholder="m or mm">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			<div class="form-group">
+				<label>Diameter</label> <input type="number" class="form-control"
+					id="diam" name="diam" placeholder="Diameter">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			<div class="form-group">
+				<label>Units</label> <input type="text" class="form-control"
+					id="diam_units" name="diam_units" placeholder="m or mm">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		
+		
+		
+		<!--changes by pallavi-->
+		<div class="col-2">
+			    <div class="form-group">
+				<label>Gas Quantity</label> <input type="number" class="form-control"
+					id="gas_quant" name="gas_quant" placeholder="Gas Quantity">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			    <div class="form-group">
+				<label>Gas Unit</label> <input type="text" class="form-control"
+					id="gas_unit" name="gas_unit" placeholder="Gas Unit">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			    <div class="form-group">
+				<label>Gas Temperature</label> <input type="number" class="form-control"
+					id="gas_temp" name="gas_temp" placeholder=" Gas Temperature">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			    <div class="form-group">
+				<label>Gas Temperature Unit</label> <input type="text" class="form-control"
+					id="gas_temp_unit" name="gas_temp_unit" placeholder=" Gas Temperature Unit">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			    <div class="form-group">
+				<label>Exit gas velocity</label> <input type="number" class="form-control"
+					id="Exit_gas_vel" name="Exit_gas_vel" placeholder="Exit gas velocity">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-2">
+			    <div class="form-group">
+				<label>Exit gas velocity Unit</label> <input type="text" class="form-control"
+					id="Exit_gas_unit" name="Exit_gas_unit" placeholder="Exit gas velocity Unit">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-4">
+			    <div class="form-group">
+				<label>Control equipment preceding the stack</label> <input type="text" class="form-control"
+					id="preceding_stack" name="preceding_stack" placeholder= "Preceding the stack">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-4">
+			    <div class="form-group">
+				<label>Pollutants present in stack gases</label> <input type="text" class="form-control"
+					id="pollu_present" name="pollu_present" placeholder="Pollutants in stack gases">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-4">
+			    <div class="form-group">
+				<label>Emissions control system provided</label> <input type="text" class="form-control"
+					id="ECS_provided" name="ECS_provided" placeholder="Emissions control system ">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-4">
+			    <div class="form-group">
+				<label>D.G set Power generation capacity</label> <input type="number" class="form-control"
+					id="gen_capacity" name="gen_capacity" placeholder="D.G set Power generation capacity">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		<div class="col-4">
+			    <div class="form-group">
+				<label>D.G set Power generation capacity unit</label> <input type="text" class="form-control"
+					id="gen_Cap_unit" name="gen_Cap_unit" placeholder="D.G set Power generation capacity unit">
+				<div class="invalid-feedback">Please enter something !</div>
+				<i class="form-group__bar"></i>
+			</div>
+		</div>
+		
 	</div>
 	<div class="row mt-3">
 		<div class="form-group col-5">

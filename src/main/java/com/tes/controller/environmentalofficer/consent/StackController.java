@@ -85,6 +85,20 @@ public class StackController
 			stack.setFuelUnits(main[12]);// need to change
 			stack.setApc(main[13]);
 			stack.setApcSystem(main[14]);
+			//changes by pallavi..
+			stack.setGasQuant(Float.parseFloat(main[15]));
+			stack.setGasUnit(main[16]);
+			stack.setGasTemp(Float.parseFloat(main[17]));
+			stack.setGasTempUnit(main[18]);
+			stack.setExitGasVel(Float.parseFloat(main[19]));
+			stack.setExitGasUnit(main[20]);
+			stack.setPrecedingStack(main[21]);
+			stack.setPolluPresent(main[22]);
+			stack.setECSProvided(main[23]);
+			stack.setGenCapacity(Float.parseFloat(main[24]));
+			stack.setGenCapUnit(main[25]);
+			
+			
 			stackServices.save(stack);
 
 			int pollutantDataSize = aName.length, quantitysDataSize = aQuantity.length, unitsDataSize = aUnit.length;
@@ -206,6 +220,18 @@ public class StackController
 				hashMap.put("stackHtUnits", stackDetailList.get(i).getHtUnits());
 				hashMap.put("stackDiam", stackDetailList.get(i).getDiam());
 				hashMap.put("stackDiamUnits", stackDetailList.get(i).getDiamUnits());
+				//changes by pallavi
+				hashMap.put("stackGasQuant", stackDetailList.get(i).getGasQuant());
+				hashMap.put("stackGasUnit", stackDetailList.get(i).getGasUnit());
+				hashMap.put("stackGasTemp", stackDetailList.get(i).getGasTemp());
+				hashMap.put("stackGasTempUnit", stackDetailList.get(i).getGasTempUnit());
+				hashMap.put("stackExitGasVel", stackDetailList.get(i).getExitGasVel());
+				hashMap.put("stackExitGasUnit", stackDetailList.get(i).getExitGasUnit());
+				hashMap.put("stackPrecedingStack", stackDetailList.get(i).getPrecedingStack());
+				hashMap.put("stackPolluPresent", stackDetailList.get(i).getPolluPresent());
+				hashMap.put("stackECSProvided", stackDetailList.get(i).getECSProvided());
+				hashMap.put("stackGenCapacity", stackDetailList.get(i).getGenCapacity());
+				hashMap.put("stackGenCapUnit", stackDetailList.get(i).getGenCapUnit());
 
 				List<StackPoll> stackPolls = new ArrayList<>();
 

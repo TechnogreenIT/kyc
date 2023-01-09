@@ -555,6 +555,20 @@ public class ConsentController extends Constant
 				objStack.setDiam(Float.parseFloat(request.getParameter("diam")));
 				objStack.setDiamUnits(request.getParameter("diam_units"));
 				objStack.setMatCons(request.getParameter("mat_cons"));
+				
+				//changes by pallavi..
+				objStack.setGasQuant(Float.parseFloat(request.getParameter("gas_quant")));
+				objStack.setGasUnit(request.getParameter("gas_unit"));
+				objStack.setGasTemp(Float.parseFloat(request.getParameter("gas_temp")));
+				objStack.setGasUnit(request.getParameter("gas_temp_unit"));
+				objStack.setExitGasVel(Float.parseFloat(request.getParameter("exit_gas_vel")));
+				objStack.setExitGasUnit(request.getParameter("exit_gas_unit"));
+				objStack.setPrecedingStack(request.getParameter("preceding_stack"));
+				objStack.setPolluPresent(request.getParameter("pollu_present"));
+				objStack.setECSProvided(request.getParameter("eCS_provided"));
+				objStack.setGenCapacity(Float.parseFloat(request.getParameter("gen_capacity")));
+				objStack.setGenCapUnit(request.getParameter("gen_Cap_unit"));
+				
 				isStackInserted = stackServices.save(objStack);
 			}
 			else if (type.equalsIgnoreCase("ambient"))

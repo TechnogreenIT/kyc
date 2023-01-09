@@ -232,6 +232,7 @@ function saveAllDirectUse(el){
       contentType : "application/json",
       data : JSON.stringify(Obj),
       success : function(data) {
+	$("#extraDiv"+count).empty();
         location.reload();
       }
     });

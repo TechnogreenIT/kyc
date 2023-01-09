@@ -39,15 +39,16 @@ function getConsentToEData(consentType) {
 			$.each(data, function (index, element) {
 				msg_data = "<div class='col-10 offset-1 mt-4'><table class='table' border='1'>" +
 					"<tr>" +
+					"<td><b style='color:#000000'>Consent No:</b></td>" +
  					"<td width='300px' ><font color='#00688B'> " + element.consNo + " </font></td>" +
 					"<td><b style='color:#000000'>Consent Type:</b></td>" +
-					"<td width='200px' colspan='3'><font color='#00688B'> " + element.consType + " </font></td>" +
+					"<td width='200px' colspan='5'><font color='#00688B'> " + element.consType + " </font></td>" +
 					"</tr>" +
 					"<tr>" +
 					"	<td height='50px' style='color:#000000'><b>Issue Date:</b></td>" +
 					"	<td><font color='#00688B'> " + element.issueDate + "  </font></td>" +
-					"	<td style='color:#000000'><b>Valid Date:</b></td>" +
-					"	<td colspan='3'><font color='#00688B'> " + element.validUpto + " </font></td>" +
+					"	<td  height='50px' style='color:#000000'><b>Valid Date:</b></td>" +
+					"	<td colspan='5'><font color='#00688B'> " + element.validUpto + " </font></td>" +
 					"</tr>" +
 					"<tr>" +
 					"	<td height='50px' style='color:#000000'><b>Gross Capital Investment:</b></td>" +
@@ -840,14 +841,30 @@ function openStack() {
 				"<th>Stack name</th>" +
 				"<th>Attached to</th>" +
 				"<th>Capacity</th>" +
-				"<th>Fuel type</th>" +
-				"<th>Fuel quan.</th>" +
+				"<th>Capacity Unit</th>" +
+				"<th>Fuel Type</th>" +
+				"<th>Fuel Quan.</th>" +
+				"<th>Fuel Unit</th>" +
 				"<th>MoC</th>" +
 				"<th>Shape</th>" +
 				"<th>Height</th>" +
+				"<th> Height Unit </th>"+
 				"<th>Dia</th>" +
+				"<th>Dia Unit</th>"+
+				//changes by pallavi..
+				"<th>Gas Quantity</th>" +
+				"<th>Gas Unit</th>" +
+				"<th>Gas Temp</th>" +
+				"<th>Gas Temp Unit</th>" +
+				"<th>Exit Gas</th>" +
+				"<th>Exit Gas Unit</th>" +
+		         "<th>Preceding Stack</th>" +
+				"<th>Pollutant Present</th>" +
+				"<th>Emission Control</th>" +
+				"<th>DGCapacity</th>" +
+				"<th>DGUnit</th>" +
 				"<th>Stack Pollutants</th>" +
-				"<th>Modify / Delete</th>" +
+				"<th>Modify/Delete</th>" +
 				"</tr></thead>" +
 				"<tbody>";
 
@@ -857,9 +874,8 @@ function openStack() {
 				var StackName = element.stackName;
 				var stackAttachedTo = element.stackAttachedTo;
 				var stackCapacity = element.stackCapacity;
-				var stackCapacityUnit = element.stackCapacityUnit;
-
-				var stackFuelType = element.stackFuelType;
+			  	var stackCapacityUnit = element.stackCapacityUnit;
+                var stackFuelType = element.stackFuelType;
 				var stackFuelQuant = element.stackFuelQuant;
 				var stackFuelUnits = element.stackFuelUnits;
 				var stackMatCons = element.stackMatCons;
@@ -869,6 +885,19 @@ function openStack() {
 				var stackDiam = element.stackDiam;
 				var stackDiamUnits = element.stackDiamUnits;
 				var stackPollDatas = element.stackPollDatas;
+				//changed by pallavi..
+				var stackGasQuant=element.stackGasQuant;
+				var stackGasUnit=element.stackGasUnit;
+				var stackGasTemp=element.stackGasTemp;
+				var stackGasTempUnit=element.stackGasTempUnit;
+			    var stackExitGasVel = element.stackExitGasVel;
+				var stackExitGasUnit=element.stackExitGasUnit;
+				var stackPrecedingStack=element.stackPrecedingStack;
+				var stackPolluPresent=element.stackPolluPresent;
+				var stackECSProvided=element.stackECSProvided;
+				var stackGenCapacity=element.stackGenCapacity;
+				var stackGenCapUnit=element.stackGenCapUnit;
+				
 
 				htmlContent1 += "<tr>" +
 					"<td>" +
@@ -880,7 +909,11 @@ function openStack() {
 					"</td>" +
 
 					"<td>" +
-					"<label class='mt-3'>" + stackCapacity + " " + stackCapacityUnit + "</label>" +
+					"<label class='mt-3'>" + stackCapacity + "</label>" +
+					"</td>" +
+					
+					"<td>"+
+					"<label class='mt-3'>" + stackCapacityUnit + "</label>" +
 					"</td>" +
 
 					"<td>" +
@@ -888,9 +921,14 @@ function openStack() {
 					"</td>" +
 
 					"<td>" +
-					"<label class='mt-3'>" + stackFuelQuant + " " + stackFuelUnits + "</label>" +
+					"<label class='mt-3'>" + stackFuelQuant + "</label>" +
 					"</td>" +
 
+
+					"<td>" +
+					"<label class='mt-3'>" +stackFuelUnits + "</label>" +
+					"</td>" +
+					
 					"<td>" +
 					"<label class='mt-3'>" + stackMatCons + "</label>" +
 					"</td>" +
@@ -900,13 +938,70 @@ function openStack() {
 					"</td>" +
 
 					"<td>" +
-					"<label class='mt-3'>" + stackHeight + " " + stackHtUnits + "</label>" +
+					"<label class='mt-3'>" + stackHeight + "</label>" +
+					"</td>" +
+					
+					"<td>" +
+					"<label class='mt-3'>"  + stackHtUnits + "</label>" +
 					"</td>" +
 
 					"<td>" +
-					"<label class='mt-3'>" + stackDiam + " " + stackDiamUnits + "</label>" +
+					"<label class='mt-3'>" + stackDiam+ "</label>" +
 					"</td>" +
+					
+					"<td>" +
+					"<label class='mt-3'>" + stackDiamUnits+ "</label>" +
+					"</td>" +
+					
+					
+					
+					"<td>" +
+					"<label class='mt-3'>" + stackGasQuant + "</label>" +
+					"</td>" +
+					
+					"<td>" +
+					"<label class='mt-3'>" +  stackGasUnit + "</label>" +
+					"</td>" +
+						
+					"<td>" +
+					"<label class='mt-3'>"  + stackGasTemp  + "</label>" +
+					"</td>" +
+					
+					
+					"<td>" +
+					"<label class='mt-3'>"  + stackGasTempUnit  + "</label>" +
+					"</td>" +
+					
 
+					"<td>" +
+					"<label class='mt-3'>" + stackExitGasVel +  "</label>" +
+					"</td>" +
+					
+					"<td>" +
+					"<label class='mt-3'>" + stackExitGasUnit + "</label>" +
+					"</td>" +
+					
+					
+					"<td>" +
+					"<label class='mt-3'>" + stackPrecedingStack + "</label>" +
+					"</td>"+
+					
+					"<td>" +
+					"<label class='mt-3'>" + stackPolluPresent + "</label>" +
+					"</td>" +
+					
+					"<td>" +
+					"<label class='mt-3'>" + stackECSProvided + "</label>" +
+					"</td>" +
+					
+					"<td>" +
+					"<label class='mt-3'>" +  stackGenCapacity + "</label>" +
+					"</td>" +
+					
+					"<td>" +
+					"<label class='mt-3'>" +  stackGenCapUnit + "</label>" +
+					"</td>" +
+				
 					"<td>" +
 					"<label class='mt-3'> ";
 
@@ -990,7 +1085,29 @@ function openStack() {
 					"<i class='form-group__bar'></i>" +
 					"</div>" +
 					"</div>"
+					
+	                  +
+					"<div class='col-2'>" +
+					"<div class='form-group'>" +
+					"<label>Fuel Quantity</label>" +
+					"<input type='number' class='form-control' id='modify_stack_fuel_quan" + stackId + "' value='" + stackFuelQuant + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
 
+					
+					+
+					"<div class='col-2'>" +
+					"<div class='form-group'>" +
+					"<label>Fuel Quantity Units</label>" +
+					"<select class='select2' name='" + stackId + "' id='modify_stack_fuel_unit" + stackId + "'" +
+					unitOptions +
+					"</select>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
 					+
 					"<div class='col-2'>" +
 					"<div class='form-group'>" +
@@ -1031,32 +1148,113 @@ function openStack() {
 					"</div>" +
 					"</div>"
 
+				
+
+//chnages by pallavi
 					+
-					"<div class='col-2'>" +
+					"<div class='col-4'>" +
 					"<div class='form-group'>" +
-					"<label>Fuel Quantity</label>" +
-					"<input type='number' class='form-control' id='modify_stack_fuel_quan" + stackId + "' value='" + stackFuelQuant + "'>" +
+					"<label>Gas Quantity</label>" +
+					"<input type='number' class='form-control' id='modify_stack_gas_quant" + stackId + "' value='" + stackGasQuant + "'>" +
 					"<div class='invalid-feedback'>Invalid !</div>" +
 					"<i class='form-group__bar'></i>" +
 					"</div>" +
 					"</div>"
-
 					+
-					"<div class='col-2'>" +
+					"<div class='col-4'>" +
 					"<div class='form-group'>" +
-					"<label>Fuel Quantity Units</label>" +
-					"<select class='select2' name='modify_stack_fuel_unit" + stackId + "' id='modify_stack_fuel_unit" + stackId + "'" +
-					unitOptions +
-					"</select>" +
+					"<label>Gas Unit</label>" +
+					"<input type='text' class='form-control' id='modify_stack_gas_unit" + stackId + "' value='" + stackGasUnit + "'>" +
 					"<div class='invalid-feedback'>Invalid !</div>" +
 					"<i class='form-group__bar'></i>" +
 					"</div>" +
 					"</div>"
-
-
+					
 					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>Gas Temperature</label>" +
+					"<input type='number' class='form-control' id='modify_stack_gas_temp" + stackId + "' value='" + stackGasTemp + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
 					"</div>"
-
+					
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>Gas Temperature Unit</label>" +
+					"<input type='text' class='form-control' id='modify_stack_gas_temp_unit" + stackId + "' value='" + stackGasTempUnit + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>Exit gas velocity</label>" +
+					"<input type='number' class='form-control' id='modify_stack_exit_gas_vel" + stackId + "' value='" + stackExitGasVel + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
+					
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>Exit Gas Unit</label>" +
+					"<input type='text' class='form-control' id='modify_stack_exit_gas_unit" + stackId + "' value='" + stackExitGasUnit + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>Control equipment preceding the stack</label>" +
+					"<input type='text' class='form-control' id='modify_stack_preceding_stack" + stackId + "' value='" + stackPrecedingStack + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
+					
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>Pollutants present in stack gases</label>" +
+					"<input type='text' class='form-control' id='modify_stack_pollu_present" + stackId + "' value='" + stackPolluPresent + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>Emissions control system provided</label>" +
+					"<input type='text' class='form-control' id='modify_stack_eCS_provided" + stackId + "' value='" + stackECSProvided + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>D.G set Power generation capacity</label>" +
+					"<input type='number' class='form-control' id='modify_stack_gen_capacity" + stackId + "' value='" + stackGenCapacity + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"
+					+
+					"<div class='col-4'>" +
+					"<div class='form-group'>" +
+					"<label>D.G set Power generation capacity unit</label>" +
+					"<input type='text' class='form-control' id='modify_stack_gen_Cap_unit" + stackId + "' value='" + stackGenCapUnit + "'>" +
+					"<div class='invalid-feedback'>Invalid !</div>" +
+					"<i class='form-group__bar'></i>" +
+					"</div>" +
+					"</div>"+
+				    "</div>"
 					+
 					"<div class='row'>" +
 					"<div class='col-12'><p class='font-weight-700'>Stack Pollutants</p></div>" +
@@ -1337,42 +1535,71 @@ function modifyStack(type, idd, el) {
 	//consentNo
 	var flag = 0;
 	var stack_name = $("#modify_stack_name" + idd).val();
+	var attached_to = $("#modify_stack_name_attachTo" + idd).val();
 	var capacity = $("#modify_stack_capacity" + idd).val();
 	var capacity_units = $("#modify_stack_capacity_unit" + idd).val();
 	var fuel_type = $("#modify_stack_fuel_type" + idd).val();
-
-	var fuel_quant = $("#modify_stack_fuel_quan" + idd).val();
+    var fuel_units = $("#modify_stack_fuel_unit" + idd).val();
+    var fuel_quant = $("#modify_stack_fuel_quan" + idd).val();
 	var shape = $("#modify_stack_shape" + idd).val();
 	var height = $("#modify_stack_height" + idd).val();
 	var ht_units = $("#modify_stack_height_unit" + idd).val();
 	var diam = $("#modify_stack_diam" + idd).val();
 	var diam_units = $("#modify_stack_diam_unit" + idd).val();
 	var mat_cons = $("#modify_stack_matCons" + idd).val();
+	//changes by pallavi
+	var gas_quant = $("#modify_stack_gas_quant" + idd).val();
+	var gas_unit =$("#modify_stack_gas_unit" + idd).val();
+	var gas_temp =$("#modify_stack_gas_temp" + idd).val();
+	var gas_temp_unit =$("#modify_stack_gas_temp_unit" + idd).val();
+	var exit_gas_vel =$("#modify_stack_exit_gas_vel" + idd).val();
+	var exit_gas_unit =$("#modify_stack_exit_gas_unit" + idd).val();
+	var preceding_stack =$("#modify_stack_preceding_stack" + idd).val();
+	var pollu_present =$("#modify_stack_pollu_present" + idd).val();
+	var eCS_provided =$("#modify_stack_eCS_provided" + idd).val();
+	var gen_capacity =$("#modify_stack_gen_capacity" + idd).val();
+	var gen_Cap_unit =$("#modify_stack_gen_Cap_unit" + idd).val();
+	
+	
 
 	flag += customInputValidator(stack_name, "#modify_stack_name" + idd);
+    flag += customSelectValidator(attached_to, "modify_stack_name_attachTo" + idd);
 	flag += customInputValidator(capacity, "#modify_stack_capacity" + idd);
 	flag += customInputValidator(capacity_units, "#modify_stack_capacity_unit" + idd);
 	flag += customInputValidator(fuel_type, "#modify_stack_fuel_type" + idd);
-	flag += customInputValidator(fuel_quant, "#modify_stack_fuel_quan" + idd);
+    flag += customInputValidator(fuel_quant, "#modify_stack_fuel_quan" + idd);
+	flag += customSelectValidator(fuel_units, "modify_stack_fuel_unit" + idd);
 	flag += customInputValidator(shape, "#modify_stack_shape" + idd);
 	flag += customInputValidator(height, "#modify_stack_height" + idd);
 	flag += customInputValidator(ht_units, "#modify_stack_height_unit" + idd);
 	flag += customInputValidator(diam, "#modify_stack_diam" + idd);
 	flag += customInputValidator(diam_units, "#modify_stack_diam_unit" + idd);
 	flag += customInputValidator(mat_cons, "#modify_stack_matCons" + idd);
+	//changes by pallavi
+	
+	flag += customInputValidator(gas_quant, "#modify_stack_gas_quant" + idd);
+	flag += customInputValidator(gas_unit, "#modify_stack_gas_unit" + idd);
+	flag += customInputValidator(gas_temp, "#modify_stack_gas_temp" + idd);
+	flag += customInputValidator(gas_temp_unit, "#modify_stack_gas_temp_unit" + idd);
+	flag += customInputValidator(exit_gas_vel, "#modify_stack_exit_gas_vel" + idd);
+	flag += customInputValidator(exit_gas_unit, "#modify_stack_exit_gas_unit" + idd);
+	flag += customInputValidator(preceding_stack, "#modify_stack_preceding_stack" + idd);
+	flag += customInputValidator(pollu_present, "#modify_stack_pollu_present" + idd);
+	flag += customInputValidator(eCS_provided, "#modify_stack_eCS_provided" + idd);
+	flag += customInputValidator(gen_capacity, "#modify_stack_gen_capacity" + idd);
+	flag += customInputValidator(gen_Cap_unit, "#modify_stack_gen_Cap_unit" + idd);
 
-	var attached_to = $("#modify_stack_name_attachTo" + idd).val();
-	var fuel_units = $("#modify_stack_fuel_unit" + idd).val();
-
-	flag += customSelectValidator(attached_to, "modify_stack_name_attachTo" + idd);
-	flag += customSelectValidator(fuel_units, "modify_stack_fuel_unit" + idd);
+	
 
 	if (flag == 0) {
 		var fwd_url = "ajax-modify-stack-ambient?stackid=" +
 			idd + "&stack_name=" + stack_name + "&attached_to=" + attached_to + "&capacity=" +
 			capacity + "&capacity_units=" + capacity_units + "&fuel_type=" + fuel_type + "&fuel_quant=" +
 			fuel_quant + "&fuel_units=" + fuel_units + "&shape=" + shape + "&height=" +
-			height + "&ht_units=" + ht_units + "&diam=" + diam + "&diam_units=" + diam_units + "&mat_cons=" + mat_cons + "&type=stack";
+			height + "&ht_units=" + ht_units + "&diam=" + diam + "&diam_units=" + diam_units + "&mat_cons=" + mat_cons +
+			"&gas_quant="+ gas_quant  + "&gas_unit=" + gas_unit + "&gas_temp="  + gas_temp + "&gas_temp_unit="  + gas_temp_unit + 
+			"&exit_gas_vel="+ exit_gas_vel +"&exit_gas_unit="  + exit_gas_unit + "&preceding_stack="+ preceding_stack +"&pollu_present="+ 
+			pollu_present + "&eCS_provided="+ eCS_provided +"&gen_capacity=" + gen_capacity +"&gen_Cap_unit=" + gen_Cap_unit ;
 
 		$.ajax({
 			type: "GET",

@@ -156,7 +156,7 @@ public class CreateConsentController
 	@RequestMapping(value = "/worker-create-consent", method = RequestMethod.POST) // do not refresh repeat ......by vishal
 	public ModelAndView setWorkerCreateConsent(
 			@RequestParam(value = "consentFilePath", required = false) MultipartFile concentFile,
-			@RequestParam(value = "expande6dConsentFilePath", required = false) MultipartFile expandedFile,
+			@RequestParam(value = "expandedConsentFilePath", required = false) MultipartFile expandedFile,
 			@RequestParam(value = "aml_e[]", required = false) int[] amulgamationEId,
 			@RequestParam(value = "aml_o[]", required = false) int[] amulgamationOId,
 			@RequestParam(value = "msg", required = false) String msg, HttpServletRequest request,
@@ -177,6 +177,7 @@ public class CreateConsentController
 		Users user = new Users();
 		CompanyProfile companyProfile = new CompanyProfile();
 		String status = null;
+		//request.getParameter()
 		try
 		{
 			if (!Validator.isEmpty(request.getParameter("status")))
@@ -202,19 +203,19 @@ public class CreateConsentController
 			{
 				int noStaff = 0;
 				if ((empDataSession.getCompanyProfile().getIndustryCategory()).equalsIgnoreCase("Commercial-Cinemas, concert halls and theatres"))
-				{
-					noStaff = Integer.parseInt(request.getParameter("no_staff1")) + Integer.parseInt(request.getParameter("no_staff2"));
-				}
+				    {
+					   noStaff = Integer.parseInt(request.getParameter("no_staff1")) + Integer.parseInt(request.getParameter("no_staff2"));
+				     }
 				else
-				{
+				    {
 					noStaff = Integer.parseInt(request.getParameter("noStaff"));
-				}
+				     }
 				consent.setConsNo(request.getParameter("consNo"));
 				consent.setIssueDate(request.getParameter("issueDate"));
 				consent.setValidUpto(request.getParameter("validUpto"));
 				consent.setGrossCi(Float.parseFloat(request.getParameter("grossCi")));
 				consent.setGrossunit(request.getParameter("grossunit"));
-				consent.setNoStaff(noStaff);
+				consent.setNoStaff(2);
 				consent.setNoWorker(Integer.parseInt(request.getParameter("noWorker")));
 				consent.setTotPlotArea(Float.parseFloat(request.getParameter("totPlotArea")));
 				consent.setTotPlotAreaUnits(request.getParameter("totPlotAreaUnits"));
@@ -224,13 +225,13 @@ public class CreateConsentController
 				consent.setOpenSpaceAvaUnits(request.getParameter("openSpaceAvaUnits"));
 				consent.setTotGreenArea(Float.parseFloat(request.getParameter("totGreenArea")));
 				consent.setTotGreenAreaUnits(request.getParameter("totGreenAreaUnits"));
-			}
+			   }
 			else
-			{
+			   {
 				consent.setConsNo(request.getParameter("expandedConsNo"));
 				consent.setIssueDate(request.getParameter("expandedIssueDate"));
 				consent.setValidUpto(request.getParameter("expandedValidUpto"));
-			}
+			    }
 
 			String file = null;
 			String mainFile = null;

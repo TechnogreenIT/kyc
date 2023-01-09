@@ -44,7 +44,7 @@ public interface StackRepository extends JpaRepository<Stack, Integer>
 	@Query("UPDATE Stack s SET s.consentToOperate =  'Yes' WHERE s.stackId = :stackId")
 	int updateConsentToOperate(@Param("stackId") int stackId);
 
-	@Query("SELECT NEW Stack(s.stackId,s.consent,s.stackName,s.attachedTo,s.capacity,s.capacityUnits,s.fuelType,s.fuelQuant,s.fuelUnits,s.shape,s.height,s.htUnits,s.diam,s.diamUnits,s.matCons,s.apc,s.apcSystem,s.consentToOperate) FROM Stack s WHERE s.consent.consentId = :consentId ORDER BY s.stackId ASC")
+	@Query("SELECT NEW Stack(s.stackId,s.consent,s.stackName,s.attachedTo,s.capacity,s.capacityUnits,s.fuelType,s.fuelQuant,s.fuelUnits,s.shape,s.height,s.htUnits,s.diam,s.diamUnits,s.matCons,s.apc,s.apcSystem,s.consentToOperate,s.gasQuant,s.gasUnit,s.gasTemp,s.gasTempUnit,s.exitGasVel,s.exitGasUnit,s.precedingStack,s.polluPresent,s.eCSProvided,s.genCapacity,s.genCapUnit) FROM Stack s WHERE s.consent.consentId = :consentId ORDER BY s.stackId ASC")
 	List<Stack> findAllByConsNoOrderByASC(@Param("consentId") int consentId);
 
 	@Query("SELECT s FROM StackOp sop LEFT JOIN sop.stack s LEFT JOIN sop.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType='Consent to Operate' AND  sop.consent.consentId=:consentId")

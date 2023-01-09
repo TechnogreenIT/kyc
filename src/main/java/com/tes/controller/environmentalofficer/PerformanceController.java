@@ -114,7 +114,7 @@ public class PerformanceController
 	 * @param request the servlet request we are processing.
 	 * @return performanceName, performanceTitle, consentYears
 	 */
-	@RequestMapping("envr-officer-performance")
+	@RequestMapping("/envr-officer-performance")
 	public ModelAndView envrOfficerPerformance(@RequestParam("performancefor") String performanceName,
 			HttpServletRequest request)
 	{
