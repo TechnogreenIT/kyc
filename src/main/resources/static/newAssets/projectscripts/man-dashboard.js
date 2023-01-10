@@ -12,10 +12,12 @@ $(document).ready(function () {
 	getOverAllDailyDataQuality();
 	getOverAllConformingPerformance();
 	getEnvQualityDataWater(); // AHP WATER
+	getEnvQualitySTPDataWater();
+	getEnvQualityETPDataWater();
 	getEnvQualityDataAir(); // AHP AIR
 	getEnvQualityDataHz(); // AHP HZ
-	getOverAllAhp(); // AHP OVERALL
-	if (industryType == "Industry") {
+	getOverAllAhp(); // AHP OVERALL  
+	if (industryType == "Industry"){
 		isproduction = "Yes";
 		
 		//getProVsWaterGraph();
@@ -388,6 +390,22 @@ function setOldData(newOverAllPercentage, oldOverAllPercentage, id) {
 	makeToolTip();
 }
 
+//water data value display
+function setFilter(meterName, finalCombine, id) {
+	var colorClass = "text-success";
+	var iconClass = "zmdi zmdi-trending-up";
+	var oldDateTitle = meterOldDateTitle();
+	var diffrence = (newOverAllPercentage - oldOverAllPercentage).toFixed(2);
+	if (diffrence < 0) {
+		colorClass = "text-danger";
+		iconClass = "zmdi zmdi-trending-down";
+	}
+	var html = $("<span class='mantooltip hover' data-jbox-title='' data-jbox-content='" + oldDateTitle + "'><i class='" + iconClass + " zmdi-hc-lg " + colorClass + "'></i>" + "<span class='" + colorClass + "'> (" + diffrence + " %)</span></span>");
+	var oldDateHtml = meterCurrentDateTitle();
+	$("#" + id).append(html);
+	makeToolTip();
+}
+//
 function getOverAllConformingPerformance() {
 	var finalValue = 0,
 		finalValue1 = 0,
@@ -463,6 +481,87 @@ function getEnvQualityDataWater() {
 		}
 	});
 }
+////mmm
+function getEnvQualitySTPDataWater() {
+	$.ajax({
+		type: 'POST',
+		url: 'ajax-getWaterPerformanceSTPtest',
+		dataType: 'json',
+		success: function (data) {
+			var data = JSON.parse(data);
+			if (data.length != 0) {
+				$.each(data, function (index, element) {
+					treatmentType = element.meterType;
+					if (treatmentType == "combine") {
+						finalCombine = element.finalCombinedValue;
+						reverseGaugeMeter(finalCombine, "waterTreatmentSTPGaugeMeter", "waterTreatmentSTPGaugeMeter-text");
+					}
+					if (treatmentType == "combine") {
+						finalCombine =  element.finalCombinedValue;
+						meterName = "STP";
+						setFilter(meterName, finalCombine, "performanceStat_ETP");
+					} 
+					/*if (treatmentType == "ETP") {
+						finalEtp = (element.finalEtpValue).toFixed(2);
+						meterName = "ETP";
+						setFilter(meterName, finalEtp, "performanceStat_ETP");
+					} else if (treatmentType == "STP") {
+						finalStp = (element.finalStpValue).toFixed(2);
+						meterName = "STP";
+						setFilter(meterName, finalStp, "performanceStat_STP");
+					}*/
+				});
+			} 
+			else {
+				$("#noDataWaterPerformance").html("No");
+				}
+		},
+		error: function (dd) {
+			alert("error" + dd);
+		}
+	});
+}
+///2
+function getEnvQualityETPDataWater() {
+	$.ajax({
+		type: 'POST',
+		url: 'ajax-getWaterPerformanceETPtest',
+		dataType: 'json',
+		success: function (data) {
+			var data = JSON.parse(data);
+			if (data.length != 0) {
+				$.each(data, function (index, element) {
+					treatmentType = element.meterType;
+					if (treatmentType == "combine") {
+						finalCombine = element.finalCombinedValue;
+						reverseGaugeMeter(finalCombine, "waterTreatmentETPGaugeMeter", "waterTreatmentETPGaugeMeter-text");
+					}
+					if (treatmentType == "ETP") {
+						finalEtp = (element.finalEtpValue).toFixed(2);
+						meterName = "ETP";
+						setFilter(meterName, finalEtp, "performanceStat_ETP");
+					} 
+//					else if (treatmentType == "STP") {
+//						finalStp = (element.finalStpValue).toFixed(2);
+//						meterName = "STP";
+//						setFilter(meterName, finalStp, "performanceStat_STP");
+//					}*/
+//					if (name == "overAllOld") {
+//						oldOverAllCompliancePercentage = quality;
+//						setOldData(newOverAllCompliancePercentage, oldOverAllCompliancePercentage, "overAll-state");
+//					}
+				});
+			} 
+			else {
+				$("#noDataWaterPerformance").html("No");
+				}
+		},
+		error: function (dd) {
+			alert("error" + dd);
+		}
+	});
+}
+////mmm
 
 function getEnvQualityDataAir() {
 	var fwd_url = "ajax-overAllEnvPerformanceAir";

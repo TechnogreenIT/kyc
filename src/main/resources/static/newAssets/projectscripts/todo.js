@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function () {	
 	loadTodo();
 });
 
@@ -127,7 +127,6 @@ function deleteData(id){
 }  
 
 
-
 function savedata(el) {
   var todo = $('#newTodoText').val();
   $.ajax({
@@ -151,3 +150,5 @@ function savedata(el) {
     }
   });
 }
+
+

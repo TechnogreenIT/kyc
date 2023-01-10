@@ -1,6 +1,7 @@
 package com.tes.services.environmentalofficer;
 
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 import com.tes.model.HazardousManifest;
 
 public interface HazardousManifestServices
@@ -27,6 +28,8 @@ public interface HazardousManifestServices
 	public List<HazardousManifest> getDispatchedToAndFacilityNameByWasteName(String wasteName, String categoryNo, String fromDate, String toDate);
 
 	HazardousManifest getHazardousManifestByDate(String selectedDate);
+
+	List<HazardousManifest> checkHazManifestDTPresent(Pageable pageble);
 
 	// public List<Integer> getHazardousManifestDay(String year, String month);
 }

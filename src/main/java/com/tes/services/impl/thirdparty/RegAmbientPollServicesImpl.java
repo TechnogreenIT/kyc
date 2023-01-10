@@ -1,10 +1,9 @@
 package com.tes.services.impl.thirdparty;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.tes.model.RegAmbientPoll;
 import com.tes.repository.thirdparty.RegAmbientPollRepository;
 import com.tes.services.thirdparty.RegAmbientPollServices;
@@ -69,6 +68,13 @@ public class RegAmbientPollServicesImpl implements RegAmbientPollServices
 	{
 
 		return regAmbientPollRepository.findByAmbientDate(date);
+	}
+
+	@Override
+	public List<RegAmbientPoll> checkRegAmbientPollData(Pageable pageable)
+	{
+		// TODO Auto-generated method stub
+		return regAmbientPollRepository.checkRegAmbientPollData(pageable);
 	}
 
 }

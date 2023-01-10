@@ -1,12 +1,11 @@
 package com.tes.repository.thirdparty;
 
 import java.util.List;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import com.tes.model.RegStPoll;
 
 @Repository
@@ -70,5 +69,8 @@ public interface RegStackPollRepository extends JpaRepository<RegStPoll, Long>
 
 	@Query(value = q, nativeQuery = false)
 	public List<RegStPoll> getRegStackPollData(@Param("fromDate") String fromDate, @Param("toDate") String toDate);
+
+	@Query("SELECT rs.regStPollId FROM RegStPoll rs ORDER BY rs.regStPollId DESC")
+	public List<RegStPoll> checkRegSTPollData(Pageable pageble);
 
 }

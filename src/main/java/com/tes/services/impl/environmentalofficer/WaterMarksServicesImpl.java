@@ -1,13 +1,8 @@
 package com.tes.services.impl.environmentalofficer;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-
-import com.tes.model.RegEffPoll;
 import com.tes.model.WaterMarks;
 import com.tes.repository.environmentalofficer.WaterMarksServicesRepository;
 import com.tes.services.environmentalofficer.WaterMarksServices;
@@ -66,10 +61,11 @@ public class WaterMarksServicesImpl implements WaterMarksServices
 		return waterMarksServicesRepository.ahpWatersew(today);
 	}
 
-	/*
-	 * @Override public Float getRegSewPollData(int Yr,String pollname) { return
-	 * waterMarksServicesRepository.getRegSewPollData(Yr,pollname); }
-	 */
+	// @Override
+	// public Float getRegSewPollData(int Yr, int pollIdn)
+	// {
+	// return waterMarksServicesRepository.getRegSewPollData(Yr, pollIdn);
+	// }
 
 	@Override
 	public List<Object[]> ahpStackObj(int stackId, String poll)

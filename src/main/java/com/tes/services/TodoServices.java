@@ -1,7 +1,6 @@
 package com.tes.services;
 
 import java.util.List;
-
 import com.tes.model.Todo;
 
 public interface TodoServices
@@ -18,4 +17,8 @@ public interface TodoServices
 	public int updateToDoMsg(String todoMsg, String cDate, int id);
 
 	public List findOneByGetAllToDoMsg(String consentNo);
+
+	public void findOneByDeleteToDobynm(String todo);
+
+	public int deletecheckTodoData(int empId);
 }

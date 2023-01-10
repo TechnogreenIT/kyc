@@ -48,4 +48,6 @@ public interface RegEffPollServices
 
 	public List<RegEffPoll> getRegEffPollDatasbyDate(String labelName, String date);
 
+	List<RegEffPoll> checkRegEffPollData(Pageable pageable);
+
 }

@@ -1,6 +1,8 @@
 $( document ).ready(function() {
+	addstepsfortodo();
     consentPopUp();
     consentNotice();
+    
 });
 
 function consentPopUp(){
@@ -212,6 +214,26 @@ function changeExtendConsent(el){
 		$("#extendConsentBtn").attr("disabled", true);
 	}
 }
+/////display steps in todo list.
+function addstepsfortodo(){
+	 $.ajax({
+			url: 'ajax-todosteps-add',
+			type: 'post',
+			 async : false,
+			dataType:'text',	
+			success: function(data){
+			 if (data == null ) {
+				var parseData = JSON.parse(data);			
+				$.each(parseData, function(index, element) {
+					
+				});		
+				
+			 }			
+			},
+
+		});
+}
+////
 
 function saveExtendedDate(el){
 	var consent_id = $("#consent_id").val();

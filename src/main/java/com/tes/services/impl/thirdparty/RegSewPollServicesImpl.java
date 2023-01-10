@@ -44,11 +44,11 @@ public class RegSewPollServicesImpl implements RegSewPollServices
 	 * pollname) { return regSewPollRepository.getRegSewagePollData(yr, pollname); }
 	 */
 
-	/*
-	 * @Override public List<RegSewPoll> getRegSewPollDatas(String pollname,String
-	 * sampDate) { return
-	 * regSewPollRepository.getRegSewPollDatas(pollname,sampDate); }
-	 */
+	// @Override
+	// public List<RegSewPoll> getRegSewPollDatas(String pollname, String sampDate)
+	// {
+	// return regSewPollRepository.getRegSewPollDatas(pollname, sampDate);
+	// }
 
 	/*
 	 * @Override public List<RegSewPoll>
@@ -139,5 +139,12 @@ public class RegSewPollServicesImpl implements RegSewPollServices
 	public Float getSewAvgOuConsByDate(String pollName, String dateFrom, String dateTo)
 	{
 		return regSewPollRepository.getSewAvgOuConsByDate(pollName, dateFrom, dateTo);
+	}
+
+	@Override
+	public List<RegSewPoll> checkRegSewPollData(Pageable pageable)
+	{
+		// TODO Auto-generated method stub
+		return regSewPollRepository.checkRegSewPollData(pageable);
 	}
 }

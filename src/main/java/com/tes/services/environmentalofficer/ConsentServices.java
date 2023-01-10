@@ -75,4 +75,8 @@ public interface ConsentServices
 	public List<Consent> findAllConsentByConsentType(String consentType);
 
 	public List<Integer> findByDate(String dateTo, Pageable pageable);
+
+	// public Integer checkDataPresent();
+
+	public List<Consent> checkDataPresent(String consentType, Pageable pageable);
 }

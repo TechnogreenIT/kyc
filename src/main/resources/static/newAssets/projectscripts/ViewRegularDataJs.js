@@ -503,7 +503,7 @@ function getFilterUseData(selected_date){
 		url : fwd_url,
 		dataType : 'json',
 		data : ({
-			dailydate : date,
+			dailydate : selected_date,
 		}),
 		success : function(res) {
 			var data=JSON.parse(res);
@@ -572,7 +572,7 @@ function getDirectUseOfWaterData(selected_date){
 		url : fwd_url,
 		dataType : 'json',
 		data : ({
-			dailydate : date,
+			dailydate : selected_date,
 		}),
 		success : function(res) {
 			var data=JSON.parse(res);

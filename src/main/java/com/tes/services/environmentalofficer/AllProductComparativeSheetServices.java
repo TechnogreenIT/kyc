@@ -37,4 +37,6 @@ public interface AllProductComparativeSheetServices
 
 	public int countType();
 
+	// public String getComparativeSheetByPName(String pName);
+
 }

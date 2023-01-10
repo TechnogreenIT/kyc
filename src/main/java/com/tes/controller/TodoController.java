@@ -10,18 +10,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tes.model.Consent;
 import com.tes.model.EmpData;
+import com.tes.model.HazardousManifest;
+import com.tes.model.RegAmbientPoll;
+import com.tes.model.RegEffPoll;
+import com.tes.model.RegSewPoll;
+import com.tes.model.RegStPoll;
+import com.tes.model.RegularData;
 import com.tes.model.Todo;
 import com.tes.model.Users;
 import com.tes.services.TodoServices;
 import com.tes.services.UsersServices;
+import com.tes.services.admin.CompanyProfileServices;
 import com.tes.services.admin.EmpDataServices;
+import com.tes.services.environmentalofficer.ConsentServices;
+import com.tes.services.environmentalofficer.HazardousManifestServices;
+import com.tes.services.environmentalofficer.RegularDataServices;
+import com.tes.services.thirdparty.RegAmbientPollServices;
+import com.tes.services.thirdparty.RegEffPollServices;
+import com.tes.services.thirdparty.RegSewPollServices;
+import com.tes.services.thirdparty.RegStPollServices;
 import com.tes.utilities.AuthenticationUtil;
 import com.tes.utilities.Validator;
 
@@ -45,7 +61,32 @@ public class TodoController
 	EmpDataServices empDataServices;
 
 	@Autowired
+	ConsentServices consentServices;
+
+	@Autowired
 	private AuthenticationUtil authenticationUtil;
+
+	@Autowired
+	RegularDataServices regularDataServices;
+
+	@Autowired
+	HazardousManifestServices hazardousManifestServices;
+
+	@Autowired
+	RegStPollServices regStPollServices;
+
+	@Autowired
+	RegAmbientPollServices regAmbientPollServices;
+
+	@Autowired
+	RegEffPollServices regEffPollServices;
+
+	@Autowired
+	RegSewPollServices regSewPollServices;
+
+	@Autowired
+	CompanyProfileServices companyProfileServices;
+
 	private static final Logger LOGGER = LogManager.getLogger(TodoController.class);
 
 	/**
@@ -169,4 +210,181 @@ public class TodoController
 
 		return ajaxResponse;
 	}
+
+	// ////mmmmmm Env
+	@RequestMapping("/ajax-todosteps-add")
+	public @ResponseBody String stepsAddTodo(HttpServletRequest request,
+			HttpServletRequest response)
+	{
+
+		String ajaxResponse;
+		ajaxResponse = "";
+		try
+		{
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String createDate = formatter.format(date);
+
+			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
+			int empId = empDataSession.getEmpDataId();
+			int todoDatas = todoServices.deletecheckTodoData(empId);
+			// check data present or not consent table.
+			// Integer consent = consentServices.checkDataPresent();
+			List<Consent> consentE = consentServices.checkDataPresent("Consent to Establish", new PageRequest(0, 1));
+			List<Consent> consentO = consentServices.checkDataPresent("Consent to Operate", new PageRequest(0, 1));
+
+			if (consentE.isEmpty())
+			{
+				String todoData = "Fill Consent to Establish";
+				EmpData empData = new EmpData();
+				empData.setEmpDataId(empId);
+				Todo todo = new Todo();
+				todo.setTodo(todoData);
+				todo.setCreateDate(createDate);
+				todo.setEmpData(empData);
+				todo.setAction("new");
+				todoServices.save(todo);
+				ajaxResponse = "Success";
+			}
+			if (consentO.isEmpty())
+			{
+				String todoData = "Fill Consent to Operate";
+				EmpData empData = new EmpData();
+				empData.setEmpDataId(empId);
+				Todo todo = new Todo();
+				todo.setTodo(todoData);
+				todo.setCreateDate(createDate);
+				todo.setEmpData(empData);
+				todo.setAction("new");
+				todoServices.save(todo);
+				ajaxResponse = "Success";
+			}
+			// check data present or not regulardata table.
+			List<RegularData> regularDatas = regularDataServices.getCheckRegularData(createDate, new PageRequest(0, 1));
+			if (regularDatas.isEmpty())
+			{
+				String todoData = "Fill Daily Input";
+				EmpData empData = new EmpData();
+				empData.setEmpDataId(empId);
+				Todo todo = new Todo();
+				todo.setTodo(todoData);
+				todo.setCreateDate(createDate);
+				todo.setEmpData(empData);
+				todo.setAction("new");
+				todoServices.save(todo);
+				ajaxResponse = "Success";
+
+			}
+			// check data present or not hazardous_manifest table.
+			List<HazardousManifest> hazmanifest = hazardousManifestServices.checkHazManifestDTPresent(new PageRequest(0, 1));
+			if (hazmanifest.isEmpty())
+			{
+				String todoData = "Fill Waste Manifest";
+				EmpData empData = new EmpData();
+				empData.setEmpDataId(empId);
+				Todo todo = new Todo();
+				todo.setTodo(todoData);
+				todo.setCreateDate(createDate);
+				todo.setEmpData(empData);
+				todo.setAction("new");
+				todoServices.save(todo);
+				ajaxResponse = "Success";
+
+			}
+
+			// check data present or not view compliance form(regstpoll,regambientpoll,regeffpoll,reegsewpoll) table.
+			List<RegStPoll> regStackData = regStPollServices.checkRegSTPollData(new PageRequest(0, 1));
+			List<RegAmbientPoll> regAmbientPoll = regAmbientPollServices.checkRegAmbientPollData(new PageRequest(0, 1));
+			List<RegEffPoll> regEffPoll = regEffPollServices.checkRegEffPollData(new PageRequest(0, 1));
+			List<RegSewPoll> regSewPoll = regSewPollServices.checkRegSewPollData(new PageRequest(0, 1));
+
+			if (regStackData.isEmpty() && regAmbientPoll.isEmpty() && regEffPoll.isEmpty() && regSewPoll.isEmpty())
+			{
+				String todoData = "View Compliance Forms";
+				EmpData empData = new EmpData();
+				empData.setEmpDataId(empId);
+				Todo todo = new Todo();
+				todo.setTodo(todoData);
+				todo.setCreateDate(createDate);
+				todo.setEmpData(empData);
+				todo.setAction("new");
+				todoServices.save(todo);
+				ajaxResponse = "Success";
+			}
+
+		}
+
+		catch (Exception e)
+		{
+
+			LOGGER.error(e);
+		}
+
+		return ajaxResponse;
+	}
+
+	// /////mmmm
+	//// admin TODO steps
+	@RequestMapping("/ajax-todostepsadmin-add")
+	public @ResponseBody String stepsAddAdminTodo(HttpServletRequest request,
+			HttpServletRequest response)
+	{
+
+		String ajaxResponse;
+		ajaxResponse = "";
+		try
+		{
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String createDate = formatter.format(date);
+
+			EmpData empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
+			int empId = empDataSession.getEmpDataId();
+			int todoDatas = todoServices.deletecheckTodoData(empId);
+
+			// / for Admin login
+			// check data present or not company_profile table.
+			Integer companyProfile = companyProfileServices.checkcompanyprofData();
+
+			if (companyProfile == 0)
+			{
+				String todoData = "Create Company Profile";
+				EmpData empData = new EmpData();
+				empData.setEmpDataId(empId);
+				Todo todo = new Todo();
+				todo.setTodo(todoData);
+				todo.setCreateDate(createDate);
+				todo.setEmpData(empData);
+				todo.setAction("new");
+				todoServices.save(todo);
+				ajaxResponse = "Success";
+			}
+
+			// Admin users profile
+			// check data present or not users table.
+			List<Users> usersData = usersServices.checkUserData(new PageRequest(0, 1));
+			if (usersData.isEmpty())
+			{
+				String todoData = "Create Three Users";
+				EmpData empData = new EmpData();
+				empData.setEmpDataId(empId);
+				Todo todo = new Todo();
+				todo.setTodo(todoData);
+				todo.setCreateDate(createDate);
+				todo.setEmpData(empData);
+				todo.setAction("new");
+				todoServices.save(todo);
+				ajaxResponse = "Success";
+			}
+		}
+
+		catch (Exception e)
+		{
+
+			LOGGER.error(e);
+		}
+
+		return ajaxResponse;
+	}
+	////
 }

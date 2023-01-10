@@ -3,20 +3,16 @@ package com.tes.controller.environmentalofficer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.tes.model.EmpData;
 import com.tes.services.environmentalofficer.AllProductComparativeSheetServices;
@@ -481,6 +477,427 @@ public class OverallPerformanceController
 		return jsonArray.toString();
 	}
 
+	///// mmmm STP waste water non-compliance performance display.
+	@RequestMapping(value = {"ajax-getWaterPerformanceSTPtest"})
+	@ResponseBody
+	public @JsonRawValue String getWaterPerformancenew()
+	{
+
+		int isSTP = 0, isBoth = 0, flagWater = 0;
+		// Check STP availability
+		try
+		{
+			isSTP = wastewaterTreatmentServices.checkWaterTreatmentByTreatmentType("STP");
+
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+
+		if (isSTP > 0)
+			isSTP = 1;
+
+		JSONArray jsonArray;
+		jsonArray = new JSONArray();
+		try
+		{
+			Float finalStpValue = 0.0f;
+			Float tempfinalStpValue = 0.0f;
+			Float finalcombined = 0.0f;
+			String today = Utilities.getTodaysDate();
+			int year = Utilities.getYearFromStringDate(today);
+
+			// stp
+			if (isSTP == 1)
+			{
+				int pollId = 0;
+				String pollutantName = null;
+				float marks1 = 0.0f;
+				float consentQuan = 0.0f;
+				Float reqQuantity = 0.0f;
+				float fuzz = 0.0f;
+				float factordiv = 0.0f;
+				float fuzzdiv = 0.0f;
+
+				// list
+				float percentile = 0.0f;
+				List<String> pollname = new ArrayList<>();
+				List<Object[]> pollquantity = new ArrayList<>();
+				List<Float> marks = new ArrayList<>();
+				List<Float> consentlimit = new ArrayList<>();
+				/// mmmm
+				List<Integer> pollIdn = new ArrayList<>();
+				List<Float> updatedMarks = new ArrayList<>();
+				List<Float> factors = new ArrayList<>();
+				List<Float> consentdiv = new ArrayList<>();
+				List<Float> mainFactor = new ArrayList<>();
+				List<Float> factorValue = new ArrayList<>();
+				List<Float> regularMarks = new ArrayList<>();
+				List<Float> consentfuzz = new ArrayList<>();
+				List<Float> regq = new ArrayList<>();
+				float marknewSUM = 0;
+				float mk = 0;
+				float mk1 = 0;
+				float temp = 0;
+				float temp1 = 0;
+				float finalfuzz = 0.0f;
+				float finalRegular = 0.0f;
+				float updated = 0.0f;
+				float finalVal = 0.0f;
+
+				pollquantity = waterServices.ahpWatersew(today);
+				if (!Validator.isEmpty(pollquantity))
+				{
+					int i = 0;
+					int countOfNonCompliance = 0;
+					for (Object[] pollquantitydata : pollquantity)
+					{
+						pollutantName = (String) pollquantitydata[0];
+						consentQuan = (Float) pollquantitydata[1];
+						marks1 = (Float) pollquantitydata[2];
+						pollId = (int) pollquantitydata[3];
+						pollname.add(pollutantName);
+						marks.add(marks1);
+						consentlimit.add(consentQuan);
+						pollIdn.add(pollId);
+
+					}
+
+					if (!Validator.isEmpty(marks))
+					{
+
+						for (int k = 0; k < marks.size(); k++)
+						{
+							mk = marks.get(k);
+							marknewSUM += mk;
+							percentile = consentlimit.get(k) * 10 / 100;
+							fuzz = percentile + consentlimit.get(k);
+							consentfuzz.add(fuzz);
+						}
+
+						for (int j = 0; j < marks.size(); j++)
+						{
+							mk = marks.get(j);
+							temp = (mk / marknewSUM) * 100;// for each poll
+							temp = Utilities.getFloatpoint(temp, 3);
+							updatedMarks.add(temp);// updated marks
+							consentdiv.add(consentfuzz.get(j) / 4);
+
+						}
+
+						for (int j = 0; j < marks.size(); j++)
+						{
+							updated = updatedMarks.get(j) / 5;
+							factors.add(updated);
+						}
+
+						for (int j = 0; j < marks.size(); j++)
+						{
+							factordiv = factors.get(j) / consentdiv.get(j);
+							factordiv = Utilities.getFloatpoint(factordiv, 3);
+							mainFactor.add(factordiv);
+						}
+
+						// regular quantity
+						for (int j = 0; j < pollIdn.size(); j++)
+						{
+							// reqQuantity = waterServices.getRegSewPollData(year, pollIdn.get(j));
+							if (reqQuantity != null)
+							{
+								regq.add(reqQuantity);
+							}
+							else
+							{
+								regq.add(0.0f);
+							}
+
+						}
+						// regularmarks
+						for (int j = 0; j < consentfuzz.size(); j++)
+						{
+							finalfuzz = consentfuzz.get(j);
+							finalRegular = regq.get(j);
+							if (finalRegular >= finalfuzz)
+							{
+								regularMarks.add(updatedMarks.get(j));
+							}
+							else
+							{
+								regularMarks.add(mainFactor.get(j) * regq.get(j));
+							}
+						}
+
+						for (int ii = 0; ii < regularMarks.size(); ii++)
+						{
+
+							mk1 = regularMarks.get(ii);
+							finalVal += mk1;
+
+						}
+						finalStpValue = finalVal;
+					}
+				}
+
+			}
+			// stp
+
+			finalStpValue = 14.0f;// testing purpose mmmm
+			tempfinalStpValue = finalStpValue * 30 / 100;
+			finalcombined = tempfinalStpValue;
+
+			if (isSTP == 1)
+			{
+				water = finalStpValue;
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				hashMap.put("meterType", new String("combine"));
+				hashMap.put("finalCombinedValue", new Float(Utilities.getFloatpoint(finalStpValue, 2)));
+				jsonArray.put(hashMap);
+			}
+			else
+			{
+				water = 0;
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				hashMap.put("meterType", new String("combine"));
+				hashMap.put("finalCombinedValue", new Float(0.0f));
+				jsonArray.put(hashMap);
+
+			}
+
+			if (isSTP == 1)
+			{
+				HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
+				hashMap2.put("meterType", new String("STP")); // from eto 70% & stp 30%
+				hashMap2.put("finalStpValue", new Float(Utilities.getFloatpoint(finalStpValue, 2))); // from eto 70% & stp 30%
+				jsonArray.put(hashMap2);
+			}
+			else
+			{
+				HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
+				hashMap2.put("meterType", new String("STP"));
+				hashMap2.put("finalStpValue", new Float(0.0f));
+				jsonArray.put(hashMap2);
+			}
+
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		return jsonArray.toString();
+	}
+	/// Stp End Here
+
+	//// ETP waste water non-compliance performance display.
+	@RequestMapping(value = {"ajax-getWaterPerformanceETPtest"})
+	@ResponseBody
+	public @JsonRawValue String getWaterPerformanceETP()
+	{
+
+		int isETP = 0, isBoth = 0, flagWater = 0;
+
+		// Check ETP availability
+		try
+		{
+			isETP = wastewaterTreatmentServices.checkWaterTreatmentByTreatmentType("ETP");
+		}
+
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		if (isETP > 0)
+			isETP = 1;
+
+		JSONArray jsonArray;
+		jsonArray = new JSONArray();
+		try
+		{
+			Float finalEtpValue = 0.0f;
+			Float tempfinalEtpValue = 0.0f;
+			Float finalcombined = 0.0f;
+			String today = Utilities.getTodaysDate();
+			int year = Utilities.getYearFromStringDate(today);
+
+			// etp
+			if (isETP == 1)
+			{
+				String pollutantName = null;
+				float marks1 = 0.0f;
+				float consentQuan = 0.0f;
+				Float reqQuantity = 0.0f;
+				float fuzz = 0.0f;
+				float factordiv = 0.0f;
+				float fuzzdiv = 0.0f;
+
+				// list
+				float percentile = 0.0f;
+				List<String> pollname = new ArrayList<>();
+				List<Object[]> pollquantity = new ArrayList<>();
+				List<Float> marks = new ArrayList<>();
+				List<Float> consentlimit = new ArrayList<>();
+				List<Float> updatedMarks = new ArrayList<>();
+				List<Float> factors = new ArrayList<>();
+				List<Float> consentdiv = new ArrayList<>();
+				List<Float> mainFactor = new ArrayList<>();
+				List<Float> factorValue = new ArrayList<>();
+				List<Float> regularMarks = new ArrayList<>();
+				List<Float> consentfuzz = new ArrayList<>();
+				List<Float> regq = new ArrayList<>();
+				float marknewSUM = 0;
+				float mk = 0;
+				float mk1 = 0;
+				float temp = 0;
+				float temp1 = 0;
+				float finalfuzz = 0.0f;
+				float finalRegular = 0.0f;
+				float updated = 0.0f;
+				float finalVal = 0.0f;
+				pollquantity = waterServices.ahpWaterObj("ETP", today);
+				// finding factor
+				if (!Validator.isEmpty(pollquantity))
+				{
+					int i = 0;
+					int countOfNonCompliance = 0;
+					for (Object[] pollquantitydata : pollquantity)
+					{
+						pollutantName = (String) pollquantitydata[0];
+						consentQuan = (Float) pollquantitydata[1];
+						marks1 = (Float) pollquantitydata[2];
+						pollname.add(pollutantName);
+						marks.add(marks1);
+						consentlimit.add(consentQuan);
+
+					}
+
+					if (!Validator.isEmpty(marks))
+					{
+						for (int k = 0; k < marks.size(); k++)
+						{
+							mk = marks.get(k);
+							marknewSUM += mk;
+							percentile = consentlimit.get(k) * 10 / 100;
+							fuzz = percentile + consentlimit.get(k);
+							consentfuzz.add(fuzz);
+						}
+
+						for (int j = 0; j < marks.size(); j++)
+						{
+							mk = marks.get(j);
+							temp = (mk / marknewSUM) * 100;// for each poll
+							temp = Utilities.getFloatpoint(temp, 3);
+							updatedMarks.add(temp);// updated marks
+							consentdiv.add(consentfuzz.get(j) / 4);
+
+						}
+
+						for (int j = 0; j < marks.size(); j++)
+						{
+							updated = updatedMarks.get(j) / 5;
+							factors.add(updated);
+						}
+
+						for (int j = 0; j < marks.size(); j++)
+						{
+							factordiv = factors.get(j) / consentdiv.get(j);
+							factordiv = Utilities.getFloatpoint(factordiv, 3);
+							mainFactor.add(factordiv);
+						}
+
+					}
+
+					// regular quantity
+					for (int j = 0; j < pollname.size(); j++)
+					{
+						// reqQuantity = waterServices.getRegEffPollData(year, pollname.get(j));
+						if (reqQuantity != null)
+						{
+							regq.add(reqQuantity);
+						}
+						else
+						{
+							regq.add(0.0f);
+						}
+
+					}
+
+					// regularmarks
+					for (int j = 0; j < consentfuzz.size(); j++)
+					{
+						finalfuzz = consentfuzz.get(j);
+						finalRegular = regq.get(j);
+						if (finalRegular >= finalfuzz)
+						{
+							regularMarks.add(updatedMarks.get(j));
+						}
+						else
+						{
+							regularMarks.add(mainFactor.get(j) * regq.get(j));
+						}
+					}
+
+					for (int ii = 0; ii < regularMarks.size(); ii++)
+					{
+
+						mk1 = regularMarks.get(ii);
+						finalVal += mk1;
+
+					}
+					finalEtpValue = finalVal;
+
+				}
+
+			}
+
+			// etp
+			finalEtpValue = 34.0f; // testing purpose mmm
+			tempfinalEtpValue = finalEtpValue * 70 / 100;
+			finalcombined = tempfinalEtpValue;
+
+			if (isETP == 1)
+			{
+				water = finalcombined;
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				hashMap.put("meterType", new String("combine")); // from eto 70% & stp 30%
+				hashMap.put("finalCombinedValue", new Float(Utilities.getFloatpoint(finalcombined, 2))); // from eto 70% & stp 30%
+				jsonArray.put(hashMap);
+			}
+
+			else
+			{
+				water = 0;
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				hashMap.put("meterType", new String("combine"));
+				hashMap.put("finalCombinedValue", new Float(0.0f));
+				jsonArray.put(hashMap);
+
+			}
+
+			if (isETP == 1)
+			{
+				HashMap<String, Object> hashMap1 = new HashMap<String, Object>();
+				hashMap1.put("meterType", new String("ETP")); // from eto 70% & stp 30%
+				hashMap1.put("finalEtpValue", new Float(Utilities.getFloatpoint(finalEtpValue, 2))); // from eto 70% & stp 30%
+				jsonArray.put(hashMap1);
+			}
+
+			else
+			{
+				HashMap<String, Object> hashMap1 = new HashMap<String, Object>();
+				hashMap1.put("meterType", new String("ETP"));
+				hashMap1.put("finalEtpValue", new Float(0.0f));
+				jsonArray.put(hashMap1);
+			}
+
+		}
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		return jsonArray.toString();
+	}
+
+	//// mmmm end here
 	@RequestMapping(value = {"ajax-overAllEnvPerformanceAir"})
 	public @ResponseBody @JsonRawValue String overAllEnvPerformanceAir(HttpServletRequest request)
 	{

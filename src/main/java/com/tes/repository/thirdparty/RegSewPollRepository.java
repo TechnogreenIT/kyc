@@ -29,8 +29,8 @@ public interface RegSewPollRepository extends JpaRepository<RegSewPoll, Long>
 	// @Query(value="SELECT rs FROM RegSewPoll rs WHERE (EXTRACT(YEAR FROM rs.sampS)) = :yr AND rs.pollName = :pollname",nativeQuery=false)
 	// public List<RegSewPoll> getRegSewagePollData(@Param("yr") int yr,@Param("pollname") String pollname);
 
-	// @Query(value="SELECT rs FROM RegSewPoll rs WHERE rs.pollName = :pollname and rs.sampS= :sampDate ORDER BY rs.regSewPollId DESC",nativeQuery=false)
-	// List<RegSewPoll> getRegSewPollDatas(@Param("pollname") String pollname,@Param("sampDate")String sampDate);
+	// @Query(value = "SELECT rs FROM RegSewPoll rs WHERE rs.pollName = :pollname and rs.sampS= :sampDate ORDER BY rs.regSewPollId DESC", nativeQuery = false)
+	// List<RegSewPoll> getRegSewPollDatas(@Param("pollname") String pollname, @Param("sampDate") String sampDate);
 
 	// @Query(value="SELECT rsp FROM RegSewPoll rsp WHERE rsp.pollName = :pollname AND rsp.sampS <= :todayDate AND EXTRACT(YEAR FROM rsp.sampS) = :yearValue AND EXTRACT(MONTH FROM rsp.sampS) = :monthValue ORDER BY rsp.sampS DESC",nativeQuery=false)
 	// List<RegSewPoll> getRegSewPollDataBetweenDateByPollNameDay(@Param("pollname") String pollName, @Param("todayDate") String todayDate, @Param("yearValue") int yearValue, @Param("monthValue") int monthValue,Pageable pageable);
@@ -70,5 +70,8 @@ public interface RegSewPollRepository extends JpaRepository<RegSewPoll, Long>
 
 	@Query(value = "SELECT AVG(res.ouConsS) FROM RegSewPoll res LEFT JOIN res.waterSewPollOp wop  LEFT JOIN wop.waterSewPoll wsp  WHERE wsp.pollName= :pollName AND  res.sampS BETWEEN :dateFrom AND :dateTo")
 	Float getSewAvgOuConsByDate(@Param("pollName") String pollName, @Param("dateFrom") String dateFrom, @Param("dateTo") String dateTo);
+
+	@Query("SELECT rs.regSewPollId FROM RegSewPoll rs  ORDER BY rs.regSewPollId DESC")
+	List<RegSewPoll> checkRegSewPollData(Pageable pageable);
 
 }

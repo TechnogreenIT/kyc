@@ -105,7 +105,7 @@
 
 						<div class="col-sm-1">4</div>
 						<div class="col-sm-3">
-							<label>Transporteis Name & Address (including Phone No. &
+							<label>Transporter's Name & Address (including Phone No. &
 								email)</label>
 						</div>
 						<div class="col-sm-8">
@@ -118,7 +118,6 @@
 										<i class="form-group__bar"></i>
 									</div>
 								</div>
-
 								<div class="col-4">
 									<div class="form-group">
 										<input type="email" name="transporterAddress"
@@ -164,7 +163,7 @@
 									<div class="radio radio--inline cursor-pointer">
 										<input type="radio" name="vehicle_type" id="Special">
 										<label class="radio__label" for="Special"> Special
-											Whiqle </label>
+											Vehicle </label>
 									</div>
 								</div>
 							</div>
@@ -374,10 +373,10 @@
 						</div>
 
 						<div class="col-sm-8">
-							<label>I hereby declare tliat the contents of the
+							<label>I hereby declare that the contents of the
 								consignment are fully and accurately described above by proper
 								shipping name and are categorized, packed, marked and labeled,
-								and are in all respects jn proper condition for transport by
+								and are in all respects in proper condition for transport by
 								road according to applicable national government regulations.</label>
 						</div>
 
@@ -394,9 +393,9 @@
 										class="zmdi zmdi-calendar"></i></span>
 								</div>
 								<input type="date" class="form-control hidden-md-up"
-									placeholder="Pick a date"> <input type="text"
-									name="subdate" class="form-control date-picker hidden-sm-down" onchange='validatedt()' 
-									placeholder="Pick a date"><div id='pickdt'></div>
+									placeholder="Pick a date">
+									 <input type="text" name="subdate" class="form-control date-picker hidden-sm-down" placeholder="Pick a date" onchange="validatedt();" >
+									<div id='pickdt'></div>
 								<div class="invalid-feedback">Required ! !</div>
 								<i class="form-group__bar"></i>
 							</div>
@@ -430,7 +429,7 @@
 
 						<div class="col-sm-1">15</div>
 						<div class="col-sm-11">
-							<label>Receiver's Certification for Receipt bf Hazardous
+							<label>Receiver's Certification for Receipt of Hazardous
 								and other Waste:</label>
 						</div>
 

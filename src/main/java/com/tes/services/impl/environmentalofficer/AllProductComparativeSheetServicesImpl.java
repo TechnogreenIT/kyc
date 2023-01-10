@@ -92,7 +92,7 @@ public class AllProductComparativeSheetServicesImpl implements AllProductCompara
 		return allProductComparativeSheetRepository.getAllProductByType(type);
 	}
 
-	@Cacheable(value = "allProductComparativeSheet", unless = "#result==null")
+	// @Cacheable(value = "allProductComparativeSheet", unless = "#result==null")
 	@Override
 	public int findComparativeSheetIdByPName(String pName)
 	{
@@ -119,5 +119,12 @@ public class AllProductComparativeSheetServicesImpl implements AllProductCompara
 	{
 		return allProductComparativeSheetRepository.countType();
 	}
+
+	// @Override
+	// public String getComparativeSheetByPName(String pName)
+	// {
+	// // TODO Auto-generated method stub
+	// return allProductComparativeSheetRepository.getComparativeSheetByPName(pName);
+	// }
 
 }

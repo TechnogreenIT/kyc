@@ -1313,7 +1313,7 @@ public class ManagementController extends BaseManagementController
 					// Effected By Water Inventory ........by vishal
 					boolean isDomestic = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Domestic");
 					boolean isIndustrial = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Industrial");
-					boolean isLaundry = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Laundary");
+					boolean isLaundry = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Laundry");
 					boolean isFireHydrant = directUseOfWaterServices.getDomesticUseType(waterInvetoryUses.get(i).getWaterInventoryId(), "Fire Hydrant");
 					// add domestic to waterUse List list
 
@@ -1356,7 +1356,7 @@ public class ManagementController extends BaseManagementController
 						directUseList.add("Laundary");
 						Float loss = 0.0f;
 						// Effected By Water Inventory ........by vishal
-						loss = directUseOfWaterServices.getWaterLoss("Laundary");
+						loss = directUseOfWaterServices.getWaterLoss("Laundry");
 						if (loss == null)
 							waterLossList.add(0.0f);
 						else

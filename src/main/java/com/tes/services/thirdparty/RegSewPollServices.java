@@ -19,7 +19,7 @@ public interface RegSewPollServices
 
 	// public List<RegSewPoll> getRegSewagePollData(int yr,String pollname);
 
-	// public List<RegSewPoll> getRegSewPollDatas(String pollname,String sampDate);
+	// public List<RegSewPoll> getRegSewPollDatas(String pollname, String sampDate);
 
 	// public List<RegSewPoll> getRegSewPollDataBetweenDateByPollNameDay(String pollname,String todayDate,int yearValue,int monthValue, Pageable pageable);
 
@@ -46,5 +46,7 @@ public interface RegSewPollServices
 	List<RegSewPoll> getRegSewPollDatasbyDate(String labelName, String date);
 
 	Float getSewAvgOuConsByDate(String pollName, String dateFrom, String dateTo);
+
+	List<RegSewPoll> checkRegSewPollData(Pageable pageable);
 
 }

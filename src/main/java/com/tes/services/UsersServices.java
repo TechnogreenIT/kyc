@@ -29,5 +29,7 @@ public interface UsersServices
 
 	public Users findByUsersId(int usersId);
 
+	public List<Users> checkUserData(Pageable pageable);
+
 	// public Users getUserByUsername(String username);
 }

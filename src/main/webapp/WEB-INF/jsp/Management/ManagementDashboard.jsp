@@ -43,8 +43,8 @@
 					<!-- section 1 -->
 					<div class="row mt-5">
 						<div class="col-md-6 col-12">
-							<div class="card man-todo-height">
-								<div class="toolbar toolbar--inner">
+							<div class="card man-todo-height" style="height:810px;" >
+								<div class="toolbar toolbar--inner"  >
 									<div class="toolbar__label">To do List</div>
 									<div class="actions">
 										<button class="btn btn-primary btn-todo zmdi zmdi-plus mr-2"
@@ -54,13 +54,13 @@
 											data-original-title="Todo List"></li>
 									</div>
 								</div>
-								<div class="todo_div listview listview--bordered todo-scroll">
+								<div class="todo_div listview listview--bordered todo-scroll" >
 									<!-- all todo will be appended here -->
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="row">
+							<div class="row" style= "height: 559px; overflow-y: scroll;">
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
 										<div class="card-body card-body-meter">
@@ -99,8 +99,8 @@
 									</div>
 								</div>
 								<div class="col-md-6 col-12">
-									<div class="card card-top-border">
-										<div class="card-body card-body-meter">
+									<div class="card card-top-border" >
+										<div class="card-body card-body-meter" >
 											<canvas class="meter-canvas" id="waterTreatmentGaugeMeter"> </canvas>
 											<center>
 												<div id="waterTreatmentGaugeMeter-text" class="meter-value">0</div>
@@ -136,6 +136,43 @@
 										</div>
 									</div>
 								</div>
+							 	<!--  ///mm-->
+								<div class="col-md-6 col-12">
+									<div class="card card-top-border">
+										<div class="card-body card-body-meter">
+											<canvas class="meter-canvas" id="waterTreatmentSTPGaugeMeter"> </canvas>
+											<center>
+												<div id="waterTreatmentSTPGaugeMeter-text" class="meter-value">0</div>
+											</center>
+										</div>
+										<div
+											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
+											<div class="row">
+												<div class="col-md-12 col-12 text-white">STP Waste water Non-Compliance Performance
+													 </div>											
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- ETP&STP -->
+								<div class="col-md-6 col-12">
+									<div class="card card-top-border">
+										<div class="card-body card-body-meter">
+											<canvas class="meter-canvas" id="waterTreatmentETPGaugeMeter"> </canvas>
+											<center>
+												<div id="waterTreatmentETPGaugeMeter-text" class="meter-value">0</div>
+											</center>
+										</div>
+										<div
+											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
+											<div class="row">
+												<div class="col-md-12 col-12 text-white">ETP Waste water Non-Compliance Performance</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--///mm-->
 							</div>
 						</div>
 					</div>

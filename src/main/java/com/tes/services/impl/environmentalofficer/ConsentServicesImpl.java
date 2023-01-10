@@ -225,4 +225,19 @@ public class ConsentServicesImpl implements ConsentServices
 	{
 		return consentRepository.findByDate(dateTo, pageable);
 	}
+
+	// @Override
+	// public Integer checkDataPresent()
+	// {
+	// // TODO Auto-generated method stub
+	// return consentRepository.checkDataPresent();
+	//
+	// }
+
+	@Override
+	public List<Consent> checkDataPresent(String consentType, Pageable pageable)
+	{
+		// TODO Auto-generated method stub
+		return consentRepository.checkDataPresent(consentType, pageable);
+	}
 }

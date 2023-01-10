@@ -1,7 +1,7 @@
 package com.tes.services.thirdparty;
 
 import java.util.List;
-
+import org.springframework.data.domain.Pageable;
 import com.tes.model.RegAmbientPoll;
 
 public interface RegAmbientPollServices
@@ -24,5 +24,7 @@ public interface RegAmbientPollServices
 	public List<Integer> getRegAmbientId(int ambientId);
 
 	public List<RegAmbientPoll> findByAmbientDate(String date);
+
+	public List<RegAmbientPoll> checkRegAmbientPollData(Pageable pageable);
 
 }

@@ -1,7 +1,7 @@
 package com.tes.services.thirdparty;
 
 import java.util.List;
-
+import org.springframework.data.domain.Pageable;
 import com.tes.model.RegStPoll;
 
 public interface RegStPollServices
@@ -39,4 +39,7 @@ public interface RegStPollServices
 	Float getExitGasVelocityAvgByPNameForYear(String pollName, String stName, String attachedTo, int year1, int year2);
 
 	List<String> getHoursOpByPNameForYear(String pollName, String stName, String attachedTo, int year1, int year2);
+
+	List<RegStPoll> checkRegSTPollData(Pageable pageble);
+
 }

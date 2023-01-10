@@ -36,11 +36,15 @@ public interface WaterMarksServicesRepository extends JpaRepository<WaterMarks, 
 	// public Float getRegEffPollData(@Param("yr") int yr, @Param("PollName") String PollName);
 
 	// stp
-	@Query("SELECT ws.pollName,ws.quantity,wm.marks FROM WaterSewPollOp sp LEFT JOIN sp.waterSewPoll ws,WaterMarks wm LEFT JOIN sp.consent c LEFT JOIN c.consentExtendedDate ce WHERE  wm.items=ws.pollName AND wm.mainType= 'STP' AND c.consType='Consent to Operate' AND c.consStatus != 'EXPIRED' AND (c.validUpto >= :today OR ce.validUpto >= :today)")
+	@Query("SELECT ws.pollName,ws.quantity,wm.marks,ws.waterSewPollId FROM WaterSewPollOp sp LEFT JOIN sp.waterSewPoll ws,WaterMarks wm LEFT JOIN sp.consent c LEFT JOIN c.consentExtendedDate ce WHERE  wm.items=ws.pollName AND wm.mainType= 'STP' AND c.consType='Consent to Operate' AND c.consStatus != 'EXPIRED' AND (c.validUpto >= :today OR ce.validUpto >= :today)")
 	List<Object[]> ahpWatersew(@Param("today") String today);
 
-	// @Query("SELECT AVG(res.ouConsS) FROM RegSewPoll res WHERE (EXTRACT(YEAR FROM res.sampS)) =:yr AND res.pollName = :PollName")
-	// public Float getRegSewPollData(@Param("yr") int yr, @Param("PollName") String PollName);
+	// SELECT AVG (res.ou_cons_s) from reg_sew_poll as res
+	// LEFT JOIN water_sew_poll as ws on res.poll_name=ws.poll_name
+	// where samp_s='2023-01-02' AND ws.poll_name='SS'
+
+	// @Query("SELECT AVG(res.ouConsS) FROM RegSewPoll res LEFT JOIN waterSewPoll ws WHERE (EXTRACT(YEAR FROM res.sampS)) =:yr AND res.waterSewPollOp.waterSewPollId=:pollIdn")
+	// public Float getRegSewPollData(@Param("yr") int yr, @Param("pollIdn") int pollIdn);
 
 	@Query("SELECT sp.pollName,sp.pollLimit,am.marks,am.type,sp.stack.stackId FROM StackPoll sp,AirMarks am,Particulate p WHERE am.mainType='stack' AND sp.stack.stackId=:stackId AND am.pollutants='Particulate' AND am.type=:poll AND sp.pollName=p.pollutant AND p.type='Particulate'")
 	List<Object[]> ahpStackObj(@Param("stackId") int stackId, @Param("poll") String poll);

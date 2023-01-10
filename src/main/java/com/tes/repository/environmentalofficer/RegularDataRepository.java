@@ -150,4 +150,12 @@ public interface RegularDataRepository extends JpaRepository<RegularData, Long>
 	Float findRegulardataSumBYYear(@Param("productName") String productName, @Param("datefrom") String datefrom, @Param("dateto") String dateto);
 
 	RegularData findByRegularDataId(int regularDataId);
+
+	// @Query("SELECT DISTINCT NEW Consent(c.consentId,c.consNo,c.validUpto,c.grossCi,c.issueDate) FROM Consent c WHERE c.consType = 'Consent to Operate' AND c.consStatus != 'EXPIRED' AND c.issueDate <=:dateTo ORDER BY c.consentId DESC")
+	// List<Consent> getConsentDataByIssueDate1(@Param("dateTo") String dateTo, Pageable pageable);
+	// List<RegularData> getRegularData(@Param("productId") int productId, @Param("today") String today, Pageable pageble);
+
+	@Query("SELECT rd.regularDataId  FROM RegularData rd WHERE rd.inputDate = :today  ORDER BY rd.regularDataId DESC ")
+	List<RegularData> getCheckRegularData(@Param("today") String today, Pageable pageble);
+
 }

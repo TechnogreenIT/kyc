@@ -67,7 +67,7 @@ function validateConsentDates(datepickerId){
 	if(datepickerId == "issue_date"){
 		issue_date =  new Date($('#'+datepickerId).val());
 		if (isdt > today_date) {	
-			$("#isdtvalidation").html("<label class='text-red'>Enter lees than or equal to Today Date</label>");
+			$("#isdtvalidation").html("<label class='text-red'>Enter lees than or equal to Today Date ! !</label>");
 			$("#btnsv_").attr("disabled", true);		
 			} 	
 		else {
@@ -274,7 +274,7 @@ var htmlContent = "<div class='form-group'>"
 						   +"<label>Total Built Up Area</label>"
 						   +"<div class='row'>"
 							  +"<div class='col-6 col-md-6'>"
-								 +"<input type='number' class='form-control'  id='tot_build_area' name='totBuildArea' required=''  placeholder='Total Build Area' title='Total Build Area'  required> <i class='form-group__bar'></i>"
+								 +"<input type='number' class='form-control'  id='tot_build_area' name='totBuildArea'  placeholder='Total Build Area' title='Total Build Area'  required> <i class='form-group__bar'></i>"
 							  +"</div>"
 							  +"<div class='col-6 col-md-'>"
 								 +"<select class='select2' id='tot_build_area_unit' name='totBuildAreaUnits'>"
@@ -344,10 +344,10 @@ var htmlContent = "<div class='form-group'>"
 						+"</center>"
 					 +"</div>"
 					+"</div>";
-	
 	$("#consentform").append(htmlContent);
 	makeSelect2();makeDatePicker();
 }
+
 function getAmalgamationOpForm(){
 	$("#consentform").empty();
 var html =  "<div class='row'>"
@@ -476,6 +476,7 @@ function makeFilePicker(){
    	    the_return.innerHTML = this.value;  
    	});  
 }
+
 /*------------------------------------------------
 Datetime picker (Flatpickr)
 ------------------------------------------------*/

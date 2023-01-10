@@ -24,7 +24,7 @@ public class WaterMarks
 	@Column(name = "type")
 	private String type;
 
-	@Column(name = "mainType")
+	@Column(name = "main_type")
 	private String mainType;
 
 	public int getWaterMarksId()

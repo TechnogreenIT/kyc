@@ -29,4 +29,6 @@ public interface CompanyProfileServices
 
 	long count();
 
+	public Integer checkcompanyprofData();
+
 }

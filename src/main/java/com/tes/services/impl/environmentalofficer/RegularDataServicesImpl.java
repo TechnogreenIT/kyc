@@ -306,4 +306,12 @@ public class RegularDataServicesImpl implements RegularDataServices
 	{
 		return regularDataRepository.findRegulardataSumBYYear(productName, datefrom, dateto);
 	}
+
+	@Override
+	public List<RegularData> getCheckRegularData(String today, Pageable pageble)
+	{
+		// TODO Auto-generated method stub
+		return regularDataRepository.getCheckRegularData(today, pageble);
+	}
+
 }

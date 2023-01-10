@@ -83,6 +83,13 @@ public class UsersServicesImpl implements UsersServices
 		return usersRepository.findByUsersId(usersId);
 	}
 
+	@Override
+	public List<Users> checkUserData(Pageable pageable)
+	{
+		// TODO Auto-generated method stub
+		return usersRepository.checkUserData(pageable);
+	}
+
 	// @Override
 	// public Users getUserByUsername(String username)
 	// {

@@ -55,4 +55,7 @@ public interface UsersRepository extends JpaRepository<Users, Long>
 
 	Users findByusersId(int usersId);
 
+	@Query("SELECT u.usersId FROM Users u  ORDER BY u.usersId DESC")
+	public List<Users> checkUserData(Pageable pageable);
+
 }

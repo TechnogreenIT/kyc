@@ -143,10 +143,9 @@
 	<!-- include common css start-->
 	<jsp:include page="../NewCommon/common-javascript.jsp" />
 	<!-- include common css end-->
-
+	<script src="../newAssets/projectscripts/admin-dashboard.js"></script>
 	<c:if test="${companyCount == '1'}">
 		<script src="../newAssets/projectscripts/todo.js"></script>
 	</c:if>
-
 </body>
 </html>

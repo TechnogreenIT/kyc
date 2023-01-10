@@ -2,6 +2,7 @@ package com.tes.services.impl.environmentalofficer;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.tes.model.HazardousManifest;
 import com.tes.repository.environmentalofficer.HazardousManifestRepository;
@@ -75,6 +76,13 @@ public class HazardousManifestServicesImpl implements HazardousManifestServices
 	public HazardousManifest getHazardousManifestByDate(String selectedDate)
 	{
 		return hazardousManifestRepository.getHazardousManifestByDate(selectedDate);
+	}
+
+	@Override
+	public List<HazardousManifest> checkHazManifestDTPresent(Pageable pageble)
+	{
+		// TODO Auto-generated method stub
+		return hazardousManifestRepository.checkHazManifestDTPresent(pageble);
 	}
 
 	/*

@@ -139,4 +139,11 @@ public class RegEffPollServicesImpl implements RegEffPollServices
 		return regEffPollRepository.getRegEffPollDatasbyDate(labelName, date);
 	}
 
+	@Override
+	public List<RegEffPoll> checkRegEffPollData(Pageable pageable)
+	{
+		// TODO Auto-generated method stub
+		return regEffPollRepository.checkRegEffPollData(pageable);
+	}
+
 }

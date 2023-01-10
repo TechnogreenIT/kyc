@@ -13,6 +13,7 @@ public class CompanyProfileServicesImpl implements CompanyProfileServices
 {
 
 	@Autowired
+
 	CompanyProfileRepository companyProfileRepository;
 
 	@Override
@@ -79,6 +80,12 @@ public class CompanyProfileServicesImpl implements CompanyProfileServices
 	public long count()
 	{
 		return companyProfileRepository.count();
+	}
+
+	// @Override
+	public Integer checkcompanyprofData()
+	{
+		return companyProfileRepository.checkcompanyprofData();
 	}
 
 }

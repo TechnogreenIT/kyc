@@ -80,4 +80,7 @@ public interface RegEffPollRepository extends JpaRepository<RegEffPoll, Long>
 
 	@Query(value = "SELECT AVG(ref.ouConsE) FROM RegEffPoll ref LEFT JOIN ref.wateriePollutantOp wop  LEFT JOIN wop.wateriePollutant wp  WHERE wp.pollName= :pollName AND  ref.sampE BETWEEN :dateFrom AND :dateTo")
 	Float getAvgRegEffOuConsE(@Param("pollName") String pollName, @Param("dateTo") String dateTo, @Param("dateFrom") String dateFrom);
+
+	@Query("SELECT (ref.regEffPollId) FROM RegEffPoll ref  ORDER BY ref.regEffPollId DESC")
+	List<RegEffPoll> checkRegEffPollData(Pageable pageable);
 }

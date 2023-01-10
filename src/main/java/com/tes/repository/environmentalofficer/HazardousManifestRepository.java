@@ -1,6 +1,7 @@
 package com.tes.repository.environmentalofficer;
 
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -49,6 +50,9 @@ public interface HazardousManifestRepository extends JpaRepository<HazardousMani
 
 	@Query("SELECT hm FROM HazardousManifest hm WHERE hm.submittedDate = :selectedDate")
 	HazardousManifest getHazardousManifestByDate(@Param("selectedDate") String selectedDate);
+
+	@Query("SELECT hm.hazardousManifestId FROM HazardousManifest hm ORDER BY hm.hazardousManifestId DESC")
+	List<HazardousManifest> checkHazManifestDTPresent(Pageable pageble);
 
 	// @Query("SELECT EXTRACT(DAY FROM hm.submittedDate) HazardousManifest hm where EXTRACT(YEAR FROM hm.submittedDate) = :year and EXTRACT(MONTH FROM hm.submittedDate)= :month")
 	// public List<Integer> getHazardousManifestDay(@Param("year") String year, @Param("month") String month);

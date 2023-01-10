@@ -1,11 +1,10 @@
 package com.tes.repository.thirdparty;
 
 import java.util.List;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.tes.model.RegAmbientPoll;
 
 public interface RegAmbientPollRepository extends JpaRepository<RegAmbientPoll, Long>
@@ -42,5 +41,8 @@ public interface RegAmbientPollRepository extends JpaRepository<RegAmbientPoll, 
 
 	@Query(value = "SELECT rs FROM RegAmbientPoll rs WHERE rs.sampAmb= :date")
 	public List<RegAmbientPoll> findByAmbientDate(@Param("date") String date);
+
+	@Query("SELECT amb.regAmbientPollId FROM RegAmbientPoll amb ORDER BY amb.regAmbientPollId DESC")
+	List<RegAmbientPoll> checkRegAmbientPollData(Pageable pageable);
 
 }

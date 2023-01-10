@@ -1,10 +1,8 @@
 package com.tes.services.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.tes.model.Todo;
 import com.tes.repository.TodoRepository;
 import com.tes.services.TodoServices;
@@ -50,5 +48,18 @@ public class TodoServicesImpl implements TodoServices
 	public List findOneByGetAllToDoMsg(String consentNo)
 	{
 		return todoRepository.findOneByGetAllToDoMsg(consentNo);
+	}
+
+	@Override
+	public void findOneByDeleteToDobynm(String todo)
+	{
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public int deletecheckTodoData(int empId)
+	{
+		// TODO Auto-generated method stub
+		return todoRepository.deletecheckTodoData(empId);
 	}
 }

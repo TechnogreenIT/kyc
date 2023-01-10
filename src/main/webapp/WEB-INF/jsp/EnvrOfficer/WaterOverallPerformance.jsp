@@ -128,7 +128,7 @@
 									<div id="performanceStat_ETP"></div>
 								</div>
 
-
+					
 
 								<li><u>STP Performance</u></li>
 								<div class="row">
@@ -207,6 +207,7 @@
 									value="<c:out value="${isETP}"/>"> <input type="hidden"
 									id="stpPerformance" value="<c:out value="${isSTP}"/>">
 							</div>
+							<!--  mm-->
 						</div>
 					</div>
 				</div>

@@ -1,10 +1,9 @@
 package com.tes.services.impl.thirdparty;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.tes.model.RegStPoll;
 import com.tes.repository.thirdparty.RegStackPollRepository;
 import com.tes.services.thirdparty.RegStPollServices;
@@ -99,6 +98,13 @@ public class RegStPollServicesImpl implements RegStPollServices
 	public List<String> getHoursOpByPNameForYear(String pollName, String stName, String attachedTo, int year1, int year2)
 	{
 		return regStackPollRepository.getHoursOpByPNameForYear(pollName, stName, attachedTo, year1, year2);
+	}
+
+	@Override
+	public List<RegStPoll> checkRegSTPollData(Pageable pageble)
+	{
+		// TODO Auto-generated method stub
+		return regStackPollRepository.checkRegSTPollData(pageble);
 	}
 
 	/*

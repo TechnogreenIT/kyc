@@ -189,7 +189,7 @@ public class WaterBudgetController extends BaseEnvironmentOfficerController
 
 	public static String createLossBox(String label, float waterLoss, float percentileLoss)
 	{
-		String finalString = label + "[labelType=\"html\" label=\"<span style='font-size:18px'>loss percentile="
+		String finalString = label + "[labelType=\"html\" label=\"<span style='font-size:18px'>loss percentage="
 				+ percentileLoss + "</span><br><span style='font-size:18px'>Loss @ " + waterLoss + " CMD</span>\"];";
 		return finalString;
 	}

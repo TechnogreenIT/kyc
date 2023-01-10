@@ -62,4 +62,8 @@ public interface AllProductComparativeSheetRepository extends JpaRepository<AllP
 
 	@SuppressWarnings("unchecked")
 	AllProductComparativeSheet save(AllProductComparativeSheet allProductComparativeSheet);
+
+	// @Query("SELECT pn.productName FROM AllProductComparativeSheet apcs INNER JOIN apcs.allProducts ap INNER JOIN ap.allProductName pn WHERE pn.productName =:pName AND apcs.status='Active'")
+	// public String getComparativeSheetByPName(@Param("pName") String pName);
+
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,9 @@
 		</div>
 		<jsp:include page="../NewCommon/common-header.jsp" />
 		<!-- include menus here start-->
+		<c:if test="${userRole == 'Environmental Officer'}">
 		<jsp:include page="../NewCommon/env-menus.jsp" />
+		</c:if>		
 		<!-- include menus here end-->
 		<section class="content content--full">
 			<!-- inner container div start -->
@@ -54,7 +57,7 @@
 							</div>
 							<div class="card-body">
 								<div class="todo_div listview listview--bordered todo-scroll">
-								</div>
+								</div>							
 							</div>
 						</div>
 					</div>
@@ -79,7 +82,7 @@
 				<!-- row end -->
 				<!-- row start -->
 				<div class="row groups">
-					<div class="col-xl-2 col-lg-3 col-sm-4 col-6 offset-md-2">
+					 <div class="col-xl-2 col-lg-3 col-sm-4 col-6 offset-md-2">
 						<a href="create-consent" data-toggle="tooltip"
 							data-placement="top" title=""
 							data-original-title="Click here to fill Consent to Establish and Operate">
@@ -147,8 +150,9 @@
 	<jsp:include page="../NewCommon/common-javascript.jsp" />
 	<!-- include common css end-->
 	<!-- TODO -->
-	<script src="../newAssets/projectscripts/todo.js"></script>
 	<script src="../newAssets/projectscripts/env-dashboard.js"></script>
+	<script src="../newAssets/projectscripts/todo.js"></script>
+	
 
 </body>
 </html>

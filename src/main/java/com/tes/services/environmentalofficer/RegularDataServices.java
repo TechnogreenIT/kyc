@@ -94,4 +94,12 @@ public interface RegularDataServices
 	List<RegularData> getProductDetailsData(String date, String productType);
 
 	Float findRegulardataSumBYYear(String productName, String datefrom, String dateto);
+
+	List<RegularData> getCheckRegularData(String today, Pageable pageble);
+
+	// List<RegularData> getregData(String productName, String today);
+
+	// List<Object[]> getRegularData1(int i, String createDate, Pageable pageable);
+
+	// Integer checkregDataPresent();
 }
