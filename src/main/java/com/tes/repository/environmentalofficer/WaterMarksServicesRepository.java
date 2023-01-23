@@ -42,9 +42,13 @@ public interface WaterMarksServicesRepository extends JpaRepository<WaterMarks, 
 	// SELECT AVG (res.ou_cons_s) from reg_sew_poll as res
 	// LEFT JOIN water_sew_poll as ws on res.poll_name=ws.poll_name
 	// where samp_s='2023-01-02' AND ws.poll_name='SS'
+	// mm
+	// @Query("SELECT AVG(res.ouConsS) FROM RegSewPoll res WHERE (EXTRACT(YEAR FROM res.sampS)) =:year AND res.waterSewPollOp = :pollIdn")
+	// public Float getRegSewPollData(@Param("year") int year, @Param("pollIdn") int pollIdn);
 
-	// @Query("SELECT AVG(res.ouConsS) FROM RegSewPoll res LEFT JOIN waterSewPoll ws WHERE (EXTRACT(YEAR FROM res.sampS)) =:yr AND res.waterSewPollOp.waterSewPollId=:pollIdn")
-	// public Float getRegSewPollData(@Param("yr") int yr, @Param("pollIdn") int pollIdn);
+	// mm
+	// @Query("SELECT AVG(res.ouConsS) FROM RegSewPoll res LEFT JOIN res.waterSewPoll ws WHERE (EXTRACT(YEAR FROM res.sampS)) =:year AND res.waterSewPollOp.waterSewPollId=:pollIdn")
+	// public Float getRegSewPollData(@Param("year") int year, @Param("pollIdn") int pollIdn);
 
 	@Query("SELECT sp.pollName,sp.pollLimit,am.marks,am.type,sp.stack.stackId FROM StackPoll sp,AirMarks am,Particulate p WHERE am.mainType='stack' AND sp.stack.stackId=:stackId AND am.pollutants='Particulate' AND am.type=:poll AND sp.pollName=p.pollutant AND p.type='Particulate'")
 	List<Object[]> ahpStackObj(@Param("stackId") int stackId, @Param("poll") String poll);

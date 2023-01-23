@@ -22,7 +22,7 @@ public interface WaterMarksServices
 
 	public List<Object[]> ahpWatersew(String today);
 
-	// public Float getRegSewPollData(int Yr, int pollIdn);
+	// public Float getRegSewPollData(int year, int pollIdn);
 
 	public List<Object[]> ahpStackObj(int stackId, String poll);
 

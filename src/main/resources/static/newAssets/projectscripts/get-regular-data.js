@@ -18,11 +18,13 @@ $(document).ready(
 		var j = 0;
 		if (isproduction == "Yes") {
 			var list = ["product", "byproduct", "raw", "fuel", "apc", "hwp", "hwpcf", "nhwp", "nhwpcf"];
-			var namesList = ["Product Details", "Byproduct Details", "Raw Material Details", "Fuel Details", " ", "Hazardous Waste from Process", "Hazardous Waste from Pollution Control Facility", "Non-Hazardous Waste from Process", "Non-Hazardous Waste from Pollution Control Facility"];
+			var namesList = ["Product Details", "Byproduct Details", "Raw Material Details", "Fuel Details"," ", "Hazardous Waste from Process", "Hazardous Waste from Pollution Control Facility", "Non-Hazardous Waste from Process", "Non-Hazardous Waste from Pollution Control Facility"];
 		} else if (isproduction == "Bio-Medical") {
 			var list = ["bio", "medical", "fuel", "apc", "hwp", "hwpcf", "nhwp", "nhwpcf"];
+			var namesList = ["Bio Details", "Medical Details", "Fuel Details", " ", "Hazardous Waste from Process", "Hazardous Waste from Pollution Control Facility", "Non-Hazardous Waste from Process", "Non-Hazardous Waste from Pollution Control Facility"];
 		} else {
 			var list = ["fuel","apc", "hwp", "hwpcf", "nhwp", "nhwpcf"];
+			var namesList = [ "Fuel Details", " ", "Hazardous Waste from Process", "Hazardous Waste from Pollution Control Facility", "Non-Hazardous Waste from Process", "Non-Hazardous Waste from Pollution Control Facility"];
 		}
 
 		if (list.length > 0) {
@@ -95,16 +97,15 @@ $(document).ready(
 							}
 							if (list[i] == "fuel" ) {
 								$("#fuelAccordion").append(finalData);
-							} 
-							
+							} 														
 							if (list[i] == "hwp" || list[i] == "hwpcf" || list[i] == "nhwp" || list[i] == "nhwpcf") {
 								$("#solidWasteAccordion").append(finalData);
 							}
-							
 						}
-						if(list[i] == "apc"){
-							getRegApcList();
-						}
+							if(list[i] == "apc"){
+								getRegApcList();
+							}
+												
 					},
 					error: function (xhr, type) {
 						alert('server error occoured');
@@ -114,9 +115,7 @@ $(document).ready(
 			}
 			$("#productionAccordion").accordion({ heightStyle: 'content', collapsible: false });
 			$("#fuelAccordion").accordion({ heightStyle: 'content', collapsible: true });
-			$("#solidWasteAccordion").accordion({ heightStyle: 'content', collapsible: true });
-
-			
+			$("#solidWasteAccordion").accordion({ heightStyle: 'content', collapsible: true });	
 		}
 		getWaterSourceDailyInputData(); // get water source data for water consumption accordion
 		getWaterPreFilterDailyInputData(); //get prefilter data for water consumption
@@ -2528,7 +2527,7 @@ function saveRegularTreatmentData(label, e3) {
 }
 function openRegularData(){
 	var dismissMsg="success";
-	window.location="envr-officer-view-regular-data?msg="+dismissMsg;
+	window.location="view-regular-data";
 }
 function setConsumption(stackDivId) {
 	var firstValue = $("#apcStart_" + stackDivId).val();
@@ -2671,3 +2670,38 @@ function findNextAccordion(el) {
         }
     }
 }
+
+
+/////mm regular data uploading purpose
+function saveExcelSheetForDailyData(type) {
+    var valid = 0;
+    var filename = $('[name='+type+'_file]').val();  
+    if (filename != "") {
+
+        var file_data = $('[name=' + type + '_file]').prop('files')[0];
+        filename = file_data;
+        if (filename == "") {
+            valid--;
+        }
+    } else {
+        valid--;
+    }
+
+    if (valid == 0) {
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+
+        $.ajax({
+            url: "ajax-dailydata-sheet-upload?fn="+type+"",
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',       
+            success: function(res) {          
+               $('#upload-'+type+'-excel-modal').modal('hide');      
+            }
+        });
+    }
+}
+
+////mm

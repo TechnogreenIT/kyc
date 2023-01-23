@@ -97,6 +97,14 @@ public interface RegularDataServices
 
 	List<RegularData> getCheckRegularData(String today, Pageable pageble);
 
+	// List<String> getRegDate();
+
+	List<String> getRegPName();
+
+	List<String> getRegDate();
+
+	public List<RegularData> checkDatewithProduct(String productName, String checkDate);
+
 	// List<RegularData> getregData(String productName, String today);
 
 	// List<Object[]> getRegularData1(int i, String createDate, Pageable pageable);

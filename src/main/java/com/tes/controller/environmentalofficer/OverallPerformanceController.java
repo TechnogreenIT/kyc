@@ -21,6 +21,8 @@ import com.tes.services.environmentalofficer.AmbientServices;
 import com.tes.services.environmentalofficer.RegularDataServices;
 import com.tes.services.environmentalofficer.WaterMarksServices;
 import com.tes.services.environmentalofficer.waterinventory.WastewaterTreatmentServices;
+import com.tes.services.thirdparty.RegEffPollServices;
+import com.tes.services.thirdparty.RegSewPollServices;
 import com.tes.services.thirdparty.StackServices;
 import com.tes.utilities.Utilities;
 import com.tes.utilities.Validator;
@@ -46,6 +48,12 @@ public class OverallPerformanceController
 
 	@Autowired
 	StackServices stackServices;
+
+	@Autowired
+	RegSewPollServices regSewPollServices;
+
+	@Autowired
+	RegEffPollServices regEffPollServices;
 
 	@Autowired
 	AmbientServices ambientServices;
@@ -600,9 +608,10 @@ public class OverallPerformanceController
 						}
 
 						// regular quantity
-						for (int j = 0; j < pollIdn.size(); j++)
+						for (int j = 0; j < pollname.size(); j++)
 						{
 							// reqQuantity = waterServices.getRegSewPollData(year, pollIdn.get(j));
+							reqQuantity = regSewPollServices.getSewPollAvg(pollname.get(j), year);
 							if (reqQuantity != null)
 							{
 								regq.add(reqQuantity);
@@ -642,7 +651,7 @@ public class OverallPerformanceController
 			}
 			// stp
 
-			finalStpValue = 14.0f;// testing purpose mmmm
+			// finalStpValue = 34.0f;// testing purpose mmmm
 			tempfinalStpValue = finalStpValue * 30 / 100;
 			finalcombined = tempfinalStpValue;
 
@@ -809,7 +818,7 @@ public class OverallPerformanceController
 					// regular quantity
 					for (int j = 0; j < pollname.size(); j++)
 					{
-						// reqQuantity = waterServices.getRegEffPollData(year, pollname.get(j));
+						reqQuantity = regEffPollServices.getEffPollAvg(pollname.get(j), year);
 						if (reqQuantity != null)
 						{
 							regq.add(reqQuantity);
@@ -850,7 +859,7 @@ public class OverallPerformanceController
 			}
 
 			// etp
-			finalEtpValue = 34.0f; // testing purpose mmm
+			// finalEtpValue = 34.0f; // testing purpose mmm
 			tempfinalEtpValue = finalEtpValue * 70 / 100;
 			finalcombined = tempfinalEtpValue;
 

@@ -144,7 +144,13 @@ public class RegSewPollServicesImpl implements RegSewPollServices
 	@Override
 	public List<RegSewPoll> checkRegSewPollData(Pageable pageable)
 	{
-		// TODO Auto-generated method stub
 		return regSewPollRepository.checkRegSewPollData(pageable);
+	}
+
+	@Override
+	public Float getSewPollAvg(String pollName, int year)
+	{
+		// TODO Auto-generated method stub
+		return regSewPollRepository.getSewAvgOuConsByDate(pollName, year);
 	}
 }

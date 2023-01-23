@@ -158,4 +158,13 @@ public interface RegularDataRepository extends JpaRepository<RegularData, Long>
 	@Query("SELECT rd.regularDataId  FROM RegularData rd WHERE rd.inputDate = :today  ORDER BY rd.regularDataId DESC ")
 	List<RegularData> getCheckRegularData(@Param("today") String today, Pageable pageble);
 
+	@Query("SELECT rd.inputDate FROM RegularData rd")
+	List<String> getRegDate();
+
+	@Query("SELECT an.productName FROM RegularData r INNER JOIN r.allProductComparativeSheet apc INNER JOIN apc.allProducts a INNER JOIN a.allProductName an")
+	List<String> getRegPName();
+
+	@Query("SELECT r.regularDataId FROM RegularData r INNER JOIN r.allProductComparativeSheet apc INNER JOIN apc.allProducts a INNER JOIN a.allProductName an Where an.productName=:productName and r.inputDate = :checkDate")
+	public List<RegularData> checkDatewithProduct(@Param("productName") String productName, @Param("checkDate") String checkDate);
+
 }

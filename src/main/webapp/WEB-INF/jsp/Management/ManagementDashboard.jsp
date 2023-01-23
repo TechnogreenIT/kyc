@@ -63,6 +63,9 @@
 							<div class="row" style= "height: 559px; overflow-y: scroll;">
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
+									<li class="actions__item zmdi zmdi-help-outline mt-2"
+											data-toggle="tooltip" data-placement="top"
+											data-original-title="overAllDataQuality-text"></li>				
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="overAllDataQuality"> </canvas>
 											<center>
@@ -81,6 +84,9 @@
 								</div>
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
+									<li class="actions__item zmdi zmdi-help-outline mt-2"
+											data-toggle="tooltip" data-placement="top"
+											data-original-title="overAllDataCompliance-text"></li>		
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="overAllDataCompliance"> </canvas>
 											<center>
@@ -100,6 +106,10 @@
 								</div>
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border" >
+									<li class="actions__item zmdi zmdi-help-outline mt-2"
+											data-toggle="tooltip" data-placement="top"
+											data-original-title="waterTreatmentGaugeMeter"></li>		
+									
 										<div class="card-body card-body-meter" >
 											<canvas class="meter-canvas" id="waterTreatmentGaugeMeter"> </canvas>
 											<center>
@@ -120,43 +130,65 @@
 								</div>
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
+									<li class="actions__item zmdi zmdi-help-outline mt-2"
+											data-toggle="tooltip" data-placement="top"
+											data-original-title="overAllEnvPerformance"></li>
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="overAllEnvPerformance"> </canvas>
 											<center>
 												<div id="overAllEnvPerformance-text" class="meter-value">0</div>
 											</center>
 										</div>
-										<div
+									 	 <div
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
-												<div class="col-md-12 col-12 text-white">OverAll
+												<div class="col-md-6 col-6 card-devider text-white">OverAll
 													Environment Performance</div>
+												 <div class="col-md-6 col-6" id="overallIDState"></div>
 												<!-- <div class="col-md-12 col-12"><i class="zmdi zmdi-trending-up zmdi-hc-lg text-success"></i> <span class="text-success"> (+26.98 %)</span> </div> -->
 											</div>
 										</div>
+										<!-- <div
+											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
+											<div class="row">
+												<div class="col-md-6 col-6 card-devider text-white"
+													id="date-overAll-state">OverAll Environment Performance</div>
+												<div class="col-md-6 col-6" id="overallID"></div>
+											</div>
+										</div>-->	
+										
+										
 									</div>
 								</div>
 							 	<!--  ///mm-->
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
+									<li class="actions__item zmdi zmdi-help-outline mt-2"
+											data-toggle="tooltip" data-placement="top"
+											data-original-title="waterTreatmentSTPGaugeMeter"></li>
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="waterTreatmentSTPGaugeMeter"> </canvas>
 											<center>
 												<div id="waterTreatmentSTPGaugeMeter-text" class="meter-value">0</div>
 											</center>
 										</div>
+										
 										<div
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
-												<div class="col-md-12 col-12 text-white">STP Waste water Non-Compliance Performance
-													 </div>											
+												<div class="col-md-6 col-6 card-devider text-white"
+													id="date-overAll-state">STP Non-Compliance Performance</div>
+												<div class="col-md-6 col-6" id="performanceStat_STP"></div>
 											</div>
-										</div>
+										</div>										
 									</div>
 								</div>
 								<!-- ETP&STP -->
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
+									<li class="actions__item zmdi zmdi-help-outline mt-2"
+											data-toggle="tooltip" data-placement="top"
+											data-original-title="waterTreatmentETPGaugeMeter"></li>
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="waterTreatmentETPGaugeMeter"> </canvas>
 											<center>
@@ -166,8 +198,8 @@
 										<div
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
-												<div class="col-md-12 col-12 text-white">ETP Waste water Non-Compliance Performance</div>
-												
+												<div class="col-md-6 col-6 card-devider text-white" id="date-overAll-state">ETP Non-Compliance Performance</div>
+												<div class="col-md-6 col-6" id="performanceStat_ETP"></div>
 											</div>
 										</div>
 									</div>

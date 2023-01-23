@@ -17,7 +17,7 @@ public interface RegEffPollServices
 
 	public List<String> getDateForEffluent(int Yr);
 
-	// public List<RegEffPoll> getRegEffPollData(int Yr,String pollname);
+	// public List<RegEffPoll> getRegEffPollData(int year, String pollname);
 
 	Float getAvgRegEffOuConsE(String pollName, String dateTo, String dateFrom);
 
@@ -49,5 +49,7 @@ public interface RegEffPollServices
 	public List<RegEffPoll> getRegEffPollDatasbyDate(String labelName, String date);
 
 	List<RegEffPoll> checkRegEffPollData(Pageable pageable);
+
+	Float getEffPollAvg(String pollName, int year);
 
 }

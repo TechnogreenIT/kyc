@@ -1,6 +1,8 @@
 package com.tes.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -289,6 +291,30 @@ public class TodoController
 				todo.setAction("new");
 				todoServices.save(todo);
 				ajaxResponse = "Success";
+
+			}
+			else
+			{
+				String manifestDate = hazmanifest.get(0).getSubmittedDate();
+				LocalDate finalDate = LocalDate.parse(manifestDate);
+
+				LocalDate todayDate = LocalDate.now();
+
+				Period period = Period.between(finalDate, todayDate);
+
+				if (period.getMonths() >= 3)
+				{
+					String todoData = "Fill Waste Manifest You crossed your range";
+					EmpData empData = new EmpData();
+					empData.setEmpDataId(empId);
+					Todo todo = new Todo();
+					todo.setTodo(todoData);
+					todo.setCreateDate(createDate);
+					todo.setEmpData(empData);
+					todo.setAction("new");
+					todoServices.save(todo);
+					ajaxResponse = "Success";
+				}
 
 			}
 

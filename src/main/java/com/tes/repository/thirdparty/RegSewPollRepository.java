@@ -74,4 +74,7 @@ public interface RegSewPollRepository extends JpaRepository<RegSewPoll, Long>
 	@Query("SELECT rs.regSewPollId FROM RegSewPoll rs  ORDER BY rs.regSewPollId DESC")
 	List<RegSewPoll> checkRegSewPollData(Pageable pageable);
 
+	@Query(value = "SELECT AVG(res.ouConsS) FROM RegSewPoll res LEFT JOIN res.waterSewPollOp wop  LEFT JOIN wop.waterSewPoll wsp  WHERE wsp.pollName= :pollName AND  (EXTRACT(YEAR FROM res.sampS)) =:year")
+	Float getSewAvgOuConsByDate(@Param("pollName") String pollName, @Param("year") int year);
+
 }

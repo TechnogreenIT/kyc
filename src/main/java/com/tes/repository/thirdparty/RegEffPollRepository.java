@@ -26,8 +26,8 @@ public interface RegEffPollRepository extends JpaRepository<RegEffPoll, Long>
 	@Query("SELECT DISTINCT(rs.sampE) FROM RegEffPoll rs where (EXTRACT(YEAR FROM rs.sampE)) = :year ORDER BY rs.sampE ASC")
 	public List<String> getDateForEffluent(@Param("year") int year);
 
-	// @Query(value="SELECT ref FROM RegEffPoll ref WHERE (EXTRACT(YEAR FROM ref.sampE)) =:yr AND ref.pollName = :PollName")
-	// public List<RegEffPoll> getRegEffPollData(@Param("yr") int yr,@Param("PollName") String PollName);
+	// @Query(value = "SELECT ref FROM RegEffPoll ref WHERE (EXTRACT(YEAR FROM ref.sampE)) =:yr AND ref.pollName = :PollName")
+	// public List<RegEffPoll> getRegEffPollData(@Param("year") int year, @Param("PollName") String PollName);
 
 	// String getAvgRegEffOuConsE = "SELECT AVG(ou_cons_e) FROM reg_eff_poll WHERE poll_name = :pollName AND EXTRACT(YEAR FROM samp_e) = :esrYear OR EXTRACT(YEAR FROM samp_e) = :esrYear1 AND EXTRACT(MONTH FROM samp_e) = :esrMonth";
 
@@ -83,4 +83,9 @@ public interface RegEffPollRepository extends JpaRepository<RegEffPoll, Long>
 
 	@Query("SELECT (ref.regEffPollId) FROM RegEffPoll ref  ORDER BY ref.regEffPollId DESC")
 	List<RegEffPoll> checkRegEffPollData(Pageable pageable);
+
+	// @Query(value = "SELECT AVG(ref.ouConsE) FROM RegEffPoll ref LEFT JOIN ref.wateriePollutantOp wop LEFT JOIN wop.wateriePollutant wp WHERE wp.pollName= :pollName AND ref.sampE BETWEEN :dateFrom AND =:year")
+
+	@Query(value = "SELECT AVG(ref.ouConsE) FROM RegEffPoll ref LEFT JOIN ref.wateriePollutantOp wop  LEFT JOIN wop.wateriePollutant wp  WHERE wp.pollName= :pollName AND  (EXTRACT(YEAR FROM ref.sampE)) =:year")
+	Float getEffPollAvg(@Param("pollName") String pollName, @Param("year") int year);
 }

@@ -304,8 +304,8 @@ function saveHWManifest(){
 function validatedt(){
 	var subdate=$("input[name=subdate]").val();
 if(subdate > today_date){
-	$("#pickdt").html("<label class='text-red'>Enter lees than or equal to todays date</label>")
-	
+	$("#pickdt").html("<label class='text-red'>Enter lees than or equal to todays date</label>");
+		
 }
 else
 	{

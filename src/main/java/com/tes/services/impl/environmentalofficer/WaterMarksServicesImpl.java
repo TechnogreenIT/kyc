@@ -62,9 +62,9 @@ public class WaterMarksServicesImpl implements WaterMarksServices
 	}
 
 	// @Override
-	// public Float getRegSewPollData(int Yr, int pollIdn)
+	// public Float getRegSewPollData(int year, int pollIdn)
 	// {
-	// return waterMarksServicesRepository.getRegSewPollData(Yr, pollIdn);
+	// return waterMarksServicesRepository.getRegSewPollData(year, pollIdn);
 	// }
 
 	@Override

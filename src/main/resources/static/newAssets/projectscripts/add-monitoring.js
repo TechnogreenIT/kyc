@@ -65,7 +65,7 @@ function getStackList() {
 				}
 
 				var html3 = "</tbody>  </table>" +
-					" <div class='container'>" +
+					"<div class='container'>" +
 						"<div class='row'>" +
 							"<div class='form-group'>"
 							+"<div class='fileinput fileinput-new' data-provides='fileinput'>"
@@ -246,11 +246,8 @@ function getWaterList() {
 												+"<div class='row'> File name should not contain any special characters.</div>"
 												+"<div class='row'><div class='col-12'><center> <button class='btn btn-primary btn--icon-text' id='btn_" + element.label + "' onclick='saveTpwaterData(\"" + element.label + "\",\"" + element.Pollutant + "\",\"" + element.wwtid + "\",\"" + count + "\",this)'><i class='zmdi zmdi-save'></i> Submit</button></center></div></div>"
 												+"</div></div>"
-												+"</div></div>"
-												
-							}
-							
-							
+												+"</div></div>"												
+							}							
 							
 						});
 						
@@ -612,7 +609,7 @@ function saveTpwaterData(label,str,wwtid,count,el) {
 				if (poll_name_e.length == data) {
 					findNextAccordion(el);
 					jBoxBottomRightBigNotice("Success", str + " Saved !!", "green", "3000");
-					
+					$("#btn_" + label).attr("disabled", true);
 				} else {
 					jBoxBottomRightBigNotice("Error", "Oopss !! something went wrong", "red", "2000");
 				}

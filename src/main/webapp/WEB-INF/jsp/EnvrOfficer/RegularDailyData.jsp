@@ -62,7 +62,7 @@
 							<div class="dropdown-menu dropdown-menu-right">
 								<a data-toggle="modal" data-target="#upload-excel-modal"
 									class="dropdown-item"> Upload Excel file </a> <a
-									onclick="openRegularData()" class="dropdown-item"> Finish </a>
+									onclick="openRegularData();" class="dropdown-item"> Finish </a>
 							</div>
 						</div>
 					</div>
@@ -119,7 +119,7 @@
 										<i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
 										<div
 											class="dropdown-menu dropdown-menu-right custom-dropdown-menu">
-											<a class="ml-2" href="newAssets/documents/RegularData.xlsx"><i
+											<a class="ml-2" href="../newAssets/documents/RegularData.xlsx"><i
 												class="zmdi zmdi-download"></i>&nbsp; Download Sample</a>
 										</div>
 									</div>

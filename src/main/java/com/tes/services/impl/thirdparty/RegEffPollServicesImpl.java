@@ -39,10 +39,11 @@ public class RegEffPollServicesImpl implements RegEffPollServices
 		return regEffPollRepository.getDateForEffluent(Yr);
 	}
 
-	/*
-	 * @Override public List<RegEffPoll> getRegEffPollData(int Yr,String pollname) {
-	 * return regEffPollRepository.getRegEffPollData(Yr,pollname); }
-	 */
+	// @Override
+	// public List<RegEffPoll> getRegEffPollData(int year, String pollname)
+	// {
+	// return regEffPollRepository.getRegEffPollData(year, pollname);
+	// }
 
 	@Override
 	public Float getAvgRegEffOuConsE(String pollName, String dateTo, String dateFrom)
@@ -144,6 +145,13 @@ public class RegEffPollServicesImpl implements RegEffPollServices
 	{
 		// TODO Auto-generated method stub
 		return regEffPollRepository.checkRegEffPollData(pageable);
+	}
+
+	@Override
+	public Float getEffPollAvg(String pollName, int year)
+	{
+		// TODO Auto-generated method stub
+		return regEffPollRepository.getEffPollAvg(pollName, year);
 	}
 
 }

@@ -391,11 +391,11 @@ function setOldData(newOverAllPercentage, oldOverAllPercentage, id) {
 }
 
 //water data value display
-function setFilter(meterName, finalCombine, id) {
+function setFilter(finalCombine, id) {
 	var colorClass = "text-success";
 	var iconClass = "zmdi zmdi-trending-up";
 	var oldDateTitle = meterOldDateTitle();
-	var diffrence = (newOverAllPercentage - oldOverAllPercentage).toFixed(2);
+	var diffrence = (finalCombine).toFixed(2);
 	if (diffrence < 0) {
 		colorClass = "text-danger";
 		iconClass = "zmdi zmdi-trending-down";
@@ -499,7 +499,7 @@ function getEnvQualitySTPDataWater() {
 					if (treatmentType == "combine") {
 						finalCombine =  element.finalCombinedValue;
 						meterName = "STP";
-						setFilter(meterName, finalCombine, "performanceStat_ETP");
+						setFilter(finalCombine, "performanceStat_STP");
 					} 
 					/*if (treatmentType == "ETP") {
 						finalEtp = (element.finalEtpValue).toFixed(2);
@@ -536,10 +536,10 @@ function getEnvQualityETPDataWater() {
 						finalCombine = element.finalCombinedValue;
 						reverseGaugeMeter(finalCombine, "waterTreatmentETPGaugeMeter", "waterTreatmentETPGaugeMeter-text");
 					}
-					if (treatmentType == "ETP") {
-						finalEtp = (element.finalEtpValue).toFixed(2);
+					if (treatmentType == "combine") {
+						finalCombine =  element.finalCombinedValue;
 						meterName = "ETP";
-						setFilter(meterName, finalEtp, "performanceStat_ETP");
+						setFilter(finalCombine, "performanceStat_ETP");
 					} 
 //					else if (treatmentType == "STP") {
 //						finalStp = (element.finalStpValue).toFixed(2);
@@ -600,13 +600,15 @@ function getOverAllAhp() {
 		url: fwd_url,
 		dataType: 'json',
 		success: function (data) {
-			reverseGaugeMeter(data, "overAllEnvPerformance", "overAllEnvPerformance-text");
+			reverseGaugeMeter(data, "overAllEnvPerformance", "overAllEnvPerformance-text");	
+			$("#overallIDState").html(data);
 		},
 		error: function (dd) {
 			alert("error" + dd);
 		}
 	});
 }
+
 
 function getOverAllProductionConpliance() {
 	var finalValue = 0,

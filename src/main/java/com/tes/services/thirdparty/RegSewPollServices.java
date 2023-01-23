@@ -49,4 +49,6 @@ public interface RegSewPollServices
 
 	List<RegSewPoll> checkRegSewPollData(Pageable pageable);
 
+	Float getSewPollAvg(String pollName, int year);
+
 }

@@ -314,4 +314,24 @@ public class RegularDataServicesImpl implements RegularDataServices
 		return regularDataRepository.getCheckRegularData(today, pageble);
 	}
 
+	@Override
+	public List<String> getRegDate()
+	{
+		// TODO Auto-generated method stub
+		return regularDataRepository.getRegDate();
+	}
+
+	@Override
+	public List<String> getRegPName()
+	{
+		// TODO Auto-generated method stub
+		return regularDataRepository.getRegPName();
+	}
+
+	@Override
+	public List<RegularData> checkDatewithProduct(String productName, String checkDate)
+	{
+		return regularDataRepository.checkDatewithProduct(productName, checkDate);
+	}
+
 }

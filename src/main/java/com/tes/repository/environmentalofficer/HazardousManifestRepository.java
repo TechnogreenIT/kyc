@@ -51,7 +51,7 @@ public interface HazardousManifestRepository extends JpaRepository<HazardousMani
 	@Query("SELECT hm FROM HazardousManifest hm WHERE hm.submittedDate = :selectedDate")
 	HazardousManifest getHazardousManifestByDate(@Param("selectedDate") String selectedDate);
 
-	@Query("SELECT hm.hazardousManifestId FROM HazardousManifest hm ORDER BY hm.hazardousManifestId DESC")
+	@Query("SELECT hm FROM HazardousManifest hm ORDER BY hm.hazardousManifestId DESC")
 	List<HazardousManifest> checkHazManifestDTPresent(Pageable pageble);
 
 	// @Query("SELECT EXTRACT(DAY FROM hm.submittedDate) HazardousManifest hm where EXTRACT(YEAR FROM hm.submittedDate) = :year and EXTRACT(MONTH FROM hm.submittedDate)= :month")
