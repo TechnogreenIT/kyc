@@ -351,6 +351,7 @@ var htmlContent = "<div class='form-group'>"
 function getAmalgamationOpForm(){
 	$("#consentform").empty();
 var html =  "<div class='row'>"
++"<input type='hidden' name='extendDate' value='ExpandDate'>"
 				+"<div class='col-md-12 mb-3'>"
 					+"<center><label class='font-weight-bold'>Select consent to operate which you have Amalgamation copy of consent and Enter the extended consent  no.</label></center>"
 				+"</div>"
@@ -373,7 +374,7 @@ var html =  "<div class='row'>"
 					+"<div class='form-group'>"
 						+"<label>Issue Date :</label>"
 						+"<input type='date' class='form-control hidden-md-up' placeholder='Issue Date'>"
-						+"<input type='text' class='form-control date-picker hidden-sm-down' id='issue_date' placeholder='Issue Date' onchange='validateConsentDates(\"issue_date\")' required>"
+						+"<input type='text' class='form-control date-picker hidden-sm-down' name='expandedInputDate' id='issue_date' placeholder='Issue Date' onchange='validateConsentDates(\"issue_date\")' required>"
 					+"</div>"
 				+"</div>"
 			

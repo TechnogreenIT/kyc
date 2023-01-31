@@ -34,5 +34,19 @@ public class ConsentExtendedDateServicesImpl implements ConsentExtendedDateServi
 	{
 		return consentExtendedDateRepository.save(consentExtendedDate);
 	}
+//changes by pallavi
+//	@Override
+//	public Integer findByConsById(int consentId) {
+//		// TODO Auto-generated method stub
+//		return consentExtendedDateRepository.findByConsById(consentId);
+//	}
+
+//	@Override
+//	public  Integer updateExeDate(int consentId) {
+//		return consentExtendedDateRepository.updateExeDate(consentId);
+//		
+//	}
+
+	
 
 }

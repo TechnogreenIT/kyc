@@ -24,6 +24,7 @@ import com.tes.kyc.KycApplication;
 import com.tes.model.CompanyProfile;
 import com.tes.model.Consent;
 import com.tes.model.ConsentAmulgamation;
+import com.tes.model.ConsentExtendedDate;
 import com.tes.model.EmpData;
 import com.tes.model.FilterNameList;
 import com.tes.model.FilterUseNames;
@@ -35,6 +36,7 @@ import com.tes.services.FilterNameListServices;
 import com.tes.services.FilterUseNameServices;
 import com.tes.services.HazardousWastesServices;
 import com.tes.services.WaterSourceNamesServices;
+import com.tes.services.environmentalofficer.ConsentExtendedDateServices;
 import com.tes.services.environmentalofficer.ConsentServices;
 import com.tes.services.environmentalofficer.UnitServices;
 import com.tes.utilities.Constant;
@@ -69,6 +71,9 @@ public class CreateConsentController
 
 	@Autowired
 	FilterUseNameServices filterUseNameServices;
+	
+	@Autowired
+	ConsentExtendedDateServices  consentExtendedDateServices;
 
 	private static final Logger LOGGER = LogManager.getLogger(ConsentController.class);
 
@@ -159,6 +164,7 @@ public class CreateConsentController
 			@RequestParam(value = "expandedConsentFilePath", required = false) MultipartFile expandedFile,
 			@RequestParam(value = "aml_e[]", required = false) int[] amulgamationEId,
 			@RequestParam(value = "aml_o[]", required = false) int[] amulgamationOId,
+			@RequestParam(value = "extendDate", required = false) String extendDate,
 			@RequestParam(value = "msg", required = false) String msg, HttpServletRequest request,
 			RedirectAttributes redirectAttributes)
 	{
@@ -178,146 +184,179 @@ public class CreateConsentController
 		CompanyProfile companyProfile = new CompanyProfile();
 		String status = null;
 		//request.getParameter()
+		
 		try
 		{
-			if (!Validator.isEmpty(request.getParameter("status")))
-				status = request.getParameter("status");
-
-			String que2 = Constant.NO;
-			if (request.getParameter("Validstatus").equalsIgnoreCase(Constant.NO))
-				que2 = request.getParameter("ExValidstatus");
-			if (que2.equalsIgnoreCase(Constant.NO))
+			//if(extendDate.isEmpty()) 
+			if(extendDate == null)
 			{
-				request.getSession().setAttribute("multipleOperate", request.getParameter("MultipleOP"));
-			}
+				if (!Validator.isEmpty(request.getParameter("status")))
+					status = request.getParameter("status");
 
-			user.setUsersId(empDataSession.getUsers().getUsersId());// if session is null it will give error
-			companyProfile.setCompanyProfileId(empDataSession.getCompanyProfile().getCompanyProfileId());
-			consent.setUsers(user);
-			consent.setCompanyProfile(companyProfile);
-			consent.setConsType(consType);
-			consent.setConsStatus(status);
-			consent.setExpansionStatus(que2);
+				String que2 = Constant.NO;
+				if (request.getParameter("Validstatus").equalsIgnoreCase(Constant.NO))
+					que2 = request.getParameter("ExValidstatus");
+				if (que2.equalsIgnoreCase(Constant.NO))
+				{
+					request.getSession().setAttribute("multipleOperate", request.getParameter("MultipleOP"));
+				}
 
-			if (Validator.isEmpty(request.getParameter("expand")))
-			{
-				int noStaff = 0;
-				if ((empDataSession.getCompanyProfile().getIndustryCategory()).equalsIgnoreCase("Commercial-Cinemas, concert halls and theatres"))
-				    {
-					   noStaff = Integer.parseInt(request.getParameter("no_staff1")) + Integer.parseInt(request.getParameter("no_staff2"));
-				     }
+				user.setUsersId(empDataSession.getUsers().getUsersId());// if session is null it will give error
+				companyProfile.setCompanyProfileId(empDataSession.getCompanyProfile().getCompanyProfileId());
+				consent.setUsers(user);
+				consent.setCompanyProfile(companyProfile);
+				consent.setConsType(consType);
+				consent.setConsStatus(status);
+				consent.setExpansionStatus(que2);
+				
+
+				if (Validator.isEmpty(request.getParameter("expand")))
+				{
+					int noStaff = 0;
+					if ((empDataSession.getCompanyProfile().getIndustryCategory()).equalsIgnoreCase("Commercial-Cinemas, concert halls and theatres"))
+					    {
+						   noStaff = Integer.parseInt(request.getParameter("no_staff1")) + Integer.parseInt(request.getParameter("no_staff2"));
+					     }
+					else
+					    {
+						noStaff = Integer.parseInt(request.getParameter("noStaff"));
+					     }
+					consent.setConsNo(request.getParameter("consNo"));
+					consent.setIssueDate(request.getParameter("issueDate"));
+					consent.setValidUpto(request.getParameter("validUpto"));
+					consent.setGrossCi(Float.parseFloat(request.getParameter("grossCi")));
+					consent.setGrossunit(request.getParameter("grossunit"));
+					consent.setNoStaff(2);
+					consent.setNoWorker(Integer.parseInt(request.getParameter("noWorker")));
+					consent.setTotPlotArea(Float.parseFloat(request.getParameter("totPlotArea")));
+					consent.setTotPlotAreaUnits(request.getParameter("totPlotAreaUnits"));
+					consent.setTotBuildArea(Float.parseFloat(request.getParameter("totBuildArea")));
+					consent.setTotBuildAreaUnits(request.getParameter("totBuildAreaUnits"));
+					consent.setOpenSpaceAva(Float.parseFloat(request.getParameter("openSpaceAva")));
+					consent.setOpenSpaceAvaUnits(request.getParameter("openSpaceAvaUnits"));
+					consent.setTotGreenArea(Float.parseFloat(request.getParameter("totGreenArea")));
+					consent.setTotGreenAreaUnits(request.getParameter("totGreenAreaUnits"));
+				   }
 				else
-				    {
-					noStaff = Integer.parseInt(request.getParameter("noStaff"));
-				     }
-				consent.setConsNo(request.getParameter("consNo"));
-				consent.setIssueDate(request.getParameter("issueDate"));
-				consent.setValidUpto(request.getParameter("validUpto"));
-				consent.setGrossCi(Float.parseFloat(request.getParameter("grossCi")));
-				consent.setGrossunit(request.getParameter("grossunit"));
-				consent.setNoStaff(2);
-				consent.setNoWorker(Integer.parseInt(request.getParameter("noWorker")));
-				consent.setTotPlotArea(Float.parseFloat(request.getParameter("totPlotArea")));
-				consent.setTotPlotAreaUnits(request.getParameter("totPlotAreaUnits"));
-				consent.setTotBuildArea(Float.parseFloat(request.getParameter("totBuildArea")));
-				consent.setTotBuildAreaUnits(request.getParameter("totBuildAreaUnits"));
-				consent.setOpenSpaceAva(Float.parseFloat(request.getParameter("openSpaceAva")));
-				consent.setOpenSpaceAvaUnits(request.getParameter("openSpaceAvaUnits"));
-				consent.setTotGreenArea(Float.parseFloat(request.getParameter("totGreenArea")));
-				consent.setTotGreenAreaUnits(request.getParameter("totGreenAreaUnits"));
-			   }
-			else
-			   {
-				consent.setConsNo(request.getParameter("expandedConsNo"));
-				consent.setIssueDate(request.getParameter("expandedIssueDate"));
-				consent.setValidUpto(request.getParameter("expandedValidUpto"));
-			    }
+				   {
+					consent.setConsNo(request.getParameter("expandedConsNo"));
+					consent.setIssueDate(request.getParameter("expandedIssueDate"));
+					consent.setValidUpto(request.getParameter("expandedValidUpto"));
+				    }
 
-			String file = null;
-			String mainFile = null;
-			byte[] bytes = null;
-			if (!concentFile.isEmpty())
-			{
-				file = concentFile.getOriginalFilename();
-				bytes = concentFile.getBytes();
-			}
-			else if (!expandedFile.isEmpty())
-			{
-				file = expandedFile.getOriginalFilename();
-				bytes = expandedFile.getBytes();
-			}
-			mainFile = renameFile + "_" + file;
-			consent.setConsentFileName(mainFile);
-			// Get the file and save it somewhere
-			Files.write(Paths.get(Constant.consent_file_path + mainFile), bytes); // if path is not getting ready it will show error ....by vishal
-			consent.setConsentFilePath(Constant.consent_file_path + mainFile);// if file size 0 it show error ....by vishal
-			consentServices.save(consent);
-
-			// Amulgamation form here
-			Consent consentId = new Consent();
-			consentId.setConsentId(consent.getConsentId());
-			if (status.equalsIgnoreCase("Amalgamant") && (!status.equalsIgnoreCase("New")) || (!Validator.isEmpty(request.getParameter("expand"))))
-			{
-				int[] amulData = null;
-				if (Validator.isEmpty(amulgamationEId))
-					amulData = amulgamationOId;
-				else if (Validator.isEmpty(amulgamationOId))
-					amulData = amulgamationEId;
-				for (int i = 0, size = amulData.length; i < size; i++)
+				String file = null;
+				String mainFile = null;
+				byte[] bytes = null;
+				if (!concentFile.isEmpty())
 				{
-					ConsentAmulgamation consentAmulgamation = new ConsentAmulgamation();
-					consentAmulgamation.setConsent(consentId);
-					consentAmulgamation.setAmulgamationId(amulData[i]);
-					consentServices.save(consentAmulgamation);
+					file = concentFile.getOriginalFilename();
+					bytes = concentFile.getBytes();
 				}
-			}
-			if (!Validator.isEmpty(consentServices.save(consent)))
-			{
-				if (consType.equalsIgnoreCase(Constant.CONSENT_TO_ESTABLISH))
+				else if (!expandedFile.isEmpty())
 				{
-					// modelAndView.addObject("msg", Constant.SUCCESS);
-					modelAndView.setViewName("redirect:elist-product");
-					// added by jemish
-					/*
-					 * modelAndView.addObject("unit", unitServices.findAll());
-					 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
-					 */
-
+					file = expandedFile.getOriginalFilename();
+					bytes = expandedFile.getBytes();
 				}
-				else if (consType.equalsIgnoreCase(Constant.CONSENT_TO_OPERATE))
-				{// (consentServices.findByConsType(consType) need to change this query concern Amin ....by vishal
-					if ((consentServices.findByConsType(consType) == 0 ? Constant.YES : Constant.NO).equalsIgnoreCase(Constant.YES))
-					{ // not record of Consent to Operate in table
+				mainFile = renameFile + "_" + file;
+				consent.setConsentFileName(mainFile);
+				// Get the file and save it somewhere
+				Files.write(Paths.get(Constant.consent_file_path + mainFile), bytes); // if path is not getting ready it will show error ....by vishal
+				consent.setConsentFilePath(Constant.consent_file_path + mainFile);// if file size 0 it show error ....by vishal
+				consentServices.save(consent);
+
+				// Amulgamation form here
+				Consent consentId = new Consent();
+				consentId.setConsentId(consent.getConsentId());
+				if (status.equalsIgnoreCase("Amalgamant") && (!status.equalsIgnoreCase("New")) || (!Validator.isEmpty(request.getParameter("expand"))))
+				{
+					int[] amulData = null;
+					if (Validator.isEmpty(amulgamationEId))
+						amulData = amulgamationOId;
+					else if (Validator.isEmpty(amulgamationOId))
+						amulData = amulgamationEId;
+					for (int i = 0, size = amulData.length; i < size; i++)
+					{
+						ConsentAmulgamation consentAmulgamation = new ConsentAmulgamation();
+						consentAmulgamation.setConsent(consentId);
+						consentAmulgamation.setAmulgamationId(amulData[i]);
+						consentServices.save(consentAmulgamation);
+					}
+				}
+				if (!Validator.isEmpty(consentServices.save(consent)))
+				{
+					if (consType.equalsIgnoreCase(Constant.CONSENT_TO_ESTABLISH))
+					{
 						// modelAndView.addObject("msg", Constant.SUCCESS);
+						modelAndView.setViewName("redirect:elist-product");
 						// added by jemish
 						/*
 						 * modelAndView.addObject("unit", unitServices.findAll());
 						 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
 						 */
 
-						modelAndView.setViewName("redirect:elist-product");
 					}
-					else
-					{
-						// modelAndView.addObject("msg", Constant.SUCCESS);// record of Consent to Operate in consent table table
-						// mv.setViewName("EnvrOfficer/OListOfProduct");
-						modelAndView.addObject("consentId", consent.getConsentId());
-						modelAndView.setViewName("redirect:olist-product");
+					else if (consType.equalsIgnoreCase(Constant.CONSENT_TO_OPERATE))
+					{// (consentServices.findByConsType(consType) need to change this query concern Amin ....by vishal
+						if ((consentServices.findByConsType(consType) == 0 ? Constant.YES : Constant.NO).equalsIgnoreCase(Constant.YES))
+						{ // not record of Consent to Operate in table
+							// modelAndView.addObject("msg", Constant.SUCCESS);
+							// added by jemish
+							/*
+							 * modelAndView.addObject("unit", unitServices.findAll());
+							 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
+							 */
+
+							modelAndView.setViewName("redirect:elist-product");
+						}
+						else
+						{
+							// modelAndView.addObject("msg", Constant.SUCCESS);// record of Consent to Operate in consent table table
+							// mv.setViewName("EnvrOfficer/OListOfProduct");
+							modelAndView.addObject("consentId", consent.getConsentId());
+							modelAndView.setViewName("redirect:olist-product");
+						}
 					}
 				}
-			}
-			else
-			{
+				else
+				{
 
-				modelAndView.addObject("msg", KycApplication.messageBundle.getString("consent.save.error"));
-				modelAndView.setViewName("EnvrOfficer/CreateConsent");
+					modelAndView.addObject("msg", KycApplication.messageBundle.getString("consent.save.error"));
+					modelAndView.setViewName("EnvrOfficer/CreateConsent");
+				}
+				// commented By Jemish
+				/*
+				 * modelAndView.addObject("unit", unitServices.findAll());
+				 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
+				 */
+				// modelAndView.addObject("consentId", consent.getConsentId());
+			
+				
+			}else {
+				modelAndView.setViewName("redirect:dashboard");
+				int consentId = 0;
+			    if (Validator.isEmpty(amulgamationEId))
+					consentId = amulgamationOId[0];
+				else if (Validator.isEmpty(amulgamationOId))
+					consentId = amulgamationEId[0];
+					consent.setConsentId(consentId);
+				ConsentExtendedDate consExeDate = new ConsentExtendedDate();
+				consExeDate.setConsent(consent);
+				consExeDate.setInputDate(request.getParameter("expandedInputDate"));
+				consExeDate.setValidUpto(request.getParameter("expandedValidUpto"));
+				consentExtendedDateServices.save(consExeDate);		
+				
+			
+//			Integer consId = 0;
+//			consId = consentExtendedDateServices.findByConsById(consentId);
+//			if ( consId > 0 )
+//			{
+//				consentExtendedDateServices.updateExeDate(consentId);
+//			}
+//			else
+//			{
+//				
+//			}
 			}
-			// commented By Jemish
-			/*
-			 * modelAndView.addObject("unit", unitServices.findAll());
-			 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
-			 */
-			// modelAndView.addObject("consentId", consent.getConsentId());
 		}
 		catch (IOException e)
 		{
@@ -327,7 +366,7 @@ public class CreateConsentController
 		{
 			LOGGER.error(e);
 		}
-		return modelAndView;
+ 		return modelAndView;
 	}
 
 	/**
@@ -405,7 +444,7 @@ public class CreateConsentController
 	 * @param consentFileOld the consent file uploading
 	 * @param request the servlet request we are processing.
 	 * @param documentFile the document of consent file
-	 * @return isUpdated it return success/failuer
+	 * @return isUpdated it return success/failure
 	 * @throws IOException if an input/output error occurs
 	 */
 	@RequestMapping(value = "ajax-view-consent-modify-consent-data", method = RequestMethod.POST)

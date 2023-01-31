@@ -24,4 +24,11 @@ public interface ConsentExtendedDateRepository extends JpaRepository<ConsentExte
 	@Query("SELECT ce.validUpto FROM Consent  c LEFT JOIN c.consentExtendedDate ce  WHERE ce.consent.consentId=:consId ORDER BY ce.consentExtendedDateId ")
 	List<String> findByConsExtendedById(@Param("consId") Integer consId);
 
+	//chnages by pallavi...
+//	@Query("SELECT ce.id FROM ConsentExtendedDate ce ")
+//	int findByConsById(@Param ("consentId") Integer consentId) ;
+//
+//	@Query("UPDATE ce.id FROM ConsentExtendedDate ce ")
+//	int updateExeDate(@Param ("consentId") Integer consentId);
+
 }

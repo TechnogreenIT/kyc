@@ -14,4 +14,14 @@ public interface ConsentExtendedDateServices
 	List findByConsValidUpto(Pageable pageable);
 
 	List<String> findByConsExtendedById(Integer consId);
+
+//	public Integer findByConsById(int consentId);
+//
+//	public  Integer updateExeDate(int consentId);
+//
+//	
+
+	
+
+	
 }

@@ -1366,6 +1366,7 @@ function modifyStackModal(type, idd, name, attachTo) {
 	var bodyForm = pollsDatas;
 	$.showModal({
 		title: modelTitle,
+		//type: "GET",
 		modalDialogClass: 'modal-lg',
 		body: bodyForm,
 		footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Cancel</button><button type='submit' onclick='addConsentStackAmbientPoll(\"" + type + "\",\"" + idd + "\",\"" + name + "\",\"" + attachTo + "\")' class='btn btn-primary'>Add Pollutant</button><button type='submit' onclick='modifyStack(\"" + type + "\",\"" + idd + "\")' class='btn btn-primary'>Modify</button>",
@@ -1599,7 +1600,7 @@ function modifyStack(type, idd, el) {
 			height + "&ht_units=" + ht_units + "&diam=" + diam + "&diam_units=" + diam_units + "&mat_cons=" + mat_cons +
 			"&gas_quant="+ gas_quant  + "&gas_unit=" + gas_unit + "&gas_temp="  + gas_temp + "&gas_temp_unit="  + gas_temp_unit + 
 			"&exit_gas_vel="+ exit_gas_vel +"&exit_gas_unit="  + exit_gas_unit + "&preceding_stack="+ preceding_stack +"&pollu_present="+ 
-			pollu_present + "&eCS_provided="+ eCS_provided +"&gen_capacity=" + gen_capacity +"&gen_Cap_unit=" + gen_Cap_unit ;
+			pollu_present + "&eCS_provided="+ eCS_provided +"&gen_capacity=" + gen_capacity +"&gen_Cap_unit=" + gen_Cap_unit+ "&type=stack" ;
 
 		$.ajax({
 			type: "GET",
