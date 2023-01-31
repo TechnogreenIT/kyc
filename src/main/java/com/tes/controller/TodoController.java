@@ -2,9 +2,10 @@ package com.tes.controller;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -297,14 +298,21 @@ public class TodoController
 			{
 				String manifestDate = hazmanifest.get(0).getSubmittedDate();
 				LocalDate finalDate = LocalDate.parse(manifestDate);
-
 				LocalDate todayDate = LocalDate.now();
 
-				Period period = Period.between(finalDate, todayDate);
+				LocalDate day90before = todayDate.minusDays(90);
+				// DAYS.between(dateBefore, dateAfter);
+				Date dateFirst = Date.from(day90before.atStartOfDay(ZoneId.systemDefault()).toInstant());
+				Date secondDate = Date.from(finalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-				if (period.getMonths() >= 3)
+				long time_difference = dateFirst.getTime() - secondDate.getTime();
+				long days_difference = TimeUnit.MILLISECONDS.toDays(time_difference) % 365;
+				long days = Math.abs(days_difference);
+				long staticDay = 7l, staticDay2 = 5l;
+				if (days == staticDay || days == staticDay2)
 				{
-					String todoData = "Fill Waste Manifest You crossed your range";
+					// String todoData = "Hazardous Waste Dispose .... Days Remaining";
+					String todoData = "Hazardous Waste Dispose Within  " + days + " Days.";
 					EmpData empData = new EmpData();
 					empData.setEmpDataId(empId);
 					Todo todo = new Todo();
