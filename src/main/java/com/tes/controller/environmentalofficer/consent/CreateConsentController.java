@@ -71,9 +71,9 @@ public class CreateConsentController
 
 	@Autowired
 	FilterUseNameServices filterUseNameServices;
-	
+
 	@Autowired
-	ConsentExtendedDateServices  consentExtendedDateServices;
+	ConsentExtendedDateServices consentExtendedDateServices;
 
 	private static final Logger LOGGER = LogManager.getLogger(ConsentController.class);
 
@@ -183,12 +183,12 @@ public class CreateConsentController
 		Users user = new Users();
 		CompanyProfile companyProfile = new CompanyProfile();
 		String status = null;
-		//request.getParameter()
-		
+		// request.getParameter()
+
 		try
 		{
-			//if(extendDate.isEmpty()) 
-			if(extendDate == null)
+			// if(extendDate.isEmpty())
+			if (extendDate == null)
 			{
 				if (!Validator.isEmpty(request.getParameter("status")))
 					status = request.getParameter("status");
@@ -208,19 +208,18 @@ public class CreateConsentController
 				consent.setConsType(consType);
 				consent.setConsStatus(status);
 				consent.setExpansionStatus(que2);
-				
 
 				if (Validator.isEmpty(request.getParameter("expand")))
 				{
 					int noStaff = 0;
 					if ((empDataSession.getCompanyProfile().getIndustryCategory()).equalsIgnoreCase("Commercial-Cinemas, concert halls and theatres"))
-					    {
-						   noStaff = Integer.parseInt(request.getParameter("no_staff1")) + Integer.parseInt(request.getParameter("no_staff2"));
-					     }
+					{
+						noStaff = Integer.parseInt(request.getParameter("no_staff1")) + Integer.parseInt(request.getParameter("no_staff2"));
+					}
 					else
-					    {
+					{
 						noStaff = Integer.parseInt(request.getParameter("noStaff"));
-					     }
+					}
 					consent.setConsNo(request.getParameter("consNo"));
 					consent.setIssueDate(request.getParameter("issueDate"));
 					consent.setValidUpto(request.getParameter("validUpto"));
@@ -236,13 +235,13 @@ public class CreateConsentController
 					consent.setOpenSpaceAvaUnits(request.getParameter("openSpaceAvaUnits"));
 					consent.setTotGreenArea(Float.parseFloat(request.getParameter("totGreenArea")));
 					consent.setTotGreenAreaUnits(request.getParameter("totGreenAreaUnits"));
-				   }
+				}
 				else
-				   {
+				{
 					consent.setConsNo(request.getParameter("expandedConsNo"));
 					consent.setIssueDate(request.getParameter("expandedIssueDate"));
 					consent.setValidUpto(request.getParameter("expandedValidUpto"));
-				    }
+				}
 
 				String file = null;
 				String mainFile = null;
@@ -329,33 +328,60 @@ public class CreateConsentController
 				 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
 				 */
 				// modelAndView.addObject("consentId", consent.getConsentId());
-			
-				
-			}else {
+
+			}
+			else
+			{
+
 				modelAndView.setViewName("redirect:dashboard");
 				int consentId = 0;
-			    if (Validator.isEmpty(amulgamationEId))
+				if (Validator.isEmpty(amulgamationEId))
 					consentId = amulgamationOId[0];
 				else if (Validator.isEmpty(amulgamationOId))
 					consentId = amulgamationEId[0];
-					consent.setConsentId(consentId);
-				ConsentExtendedDate consExeDate = new ConsentExtendedDate();
-				consExeDate.setConsent(consent);
-				consExeDate.setInputDate(request.getParameter("expandedInputDate"));
-				consExeDate.setValidUpto(request.getParameter("expandedValidUpto"));
-				consentExtendedDateServices.save(consExeDate);		
-				
-			
-//			Integer consId = 0;
-//			consId = consentExtendedDateServices.findByConsById(consentId);
-//			if ( consId > 0 )
-//			{
-//				consentExtendedDateServices.updateExeDate(consentId);
-//			}
-//			else
-//			{
-//				
-//			}
+				consent.setConsentId(consentId);
+				// m
+				List<ConsentExtendedDate> checkConsentId = consentExtendedDateServices.checkConsetID(consentId);
+				if (checkConsentId.isEmpty())
+				{
+					ConsentExtendedDate consExeDate = new ConsentExtendedDate();
+					consExeDate.setConsent(consent);
+					consExeDate.setInputDate(request.getParameter("expandedInputDate"));
+					consExeDate.setValidUpto(request.getParameter("expandedValidUpto"));
+					consentExtendedDateServices.save(consExeDate);
+				}
+				else
+				{
+
+					ConsentExtendedDate consExeDate1 = new ConsentExtendedDate();
+					// consExeDate1.setConsent(consent);
+					consExeDate1.setInputDate(request.getParameter("expandedInputDate"));
+					// ConsentExtendedDate consExeDate1 = new ConsentExtendedDate();
+					ConsentExtendedDate consExeDate2 = new ConsentExtendedDate();
+					consExeDate1.setValidUpto(request.getParameter("expandedValidUpto"));
+					String upInputDate = consExeDate1.getInputDate();
+					String upValidUpto = consExeDate1.getValidUpto();
+					try
+					{
+						// consentExtendedDateServices.save(consExeDate1);
+						consentExtendedDateServices.updatDateByID(consentId, upInputDate, upValidUpto);
+					}
+					catch (Exception e)
+					{
+
+						e.printStackTrace();
+					}
+				}
+				// Integer consId = 0;
+				// consId = consentExtendedDateServices.findByConsById(consentId);
+				// if ( consId > 0 )
+				// {
+				// consentExtendedDateServices.updateExeDate(consentId);
+				// }
+				// else
+				// {
+				//
+				// }
 			}
 		}
 		catch (IOException e)
@@ -364,9 +390,10 @@ public class CreateConsentController
 		}
 		catch (Exception e)
 		{
+
 			LOGGER.error(e);
 		}
- 		return modelAndView;
+		return modelAndView;
 	}
 
 	/**

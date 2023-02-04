@@ -123,4 +123,5 @@ public interface ConsentRepository extends JpaRepository<Consent, Long>
 
 	@Query("SELECT c.consentId FROM Consent c WHERE c.consType=:consType  AND c.consStatus !='Expired' ORDER BY c.consentId DESC")
 	List<Consent> checkDataPresent(@Param("consType") String consType, Pageable pageable);
+
 }

@@ -79,4 +79,5 @@ public interface ConsentServices
 	// public Integer checkDataPresent();
 
 	public List<Consent> checkDataPresent(String consentType, Pageable pageable);
+
 }

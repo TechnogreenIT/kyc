@@ -56,8 +56,17 @@ function validateConsentDates(datepickerId){
 	
 	var today = new Date();
 	var dd = today.getDate();
-	var mm = today.getMonth() + 1; //January is 01
+	var mm = today.getMonth() + 1; //January is 01  .replace('dd', date.getDate());
 	var yyyy = today.getFullYear();
+	if(dd<10) 
+	{
+	    dd='0'+dd;
+	} 
+
+	if(mm<10) 
+	{
+	    mm='0'+mm;
+	} 
 	var today_date = yyyy + "-" + mm + "-" + dd;
 	var validdt= $("#valid_upto").val();
 	var isdt = $("#issue_date").val();

@@ -30,7 +30,7 @@ $(document).ready(function () {
 	
 //	getWaterConsumptionGraph();
 //	getSolidWasteGenerationGraphs();
-//	getwasteWaterGenerationGraph();
+	getwasteWaterGenerationGraph();
 //	getFuelConsumptionGraph();
 	getMonthlyEnvStatistics();
 	getSummary();
@@ -593,6 +593,22 @@ function getEnvQualityDataHz() {
 	//setPerformanceMain(finalValue1, p_id, parameter, reason, 0);
 }
 
+//function getOverAllAhp() {
+//	var fwd_url = "ajax-overAllEnvPerformanceAllFinal";
+//	$.ajax({
+//		type: 'POST',
+//		url: fwd_url,
+//		dataType: 'json',
+//		success: function (data) {
+//			reverseGaugeMeter(data, "overAllEnvPerformance", "overAllEnvPerformance-text");	
+//			$("#overallIDState").html(data);
+//		},
+//		error: function (dd) {
+//			alert("error" + dd);
+//		}
+//	});
+//}
+
 function getOverAllAhp() {
 	var fwd_url = "ajax-overAllEnvPerformanceAllFinal";
 	$.ajax({
@@ -608,8 +624,6 @@ function getOverAllAhp() {
 		}
 	});
 }
-
-
 function getOverAllProductionConpliance() {
 	var finalValue = 0,
 		finalValue1 = 0,

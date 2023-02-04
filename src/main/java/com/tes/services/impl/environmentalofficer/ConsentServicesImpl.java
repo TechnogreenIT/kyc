@@ -240,4 +240,5 @@ public class ConsentServicesImpl implements ConsentServices
 		// TODO Auto-generated method stub
 		return consentRepository.checkDataPresent(consentType, pageable);
 	}
+
 }

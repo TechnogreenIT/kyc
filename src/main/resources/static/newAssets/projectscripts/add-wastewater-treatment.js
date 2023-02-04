@@ -57,7 +57,7 @@ function addWasteWaterTreatment(){
 
 					    
 					    +'<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">'
-					     	+'<div class="form-group mb-0 mt-2"> <strong class="font-weight-bold">Enargy Meter :</strong></div>'
+					     	+'<div class="form-group mb-0 mt-2"> <strong class="font-weight-bold">Energy Meter :</strong></div>'
 					    +'</div>'
 					    
 					    +'<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">'
