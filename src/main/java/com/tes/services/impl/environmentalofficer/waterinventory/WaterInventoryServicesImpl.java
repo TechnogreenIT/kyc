@@ -81,10 +81,17 @@ public class WaterInventoryServicesImpl implements WaterInventoryServices
 	 * }
 	 */
 
+//	@Override
+//	public int getWaterInventoryIdByConsent(String todaysDate)
+//	{
+//		return waterInventoryRepository.getWaterInventoryIdByConsent(todaysDate);
+//	}
+
+	//mmmm
 	@Override
-	public int getWaterInventoryIdByConsent(String todaysDate)
+	public List<Integer> getWaterInventoryIdByConsent(String todaysDate, PageRequest pageRequest)
 	{
-		return waterInventoryRepository.getWaterInventoryIdByConsent(todaysDate);
+		return waterInventoryRepository.getWaterInventoryIdByConsent(todaysDate,pageRequest);
 	}
 
 	@Override

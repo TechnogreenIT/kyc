@@ -1,9 +1,12 @@
 package com.tes.controller.environmentalofficer.consent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -419,11 +422,17 @@ public class WaterInventoryController
 
 		String todayDate = Utilities.getTodaysDate();
 		WastewaterTreatment objWasteWaterTretment = new WastewaterTreatment();
-		int id = waterInventoryServices.getWaterInventoryIdByConsent(todayDate);
-
-		if (!Validator.isEmpty(id))
+	//	int id = waterInventoryServices.getWaterInventoryIdByConsent(todayDate);
+		////mmm
+		List<Integer> listId = new ArrayList<>();
+		 listId= waterInventoryServices.getWaterInventoryIdByConsent(todayDate, new PageRequest(0, 1));
+		
+		if (!Validator.isEmpty(listId))
 		{
+//			int id = listId.get(0).getWaterInventoryId();	
+			int id = listId.get(0);
 			WaterInventory waterInventory = new WaterInventory();
+		//	waterInventory.setWaterInventoryId(id);
 			waterInventory.setWaterInventoryId(id);
 
 			objWasteWaterTretment.setWaterInventory(waterInventory);

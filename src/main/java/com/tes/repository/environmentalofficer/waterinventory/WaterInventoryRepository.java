@@ -55,8 +55,12 @@ public interface WaterInventoryRepository extends JpaRepository<WaterInventory, 
 	 * List<UseOfWater> getUseOfwater(@Param("waterInvId") int waterInvId);
 	 */
 
-	@Query("SELECT w.waterInventoryId FROM WaterInventory w LEFT JOIN w.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType= 'Consent to Operate' AND (c.validUpto>=:todaysDate OR ce.validUpto>=:todaysDate)")
-	int getWaterInventoryIdByConsent(@Param("todaysDate") String todaysDate);
+//	@Query("SELECT w.waterInventoryId FROM WaterInventory w LEFT JOIN w.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType= 'Consent to Operate' AND (c.validUpto>=:todaysDate OR ce.validUpto>=:todaysDate)")
+//	int getWaterInventoryIdByConsent(@Param("todaysDate") String todaysDate);
+	
+	///mmm
+	@Query("SELECT w.waterInventoryId FROM WaterInventory w LEFT JOIN w.consent c LEFT JOIN c.consentExtendedDate ce WHERE c.consType= 'Consent to Operate' AND (c.validUpto>=:todaysDate OR ce.validUpto>=:todaysDate) ORDER BY w.waterInventoryId DESC")
+	public List<Integer> getWaterInventoryIdByConsent(@Param("todaysDate") String todaysDate,Pageable pageable);
 
 	@Query("SELECT DISTINCT NEW WaterInventory(wi.isHouseCanteen, wi.isCookingCanteen) FROM WaterInventory wi")
 	List<WaterInventory> getHouseCookingCateenData();

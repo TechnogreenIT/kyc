@@ -73,7 +73,7 @@ public interface AllProductsRepository extends JpaRepository<AllProducts, Long>
 	@Query("SELECT MAX(apc.quantity) AS quantity  FROM AllProductComparativeSheet apc  INNER JOIN apc.allProducts a  INNER JOIN a.consent c  INNER JOIN a. allProductName an INNER JOIN a.unit u 	  WHERE  c.issueDate <=:today    AND c.consType ='Consent to Operate'   AND an.type =:productName GROUP BY  an.productName")
 	public float getSumOfQuantity(@Param("today") String today, @Param("productName") String productName);
 
-	@Query("SELECT  DISTINCT(apn.productName),u.units FROM RegularData r LEFT JOIN r.allProductComparativeSheet apc LEFT JOIN apc.allProducts a LEFT JOIN a.allProductName apn LEFT JOIN a.unit u WHERE apn.type = :productType")
+	@Query("SELECT  DISTINCT(apn.productName),u.units,apn.allProductNameId  FROM RegularData r LEFT JOIN r.allProductComparativeSheet apc LEFT JOIN apc.allProducts a LEFT JOIN a.allProductName apn LEFT JOIN a.unit u WHERE apn.type = :productType order by apn.allProductNameId  ASC")
 	List<Object[]> getProductByType(@Param("productType") String productType);
 
 	@Query("SELECT DISTINCT (a.quantity)  FROM AllProductComparativeSheet apc  INNER JOIN apc.allProducts a   INNER JOIN a.consent c  INNER JOIN a. allProductName an WHERE  c.consType ='Consent to Operate'   AND an.productName =:pName")

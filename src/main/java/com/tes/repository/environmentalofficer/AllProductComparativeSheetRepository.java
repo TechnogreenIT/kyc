@@ -27,7 +27,7 @@ public interface AllProductComparativeSheetRepository extends JpaRepository<AllP
 	@Query("UPDATE AllProductComparativeSheet apc SET apc.status = 'Inactive' WHERE apc.allProducts IN (SELECT p.allProductsId FROM AllProducts p WHERE p.allProductName.allProductNameId = :allProductNameId)")
 	public int setInactiveByAllProductNameId(@Param("allProductNameId") int allProductNameId);
 
-	@Query("SELECT MAX(apc.quantity) AS quantity,pn.productName,u.units FROM AllProductComparativeSheet apc INNER JOIN apc.allProducts a  INNER JOIN a.consent c INNER JOIN a. allProductName pn INNER JOIN a.unit u WHERE c.issueDate <=:esrConsentDate  AND c.consType ='Consent to Operate' AND pn.type =:productType AND pn.status='Active' GROUP BY  pn.productName")
+	@Query("SELECT MAX(apc.quantity) AS quantity,pn.productName,u.units,pn.allProductNameId FROM AllProductComparativeSheet apc INNER JOIN apc.allProducts a  INNER JOIN a.consent c INNER JOIN a. allProductName pn INNER JOIN a.unit u WHERE c.issueDate <=:esrConsentDate  AND c.consType ='Consent to Operate' AND pn.type =:productType AND pn.status='Active' GROUP BY  pn.productName order by pn.allProductNameId  ASC")
 	public List<Object[]> getAllProductComparativeSheet(@Param("productType") String productType, @Param("esrConsentDate") String esrConsentDate);
 
 	@Query("SELECT MAX(apc.quantity) AS quantity,pn.productName,u.units FROM AllProductComparativeSheet apc LEFT JOIN apc.allProducts a LEFT JOIN a.consent c LEFT JOIN c.consentExtendedDate ce LEFT JOIN a.allProductName pn LEFT JOIN a.unit u WHERE c.consType ='Consent to Operate' AND pn.status='Active' AND pn.type =:productType AND (c.validUpto >=:todayDate OR ce.validUpto>=:todayDate) GROUP BY pn.productName")

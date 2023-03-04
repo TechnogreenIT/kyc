@@ -6,12 +6,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -394,11 +398,27 @@ public class ManagementController extends BaseManagementController
 
 		JsonArray jsonArray = new JsonArray();
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
-
-		String todayDate = Utilities.getTodaysDate();
+		String pollNameReson="";
+		String reson=" Insufficient Data ";
+    	String todayDate = Utilities.getTodaysDate();
 		String previousDate = Utilities.getPreviousDate(todayDate, 30);
 		String nextPreviousDate = Utilities.getPreviousDate(previousDate, 30);
 
+		////today date and previous date difference.
+		LocalDate todayDate1 = LocalDate.parse(todayDate);
+		LocalDate previousDate1 = LocalDate.parse(previousDate);
+		LocalDate nextpreviousDate1 = LocalDate.parse(nextPreviousDate);
+		
+		Date dateToday = Date.from(todayDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date datePrev = Date.from(previousDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date dateNextPrev = Date.from(nextpreviousDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());		
+		
+	    long time_difference =  (dateToday.getTime() - datePrev.getTime());
+	    long days_difference = (time_difference / (1000*60*60*24)) % 365;   
+		int daysTdPr =(int) Math.abs(days_difference);
+		
+		//
+		
 		Float overAllValue = 0.0f;
 		Float overAllOldValue = 0.0f;
 		int indUsedResouces = 0;
@@ -412,37 +432,42 @@ public class ManagementController extends BaseManagementController
 
 				String resourceName = GenericConstantArrayList.resourcesNamesList.get(i);
 				List<Object[]> productNameList = new ArrayList<>();
-
+			
 				productNameList = allProductsServices.getProductByType(resourceName);
 
 				if (!Validator.isEmpty(productNameList))
 				{
 					// indUsedResouces++;
 					JsonObject jsonObject = new JsonObject();
-
+					int noOfTimesProduct=0;
+					pollNameReson += " "+resourceName;					
 					for (Object[] productNameListObj : productNameList)
 					{
 						int noCount = 0;
 						int oldCount = 0;
 						String singleName = (String) productNameListObj[0];
-
+						noOfTimesProduct++;
 						try
 						{
-							noCount = allProductsServices.getNumberFromRegularData(singleName, previousDate, todayDate);
-						}
-						catch (Exception e)
-						{
-							e.printStackTrace();
-						}
-
-						try
-						{
+						
+							noCount = allProductsServices.getNumberFromRegularData(singleName, previousDate, todayDate);						
+//							int time_diffTDPD = daysTdPr-noCount;
+						  //pollNameReson += " "+singleName+ " those "+time_diffTDPD+" Days remaining data ,";
+							if(noCount!=0) {
+							if (daysTdPr!=noCount);{														
+							pollNameReson +=" "+noOfTimesProduct+",";
+							}
+							}
+							
 							oldCount = allProductsServices.getNumberFromRegularData(singleName, nextPreviousDate, previousDate);
 						}
+						
 						catch (Exception e)
 						{
 							e.printStackTrace();
 						}
+					
+						
 
 						actualOld += oldCount;
 						actualEntry += noCount;
@@ -458,13 +483,18 @@ public class ManagementController extends BaseManagementController
 					overAllOldValue += finalOldValue;
 				}
 			}
+			if(pollNameReson != null) {
+				reson += pollNameReson;
+			}
 			JsonObject jsonObjectOverAll = new JsonObject();
 			jsonObjectOverAll.addProperty("name", "overAll");
+			jsonObjectOverAll.addProperty("reson", reson);
 			jsonObjectOverAll.addProperty("quality", Utilities.getFloatpoint(overAllValue / indUsedResouces, 2));
 			jsonArray.add(jsonObjectOverAll);
 
 			JsonObject jsonObjectOverAllOld = new JsonObject();
 			jsonObjectOverAllOld.addProperty("name", "overAllOld");
+			jsonObjectOverAllOld.addProperty("reson", reson);
 			jsonObjectOverAllOld.addProperty("quality", Utilities.getFloatpoint(overAllOldValue / indUsedResouces, 2));
 			jsonArray.add(jsonObjectOverAllOld);
 		}
@@ -507,11 +537,15 @@ public class ManagementController extends BaseManagementController
 			ProductionList.add("hwpcf");
 			ProductionList.add("nhwp");
 			ProductionList.add("nhwpcf");
-
+			String pollNameReson="";
+			String reson="Improve your ";
+			
 			for (int i = 0; i < ProductionList.size(); i++)
 			{
 				String pTypeName = ProductionList.get(i);
 				int noOfResources = 0;
+				int noOfTimesProduct=0;
+				pollNameReson += " "+pTypeName;
 				List<Object[]> allProductsLists = new ArrayList<>();
 
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -531,7 +565,7 @@ public class ManagementController extends BaseManagementController
 					int countOfNonCompliance = 0;
 					int oldCountOfNonCompliance = 0;
 					int totalNonComp = 0;
-					int oldTotalNonComp = 0;
+					int oldTotalNonComp = 0;					
 					Float finalValue = 0.0f;
 					for (Object[] allProductsListData : allProductsLists)
 					{
@@ -539,21 +573,21 @@ public class ManagementController extends BaseManagementController
 						String productName = (String) allProductsListData[1];
 						String pUnit = (String) allProductsListData[2];
 						Float complianceQuantity = Utilities.convertDataToPerDayByUnit(pUnit, (Float) allProductsListData[0]);
-
+						noOfTimesProduct++;
 						try
 						{
 							countOfNonCompliance = regularDataServices.getNonComplianceByProductName(productName, date2, date1, complianceQuantity);
-						}
-						catch (Exception e)
-						{
-						}
-						try
-						{
+							if(countOfNonCompliance!=0) {
+ 							pollNameReson +=" "+noOfTimesProduct+",";
+							}
 							oldCountOfNonCompliance = regularDataServices.getNonComplianceByProductName(productName, date3, date2, complianceQuantity);
+							
 						}
 						catch (Exception e)
 						{
+							
 						}
+						
 
 						totalNonComp += countOfNonCompliance;
 						oldTotalNonComp += oldCountOfNonCompliance;
@@ -574,15 +608,20 @@ public class ManagementController extends BaseManagementController
 				}
 
 			}
+			if(pollNameReson != null) {
+				reson += pollNameReson;
+			}
 			HashMap<String, Object> overAllData = new HashMap<String, Object>();
 			Float overAllResult = Utilities.getFloatpoint((overAllValue / ProductionList.size()), 2);
 			overAllData.put("name", new String("overAll"));
+			overAllData.put("reson", reson);
 			overAllData.put("quality", new Float(overAllResult));
 			jsonArray.put(overAllData);
 
 			HashMap<String, Object> overAllOldData = new HashMap<String, Object>();
 			Float overAllOldResult = Utilities.getFloatpoint(overAllOldValue / ProductionList.size(), 2);
 			overAllOldData.put("name", new String("overAllOld"));
+			overAllData.put("reson", reson);
 			overAllOldData.put("quality", new Float(overAllOldResult));
 			jsonArray.put(overAllOldData);
 
@@ -767,6 +806,8 @@ public class ManagementController extends BaseManagementController
 
 			allProductsLists = allProductComparativeSheetServices.getAllProductComparativeSheet(type_p, today);
 
+		
+			
 			if (!Validator.isEmpty(allProductsLists))
 			{
 
@@ -811,6 +852,7 @@ public class ManagementController extends BaseManagementController
 					try
 					{
 						countOfNonCompliance = regularDataServices.getNonComplianceByProductName(productName, prevdate, today, complianceQuantity);
+					
 					}
 					catch (Exception e)
 					{
@@ -818,7 +860,8 @@ public class ManagementController extends BaseManagementController
 					}
 
 					HashMap<String, Object> hashMap = new HashMap<String, Object>();
-					hashMap.put("productName", productName);
+					hashMap.put("productName", productName);					
+					hashMap.put("consenetQty", (float) Utilities.getDoubleRoundPoint(complianceQuantity,2));
 					hashMap.put("noncount", countOfNonCompliance);
 					hashMap.put("remark", remark);
 

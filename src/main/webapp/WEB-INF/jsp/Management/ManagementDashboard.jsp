@@ -63,9 +63,10 @@
 							<div class="row" style= "height: 559px; overflow-y: scroll;">
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
-									<li class="actions__item zmdi zmdi-help-outline mt-2"
+								<!---	<li class="actions__item zmdi zmdi-help-outline mt-2"
 											data-toggle="tooltip" data-placement="top"
-											data-original-title="overAllDataQuality-text"></li>				
+											data-original-title="overAllDataQuality-text"></li>	-->
+											<li class="actions__item" id="addTollTipDtqualityperforms"></li>			
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="overAllDataQuality"> </canvas>
 											<center>
@@ -84,9 +85,10 @@
 								</div>
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
-									<li class="actions__item zmdi zmdi-help-outline mt-2"
+									<!---<li class="actions__item zmdi zmdi-help-outline mt-2"
 											data-toggle="tooltip" data-placement="top"
-											data-original-title="overAllDataCompliance-text"></li>		
+											data-original-title="overAllDataCompliance-text"></li>	-->	
+											<li class="actions__item" id="addTollTipdtNonCompliance"></li>
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="overAllDataCompliance"> </canvas>
 											<center>
@@ -119,9 +121,10 @@
 										<div
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
-												<div class="col-md-12 col-12 text-white">Water
+												<div class="col-md-6 col-6 card-devider text-white">Water
 													Treatment Environment Performance</div>
-												<!-- <div class="col-md-12 col-12">
+													<div class="col-md-6 col-6" id="envtreatperformance-state"></div>
+												<!-- <div class="col-md-12 col-12">																						
                                           <i class="zmdi zmdi-trending-up zmdi-hc-lg text-success"></i>
                                           <span class="text-success"> (+26.98 %)</span> </div> -->
 											</div>
@@ -130,9 +133,10 @@
 								</div>
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
-									<li class="actions__item zmdi zmdi-help-outline mt-2"
+								<!---	<li class="actions__item zmdi zmdi-help-outline mt-2"
 											data-toggle="tooltip" data-placement="top"
-											data-original-title="overAllEnvPerformance"></li>
+											data-original-title="overAllEnvPerformance"></li>-->
+											<li class="actions__item" id="addOverAllReson"></li>
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="overAllEnvPerformance"> </canvas>
 											<center>
@@ -142,7 +146,7 @@
 									 	 <div
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
-												<div class="col-md-6 col-6 card-devider text-white">OverAll
+												<div class="col-md-6 col-6 card-devider text-white" id="date-overAll-state">OverAll
 													Environment Performance</div>
 												 <div class="col-md-6 col-6" id="overallIDState"></div>
 												<!-- <div class="col-md-12 col-12"><i class="zmdi zmdi-trending-up zmdi-hc-lg text-success"></i> <span class="text-success"> (+26.98 %)</span> </div> -->
@@ -156,17 +160,17 @@
 												<div class="col-md-6 col-6" id="overallID"></div>
 											</div>
 										</div>-->	
-										
-										
+									
 									</div>
 								</div>
 							 	<!--  ///mm-->
 								<div class="col-md-6 col-12">
-									<div class="card card-top-border">
-									<li class="actions__item zmdi zmdi-help-outline mt-2"
+									<div class="card card-top-border" >																
+								<!-- <li class="actions__item zmdi zmdi-help-outline mt-2" 
 											data-toggle="tooltip" data-placement="top"
-											data-original-title="waterTreatmentSTPGaugeMeter"></li>
-										<div class="card-body card-body-meter">
+											data-original-title="%{getText(resonSTP}"></li>	-->
+										<li class="actions__item" id="addTollTipReson"></li>
+										<div class="card-body card-body-meter">								
 											<canvas class="meter-canvas" id="waterTreatmentSTPGaugeMeter"> </canvas>
 											<center>
 												<div id="waterTreatmentSTPGaugeMeter-text" class="meter-value">0</div>
@@ -177,7 +181,7 @@
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
 												<div class="col-md-6 col-6 card-devider text-white"
-													id="date-overAll-state">STP Non-Compliance Performance</div>
+													id="date-overAll-state">STP Performance</div>
 												<div class="col-md-6 col-6" id="performanceStat_STP"></div>
 											</div>
 										</div>										
@@ -186,9 +190,10 @@
 								<!-- ETP&STP -->
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border">
-									<li class="actions__item zmdi zmdi-help-outline mt-2"
+								<!---	<li class="actions__item zmdi zmdi-help-outline mt-2"
 											data-toggle="tooltip" data-placement="top"
-											data-original-title="waterTreatmentETPGaugeMeter"></li>
+											data-original-title="waterTreatmentETPGaugeMeter"></li>-->
+											<li class="actions__item" id="addTollTipResonETP"></li>
 										<div class="card-body card-body-meter">
 											<canvas class="meter-canvas" id="waterTreatmentETPGaugeMeter"> </canvas>
 											<center>
@@ -198,7 +203,7 @@
 										<div
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
-												<div class="col-md-6 col-6 card-devider text-white" id="date-overAll-state">ETP Non-Compliance Performance</div>
+												<div class="col-md-6 col-6 card-devider text-white" id="date-overAll-state">ETP Performance</div>
 												<div class="col-md-6 col-6" id="performanceStat_ETP"></div>
 											</div>
 										</div>
@@ -417,7 +422,8 @@
 														<thead>
 															<tr>
 																<th>Product Name</th>
-																<th>frequency</th>
+																<th>Capacity</th>
+																<th>Exceeding Frequency</th>
 																<th>Warning</th>
 															</tr>
 														</thead>
@@ -433,7 +439,8 @@
 														<thead>
 															<tr>
 																<th>Byproduct Name</th>
-																<th>frequency</th>
+																<th>Capacity</th>
+																<th>Exceeding Frequency</th>
 																<th>Warning</th>
 															</tr>
 														</thead>
@@ -449,7 +456,8 @@
 														<thead>
 															<tr>
 																<th>Raw Material Name</th>
-																<th>frequency</th>
+																<th>Capacity</th>
+																<th>Exceeding Frequency</th>
 																<th>Warning</th>
 															</tr>
 														</thead>
@@ -467,7 +475,8 @@
 												<thead>
 													<tr>
 														<th>Fuel Name</th>
-														<th>frequency</th>
+														<th>Capacity</th>
+														<th>Exceeding Frequency</th>
 														<th>Warning</th>
 													</tr>
 												</thead>
@@ -488,7 +497,8 @@
 														<thead>
 															<tr>
 																<th>Hazardous Waste from Process Name</th>
-																<th>frequency</th>
+																<th>Capacity</th>
+																<th>Exceeding Frequency</th>
 																<th>Warning</th>
 															</tr>
 														</thead>
@@ -504,7 +514,8 @@
 														<thead>
 															<tr>
 																<th>Hazardous Waste from PCF Name</th>
-																<th>frequency</th>
+																<th>Capacity</th>
+																<th>Exceeding Frequency</th>
 																<th>Warning</th>
 															</tr>
 														</thead>
@@ -520,7 +531,8 @@
 														<thead>
 															<tr>
 																<th>Hazardous Waste from Process Name</th>
-																<th>frequency</th>
+																<th>Capacity</th>
+																<th>Exceeding Frequency</th>
 																<th>Warning</th>
 															</tr>
 														</thead>
@@ -536,7 +548,8 @@
 														<thead>
 															<tr>
 																<th>Hazardous Waste from PCF Name</th>
-																<th>frequency</th>
+																<th>Capacity</th>
+																<th>Exceeding Frequency</th>
 																<th>Warning</th>
 															</tr>
 														</thead>

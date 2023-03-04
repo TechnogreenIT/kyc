@@ -62,7 +62,7 @@ public interface WaterMarksServicesRepository extends JpaRepository<WaterMarks, 
 	@Query("SELECT m.pollutants,m.type,ap.limits, m.marks,ap.ambient.ambientId FROM AirMarks m, AmbientPoll ap LEFT JOIN  ap.ambient a WHERE ap.pollName=m.pollutants AND m.type=:PollName AND ap.ambient.ambientId=:ambientid")
 	List<Object[]> getAmbientmarkdata(@Param("PollName") String poll, @Param("ambientid") int ambientid);
 
-	@Query("SELECT ap.concPoll FROM RegAmbientPoll r,AmbientPollData ap,Ambient a  WHERE r.ambient.ambientId=a.ambientId  AND  r.regAmbientPollId=ap.regAmbientPoll.regAmbientPollId AND a.ambientLocName=r.locName AND  EXTRACT(MONTH FROM r.sampAmb) =:month  AND EXTRACT(YEAR FROM r.sampAmb) =:yr AND ap.pollName=:PollName AND r.ambient.ambientId=:ambientId")
+	@Query("SELECT AVG(ap.concPoll) FROM RegAmbientPoll r,AmbientPollData ap,Ambient a  WHERE r.ambient.ambientId=a.ambientId  AND  r.regAmbientPollId=ap.regAmbientPoll.regAmbientPollId AND a.ambientLocName=r.locName AND  EXTRACT(MONTH FROM r.sampAmb) =:month  AND EXTRACT(YEAR FROM r.sampAmb) =:yr AND ap.pollName=:PollName AND r.ambient.ambientId=:ambientId")
 	public Float getRegAmbientPollData(@Param("PollName") String PollName, @Param("month") int month, @Param("yr") int yr, @Param("ambientId") int ambientId);
 
 	@Query("SELECT p.type  FROM StackPoll sp LEFT JOIN  sp.stack s ,Particulate p WHERE p.pollutant=sp.pollName")

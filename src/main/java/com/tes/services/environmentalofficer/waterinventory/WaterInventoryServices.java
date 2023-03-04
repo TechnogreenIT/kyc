@@ -35,8 +35,10 @@ public interface WaterInventoryServices
 	// Effected By Water Inventory ........by vishal
 	// WaterInventory getWaterInventoryInfo(int waterInvId);
 
-	int getWaterInventoryIdByConsent(String todaysDate);
-
+	//int getWaterInventoryIdByConsent(String todaysDate);
+	//mmm
+    public List<Integer>getWaterInventoryIdByConsent(String todaysDate, PageRequest pageRequest);
+    
 	public List<WaterInventory> getHouseCookingCateenData();
 
 	public List<WaterInventory> getwaterInventoryById(int companyId, String todaysDate, PageRequest pageRequest);

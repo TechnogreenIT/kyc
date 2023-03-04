@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.tes.model.EmpData;
+import com.tes.model.WaterSewPoll;
 import com.tes.services.environmentalofficer.AllProductComparativeSheetServices;
 import com.tes.services.environmentalofficer.AllProductsServices;
 import com.tes.services.environmentalofficer.AmbientServices;
 import com.tes.services.environmentalofficer.RegularDataServices;
 import com.tes.services.environmentalofficer.WaterMarksServices;
+import com.tes.services.environmentalofficer.WaterSewPollServices;
 import com.tes.services.environmentalofficer.waterinventory.WastewaterTreatmentServices;
 import com.tes.services.thirdparty.RegEffPollServices;
 import com.tes.services.thirdparty.RegSewPollServices;
@@ -57,12 +59,17 @@ public class OverallPerformanceController
 
 	@Autowired
 	AmbientServices ambientServices;
+	
+	@Autowired
+	WaterSewPollServices waterSewPollServices;
 
 	private static final Logger LOGGER = LogManager.getLogger(OverallPerformanceController.class);
 
 	float water = 0.0f;
 	float air = 0.0f;
 	float hazardous = 0.0f;
+	String overallnameReson ="";
+	String awhreson="Cross the Consent Limit  ";
 
 	// @PreAuthorize("hasRole('ROLE_ENVROFFICER')")
 	@RequestMapping("/waterOverall")
@@ -490,7 +497,11 @@ public class OverallPerformanceController
 	@ResponseBody
 	public @JsonRawValue String getWaterPerformancenew()
 	{
-
+		if(!overallnameReson.isEmpty())
+		{
+			overallnameReson="";
+		}
+		
 		int isSTP = 0, isBoth = 0, flagWater = 0;
 		// Check STP availability
 		try
@@ -515,10 +526,12 @@ public class OverallPerformanceController
 			Float finalcombined = 0.0f;
 			String today = Utilities.getTodaysDate();
 			int year = Utilities.getYearFromStringDate(today);
-
+			String pollNameReson="";
+			String reson="Improve your ";
 			// stp
 			if (isSTP == 1)
 			{
+				
 				int pollId = 0;
 				String pollutantName = null;
 				float marks1 = 0.0f;
@@ -553,6 +566,8 @@ public class OverallPerformanceController
 				float finalRegular = 0.0f;
 				float updated = 0.0f;
 				float finalVal = 0.0f;
+				
+				
 
 				pollquantity = waterServices.ahpWatersew(today);
 				if (!Validator.isEmpty(pollquantity))
@@ -606,12 +621,21 @@ public class OverallPerformanceController
 							factordiv = Utilities.getFloatpoint(factordiv, 3);
 							mainFactor.add(factordiv);
 						}
-
+						
 						// regular quantity
 						for (int j = 0; j < pollname.size(); j++)
 						{
 							// reqQuantity = waterServices.getRegSewPollData(year, pollIdn.get(j));
 							reqQuantity = regSewPollServices.getSewPollAvg(pollname.get(j), year);
+					
+							///reson print
+							if(reqQuantity > consentlimit.get(j)) {
+							pollNameReson +=  pollname.get(j)+ ",";
+
+							overallnameReson +=  pollname.get(j)+",";
+							}
+							
+							///
 							if (reqQuantity != null)
 							{
 								regq.add(reqQuantity);
@@ -655,11 +679,15 @@ public class OverallPerformanceController
 			tempfinalStpValue = finalStpValue * 30 / 100;
 			finalcombined = tempfinalStpValue;
 
+			if(pollNameReson != null) {
+				reson += pollNameReson;
+			}
 			if (isSTP == 1)
 			{
 				water = finalStpValue;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine"));
+				hashMap.put("reson", reson);
 				hashMap.put("finalCombinedValue", new Float(Utilities.getFloatpoint(finalStpValue, 2)));
 				jsonArray.put(hashMap);
 			}
@@ -668,26 +696,29 @@ public class OverallPerformanceController
 				water = 0;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine"));
+				hashMap.put("reson", reson);
 				hashMap.put("finalCombinedValue", new Float(0.0f));
 				jsonArray.put(hashMap);
 
 			}
 
-			if (isSTP == 1)
-			{
-				HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
-				hashMap2.put("meterType", new String("STP")); // from eto 70% & stp 30%
-				hashMap2.put("finalStpValue", new Float(Utilities.getFloatpoint(finalStpValue, 2))); // from eto 70% & stp 30%
-				jsonArray.put(hashMap2);
-			}
-			else
-			{
-				HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
-				hashMap2.put("meterType", new String("STP"));
-				hashMap2.put("finalStpValue", new Float(0.0f));
-				jsonArray.put(hashMap2);
-			}
-
+//			if (isSTP == 1)
+//			{
+//				HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
+//				hashMap2.put("meterType", new String("STP")); // from eto 70% & stp 30%
+//				hashMap2.put("reson", reson);
+//				hashMap2.put("finalStpValue", new Float(Utilities.getFloatpoint(finalStpValue, 2))); // from eto 70% & stp 30%
+//				jsonArray.put(hashMap2);
+//			}
+//			else
+//			{
+//				HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
+//				hashMap2.put("meterType", new String("STP"));
+//				hashMap2.put("reson", reson);
+//				hashMap2.put("finalStpValue", new Float(0.0f));
+//				jsonArray.put(hashMap2);
+//			}
+			
 		}
 		catch (Exception e)
 		{
@@ -727,7 +758,9 @@ public class OverallPerformanceController
 			Float finalcombined = 0.0f;
 			String today = Utilities.getTodaysDate();
 			int year = Utilities.getYearFromStringDate(today);
-
+			String pollNameReson="";
+			String reson="Improve your ";
+			
 			// etp
 			if (isETP == 1)
 			{
@@ -819,6 +852,11 @@ public class OverallPerformanceController
 					for (int j = 0; j < pollname.size(); j++)
 					{
 						reqQuantity = regEffPollServices.getEffPollAvg(pollname.get(j), year);
+						//madetooltip reason
+						if(reqQuantity > consentlimit.get(j)) {
+							pollNameReson +=  pollname.get(j)+ ",";
+							overallnameReson +=  pollname.get(j)+ ",";
+							}
 						if (reqQuantity != null)
 						{
 							regq.add(reqQuantity);
@@ -862,12 +900,16 @@ public class OverallPerformanceController
 			// finalEtpValue = 34.0f; // testing purpose mmm
 			tempfinalEtpValue = finalEtpValue * 70 / 100;
 			finalcombined = tempfinalEtpValue;
-
+			if(pollNameReson != null) {
+				reson += pollNameReson;
+			}
+			
 			if (isETP == 1)
 			{
 				water = finalcombined;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine")); // from eto 70% & stp 30%
+				hashMap.put("reson", reson);
 				hashMap.put("finalCombinedValue", new Float(Utilities.getFloatpoint(finalcombined, 2))); // from eto 70% & stp 30%
 				jsonArray.put(hashMap);
 			}
@@ -877,6 +919,7 @@ public class OverallPerformanceController
 				water = 0;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine"));
+				hashMap.put("reson", reson);
 				hashMap.put("finalCombinedValue", new Float(0.0f));
 				jsonArray.put(hashMap);
 
@@ -1347,6 +1390,9 @@ public class OverallPerformanceController
 				for (int j = 0; j < pname.size(); j++)
 				{
 					reqQuantity = waterServices.getRegAmbientPollData(pname.get(j), month, year, id.get(j));
+					if(reqQuantity > consentQuan.get(j)) {						
+						overallnameReson +=  pname.get(j)+ ",";
+						}
 					if (reqQuantity != null)
 					{
 						reqQuantityamb.add(reqQuantity);
@@ -1440,7 +1486,7 @@ public class OverallPerformanceController
 			// TODO: handle exception
 		}
 		return jsonArray.toString();
-	}
+	}  
 
 	// hz
 	@RequestMapping(value = {"ajax-overAllEnvPerformanceHz"})
@@ -1534,6 +1580,12 @@ public class OverallPerformanceController
 					{
 						reqQuantity = regularDataServices.getAverageQuantityByPNameMonthYearForAhp(pname.get(j), month,
 								year);
+						///reson print
+						if(reqQuantity > consentQuan.get(j)) {//
+						overallnameReson +=  pname.get(j)+ ",";
+						}
+						///
+						
 						if (reqQuantity != null)
 						{
 							regq.add(reqQuantity);
@@ -1585,6 +1637,7 @@ public class OverallPerformanceController
 				}
 
 			}
+			
 			if (FinalAllList != null)
 			{
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -1608,7 +1661,8 @@ public class OverallPerformanceController
 
 	// all
 	@RequestMapping(value = {"ajax-overAllEnvPerformanceAllFinal"})
-	public @ResponseBody @JsonRawValue String overAllEnvPerformanceFinal()
+	 @ResponseBody
+	public @JsonRawValue String overAllEnvPerformanceFinal()
 	{
 		float water40 = 0.0f;
 		float air40 = 0.0f;
@@ -1618,6 +1672,11 @@ public class OverallPerformanceController
 		float wmarks = 0;
 		float amarks = 0;
 		float hzmarks = 0;
+		//
+		JSONArray jsonArray;
+		jsonArray = new JSONArray();
+		try {
+		//
 		if (water != 0 && air != 0 && hazardous != 0)
 		{
 
@@ -1680,8 +1739,41 @@ public class OverallPerformanceController
 			hz20 = 0;
 			finalTotal = water40 + air40 + hz20;
 		}
-		Float finalRes = Utilities.getFloatpoint(finalTotal, 2);
-		return finalRes.toString();
+		//m
+		if(overallnameReson != null) {
+			if(!awhreson.isEmpty()) {
+				awhreson = "Cross the Consent Limit  ";
+			}
+			awhreson += overallnameReson;
+		}
+		//m
+//		Float finalRes = Utilities.getFloatpoint(finalTotal, 2);
+
+		///mm
+		if (finalTotal != 0)
+		{
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("awhreson", awhreson);
+			hashMap.put("overAll", new Float(Utilities.getFloatpoint(finalTotal, 2)));
+			jsonArray.put(hashMap);
+		}
+		else
+		{
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("awhreson", awhreson);
+			hashMap.put("overAll", new Float(Utilities.getFloatpoint(finalTotal, 2)));
+			jsonArray.put(hashMap);
+		}
+		}
+		///mm
+	//	return finalRes.toString();
+		catch (Exception e)
+		{
+			LOGGER.error(e);
+		}
+		return jsonArray.toString();
+		
 	}
+	
 
 }

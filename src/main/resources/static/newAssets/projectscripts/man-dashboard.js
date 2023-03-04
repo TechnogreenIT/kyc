@@ -9,6 +9,7 @@ $(document).ready(function () {
 	var prev_date = previousDate(today_date);
 	//demo1();
 	//demo3();
+	
 	getOverAllDailyDataQuality();
 	getOverAllConformingPerformance();
 	getEnvQualityDataWater(); // AHP WATER
@@ -17,6 +18,7 @@ $(document).ready(function () {
 	getEnvQualityDataAir(); // AHP AIR
 	getEnvQualityDataHz(); // AHP HZ
 	getOverAllAhp(); // AHP OVERALL  
+	
 	if (industryType == "Industry"){
 		isproduction = "Yes";
 		
@@ -353,6 +355,7 @@ function getOverAllDailyDataQuality() {
 		  $.each(data, function (index, element) {
         var name = element.name;
         var quality = element.quality;
+        resonSTPETP=element.reson;
         
         if (name != "overAll" && name != "overAllOld") {
           var msg_data = $("<div class='col-6 col-sm-4 col-md-6 col-lg-2 offset-lg-4 widget-pie__item grey lighten-4'>" + "<div class='easy-pie-chart chart" + index + "' id='easyPie_" + index + "' data-percent='" + quality + "' data-size='100' data-track-color='rgba(0,0,0,0.08)'>" + "<span class='easy-pie-chart__value'>" + quality + "</span>" + "</div>" + "<div class='widget-pie__title text-black'>" + name + " - " + getMeterPerformance(quality) + "</div>" + "</div>")
@@ -364,11 +367,13 @@ function getOverAllDailyDataQuality() {
         if (name == "overAll") {
           newOverAllPercentage = quality;
           gaugeMeter(quality, "overAllDataQuality", "overAllDataQuality-text");
+           makeMytollTip(resonSTPETP,"addTollTipDtqualityperforms");
         }
         if (name == "overAllOld") {
           oldOverAllPercentage = quality;
           setOldData(newOverAllPercentage, oldOverAllPercentage, "overAll-state");
         }
+       
 		  });
 		},
 		async: false
@@ -405,6 +410,18 @@ function setFilter(finalCombine, id) {
 	$("#" + id).append(html);
 	makeToolTip();
 }
+
+//water data value display
+function makeMytollTip(resonSTPETP,id) {
+	var colorClass = "text-success";
+	var iconClass = "zmdi zmdi-help-outline";
+	var oldDateTitle = resonSTPETP;
+	
+	var html = $("<span class='mantooltip hover' data-jbox-title='' data-jbox-content='" + oldDateTitle + "'><i class='actions__item " + iconClass + "'></i>" + "<span class=''></span></span>");
+	var oldDateHtml = meterCurrentDateTitle();
+	$("#" + id).append(html);
+	makeToolTip();
+}
 //
 function getOverAllConformingPerformance() {
 	var finalValue = 0,
@@ -420,6 +437,7 @@ function getOverAllConformingPerformance() {
 			$.each(parseData, function (index, element) {
 				var name = element.name;
 				var quality = element.quality;
+				resonSTPETP=element.reson;
 				if (name != "overAll" && name != "overAllOld") {
 					var msg_data = $("<div class='col-6 col-sm-4 col-md-6 col-lg-2 offset-lg-4 widget-pie__item grey lighten-4'>" + "<div class='easy-pie-chart chart" + index + "' id='easyPie1_" + index + "' data-percent='" + quality + "' data-size='100' data-track-color='rgba(0,0,0,0.08)'>" + "<span class='easy-pie-chart__value'>" + quality + "</span>" + "</div>" + "<div class='widget-pie__title text-black'>" + name + " - " + getMeterPerformance(quality) + "</div>" + "</div>")
 					$("#append_non_conformance_performance").append(msg_data);
@@ -430,6 +448,8 @@ function getOverAllConformingPerformance() {
 				if (name == "overAll") {
 					newOverAllPercentage = quality;
 					gaugeMeter(quality, "overAllDataCompliance", "overAllDataCompliance-text");
+					makeMytollTip(resonSTPETP,"addTollTipdtNonCompliance");
+
 				}
 				if (name == "overAllOld") {
 					oldOverAllPercentage = quality;
@@ -450,8 +470,9 @@ function getOverAllConformingPerformance() {
 
 function getEnvQualityDataWater() {
 	$.ajax({
-		type: 'POST',
+		type: 'POST',    
 		url: 'ajax-getWaterPerformancetest',
+		async : false,
 		dataType: 'json',
 		success: function (data) {
 			var data = JSON.parse(data);
@@ -492,15 +513,22 @@ function getEnvQualitySTPDataWater() {
 			if (data.length != 0) {
 				$.each(data, function (index, element) {
 					treatmentType = element.meterType;
+					resonSTPETP=element.reson;
 					if (treatmentType == "combine") {
 						finalCombine = element.finalCombinedValue;
 						reverseGaugeMeter(finalCombine, "waterTreatmentSTPGaugeMeter", "waterTreatmentSTPGaugeMeter-text");
+						makeMytollTip(resonSTPETP,"addTollTipReson");
 					}
 					if (treatmentType == "combine") {
 						finalCombine =  element.finalCombinedValue;
 						meterName = "STP";
 						setFilter(finalCombine, "performanceStat_STP");
 					} 
+				
+				  // $("#box").html(resonSTP);
+				
+			
+				
 					/*if (treatmentType == "ETP") {
 						finalEtp = (element.finalEtpValue).toFixed(2);
 						meterName = "ETP";
@@ -510,6 +538,7 @@ function getEnvQualitySTPDataWater() {
 						meterName = "STP";
 						setFilter(meterName, finalStp, "performanceStat_STP");
 					}*/
+					
 				});
 			} 
 			else {
@@ -521,6 +550,7 @@ function getEnvQualitySTPDataWater() {
 		}
 	});
 }
+
 ///2
 function getEnvQualityETPDataWater() {
 	$.ajax({
@@ -532,9 +562,11 @@ function getEnvQualityETPDataWater() {
 			if (data.length != 0) {
 				$.each(data, function (index, element) {
 					treatmentType = element.meterType;
+					resonSTPETP=element.reson;
 					if (treatmentType == "combine") {
 						finalCombine = element.finalCombinedValue;
 						reverseGaugeMeter(finalCombine, "waterTreatmentETPGaugeMeter", "waterTreatmentETPGaugeMeter-text");
+						makeMytollTip(resonSTPETP,"addTollTipResonETP");
 					}
 					if (treatmentType == "combine") {
 						finalCombine =  element.finalCombinedValue;
@@ -568,6 +600,7 @@ function getEnvQualityDataAir() {
 	$.ajax({
 		type: 'POST',
 		url: fwd_url,
+		 async : false,
 		dataType: 'json',
 		success: function (data) {},
 		error: function (data) {
@@ -584,6 +617,7 @@ function getEnvQualityDataHz() {
 	$.ajax({
 		type: 'POST',
 		url: fwd_url,
+		 async : false,
 		dataType: 'json',
 		success: function (data) {},
 		error: function (data) {
@@ -608,16 +642,39 @@ function getEnvQualityDataHz() {
 //		}
 //	});
 //}
-
+//mmm
+function setoverall(data, id) {
+	var colorClass = "text-success";
+	var iconClass = "zmdi zmdi-trending-up";
+	var oldDateTitle = meterOldDateTitle();
+	var diffrence = data;
+	if (diffrence < 0) {
+		colorClass = "text-danger";
+		iconClass = "zmdi zmdi-trending-down";
+	}
+	var html = $("<span class='mantooltip hover' data-jbox-title='' data-jbox-content='" + oldDateTitle + "'><i class='" + iconClass + " zmdi-hc-lg " + colorClass + "'></i>" + "<span class='" + colorClass + "'> (" + diffrence + " %)</span></span>");
+	var oldDateHtml = meterCurrentDateTitle();
+	$("#" + id).append(html);
+	makeToolTip();
+}
 function getOverAllAhp() {
 	var fwd_url = "ajax-overAllEnvPerformanceAllFinal";
 	$.ajax({
 		type: 'POST',
 		url: fwd_url,
+	   // async : false,
 		dataType: 'json',
 		success: function (data) {
-			reverseGaugeMeter(data, "overAllEnvPerformance", "overAllEnvPerformance-text");	
-			$("#overallIDState").html(data);
+			//		
+			var parseData = JSON.parse(data);
+			$.each(parseData, function (index, element) {			 
+		    finaloverall = element.overAll;
+		   
+		    overallReason = element.awhreson;
+			reverseGaugeMeter(finaloverall, "overAllEnvPerformance", "overAllEnvPerformance-text");				
+			setoverall(finaloverall, "overallIDState");
+			makeMytollTip(overallReason,"addOverAllReson");
+		});
 		},
 		error: function (dd) {
 			alert("error" + dd);
@@ -855,9 +912,10 @@ function getSummary(){
 				var iddd = resourcesList[i]+"_summary";
 				$.each(parseData, function(index, element) { 
 					var productName = element.productName;
+					var consenetQty=element.consenetQty;//mm
 					var noncount = element.noncount;
 					var remark = element.remark;
-					var markup = "<tr><td>"+productName+"</td><td>"+noncount+"</td><td>"+remark+"</td></tr>";
+					var markup = "<tr><td>"+productName+"</td><td>"+consenetQty+"</td><td>"+noncount+"</td><td>"+remark+"</td></tr>";
 					$("#"+iddd).append(markup); 
 
 				});
