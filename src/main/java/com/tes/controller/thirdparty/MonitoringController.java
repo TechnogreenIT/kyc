@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -689,9 +690,11 @@ public class MonitoringController extends BaseThirdPartyController
 		{
 
 			String today = Utilities.getTodaysDate();
-			int id = waterInventoryServices.getWaterInventoryIdByConsent(today);
+			//int id = waterInventoryServices.getWaterInventoryIdByConsent(today);
+			List<Integer>Id = new ArrayList<>();
+			Id= waterInventoryServices.getWaterInventoryIdByConsent(today, new PageRequest(0, 1));
 
-			List<WastewaterTreatment> waterLabelList = wastewaterTreatmentServices.getAllWasteWaterTreatmentData(id);
+			List<WastewaterTreatment> waterLabelList = wastewaterTreatmentServices.getAllWasteWaterTreatmentData(Id.get(0));
 			if (!Validator.isEmpty(waterLabelList))
 			{
 				flag = true;

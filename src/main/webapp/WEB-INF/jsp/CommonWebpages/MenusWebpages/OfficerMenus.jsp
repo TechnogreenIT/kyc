@@ -315,6 +315,7 @@ function getWaste(){
 	console.log("eyear"+encodedYear);
 	window.location="envr-officer-hazardous-return?year="+encodedYear;
 }
+
  function makeHazardousReturnPopUP(){
 	var fwd_url = "ajax-getHazardousValues";
 	$.ajax({
@@ -383,6 +384,7 @@ function getWaste(){
                           }
 	         });
 	}
+	
 </script>
 <%
 ArrayList<String> urlstring=new ArrayList<String>();//Creating arraylist

@@ -212,6 +212,8 @@ public class ViewRegularDataController
 	 * @param units the unit of product
 	 * @return unitp
 	 */
+	
+	//changes by pallavi...
 	public String changeUnits(String units)
 	{
 		String unitp;
@@ -228,7 +230,7 @@ public class ViewRegularDataController
 			{
 				unitp = "Liter/Day";
 			}
-			else if (units.equalsIgnoreCase("MT/Year") || units.equalsIgnoreCase("MT/Month")
+			else if (units.equalsIgnoreCase("Ton/Ton") || units.equalsIgnoreCase("MT/Year") || units.equalsIgnoreCase("MT/Month")
 					|| units.equalsIgnoreCase("MT/Week") || units.equalsIgnoreCase("MT/Day"))
 			{
 				unitp = "MT/Day";
@@ -238,6 +240,33 @@ public class ViewRegularDataController
 			{
 				unitp = "Nos/Day";
 			}
+			//pp
+			else if (units.equalsIgnoreCase("Units/Year") || units.equalsIgnoreCase("Units/Month")
+					|| units.equalsIgnoreCase("Units/Week") || units.equalsIgnoreCase("Units/Day"))
+			{
+				unitp = "Units/Day";
+			}
+			else if (units.equalsIgnoreCase("Pieces/Year") || units.equalsIgnoreCase("Pieces/Month")
+					|| units.equalsIgnoreCase("Pieces/Week") || units.equalsIgnoreCase("Pieces/Day"))
+			{
+				unitp = "Pieces/Day";
+			}
+			else if (units.equalsIgnoreCase("Million Nos./Year") || units.equalsIgnoreCase("Million Nos./Month")
+				 || units.equalsIgnoreCase("Million Nos./Day"))
+			{
+				unitp = "Million Nos./Day";
+			}
+			else if (units.equalsIgnoreCase("Cr Nos./Year") || units.equalsIgnoreCase("Cr Nos./Month")
+					 || units.equalsIgnoreCase(" Cr Nos./Day"))
+				{
+					unitp = "Cr Nos./Day";
+				}
+			else if (units.equalsIgnoreCase("Mtrs/Year") || units.equalsIgnoreCase("Mtrs/Month")
+					 || units.equalsIgnoreCase("Mtrs/Day"))
+				{
+					unitp = "Mtrs/Day";
+				}
+			
 		}
 		catch (Exception e)
 		{
