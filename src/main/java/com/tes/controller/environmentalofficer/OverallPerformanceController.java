@@ -958,6 +958,8 @@ public class OverallPerformanceController
 		Float finalEtpValue = 0.0f;
 		Float finalStpValue = 0.0f;
 		Float finalcombined = 0.0f;
+		String pollNameReson="";
+		String resonair="Improve your ";
 		EmpData empdata = (EmpData) request.getSession().getAttribute("empDataSession");
 		int companyId = empdata.getCompanyProfile().getCompanyProfileId();
 		List<String> typeList = new ArrayList<>();
@@ -1121,6 +1123,12 @@ public class OverallPerformanceController
 						name = pollName[0];
 						pollStack = Integer.parseInt(pollName[1]);
 						reqQuantity = waterServices.getRegStackPollData(name, month, year, pollStack);
+						//stack reason
+						if(reqQuantity > consentQuan.get(ii)) {		
+							overallnameReson +=  name+ ",";
+							pollNameReson +=  name+ ",";
+							
+							}
 						if (reqQuantity != null)
 						{
 							regq.add(reqQuantity);
@@ -1269,7 +1277,14 @@ public class OverallPerformanceController
 						pollName = temp11.split("-");
 						name = pollName[0];
 						pollStack = Integer.parseInt(pollName[1]);
+						
 						reqQuantity = waterServices.getRegStackPollData(name, month, year, pollStack);
+						//reason gasses
+						if(reqQuantity > consentQuan.get(ii)) {								
+							overallnameReson +=  name+ ",";
+							pollNameReson +=  name+ ",";
+							
+							}
 						if (reqQuantity != null)
 						{
 							regq.add(reqQuantity);
@@ -1390,8 +1405,11 @@ public class OverallPerformanceController
 				for (int j = 0; j < pname.size(); j++)
 				{
 					reqQuantity = waterServices.getRegAmbientPollData(pname.get(j), month, year, id.get(j));
+					//reson ambient
 					if(reqQuantity > consentQuan.get(j)) {						
 						overallnameReson +=  pname.get(j)+ ",";
+						pollNameReson +=  pname.get(j)+ ",";
+						
 						}
 					if (reqQuantity != null)
 					{
@@ -1464,19 +1482,23 @@ public class OverallPerformanceController
 				finalOverall = finalStack + finalAmbient;
 				air = finalOverall;
 			}
-
+			if(pollNameReson != null) {
+				resonair += pollNameReson;
+			}
 			HashMap<String, Object> hashMap = new HashMap<String, Object>();
-			hashMap.put("Type", new String("combine")); // from Stack 70% & Ambient 30%
+			hashMap.put("resonair", resonair);
+			hashMap.put("Typen", new String("combine")); // from Stack 70% & Ambient 30%
 			hashMap.put("finalCombinedValue", new Float(Utilities.getFloatpoint(finalOverall, 2)));
+			
 			jsonArray.put(hashMap);
 
 			HashMap<String, Object> hashMap1 = new HashMap<String, Object>();
-			hashMap1.put("Type", new String("Stack"));
+			hashMap1.put("Typen", new String("Stack"));
 			hashMap1.put("finalStackValue", new Float(Utilities.getFloatpoint(finalStack, 2)));
 			jsonArray.put(hashMap1);
 
 			HashMap<String, Object> hashMap2 = new HashMap<String, Object>();
-			hashMap2.put("Type", new String("Ambient"));
+			hashMap2.put("Typen", new String("Ambient"));
 			hashMap2.put("finalAmbientValue", new Float(Utilities.getFloatpoint(finalAmbient, 2)));
 			jsonArray.put(hashMap2);
 

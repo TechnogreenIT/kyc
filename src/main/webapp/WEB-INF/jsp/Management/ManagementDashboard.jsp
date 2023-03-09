@@ -59,6 +59,8 @@
 								</div>
 							</div>
 						</div>
+						
+						
 						<div class="col-md-6">
 							<div class="row" style= "height: 559px; overflow-y: scroll;">
 								<div class="col-md-6 col-12">
@@ -106,24 +108,27 @@
 										</div>
 									</div>
 								</div>
+								
+								
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border" >
-									<li class="actions__item zmdi zmdi-help-outline mt-2"
+									<!--<li class="actions__item zmdi zmdi-help-outline mt-2"
 											data-toggle="tooltip" data-placement="top"
-											data-original-title="waterTreatmentGaugeMeter"></li>		
-									
+											data-original-title="waterTreatmentGaugeMeter"></li>-->	
+									<li class="actions__item" id="addAirReson"></li>
 										<div class="card-body card-body-meter" >
-											<canvas class="meter-canvas" id="waterTreatmentGaugeMeter"> </canvas>
+											<canvas class="meter-canvas" id="airGaugeMeter"> </canvas>
 											<center>
-												<div id="waterTreatmentGaugeMeter-text" class="meter-value">0</div>
+												<div id="airGaugeMeter-text" class="meter-value">0</div>
 											</center>
 										</div>
 										<div
 											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
 											<div class="row">
-												<div class="col-md-6 col-6 card-devider text-white">Water
-													Treatment Environment Performance</div>
-													<div class="col-md-6 col-6" id="envtreatperformance-state"></div>
+												<div class="col-md-6 col-6 card-devider text-white">Air
+													 Environment Performance</div>
+													<div class="col-md-6 col-6" id="performanceAir_State"></div>
+													
 												<!-- <div class="col-md-12 col-12">																						
                                           <i class="zmdi zmdi-trending-up zmdi-hc-lg text-success"></i>
                                           <span class="text-success"> (+26.98 %)</span> </div> -->
@@ -131,38 +136,41 @@
 										</div>
 									</div>
 								</div>
+								
+								
+								
 								<div class="col-md-6 col-12">
-									<div class="card card-top-border">
-								<!---	<li class="actions__item zmdi zmdi-help-outline mt-2"
-											data-toggle="tooltip" data-placement="top"
-											data-original-title="overAllEnvPerformance"></li>-->
-											<li class="actions__item" id="addOverAllReson"></li>
-										<div class="card-body card-body-meter">
-											<canvas class="meter-canvas" id="overAllEnvPerformance"> </canvas>
-											<center>
-												<div id="overAllEnvPerformance-text" class="meter-value">0</div>
-											</center>
-										</div>
-									 	 <div
-											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
-											<div class="row">
-												<div class="col-md-6 col-6 card-devider text-white" id="date-overAll-state">OverAll
-													Environment Performance</div>
-												 <div class="col-md-6 col-6" id="overallIDState"></div>
-												<!-- <div class="col-md-12 col-12"><i class="zmdi zmdi-trending-up zmdi-hc-lg text-success"></i> <span class="text-success"> (+26.98 %)</span> </div> -->
-											</div>
-										</div>
-										<!-- <div
-											class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
-											<div class="row">
-												<div class="col-md-6 col-6 card-devider text-white"
-													id="date-overAll-state">OverAll Environment Performance</div>
-												<div class="col-md-6 col-6" id="overallID"></div>
-											</div>
-										</div>-->	
-									
-									</div>
-								</div>
+                                    <div class="card card-top-border">
+                                <!---   <li class="actions__item zmdi zmdi-help-outline mt-2"
+                                            data-toggle="tooltip" data-placement="top"
+                                            data-original-title="overAllEnvPerformance"></li>-->
+                                            <li class="actions__item" id="addOverAllReson"></li>
+                                        <div class="card-body card-body-meter">
+                                            <canvas class="meter-canvas" id="overAllEnvPerformance"> </canvas>
+                                            <center>
+                                                <div id="overAllEnvPerformance-text" class="meter-value">0</div>
+                                            </center>
+                                        </div>
+                                         <div
+                                            class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
+                                            <div class="row">
+                                                <div class="col-md-6 col-6 card-devider text-white" id="date-overAll-state">OverAll
+                                                    Environment Performance</div>
+                                                 <div class="col-md-6 col-6" id="overallIDState"></div>
+                                                <!-- <div class="col-md-12 col-12"><i class="zmdi zmdi-trending-up zmdi-hc-lg text-success"></i> <span class="text-success"> (+26.98 %)</span> </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- <div
+                                            class="card-footer card-footer-custom card-botttom-border mt-2 special-color-dark">
+                                            <div class="row">
+                                                <div class="col-md-6 col-6 card-devider text-white"
+                                                    id="date-overAll-state">OverAll Environment Performance</div>
+                                                <div class="col-md-6 col-6" id="overallID"></div>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                
 							 	<!--  ///mm-->
 								<div class="col-md-6 col-12">
 									<div class="card card-top-border" >																

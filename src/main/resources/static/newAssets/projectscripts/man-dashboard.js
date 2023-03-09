@@ -9,14 +9,17 @@ $(document).ready(function () {
 	var prev_date = previousDate(today_date);
 	//demo1();
 	//demo3();
-	
-	getOverAllDailyDataQuality();
-	getOverAllConformingPerformance();
-	getEnvQualityDataWater(); // AHP WATER
 	getEnvQualitySTPDataWater();
 	getEnvQualityETPDataWater();
-	getEnvQualityDataAir(); // AHP AIR
-	getEnvQualityDataHz(); // AHP HZ
+	getEnvQualityDataAirCombine
+	getEnvQualityDataAir();
+	getEnvQualityDataHz();
+	getOverAllDailyDataQuality();
+	getOverAllConformingPerformance();
+	 // AHP WATER
+	
+	//getEnvQualityDataAir(); // AHP AIR
+	 // AHP HZ
 	getOverAllAhp(); // AHP OVERALL  
 	
 	if (industryType == "Industry"){
@@ -355,7 +358,7 @@ function getOverAllDailyDataQuality() {
 		  $.each(data, function (index, element) {
         var name = element.name;
         var quality = element.quality;
-        resonSTPETP=element.reson;
+        reson=element.reson;
         
         if (name != "overAll" && name != "overAllOld") {
           var msg_data = $("<div class='col-6 col-sm-4 col-md-6 col-lg-2 offset-lg-4 widget-pie__item grey lighten-4'>" + "<div class='easy-pie-chart chart" + index + "' id='easyPie_" + index + "' data-percent='" + quality + "' data-size='100' data-track-color='rgba(0,0,0,0.08)'>" + "<span class='easy-pie-chart__value'>" + quality + "</span>" + "</div>" + "<div class='widget-pie__title text-black'>" + name + " - " + getMeterPerformance(quality) + "</div>" + "</div>")
@@ -367,7 +370,7 @@ function getOverAllDailyDataQuality() {
         if (name == "overAll") {
           newOverAllPercentage = quality;
           gaugeMeter(quality, "overAllDataQuality", "overAllDataQuality-text");
-           makeMytollTip(resonSTPETP,"addTollTipDtqualityperforms");
+           makeMytollTip(reson,"addTollTipDtqualityperforms");
         }
         if (name == "overAllOld") {
           oldOverAllPercentage = quality;
@@ -383,12 +386,13 @@ function getOverAllDailyDataQuality() {
 function setOldData(newOverAllPercentage, oldOverAllPercentage, id) {
 	var colorClass = "text-success";
 	var iconClass = "zmdi zmdi-trending-up";
-	var oldDateTitle = meterOldDateTitle();
+	//var oldDateTitle = meterOldDateTitle();
+	var oldDateTitle = meterCurrentDateTitle();
 	var diffrence = (newOverAllPercentage - oldOverAllPercentage).toFixed(2);
 	if (diffrence < 0) {
 		colorClass = "text-danger";
 		iconClass = "zmdi zmdi-trending-down";
-	}
+	}	
 	var html = $("<span class='mantooltip hover' data-jbox-title='' data-jbox-content='" + oldDateTitle + "'><i class='" + iconClass + " zmdi-hc-lg " + colorClass + "'></i>" + "<span class='" + colorClass + "'> (" + diffrence + " %)</span></span>");
 	var oldDateHtml = meterCurrentDateTitle();
 	$("#" + id).append(html);
@@ -399,8 +403,10 @@ function setOldData(newOverAllPercentage, oldOverAllPercentage, id) {
 function setFilter(finalCombine, id) {
 	var colorClass = "text-success";
 	var iconClass = "zmdi zmdi-trending-up";
-	var oldDateTitle = meterOldDateTitle();
-	var diffrence = (finalCombine).toFixed(2);
+	//var oldDateTitle = meterOldDateTitle();
+	var oldDateTitle = meterCurrentDateTitle();
+	//var diffrence = finalCombine.toFixed(2);
+	var diffrence = finalCombine;
 	if (diffrence < 0) {
 		colorClass = "text-danger";
 		iconClass = "zmdi zmdi-trending-down";
@@ -412,10 +418,10 @@ function setFilter(finalCombine, id) {
 }
 
 //water data value display
-function makeMytollTip(resonSTPETP,id) {
+function makeMytollTip(reson,id) {
 	var colorClass = "text-success";
 	var iconClass = "zmdi zmdi-help-outline";
-	var oldDateTitle = resonSTPETP;
+	var oldDateTitle = reson;
 	
 	var html = $("<span class='mantooltip hover' data-jbox-title='' data-jbox-content='" + oldDateTitle + "'><i class='actions__item " + iconClass + "'></i>" + "<span class=''></span></span>");
 	var oldDateHtml = meterCurrentDateTitle();
@@ -437,7 +443,7 @@ function getOverAllConformingPerformance() {
 			$.each(parseData, function (index, element) {
 				var name = element.name;
 				var quality = element.quality;
-				resonSTPETP=element.reson;
+				reson=element.reson;
 				if (name != "overAll" && name != "overAllOld") {
 					var msg_data = $("<div class='col-6 col-sm-4 col-md-6 col-lg-2 offset-lg-4 widget-pie__item grey lighten-4'>" + "<div class='easy-pie-chart chart" + index + "' id='easyPie1_" + index + "' data-percent='" + quality + "' data-size='100' data-track-color='rgba(0,0,0,0.08)'>" + "<span class='easy-pie-chart__value'>" + quality + "</span>" + "</div>" + "<div class='widget-pie__title text-black'>" + name + " - " + getMeterPerformance(quality) + "</div>" + "</div>")
 					$("#append_non_conformance_performance").append(msg_data);
@@ -448,7 +454,7 @@ function getOverAllConformingPerformance() {
 				if (name == "overAll") {
 					newOverAllPercentage = quality;
 					gaugeMeter(quality, "overAllDataCompliance", "overAllDataCompliance-text");
-					makeMytollTip(resonSTPETP,"addTollTipdtNonCompliance");
+					makeMytollTip(reson,"addTollTipdtNonCompliance");
 
 				}
 				if (name == "overAllOld") {
@@ -468,40 +474,7 @@ function getOverAllConformingPerformance() {
 	//setPerformanceMain(finalValue1, p_id, parameter, reason, 0);
 }
 
-function getEnvQualityDataWater() {
-	$.ajax({
-		type: 'POST',    
-		url: 'ajax-getWaterPerformancetest',
-		async : false,
-		dataType: 'json',
-		success: function (data) {
-			var data = JSON.parse(data);
-			if (data.length != 0) {
-				$.each(data, function (index, element) {
-					treatmentType = element.meterType;
-					if (treatmentType == "combine") {
-						finalCombine = element.finalCombinedValue;
-						reverseGaugeMeter(finalCombine, "waterTreatmentGaugeMeter", "waterTreatmentGaugeMeter-text");
-					}
-					/*if (treatmentType == "ETP") {
-						finalEtp = (element.finalEtpValue).toFixed(2);
-						meterName = "ETP";
-						setFilter(meterName, finalEtp, "performanceStat_ETP");
-					} else if (treatmentType == "STP") {
-						finalStp = (element.finalStpValue).toFixed(2);
-						meterName = "STP";
-						setFilter(meterName, finalStp, "performanceStat_STP");
-					}*/
-				});
-			} else {
-				$("#noDataWaterPerformance").html("No");
-			}
-		},
-		error: function (dd) {
-			alert("error" + dd);
-		}
-	});
-}
+
 ////mmm
 function getEnvQualitySTPDataWater() {
 	$.ajax({
@@ -513,11 +486,11 @@ function getEnvQualitySTPDataWater() {
 			if (data.length != 0) {
 				$.each(data, function (index, element) {
 					treatmentType = element.meterType;
-					resonSTPETP=element.reson;
+					reson=element.reson;
 					if (treatmentType == "combine") {
 						finalCombine = element.finalCombinedValue;
 						reverseGaugeMeter(finalCombine, "waterTreatmentSTPGaugeMeter", "waterTreatmentSTPGaugeMeter-text");
-						makeMytollTip(resonSTPETP,"addTollTipReson");
+						makeMytollTip(reson,"addTollTipReson");
 					}
 					if (treatmentType == "combine") {
 						finalCombine =  element.finalCombinedValue;
@@ -562,11 +535,11 @@ function getEnvQualityETPDataWater() {
 			if (data.length != 0) {
 				$.each(data, function (index, element) {
 					treatmentType = element.meterType;
-					resonSTPETP=element.reson;
+					reson=element.reson;
 					if (treatmentType == "combine") {
 						finalCombine = element.finalCombinedValue;
 						reverseGaugeMeter(finalCombine, "waterTreatmentETPGaugeMeter", "waterTreatmentETPGaugeMeter-text");
-						makeMytollTip(resonSTPETP,"addTollTipResonETP");
+						makeMytollTip(reson,"addTollTipResonETP");
 					}
 					if (treatmentType == "combine") {
 						finalCombine =  element.finalCombinedValue;
@@ -585,7 +558,7 @@ function getEnvQualityETPDataWater() {
 				});
 			} 
 			else {
-				$("#noDataWaterPerformance").html("No");
+				$("#noDataAirPerformance").html("No");
 				}
 		},
 		error: function (dd) {
@@ -595,7 +568,7 @@ function getEnvQualityETPDataWater() {
 }
 ////mmm
 
-function getEnvQualityDataAir() {
+function getEnvQualityDataAirCombine() {
 	var fwd_url = "ajax-overAllEnvPerformanceAir";
 	$.ajax({
 		type: 'POST',
@@ -604,10 +577,11 @@ function getEnvQualityDataAir() {
 		dataType: 'json',
 		success: function (data) {},
 		error: function (data) {
-			alert("error" + data);
+		alert("error" + data);
 		}
 	});
 }
+
 
 function getEnvQualityDataHz() {
 	var finalValue = 0,
@@ -646,7 +620,8 @@ function getEnvQualityDataHz() {
 function setoverall(data, id) {
 	var colorClass = "text-success";
 	var iconClass = "zmdi zmdi-trending-up";
-	var oldDateTitle = meterOldDateTitle();
+	//var oldDateTitle = meterOldDateTitle();
+	var oldDateTitle = meterCurrentDateTitle();
 	var diffrence = data;
 	if (diffrence < 0) {
 		colorClass = "text-danger";
@@ -657,6 +632,56 @@ function setoverall(data, id) {
 	$("#" + id).append(html);
 	makeToolTip();
 }
+function makeMytollTipn(resonair,id) {
+	var colorClass = "text-success";
+	var iconClass = "zmdi zmdi-help-outline";
+	var CurrentDateTitle = resonair;
+	
+	var html = $("<span class='mantooltip hover' data-jbox-title='' data-jbox-content='" + CurrentDateTitle + "'><i class='actions__item " + iconClass + "'></i>" + "<span class=''></span></span>");
+	var CurrentDateHtml = meterCurrentDateTitle();
+	$("#" + id).append(html);
+	makeToolTip();
+}
+function getEnvQualityDataAir() {
+	$.ajax({
+		type: 'POST',    
+		url: 'ajax-overAllEnvPerformanceAir',
+		async : false,
+		dataType: 'json',
+		success: function (data) {
+			var parseData = JSON.parse(data);
+			if (parseData.length != 0) {
+				$.each(parseData, function (index, element) {
+					//		
+						Type = element.Typen;						
+						
+						resonair=element.resonair;	
+					if(Type=="combine"){
+						finalCombine = element.finalCombinedValue;
+						reverseGaugeMeter(finalCombine, "airGaugeMeter", "airGaugeMeter-text");
+					    setFilter(finalCombine, "performanceAir_State");
+						makeMytollTipn(resonair,"addAirReson");
+					}
+					/*if (treatmentType == "ETP") {
+						finalEtp = (element.finalEtpValue).toFixed(2);
+						meterName = "ETP";
+						setFilter(meterName, finalEtp, "performanceStat_ETP");
+					} else if (treatmentType == "STP") {
+						finalStp = (element.finalStpValue).toFixed(2);
+						meterName = "STP";
+						setFilter(meterName, finalStp, "performanceStat_STP");
+					}*/
+				});
+			} else {
+				$("#noDataWaterPerformance").html("No");
+			}
+		},
+		error: function (dd) {
+			alert("error" + dd);
+		}
+	});
+}
+
 function getOverAllAhp() {
 	var fwd_url = "ajax-overAllEnvPerformanceAllFinal";
 	$.ajax({
