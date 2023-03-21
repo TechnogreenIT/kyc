@@ -1,0 +1,284 @@
+function makeMonthlyEsrPopUP(){
+	var html= "";
+	var fwd_url = "ajax-getEsrPopUpValues";
+	$.ajax({
+		type: 'POST',
+		url: fwd_url,
+		success: function (data) {
+			var parseData = JSON.parse(data);
+			$.each(parseData, function (index, element) {
+				var esrYear = element.esrYear;
+				if (esrYear != "NA") {
+					var res = esrYear.split("-");
+					html += "<option value='" + esrYear + "'>April " + res[0] + " - March " + res[1] + "</option>"
+				} else {
+					html += "<option value='selectcard'>You have no any consent to Operate</option>"
+				}
+			});
+
+		},
+		async: false
+	});
+	var modelTitle = "SELECT YEAR AND MONTH FOR ENVIRONMENTAL STATEMENT REPORT";
+
+	var bodyForm = "<div class='row'>"
+			+ "<div class='col-6'>"
+			+ "<div class='form-group'>"
+			+ "<select class='select2' data-placeholder='Select Year' name='esrMonthlyYear' id='esrMonthlyYear'>"
+			+ "<option value=''>Select Year</option>"
+			+ html
+			+ "</select>"
+			+ "<div class='invalid-feedback'>Please select any !</div>"
+			+ "</div>"
+			+ "</div>"
+			
+			+ "<div class='col-6'>"
+			+ "<div class='form-group'>"
+			+ "<select class='select2' data-placeholder='Select Month' name='esrMonthlyMonth' id='esrMonthlyMonth'>"
+			+ "<option value=''>Select Month</option>"
+			+ "<option value='04'>April</option>"
+			+ "<option value='05'>May</option>"
+			+ "<option value='06'>June</option>"
+			+ "<option value='07'>July</option>"
+			+ "<option value='08'>August</option>"
+			+ "<option value='09'>September</option>"
+			+ "<option value='10'>October</option>"
+			+ "<option value='11'>November</option>"
+			+ "<option value='12'>December</option>"
+			+ "<option value='01'>January</option>"
+			+ "<option value='02'>February</option>"
+			+ "<option value='03'>March</option>"
+			+ "</select>"
+			+ "<div class='invalid-feedback'>Please select any !</div>"
+			+ "</div>" + "</div>"
+
+			+ "</div>";
+	$.showModal({
+		title: modelTitle,
+		modalDialogClass: '',
+		body: bodyForm,
+		footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Cancel</button><button type='button' onclick='getMonthlyESRData()' class='btn btn-primary'>GET STATEMENT</button>",
+		onCreate: function (modal) {
+			// create event handler for form submit and handle values
+
+		}
+	})
+	makeSelect2();
+}
+
+function getMonthlyESRData(){
+	var flag = 0;
+	var year = btoa($("#esrMonthlyYear").val());
+	var month = btoa($("#esrMonthlyMonth").val());
+	
+	flag += customSelectValidator(year, "esrMonthlyYear");
+	flag += customSelectValidator(month, "esrMonthlyMonth");
+	if(flag == 0 ){
+		window.location="monthly-esr?year="+year+"&month="+month; /* envr-officer-esr-form */ 
+	}
+	
+}
+
+function makeYearlyEsrPopUP(){
+	var html= "";
+	var fwd_url = "ajax-getYearlyEsrValues";
+	$.ajax({
+		type: 'POST',
+		url: fwd_url,
+		success: function (data) {
+			var parseData = JSON.parse(data);
+			var esrMinY = "";
+			var esrMaxY = "";
+			var yearArray=[];
+			yearArray=parseData;
+			$.each(parseData, function(index, element) { 
+				var esrYear = element.esrYear;
+				
+				if(esrYear != "NA"){
+					var res = esrYear.split("-");
+					html += "<option value='"+esrYear+"'>April "+res[0]+" - March "+res[1]+"</option>"
+				} else {
+					html += "<option value='selectcard'>You have no any consent to Operate</option>"
+				}
+			});
+
+		},
+		async: false
+	});
+	var modelTitle = "SELECT YEAR FOR ENVIRONMENTAL STATEMENT REPORT";
+
+	var bodyForm = "<div class='row'>"
+			+ "<div class='col-12'>"
+			+ "<div class='form-group'>"
+			+ "<select class='select2' data-placeholder='Select Year' name='esrYearlyYear' id='esrYearlyYear'>"
+			+ "<option value=''>Select Year</option>"
+			+ html
+			+ "</select>"
+			+ "<div class='invalid-feedback'>Please select any !</div>"
+			+ "</div>"
+			+ "</div>"
+			+ "</div>";
+	$.showModal({
+		title: modelTitle,
+		modalDialogClass: '',
+		body: bodyForm,
+		footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Cancel</button><button type='button' onclick='getYearlyESRData()' class='btn btn-primary'>GET STATEMENT</button>",
+		onCreate: function (modal) {
+			// create event handler for form submit and handle values
+
+		}
+	})
+	makeSelect2();
+}
+function getYearlyESRData(){
+	var flag = 0;
+	var year = btoa($("#esrYearlyYear").val());
+	flag += customSelectValidator(year, "esrYearlyYear");
+	if(flag == 0 ){
+		window.location="yearly-esr?year="+year;
+	}
+	
+}
+/*function waterBudgetPopUP(){
+	var html= "";
+	var fwd_url = "ajax-consentNoPopUpValues";
+	$.ajax({
+		type: 'POST',
+		url: fwd_url,
+		success: function (data) {
+			var parseData = JSON.parse(data);
+			$.each(parseData, function(index, element) { 
+				var consentNo = element.consentNo;
+				var consentName = element.consentName;
+				if(parseData != "NA")
+				{
+					html += "<option value='"+consentNo+"'>"+consentName+"</option>"
+				} 
+				
+				else 
+				{
+					html += "<option value=''>You have no any consent to Operate</option>"
+				}
+			
+			}); 
+
+		},
+		async: false
+	});
+	var modelTitle = "SELECT CONSENT FOR WATER BUDGET REPORT";
+
+	var bodyForm = "<div class='row'>"
+			+ "<div class='col-12'>"
+			+ "<div class='form-group'>"
+			+ "<select class='select2' data-placeholder='Select Consent Number' name='waterBudgetConsent' id='waterBudgetConsent'>"
+			+ "<option value=''>Select Consent Number</option>"
+			+ html
+			+ "</select>"
+			+ "<div class='invalid-feedback'>Please select any !</div>"
+			+ "</div>"
+			+ "</div>"
+			+ "</div>";
+	$.showModal({
+		title: modelTitle,
+		modalDialogClass: '',
+		body: bodyForm,
+		footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Cancel</button><button type='button' onclick='getWaterBudget()' class='btn btn-primary'>GET WATER BUDGET REPORT</button>",
+		onCreate: function (modal) {
+			// create event handler for form submit and handle values
+
+		}
+	})
+
+	makeSelect2();
+}
+*/
+
+
+function getWaterBudget(){
+	var flag = 0;
+	var consent = $("#waterBudgetConsent").val();
+	
+	flag += customSelectValidator(consent, "waterBudgetConsent");
+	
+	if(flag == 0){
+		$.ajax({
+			type : "POST",
+			url : "water-budgetView?consent="+consent,
+			dataType : 'json',
+			success : function(data) {
+				if(data=="Success"){
+					window.open('getpdf1', '_blank');
+				}else{
+					alert("Sorry Data is Not Available!");
+				}
+			}
+		});
+	}
+	
+}
+
+function makeHazardousReturnPopUP(){
+
+	var html= "";
+	var fwd_url = "ajax-getHazardousValues";
+	$.ajax({
+		type: 'POST',
+		url: fwd_url,
+		success: function (data) {
+			var parseData = JSON.parse(data);
+			var esrMinY = "";
+			var esrMaxY = "";
+			var yearArray=[];
+			yearArray=parseData;
+			$.each(parseData, function(index, element) { 
+			    esrMinY = element.esrMinYear;
+				console.log("miny>>>"+esrMinY);
+				esrMaxY = element.esrMaxYear;
+				 console.log("maxxx"+esrMaxY);
+			});
+			var a = esrMinY;
+			var b = "";
+			for(i = esrMinY ; i<=esrMaxY ;i++){
+				b = a +1 ;
+				html += "<option value='"+a+"-"+b+"'>April "+a+" - March "+b+"</option>"
+				a = a +1;
+			} 
+		},
+		async: false
+	});
+	var modelTitle = "SELECT YEAR FOR HAZARDOUS RETURN";
+
+	var bodyForm = "<div class='row'>"
+			+ "<div class='col-12'>"
+			+ "<div class='form-group'>"
+			+ "<select class='select2' data-placeholder='Select Year' name='hzReturnYear' id='hzReturnYear'>"
+			+ "<option value=''>Select Year</option>"
+			+ html
+			+ "</select>"
+			+ "<div class='invalid-feedback'>Please select any !</div>"
+			+ "</div>"
+			+ "</div>"
+			+ "</div>";
+	$.showModal({
+		title: modelTitle,
+		modalDialogClass: '',
+		body: bodyForm,
+		footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Cancel</button><button type='button' onclick='getHzReturnData()' class='btn btn-primary'>GET STATEMENT</button>",
+		onCreate: function (modal) {
+			// create event handler for form submit and handle values
+
+		}
+	})
+	makeSelect2();
+
+}
+
+function getHzReturnData(){
+	var flag = 0;
+	var year = btoa($("#hzReturnYear").val());
+	flag += customSelectValidator(year, "hzReturnYear");
+	
+	if(flag == 0){
+		window.location="envr-officer-hazardous-return?year="+year;
+	}
+}

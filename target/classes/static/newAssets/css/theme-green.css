@@ -1,0 +1,109 @@
+/* green theme */
+
+[data-ma-theme="green"] {
+	background-image: url('../img/custom/data-science-bg-green.png') !important;
+	background-size: cover !important;
+	background-repeat: no-repeat !important;
+	background-attachment: fixed !important;
+}
+
+[data-ma-theme="green"] .header,
+[data-ma-theme="green"] .login__block__header,
+[data-ma-theme="green"] .login__block__btn,
+[data-ma-theme="green"] .top-menu {
+  background-color: #32c787 !important; 
+}
+[data-ma-theme="green"] .navigation__sub--active > a,
+[data-ma-theme="green"] .navigation__active > a,
+[data-ma-theme="green"] .navigation__active:before {
+  color: #32c787 !important; 
+}
+  
+.dropdown .dropdown-menu .dropdown-item:active {
+  background-color: #f6f6f6;
+}
+[data-ma-theme="green"] .main-card-top-border,
+[data-ma-theme="green"] .top-thick-border {
+    border-top: 10px solid #32c787 !important;
+}
+[data-ma-theme="green"] .blockquote {
+    border-left: .40rem solid #32c787 !important;
+}
+
+[data-ma-theme="green"] .nav-tabs:not([class*=nav-tabs--]) .nav-link.active {
+    color: #32c787;
+}
+[data-ma-theme="green"] .nav-tabs .nav-link:before {
+    background-color: #32c787;
+}
+
+/* aside menu on graph tab */
+[data-ma-theme="green"] #test #fpi_content,
+[data-ma-theme="green"] #test #fpi_title {
+    background-color: #32c787;
+}
+
+[data-ma-theme="green"] #test #fpi_title i {
+    color: #ffffff;
+}
+[data-ma-theme="green"] #test li a {
+    color: #ffffff;
+}
+[data-ma-theme="green"] #test ul ul a {
+	 background-color: #32c787;
+}
+/* accordions */
+[data-ma-theme="green"] .ui-state-active,
+[data-ma-theme="green"] .ui-widget-content .ui-state-active,
+[data-ma-theme="green"] .ui-widget-header .ui-state-active,
+[data-ma-theme="green"] a.ui-button:active,
+[data-ma-theme="green"] .ui-button:active,
+[data-ma-theme="green"] .ui-button.ui-state-active:hover {
+    border: 1px solid #32c787 !important;
+    background: #32c787 !important;
+}
+
+/* form group */
+[data-ma-theme="green"] .form-group__bar:after,
+[data-ma-theme="green"] .form-group__bar:before {
+    background-color: #32c787;
+}
+[data-ma-theme="green"] .form-group--float .form-control:focus~label {
+    color: #32c787;
+}
+[data-ma-theme="green"] .select2-container--default .selection:after,
+[data-ma-theme="green"] .select2-container--default .selection:before {
+    background-color: #32c787;
+}
+[data-ma-theme="green"] .checkbox>input[type=checkbox]:checked~.checkbox__label:before,
+[data-ma-theme="green"] .checkbox>input[type=checkbox]:checked~.radio__label:before,
+[data-ma-theme="green"] .checkbox>input[type=radio]:checked~.checkbox__label:before,
+[data-ma-theme="green"] .checkbox>input[type=radio]:checked~.radio__label:before,
+[data-ma-theme="green"] .radio>input[type=checkbox]:checked~.checkbox__label:before,
+[data-ma-theme="green"] .radio>input[type=checkbox]:checked~.radio__label:before,
+[data-ma-theme="green"] .radio>input[type=radio]:checked~.checkbox__label:before,
+[data-ma-theme="green"] .radio>input[type=radio]:checked~.radio__label:before {
+    border-color: #32c787;
+}
+[data-ma-theme="green"] .radio__label:after {
+    background-color: #32c787;
+}
+/* date picker */
+[data-ma-theme="green"] .flatpickr-months .flatpickr-month ,
+[data-ma-theme="green"] .flatpickr-current-month .flatpickr-monthDropdown-months,
+[data-ma-theme="green"] .flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+    background: #32c787;
+    border: 1px solid #fff;
+}
+[data-ma-theme="green"] .flatpickr-weekdays,
+[data-ma-theme="green"] span.flatpickr-weekday
+{
+	background: #32c787;
+	color: #fff;
+}
+
+/* cards theme */
+[data-ma-theme="green"] .card .card-header {
+	background-color: #32c787 !important;
+}
+

@@ -1,0 +1,251 @@
+	<div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+										<c:forEach var="preFilter" items="${preFilterList}">
+											<div class="row disable-block filterDataDiv"
+												style="display: none"
+												id="preFilterDiv_${preFilter.getPrefilterId()}">
+
+												<div
+													class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5 offset-1">
+
+													<div class="form-group">
+														<label class="font-weight-bold"> Do You Have
+															Pre-Filtrer?</label></br>
+														<div class="radio radio--inline cursor-pointer">
+															<input type="radio"
+																name="preFilter_${preFilter.getPrefilterId()}"
+																id="preFilterY_${preFilter.getPrefilterId()}"
+																value="Yes"
+																<c:out value="${preFilter.isPrefilter()== true ? 'checked' : ''} " />>
+															<label class="radio__label"
+																for="preFilterY_${preFilter.getPrefilterId()}">Yes</label>
+														</div>
+														<div class="radio radio--inline cursor-pointer">
+															<input type="radio"
+																name="preFilter_${preFilter.getPrefilterId()}"
+																id="preFilterN_${preFilter.getPrefilterId()}" value="No"
+																<c:out value="${preFilter.isPrefilter()== true ? '' : 'checked'} " />>
+															<label class="radio__label"
+																for="preFilterN_${preFilter.getPrefilterId()}">No</label>
+														</div>
+														<div class='invalid-feedback'>Invalid !</div>
+													</div>
+
+												</div>
+
+												<div class="row mt-6 mt-4">
+													<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-4 mt-2">
+														<div class="checkbox">
+															<input type="checkbox" name="ACF" value="ACF"
+																id="prefilterACF"
+																<c:out value="${preFilter.isAcf()== true ? 'checked' : ''} " />>
+															<label class="checkbox__label" for="prefilterACF">ACF</label>
+														</div>
+													</div>
+													<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-4 mt-2">
+														<div class="checkbox">
+															<input type="checkbox" name="PSF" value="PSF"
+																id="prefilterPSF"
+																<c:out value="${preFilter.isPsf()== true ? 'checked' : ''} " />>
+															<label class="checkbox__label" for="prefilterPSF">PSF</label>
+														</div>
+													</div>
+													<div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-4 mt-2">
+														<div class="checkbox">
+															<input type="checkbox" name="DMF" value="DMF"
+																id="prefilterDMF"
+																<c:out value="${preFilter.isDmf()== true ? 'checked' : ''} " />>
+															<label class="checkbox__label" for="prefilterDMF">DMF</label>
+														</div>
+													</div>
+												</div>
+											</div>
+										</c:forEach>
+
+									</div>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+
+/*
+
+
+
+function makeFilterUseModal(FilterType){
+
+ 
+ var modelTitle ="Add "+FilterType+" filter ";
+ filterUseOptions=getWaterFilterUseNameOptions();
+ 
+ var bodyForm =  '<div class="container" style="border:1px solid black;">'+
+ 		'<div class="row mb-3">'+
+ 
+	  '        <div class="col-6 mt-2">'+
+	  '            <div class="form-group mb-0">'+
+	 
+      '<div class="col-12 mb-3">'+
+     ' <select class="select2" data-placeholder="Select add filter" name="filterUseType" id="filterUseType">'+
+      filterOptions+
+     '</select>'+
+     ' <div class="invalid-feedback ml-4">Please select any !</div>'+
+     ' </div>'+
+	  '                <div class="invalid-feedback">Invalid!</div><i class="form-group__bar"></i>'+
+	  '            </div>'+
+	  '        </div>'+
+	  '    </div>'+
+	  '    <div class="row mb-3">'+
+	  '        <div class="col-6 mt-2">'+
+ 
+	  '            <div class="form-group mb-0">'+
+	  '                <input type="text" id="filterUseLable"   name="filterUseLable"  placeholder="Filter_Use_Label"  class="form-control">'+
+	  '                <div class="invalid-feedback">Invalid!</div><i class="form-group__bar"></i>'+
+	  '            </div>'+
+	  '        </div>'+
+	  '        <div class="col-6 mt-2">'+
+	  '            <div class="form-group mb-0">'+
+	  '                <input type="Number" id="flterWaterLoss"   name="flterWaterLoss"   placeholder="Water Loss in Percent (%)" class="form-control" >'+
+	  '                <div class="invalid-feedback">Invalid!</div><i class="form-group__bar"></i>'+
+	  '            </div>'+
+	  '        </div>'+
+	  '    </div>'+
+
+ 
+	  '    <div class="row">'+
+	  '        <div class="col-6">'+
+	  '            <div class="form-group mb-0 mt-2"> <strong class="font-weight-bold">Meter Installed ? :</strong></div>'+
+	  '        </div>'+
+	  ''+
+	  '        <div class="col-6">'+
+	  '            <div class="radio radio--inline cursor-pointer">'+
+	  '                <input type="radio" name="filterUseMeter" id="uMeterY" value="Yes">'+
+	  '                <label class="radio__label" for="uMeterY">Yes</label>'+
+	  '            </div>'+
+	  '            <div class="radio radio--inline cursor-pointer">'+
+	  '                <input type="radio" name="filterUseMeter" id="uMmeterN" value="No" checked>'+
+	  '                <label class="radio__label" for="uMmeterN">No</label>'+
+	  '            </div>'+
+	  '        </div>'+
+	  '   <hr>'+
+	  '    </div>'+
+      
+	  
+          '</div>';
+
+ $.showModal({
+	   title: modelTitle,
+	   modalDialogClass: 'modal-md',
+	   body: bodyForm,
+	   footer: "<button type='button' class='btn btn-link' data-dismiss='modal'>Cancel</button><button type='submit' onclick='displayFilterUse(this)' class='btn btn-primary'>Add</button>",
+	   onCreate: function (modal) {
+	     // create event handler for form submit and handle values
+	   }
+	 })
+
+ makeSelect2();
+}
+
+
+function  displayFilterUse(el){
+	var flag=0;
+	 var filterUseType = $("#filterUseType").val();
+	  var filterUselabel = $("#filterUseLable").val();
+	  var waterLoss = $("#flterWaterLoss").val();
+	  var waterUseMeter = $('input[name=filterUseMeter]:checked').val();
+
+	  flag += customSelectValidator(filterUseType, "filterUseType");
+	  flag += customInputValidator(filterUselabel, "#filterUseLable");
+	  flag += customInputValidator(waterLoss, "#flterWaterLoss"); 
+	  
+	  
+	  if (flag == 0) {
+		    var modalId = $(el).closest('.modal').attr('id');
+		    $('#' + modalId).modal('toggle');
+		    addDisplayFilterUse(filterUseType,filterUselabel,waterLoss,waterUseMeter);
+		  makeSelect2();
+		  }
+	
+}
+
+
+
+function addDisplayFilterUse(filterUseType,filterUselabel,waterLoss,waterUseMeter){
+	
+	
+	  var trHtml = $(	'<div class="col-12 mb-3" style="border:1px solid black;">'+
+			  '<div class="col-12 mb-3">'+
+		 	     '            <div class="form-group mb-0">'+
+		 		  '                <input type="text" id="filterUseType" class="form-control" value="'+filterUseType+'" >'+
+		 		  '                <div class="invalid-feedback">Invalid!</div><i class="form-group__bar"></i>'+
+		 		  '            </div>'+
+		 
+		 		  '    </div>'+
+		 		  '    <div class="row mb-3">'+
+		 		  '        <div class="col-6 mt-2">'+
+		 	 
+		 		  '            <div class="form-group mb-0">'+
+		 		  '                <input type="text" id="filterUseLable" class="form-control" value="'+filterUselabel+'" >'+
+		 		  '                <div class="invalid-feedback">Invalid!</div><i class="form-group__bar"></i>'+
+		 		  '            </div>'+
+		 		  '        </div>'+
+		 		  '        <div class="col-6 mt-2">'+
+		 		  '            <div class="form-group mb-0">'+
+		 		  '                <input type="Number" id="flterWaterLoss"  class="form-control" value="'+waterLoss+'">'+
+		 		  '                <div class="invalid-feedback">Invalid!</div><i class="form-group__bar"></i>'+
+		 		  '            </div>'+
+		 		  '        </div>'+
+		 		  '    </div>'+
+
+		 	 
+		 		  '    <div class="row">'+
+		 		  '        <div class="col-6">'+
+		 		  '            <div class="form-group mb-0 mt-2"> <strong class="font-weight-bold">Meter Installed ? :</strong></div>'+
+		 		  '        </div>'+
+		 		  '        <div class="col-6">'+
+		 		  '            <div class="radio radio--inline cursor-pointer">'+
+		 		  '                <input type="radio" name="filterUseMeter" id="uMeterY" value="Yes">'+
+		 		  '                <label class="radio__label" for="uMeterY">Yes</label>'+
+		 		  '            </div>'+
+		 		  '            <div class="radio radio--inline cursor-pointer">'+
+		 		  '                <input type="radio" name="filterUseMeter" id="uMmeterN" value="No" checked>'+
+		 		  '                <label class="radio__label" for="uMmeterN">No</label>'+
+		 		  '            </div>'+
+		 		  '        </div>'+
+		 		  '   <hr>'+
+		 		  '    </div>'+
+		 		  
+		 	    ' <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">'+
+		 	        '                <label class="font-weight-bold" >More Filter</label>'+
+		 	        '   <button class="btn btn-primary btn--icon size-2x" title="Add" onclick="makeFilterUseModal(\''+filterUseType+'\');"><i class="zmdi zmdi-plus"></i></button>'+
+		 	        '                <label class="font-weight-bold">Use</label>'+
+		 	        '   <button class="btn btn-primary btn--icon size-2x" title="Add" onclick="industrialUseModal(\''+filterUseType+'\');"><i class="zmdi zmdi-plus"></i></button>'+
+		 	        ' </div>'	+  
+		 	       ' </div>'	
+	  )
+
+	  $("#displayFilterUse").append(trHtml);
+	}
+
+*/

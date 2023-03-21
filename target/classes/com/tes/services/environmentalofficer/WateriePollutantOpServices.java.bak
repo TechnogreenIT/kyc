@@ -1,0 +1,18 @@
+package com.tes.services.environmentalofficer;
+
+import java.util.List;
+import com.tes.model.WateriePollutantOp;
+
+public interface WateriePollutantOpServices
+{
+
+	WateriePollutantOp save(WateriePollutantOp wateriePollutantOp);
+<<<<<<< .mine
+
+	public List<WateriePollutantOp> deleteWateriePollutantOp(int productId);
+||||||| .r5
+=======
+
+	int deleteWateriePollutantOp(int productId);
+>>>>>>> .r6
+}
