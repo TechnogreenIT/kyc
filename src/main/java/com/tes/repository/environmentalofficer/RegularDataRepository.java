@@ -143,7 +143,7 @@ public interface RegularDataRepository extends JpaRepository<RegularData, Long>
 	@Query("SELECT  AVG(r.quantity) FROM RegularData r  INNER JOIN r.allProductComparativeSheet apc INNER JOIN apc.allProducts a INNER JOIN a.allProductName an WHERE an.productName= :pName AND EXTRACT(MONTH FROM r.inputDate)= :month AND EXTRACT(YEAR FROM r.inputDate)= :year")
 	public Float getAverageQuantityByPNameMonthYearForAhp(@Param("pName") String pName, @Param("month") int month, @Param("year") int year);
 
-	@Query("SELECT r FROM RegularData r LEFT JOIN r.allProductComparativeSheet apc LEFT JOIN apc.allProducts a LEFT JOIN a.allProductName an WHERE r.inputDate =:date AND an.type=:productType")
+	@Query("SELECT r FROM RegularData r LEFT JOIN r.allProductComparativeSheet apc LEFT JOIN apc.allProducts a LEFT JOIN a.allProductName an WHERE r.inputDate =:date AND an.type=:productType ORDER BY  a.allProductName ASC")
 	List<RegularData> getProductDetailsData(@Param("date") String date, @Param("productType") String productType);
 
 	@Query("SELECT SUM(r.quantity) FROM RegularData r INNER JOIN r.allProductComparativeSheet apc  INNER JOIN apc.allProducts a  INNER JOIN a.consent c INNER JOIN a. allProductName apn WHERE apn.productName= :productName AND r.inputDate BETWEEN :datefrom AND :dateto")

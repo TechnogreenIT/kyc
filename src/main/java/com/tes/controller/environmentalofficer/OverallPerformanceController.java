@@ -65,7 +65,8 @@ public class OverallPerformanceController
 
 	private static final Logger LOGGER = LogManager.getLogger(OverallPerformanceController.class);
 
-	float water = 0.0f;
+	
+	float water =  0.0f;
 	float air = 0.0f;
 	float hazardous = 0.0f;
 	String overallnameReson ="";
@@ -158,6 +159,7 @@ public class OverallPerformanceController
 			// etp
 			if (isETP == 1)
 			{
+				int pollId = 0;
 				String pollutantName = null;
 				float marks1 = 0.0f;
 				float consentQuan = 0.0f;
@@ -172,6 +174,9 @@ public class OverallPerformanceController
 				List<Object[]> pollquantity = new ArrayList<>();
 				List<Float> marks = new ArrayList<>();
 				List<Float> consentlimit = new ArrayList<>();
+				
+				List<Integer> pollIdn = new ArrayList<>();
+				
 				List<Float> updatedMarks = new ArrayList<>();
 				List<Float> factors = new ArrayList<>();
 				List<Float> consentdiv = new ArrayList<>();
@@ -246,6 +251,11 @@ public class OverallPerformanceController
 					for (int j = 0; j < pollname.size(); j++)
 					{
 						// reqQuantity = waterServices.getRegEffPollData(year, pollname.get(j));
+						reqQuantity = regEffPollServices.getEffPollAvg(pollname.get(j), year);
+						if(reqQuantity > consentlimit.get(j)) {
+								overallnameReson +=  pollname.get(j)+",";
+							}
+							
 						if (reqQuantity != null)
 						{
 							regq.add(reqQuantity);
@@ -287,6 +297,7 @@ public class OverallPerformanceController
 			// stp
 			if (isSTP == 1)
 			{
+				int pollId = 0;
 				String pollutantName = null;
 				float marks1 = 0.0f;
 				float consentQuan = 0.0f;
@@ -301,6 +312,8 @@ public class OverallPerformanceController
 				List<Object[]> pollquantity = new ArrayList<>();
 				List<Float> marks = new ArrayList<>();
 				List<Float> consentlimit = new ArrayList<>();
+				
+				List<Integer> pollIdn = new ArrayList<>();
 				List<Float> updatedMarks = new ArrayList<>();
 				List<Float> factors = new ArrayList<>();
 				List<Float> consentdiv = new ArrayList<>();
@@ -329,10 +342,11 @@ public class OverallPerformanceController
 						pollutantName = (String) pollquantitydata[0];
 						consentQuan = (Float) pollquantitydata[1];
 						marks1 = (Float) pollquantitydata[2];
+						pollId = (int) pollquantitydata[3];
 						pollname.add(pollutantName);
 						marks.add(marks1);
 						consentlimit.add(consentQuan);
-
+						pollIdn.add(pollId);
 					}
 
 					if (!Validator.isEmpty(marks))
@@ -374,6 +388,10 @@ public class OverallPerformanceController
 						for (int j = 0; j < pollname.size(); j++)
 						{
 							// reqQuantity = waterServices.getRegSewPollData(year, pollname.get(j));
+							reqQuantity = regSewPollServices.getSewPollAvg(pollname.get(j), year);
+							if(reqQuantity > consentlimit.get(j)) {								
+								overallnameReson +=  pollname.get(j)+ ",";
+								}
 							if (reqQuantity != null)
 							{
 								regq.add(reqQuantity);
@@ -632,7 +650,7 @@ public class OverallPerformanceController
 							if(reqQuantity > consentlimit.get(j)) {
 							pollNameReson +=  pollname.get(j)+ ",";
 
-							overallnameReson +=  pollname.get(j)+",";
+						//	overallnameReson +=  pollname.get(j)+",";
 							}
 							
 							///
@@ -684,7 +702,7 @@ public class OverallPerformanceController
 			}
 			if (isSTP == 1)
 			{
-				water = finalStpValue;
+				//water += finalStpValue;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine"));
 				hashMap.put("reson", reson);
@@ -693,7 +711,7 @@ public class OverallPerformanceController
 			}
 			else
 			{
-				water = 0;
+				//water += 0;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine"));
 				hashMap.put("reson", reson);
@@ -855,7 +873,7 @@ public class OverallPerformanceController
 						//madetooltip reason
 						if(reqQuantity > consentlimit.get(j)) {
 							pollNameReson +=  pollname.get(j)+ ",";
-							overallnameReson +=  pollname.get(j)+ ",";
+							//overallnameReson +=  pollname.get(j)+ ",";
 							}
 						if (reqQuantity != null)
 						{
@@ -906,7 +924,7 @@ public class OverallPerformanceController
 			
 			if (isETP == 1)
 			{
-				water = finalcombined;
+//				water += finalcombined;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine")); // from eto 70% & stp 30%
 				hashMap.put("reson", reson);
@@ -916,7 +934,7 @@ public class OverallPerformanceController
 
 			else
 			{
-				water = 0;
+//				water += 0;
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
 				hashMap.put("meterType", new String("combine"));
 				hashMap.put("reson", reson);
@@ -1694,6 +1712,7 @@ public class OverallPerformanceController
 		float wmarks = 0;
 		float amarks = 0;
 		float hzmarks = 0;
+		
 		//
 		JSONArray jsonArray;
 		jsonArray = new JSONArray();

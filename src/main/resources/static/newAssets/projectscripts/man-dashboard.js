@@ -9,9 +9,10 @@ $(document).ready(function () {
 	var prev_date = previousDate(today_date);
 	//demo1();
 	//demo3();
+	getEnvQualitySTPETPWater();
 	getEnvQualitySTPDataWater();
 	getEnvQualityETPDataWater();
-	getEnvQualityDataAirCombine
+	getEnvQualityDataAirCombine();
 	getEnvQualityDataAir();
 	getEnvQualityDataHz();
 	getOverAllDailyDataQuality();
@@ -474,6 +475,27 @@ function getOverAllConformingPerformance() {
 	//setPerformanceMain(finalValue1, p_id, parameter, reason, 0);
 }
 
+///combine ETP and STP
+function getEnvQualitySTPETPWater() {
+	$.ajax({
+		type: 'POST',
+		url: 'ajax-getWaterPerformancetest',
+		dataType: 'json',
+		success: function (data) {
+			var data = JSON.parse(data);
+			if (data.length != 0) {				
+			} 
+			else {
+				$("#noDataWaterPerformance").html("No");
+				}
+		},
+		error: function (dd) {
+			alert("error" + dd);
+		}
+	});
+}
+
+////
 
 ////mmm
 function getEnvQualitySTPDataWater() {
