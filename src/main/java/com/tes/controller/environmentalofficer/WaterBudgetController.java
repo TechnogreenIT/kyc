@@ -7,6 +7,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -252,8 +253,9 @@ public class WaterBudgetController extends BaseEnvironmentOfficerController
 		data = new ArrayList<>();
 		JSONObject labels = new JSONObject();
 		JSONObject relations = new JSONObject();
-		int waterInventoryId = waterInventoryServices.getWaterInventoryIdByConsent(sDate);
-		List<String> treatTypeList = wastewaterTreatmentServices.getTreatmentTypeByWiId(waterInventoryId);
+		List<Integer>waterInventoryId = new ArrayList<>();
+		 waterInventoryId = waterInventoryServices.getWaterInventoryIdByConsent(sDate, new PageRequest(0, 1));
+		List<String> treatTypeList = wastewaterTreatmentServices.getTreatmentTypeByWiId(waterInventoryId.get(0));
 		int etpFlag = 0, stpFlag = 0;
 		if (!Validator.isEmpty(treatTypeList))
 		{
@@ -305,7 +307,7 @@ public class WaterBudgetController extends BaseEnvironmentOfficerController
 		}
 		// for water sources
 		List<WaterSource> waterSourceData = new ArrayList<>();
-		waterSourceData = waterSourceServices.getWaterSourceData(waterInventoryId);
+		waterSourceData = waterSourceServices.getWaterSourceData(waterInventoryId.get(0));
 		if (!Validator.isEmpty(waterSourceData))
 		{
 			flag0 = 1;
@@ -397,7 +399,7 @@ public class WaterBudgetController extends BaseEnvironmentOfficerController
 				String temp = waterSourceData.get(j).getSourceName();
 				sourcesNames = sourcesNames.concat(temp + " ");
 			}
-			totalWaterConsumption = regWaterSourceDataServices.getSumActualReadingByWaterInvId(waterInventoryId); // Added waterInventoryId instead of 1
+			totalWaterConsumption = regWaterSourceDataServices.getSumActualReadingByWaterInvId(waterInventoryId.get(0)); // Added waterInventoryId instead of 1
 			if (totalWaterConsumption == null)
 			{
 				totalWaterConsumption = 0.0f;
