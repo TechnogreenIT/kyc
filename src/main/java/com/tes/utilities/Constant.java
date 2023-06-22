@@ -60,18 +60,20 @@ public class Constant
 	//
 
 	// LOCAL paths start from here //
-	public static final String server_location = "E:\\WorkspaceJava\\KYC_FILES";
+	public static final String server_location = "E:\\WorkspaceJava1\\KYC_FILES";
 
 	public static final String EnvPath = "//EnvOfficer//";
 	public static final String ThirdPartyPath = "//ThirdParty//";
 	public static final String DAILY_DATA_FILE = server_location + EnvPath + "RegularData//";
 	public static final String consent_file_path = server_location + EnvPath + "consents\\";
 	public static final String stackAndAmbient_file_path = server_location + EnvPath + "StackAndAmbient\\";
+	public static final String ec_file_path = server_location + EnvPath + "ec\\";
+	public static final String cgwa_file_path = server_location + EnvPath + "CGWA\\";
 
-	public static final String ThirdParty_file_path = "E:\\WorkspaceJava\\KYC_FILES\\thirdparty\\";
+	public static final String ThirdParty_file_path = "E:\\WorkspaceJava1\\KYC_FILES\\thirdparty\\";
 
-	public static final String UserProfiles_pic_path = "E:\\WorkspaceJava\\KYC_FILES\\UserProfiles\\";
+	public static final String UserProfiles_pic_path = "E:\\WorkspaceJava1\\KYC_FILES\\UserProfiles\\";
 
-	public static final String DEFAULT_PROFILE_PIC = "E:\\WorkspaceJava\\KYC_FILES\\UserProfiles\\default_user.jpg";
+	public static final String DEFAULT_PROFILE_PIC = "E:\\WorkspaceJava1\\KYC_FILES\\UserProfiles\\default_user.jpg";
 
 }

@@ -1,5 +1,6 @@
 package com.tes.controller.environmentalofficer.consent;
 
+import java.io.Console;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,11 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tes.kyc.KycApplication;
+import com.tes.model.Ambient;
 import com.tes.model.CompanyProfile;
 import com.tes.model.Consent;
 import com.tes.model.ConsentAmulgamation;
 import com.tes.model.ConsentExtendedDate;
 import com.tes.model.EmpData;
+import com.tes.model.EnvEC;
 import com.tes.model.FilterNameList;
 import com.tes.model.FilterUseNames;
 import com.tes.model.HazardousWastes;
@@ -38,6 +41,7 @@ import com.tes.services.HazardousWastesServices;
 import com.tes.services.WaterSourceNamesServices;
 import com.tes.services.environmentalofficer.ConsentExtendedDateServices;
 import com.tes.services.environmentalofficer.ConsentServices;
+import com.tes.services.environmentalofficer.EnvECServices;
 import com.tes.services.environmentalofficer.UnitServices;
 import com.tes.utilities.Constant;
 import com.tes.utilities.Utilities;
@@ -57,6 +61,9 @@ public class CreateConsentController
 	@Autowired
 	ConsentServices consentServices;
 
+	@Autowired
+	EnvECServices envECServices;
+	
 	@Autowired
 	UnitServices unitServices;
 
@@ -164,12 +171,18 @@ public class CreateConsentController
 			@RequestParam(value = "expandedConsentFilePath", required = false) MultipartFile expandedFile,
 			@RequestParam(value = "aml_e[]", required = false) int[] amulgamationEId,
 			@RequestParam(value = "aml_o[]", required = false) int[] amulgamationOId,
-			@RequestParam(value = "extendDate", required = false) String extendDate,
+			@RequestParam(value = "extendDate", required = false) String extendDate,			
+			@RequestParam(value = "ecstatus", required = false) String ecStatus,	//ec	
+			@RequestParam(value = "ecFilePath", required = false) MultipartFile ecFile,//ec
+			@RequestParam(value = "eiastatus", required = false) String eiaStatus,	//ec
+			@RequestParam(value = "eia1", required = false) String eia1,	//ec
+			@RequestParam(value = "eia2", required = false) String eia2,	//ec
+			@RequestParam(value = "eia3", required = false) String eia3,	//ec					
 			@RequestParam(value = "msg", required = false) String msg, HttpServletRequest request,
 			RedirectAttributes redirectAttributes)
 	{
 		ModelAndView modelAndView = new ModelAndView();
-		EmpData empDataSession = null;
+ 		EmpData empDataSession = null;
 		String compName = null;
 		String renameFile = null;
 		if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
@@ -180,19 +193,23 @@ public class CreateConsentController
 		renameFile = Utilities.renameFile(compName);
 		String consType = request.getParameter("consType");
 		Consent consent = new Consent();
+		EnvEC envEC = new EnvEC();
 		Users user = new Users();
 		CompanyProfile companyProfile = new CompanyProfile();
 		String status = null;
 		// request.getParameter()
 
+		
 		try
 		{
+			
+			
+			
 			// if(extendDate.isEmpty())
 			if (extendDate == null)
 			{
 				if (!Validator.isEmpty(request.getParameter("status")))
 					status = request.getParameter("status");
-
 				String que2 = Constant.NO;
 				if (request.getParameter("Validstatus").equalsIgnoreCase(Constant.NO))
 					que2 = request.getParameter("ExValidstatus");
@@ -235,6 +252,7 @@ public class CreateConsentController
 					consent.setOpenSpaceAvaUnits(request.getParameter("openSpaceAvaUnits"));
 					consent.setTotGreenArea(Float.parseFloat(request.getParameter("totGreenArea")));
 					consent.setTotGreenAreaUnits(request.getParameter("totGreenAreaUnits"));
+					
 				}
 				else
 				{
@@ -256,13 +274,16 @@ public class CreateConsentController
 					file = expandedFile.getOriginalFilename();
 					bytes = expandedFile.getBytes();
 				}
-				mainFile = renameFile + "_" + file;
+				mainFile = renameFile + "_" + file;	
 				consent.setConsentFileName(mainFile);
 				// Get the file and save it somewhere
 				Files.write(Paths.get(Constant.consent_file_path + mainFile), bytes); // if path is not getting ready it will show error ....by vishal
 				consent.setConsentFilePath(Constant.consent_file_path + mainFile);// if file size 0 it show error ....by vishal
 				consentServices.save(consent);
 
+				
+				
+				
 				// Amulgamation form here
 				Consent consentId = new Consent();
 				consentId.setConsentId(consent.getConsentId());
@@ -315,6 +336,8 @@ public class CreateConsentController
 							modelAndView.setViewName("redirect:olist-product");
 						}
 					}
+					
+					
 				}
 				else
 				{
@@ -383,6 +406,71 @@ public class CreateConsentController
 				//
 				// }
 			}
+			
+			
+
+			
+			//Ec form add here
+			if (request.getParameter("ecstatus").equalsIgnoreCase(Constant.YES)) 
+			{	
+				//String consentid=consent.getConsNo();
+				envEC.setEcNo(request.getParameter("ecNo"));
+				envEC.setEcvalid_date(request.getParameter("ecvalidupto"));
+//				if (!Validator.isEmpty(request.getParameter("eiastatus")))
+//				{
+				envEC.setEia_Notification(eiaStatus);
+					if (request.getParameter("eiastatus").equalsIgnoreCase(Constant.YES))
+					{	
+						envEC.setProtect_Area_Wildlife(eia1);
+						if(eia1==null){
+							eia1=Constant.NO;
+							envEC.setProtect_Area_Wildlife(eia1); 
+						}
+						envEC.setCriticalPoll_Area_Identify(eia2);
+						if(eia2==null){
+							eia2=Constant.NO;
+							envEC.setCriticalPoll_Area_Identify(eia2); 
+						}
+						envEC.setEcosensitive_Area(eia3);
+						if(eia3==null){
+							eia3=Constant.NO;
+							envEC.setEcosensitive_Area(eia3); 
+						}
+					}
+					else {
+						eia1=Constant.NO;
+						envEC.setProtect_Area_Wildlife(eia1);
+						eia2=Constant.NO;
+						envEC.setCriticalPoll_Area_Identify(eia2);
+						eia3=Constant.NO;
+						envEC.setEcosensitive_Area(eia3);
+					}
+//					
+////			//}
+			
+			//file uploading
+			String file1 = null;
+			String mainFile1 = null;
+			byte[] bytes1 = null;
+			if (!ecFile.isEmpty())
+			{
+				file1=ecFile.getOriginalFilename();
+				bytes1 = ecFile.getBytes();
+			}
+			
+			mainFile1 = renameFile + "_" + file1;	
+			envEC.setEcFileName(mainFile1);			 
+		  Files.write(Paths.get(Constant.ec_file_path + mainFile1), bytes1); // if path is not getting ready it will show error ....by vishal
+		  envEC.setEcFilePath(Constant.ec_file_path + mainFile1);			  
+		 
+		   envEC.setConsent(consent);  
+		  envECServices.save(envEC);
+			}
+		
+		  // Ec form end here
+			
+			
+			
 		}
 		catch (IOException e)
 		{
@@ -390,7 +478,6 @@ public class CreateConsentController
 		}
 		catch (Exception e)
 		{
-
 			LOGGER.error(e);
 		}
 		return modelAndView;
