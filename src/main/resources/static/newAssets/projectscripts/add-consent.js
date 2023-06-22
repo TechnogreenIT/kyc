@@ -1,8 +1,8 @@
 
 $(document).ready(function () {
-	console.log(" add consent js loaded");
+	console.log(" add consent js loaded");		
 	var issue_date = "" ; var valid_upto ="";
-	var industryCat = $("#industryCat").val();
+	var industryCat = $("#industryCat").val();	
 });
 var amalgamationCount = 0;
 
@@ -18,7 +18,7 @@ function showForm(id) {
 		$("#consentform").show();
 		checkEstablish("Consent to Establish");										
 		$("#que2").hide();
-		$("#que3").hide();
+		$("#que3").hide();̥
 		$("#que4").hide();*/
 		$('#que2').css('display', 'none');
 		$('#que3').css('display', 'none');
@@ -45,6 +45,7 @@ function showForm(id) {
 		getConsentToEstablishForm('Consent to Operate');
 	} else if( id == 'expandOPYes'){
 		$("#consentform").empty();
+		
 		getAmalgamationOpForm();
 	}else {
 		$("#consentform").empty();
@@ -70,9 +71,27 @@ function validateConsentDates(datepickerId){
 	var today_date = yyyy + "-" + mm + "-" + dd;
 	var validdt= $("#valid_upto").val();
 	var isdt = $("#issue_date").val();
+	var ecdt = $("#ecvalid_upto").val();
 	
 	var datepickerDate = $('#'+datepickerId).val();
-
+	//
+	var ecvaliddt = $("#ecvalid_upto").val();
+   if(datepickerId == "ecvalid_upto"){
+	    ecvalid_upto =  new Date($('#'+datepickerId).val());
+	    //
+	    if (ecdt < today_date) {	
+			$("#ecdtvalidation").html("<label class='text-red'>Enter greater than or equal to Today Date ! !</label>");
+			$("#btnsv_").attr("disabled", true);		
+			} 
+			else {
+			$("#ecdtvalidation").empty();
+			$("#btnsv_").attr("disabled", false);
+		}
+	    //
+   }
+  
+   
+   //
 	if(datepickerId == "issue_date"){
 		issue_date =  new Date($('#'+datepickerId).val());
 		if (isdt > today_date) {	
@@ -104,7 +123,101 @@ function validateConsentDates(datepickerId){
 }
 
 
-function getAmalgamation(consentType){	
+//EIA otification que
+function getEIAnotification(){
+						$('#EIAform').css('display', 'block');
+						$("#EIAform").empty();	
+	var radioValue = $("input[name='eiastatus']:checked").val();
+					if(radioValue == "Yes"){					
+					 htmlContent1 ="<div class='row'>"
+									+"<div class='col-12 col-md-12'>"
+									+"<div class='form-group'>"
+									+"<input type='checkbox'' id='eiaQ1' name='eia1' value='Yes'/>&nbsp;&nbsp;&nbsp;"
+    								+"<label for='eiaQ1'><span class='font-weight-bold'>Whether located Proximity to Protected Area Notified Under the Wild Life(Protection) Act,1972 ?</span></label></br>"
+									+"<input type='checkbox' id='eiaQ2' name='eia2' value='Yes'/>&nbsp;&nbsp;&nbsp;"
+    								+"<label for='eiaQ2'><span class='font-weight-bold'>Whether located proximity to critically Polluted area as identified by the CPCB from time to time ?</span></label></br>"
+    								+"<input type='checkbox' id='eiaQ3' name='eia3' value='Yes'/>&nbsp;&nbsp;&nbsp;"
+    								+"<label for='eiaQ2'><span class='font-weight-bold'>Whether located proximity to Notified Eco-Sensitive area notified under Environmental(Protection) Act,1986 ?</span></label>"
+									+ "</div>"	
+									+ "</div>"
+									
+									
+									+ "</div>"	
+									$("#EIAform").append(htmlContent1);
+								}
+								else{
+								$("#EIAform").hide();						
+								}	
+}
+//if Ec is applicable then fill the Ec form
+function getECpresentornot(){
+						$('#ecform').css('display', 'block');
+						$("#ecform").empty();	
+						var radioValue = $("input[name='ecstatus']:checked").val();
+						if(radioValue == "Yes"){					
+						 htmlContent1 ="<div class='row'>"
+									+"<div class='col-12 col-md-4' >"
+									+"<div class='form-group'>"
+									+ "<label> <span class='font-weight-bold'>EC Number:</span></label>"
+									+ "<input type='text' class='form-control' id='ec_no' name='ecNo' placeholder='Environmental Clearance Number' title='EC number' required><i class='form-group__bar'></i>"
+									+ "</div>"	
+									+ "</div>"	
+									+"<div class='col-12 col-md-4'>"
+									+"<div class='form-group'>"
+									+"<label>EC Valid Upto :</label>"
+									+"<input type='date' class='form-control hidden-md-up'>"
+									+"<input type='text' class='form-control date-picker hidden-sm-down' name='ecvalidupto' id='ecvalid_upto' onchange='validateConsentDates(\"ecvalid_upto\")'  placeholder='Valid Upto'><div id='ecdtvalidation'></div>"//required
+									+"</div>"
+									+"</div>"
+									//̥
+								+"<div class='col-12 col-md-4'>"
+								+"<div class='form-group'>"
+						   		//+"<div class='form-group row'>"
+							    +"<div class='fileinput fileinput-new' data-provides='fileinput'>"
+							    +"<label>Environmental Clearance File : "
+							    +"<span class='btn btn-primary btn-file'>"
+							    +"<span class='fileinput-new'>Select file</span>"
+							    +"<span class='fileinput-exists'>Change</span>"
+							    +"<input type='file' name='ecFilePath' id='ecdataFile_file' required>"
+							    +"</span>"
+							    +"<span class='fileinput-filename'></span> <a href='#' class='close fileinput-exists' data-dismiss='fileinput'>&times;</a>"
+							    +"</div>"
+						      //  +"</div>"
+						        +"</div>"
+					            +"</div>"
+									//
+									+ "</div>"
+										
+									+"<div class='row'>"
+									+"<div class='col-12 col-md-12'>"
+									+"<div class='form-group'>"
+									+ "<label> <span class='font-weight-bold'>Whether project/activity attracts the general condition specified in the Schedule of EIA Notification ?</span></label></br>"
+									//rd btn
+									+"<div class='radio radio--inline'>"
+									+"<input type='radio' name='eiastatus' id='eia_y'  value='Yes' onchange='getEIAnotification();'  required><label class='radio__label' for='eia_y'>Yes</label>"
+									+"</div>"
+									+"<div class='radio radio--inline'>"
+									+"<input type='radio' name='eiastatus' id='eia_n' value='No' checked onchange='getEIAnotification();'  required><label class='radio__label' for='eia_n'>No</label>"
+									+"</div>"
+									+ "</div>"	
+									+ "</div>"	
+									+ "</div>"	
+									
+									//EIA notification que
+									+"<div id='EIAform'>"	
+					 				+"</div>"	
+									
+									
+									$("#ecform").append(htmlContent1);
+									makeDatePicker();
+									}
+						else{
+						$('#ecform').css('display', 'none');					
+						}
+						}
+
+
+function getAmalgamation(consentType){
 	var radioValue = $("input[name='status']:checked").val();	
 	if(radioValue == "Amalgamant" && amalgamationCount == 0){
 		amalgamationppend(consentType);
@@ -114,8 +227,9 @@ function getAmalgamation(consentType){
 		amalgamationCount = 0;
 	}
 }
-    
-function getConsentToEstablishForm(consentType){
+
+
+function getConsentToEstablishForm(consentType){	
 	var industryCat = $("#industryCat").val();
 	 var str1 = "Number of Staff";
 	 var str2 = "Number of Worker";
@@ -191,15 +305,29 @@ function getConsentToEstablishForm(consentType){
 				+"</div>"
 			 +"</div>";
 		 }
-	 
-var htmlContent = "<div class='form-group'>"
+	
+					var htmlContent ="<div class='row'>"//ask  Ec present or not
+						+"<div class='col-4'>"
+						+ "<label> <span class='font-weight-bold'>EC Applicable</span>&nbsp;&nbsp; </label>"
+							+"<div class='radio radio--inline'>"
+								+"<input type='radio' name='ecstatus' id='ec_y'  value='Yes' onchange='getECpresentornot();'  required><label class='radio__label' for='ec_y'>Yes</label>"
+							+"</div>"
+							+"<div class='radio radio--inline'>"
+								+"<input type='radio' name='ecstatus' id='ec_n' value='No' checked onchange='getECpresentornot();'  required><label class='radio__label' for='ec_n'>No</label>"
+							+"</div>"				
+						+"</div>"
+						+"</div>"
+				
+					+"<div class='form-group'>"
+
 						+ "<label class='font-weight-bold'>Consent Type: "+consentType+"</label>"
 						+ " <input type='hidden' class='form-control' readonly='' name='consType' value='"+consentType+"'>"
-					+ "</div>"
+			
 					+ "<div class='form-group'>"
 						+ "<label> <span class='font-weight-bold'>Consent Number:</span> (Write consent number as specified in Consent granted from MPCB)</label>"
 						+ "<input type='text' class='form-control' id='cons_no' name='consNo' placeholder='Consent Number' title='Consent number' required><i class='form-group__bar'></i>"
 					+ "</div>"
+					
 					+"<div class='row'>"
 						+"<div class='col-4'>"
 							+"<div class='radio radio--inline'>"
@@ -345,21 +473,26 @@ var htmlContent = "<div class='form-group'>"
 						+"</div>"
 					 +"</div>"
 					+"</div>"
-					+"<div class='row'>"
+					+"</div>"
+				+"<div id='ecform'>"	
+					 +"</div>"
+					
+				+"<div class='row'>"
 					 +"<div class='col-12'>"
 						+"<center>"
 						   +"<button type='reset' class='btn red lighten-1 text-white'> <i class='zmdi zmdi-close'></i> cancel </button>"
 						   +"<button type='submit' id='btnsv_' class='btn btn-primary btn--icon-text'> <i class='zmdi zmdi-save'></i> Submit </button>"
 						+"</center>"
 					 +"</div>"
-					+"</div>";
-	$("#consentform").append(htmlContent);
+					$("#consentform").append(htmlContent);
+				
 	makeSelect2();makeDatePicker();
 }
 
+
 function getAmalgamationOpForm(){
 	$("#consentform").empty();
-var html =  "<div class='row'>"
+var html ="<div class='row'>"
 +"<input type='hidden' name='extendDate' value='ExpandDate'>"
 				+"<div class='col-md-12 mb-3'>"
 					+"<center><label class='font-weight-bold'>Select consent to operate which you have Amalgamation copy of consent and Enter the extended consent  no.</label></center>"
@@ -408,7 +541,6 @@ var html =  "<div class='row'>"
 						+"</div>"
 				  +"</div>"
 				+"</div>"
-				
 				+"<div class='col-md-12 mb-3'>"
 					+"<center><button type='submit' class='btn btn-primary btn--icon-text'> <i class='fas fa-external-link-square-alt'></i>  Extend </button></center>"
 				+"</div>"
