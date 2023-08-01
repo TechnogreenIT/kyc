@@ -355,6 +355,16 @@ public class Utilities
 			productType = "nhwp";
 		if (productType.equalsIgnoreCase("nhwpcf"))
 			productType = "nhwpcf";
+		if (productType.equalsIgnoreCase("eWaste"))
+			productType = "eWaste";
+		if (productType.equalsIgnoreCase("pWaste"))
+			productType = "pWaste";
+		if (productType.equalsIgnoreCase("bWaste"))
+			productType = "bWaste";
+		if (productType.equalsIgnoreCase("cdWaste"))
+			productType = "cdWaste";
+		if (productType.equalsIgnoreCase("cutfill"))
+			productType = "cutfill";
 		if (productType.equalsIgnoreCase("bio"))
 			productType = "Bio-Medical";
 		return productType;

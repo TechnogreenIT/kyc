@@ -50,6 +50,7 @@
 					<input type="hidden" name="consent_no" id="consent_no"
 						value="${consentId}"> <input type="hidden"
 						name="UserIdSession" value="${uId}">
+						<h2 hidden><%= request.getParameter("ecstatus")%></h2>	
 					<div class="actions">
 						<span class="mantooltip hover p-1" data-jbox-title=""
 							data-jbox-content="Fill Your Consent To Establish Data."><a
@@ -487,7 +488,7 @@
 														onclick="addCtoEElemet('append_ctoe_hwp','hwp');">
 														<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
 													</button>
-												</div>
+												</div>̥
 											</div>
 										</div>
 									</div>
@@ -548,7 +549,7 @@
 												<div class="form-group">
 													<button type="button"
 														class="btn btn-sm btn-light pt-1 pb-1"
-														onclick="addCtoEElemet('append_ctoe_hwpcf','hwpcf');">
+														onclick="addCtoEElemet('append_ctoe_hwpcf','hwpcf');"
 														<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
 													</button>
 												</div>
@@ -565,11 +566,239 @@
 										</div>
 									</div>
 								</div>
-								<c:if test="${sessionIndustryType == 'Hospital'}">
+								
+								<!--chnges by pallavi-->
+								
+								<c:if test="${param.ecstatus == 'Yes'}">
+								<h3>E-Waste </h3> 
+								<div>
+									<div class="mt-4" id="append_ctoe_eWaste">
+										<div class="row" id="appended_0_eWaste ">
+											<div class="col-5">
+												<div class="form-group">
+													<input type="text" name="eWaste_name[]" class="form-control"
+														placeholder="eWaste Name">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<input type="number" name="eWaste_quantity[]"
+														class="form-control" placeholder="Consent Quantity">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<select class="select2" name="eWaste_unit[]">
+														<option value=''>Select unit</option>
+														<c:forEach items="${unit}" var="unit">
+															<option value="${unit.getUnitId()}">${unit.getUnits()}</option>
+														</c:forEach>
+													</select>
+													<div class="invalid-feedback">Please select any !</div>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<button type="button"
+														class="btn btn-sm btn-light pt-1 pb-1"
+														onclick="addCtoEElemet('append_ctoe_eWaste','eWaste');">
+														<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+									<div class="row">
+										<div class="col text-center">
+											<button type="button" class="btn btn-primary btn-sm"
+												onclick="saveProductionDatas('eWaste',this);"
+												id="save-eWaste-btn">
+												<i class='zmdi zmdi-save'></i>Save
+											</button>
+										</div>
+									</div>
+								</div>
+								</c:if>
+								<c:if test="${param.ecstatus == 'Yes'}">
+								<h3>Plastic Waste </h3>
+								<div>
+									<div class="mt-4" id="append_ctoe_pWaste">
+										<div class="row" id="appended_0_pWaste ">
+											<div class="col-5">
+												<div class="form-group">
+													<input type="text" name="pWaste_name[]" class="form-control"
+														placeholder="pWaste Name">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<input type="number" name="pWaste_quantity[]"
+														class="form-control" placeholder="Consent Quantity"> 
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<select class="select2" name="pWaste_unit[]">
+														<option value=''>Select unit</option>
+														<c:forEach items="${unit}" var="unit">
+															<option value="${unit.getUnitId()}">${unit.getUnits()}</option>
+														</c:forEach>
+													</select>
+													<div class="invalid-feedback">Please select any !</div>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<button type="button"
+														class="btn btn-sm btn-light pt-1 pb-1"
+														onclick="addCtoEElemet('append_ctoe_pWaste','pWaste');">
+														<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col text-center">
+											<button type="button" class="btn btn-primary btn-sm"
+												onclick="saveProductionDatas('pWaste',this);"
+												id="save-pWaste-btn">
+												<i class='zmdi zmdi-save'></i> Save
+											</button>
+										</div>
+									</div>
+								</div>
+									</c:if>
+								<c:if test="${param.ecstatus == 'Yes'}">
+									<h3>Batteries Waste </h3>
+								<div>
+									<div class="mt-4" id="append_ctoe_bWaste">
+										<div class="row" id="appended_0_bWaste ">
+											<div class="col-5">
+												<div class="form-group">
+													<input type="text" name="bWaste_name[]" class="form-control"
+														placeholder="bWaste Name">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<input type="number" name="bWaste_quantity[]"
+														class="form-control" placeholder="Consent Quantity">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<select class="select2" name="bWaste_unit[]">
+														<option value=''>Select unit</option>
+														<c:forEach items="${unit}" var="unit">
+															<option value="${unit.getUnitId()}">${unit.getUnits()}</option>
+														</c:forEach>
+													</select>
+													<div class="invalid-feedback">Please select any !</div>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<button type="button"
+														class="btn btn-sm btn-light pt-1 pb-1"
+														onclick="addCtoEElemet('append_ctoe_bWaste','bWaste');">
+														<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col text-center">
+											<button type="button" class="btn btn-primary btn-sm"
+												onclick="saveProductionDatas('bWaste',this);"
+												id="save-bWaste-btn">
+												<i class='zmdi zmdi-save'></i> Save
+											</button>
+										</div>
+									</div>
+								</div>	
+								</c:if>
+								<c:if test="${param.ecstatus == 'Yes'}">
+								<h3>C and D Waste </h3>
+								<div>	
+								<div class="mt-4" id="append_ctoe_cdWaste">
+										<div class="row" id="appended_0_cdWaste ">
+											<div class="col-5">
+												<div class="form-group">
+													<input type="text" name="cdWaste_name[]" class="form-control"
+														placeholder="cdWaste Name">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<input type="number" name="cdWaste_quantity[]"
+														class="form-control" placeholder="Consent Quantity">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<select class="select2" name="cdWaste_unit[]">
+														<option value=''>Select unit</option>
+														<c:forEach items="${unit}" var="unit">
+															<option value="${unit.getUnitId()}">${unit.getUnits()}</option>
+														</c:forEach>
+													</select>
+													<div class="invalid-feedback">Please select any !</div>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<button type="button"
+														class="btn btn-sm btn-light pt-1 pb-1"
+														onclick="addCtoEElemet('append_ctoe_cdWaste','cdWaste');">
+														<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col text-center">
+										<button type="button" class="btn btn-primary btn-sm"
+												onclick="saveProductionDatas('cdWaste',this);"
+												id="save-cdWaste-btn">
+												<i class='zmdi zmdi-save'></i> Save
+											</button>
+									</div>
+									</div>
+								</div>
+								</c:if>
+							<c:if test="${sessionIndustryType == 'Hospital'}">
 									<h3>Bio-Medical Waste</h3>
-									<div>
+									<div> 
 										<div class="mt-4" id="append_ctoe_bio">
-											<div class="row" id="appended_0_bio">
+										<div class="row" id="appended_0_bio">
 												<div class="col-3">
 													<div class="form-group">
 														<select class="select2" name="bio_categories[]">
@@ -595,7 +824,7 @@
 															!</div>
 														<i class="form-group__bar"></i>
 													</div>
-												</div>
+											</div>
 												<div class="col-2">
 													<div class="form-group">
 														<select class="select2" name="bio_unit[]">
@@ -610,7 +839,7 @@
 												<div class="col-2">
 													<div class="form-group">
 														<button type="button"
-															class="btn btn-sm btn-light pt-1 pb-1"
+															class="btn btn-sm btn-light pt-1 pb-1"̥
 															onclick="addCtoEElemet('append_ctoe_bio','bio');">
 															<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
 														</button>
@@ -631,7 +860,68 @@
 								</c:if>
 							</div>
 						</div>
+					      <c:if test="${param.ecstatus == 'Yes'}">
+						<h3>Cut and Fill</h3>
+							<div id="cutanfillAccordion">
+						        <div> 
+						        <div class="mt-4" id="append_ctoe_cutfill">
+										<div class="row" id="appended_0_cutfill ">
+											<div class="col-5">
+												<div class="form-group">
+													<input type="text" name="cutfill_name[]" class="form-control"
+														placeholder="cutfill Name">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<input type="number" name="cutfill_quantity[]"
+														class="form-control" placeholder="Consent Quantity">
+													<div class="invalid-feedback">Please enter something
+														!</div>
+													<i class="form-group__bar"></i>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<select class="select2" name="cutfill_unit[]">
+														<option value=''>Select unit</option>
+														<c:forEach items="${unit}" var="unit">
+															<option value="${unit.getUnitId()}">${unit.getUnits()}</option>
+														</c:forEach>
+													</select>
+													<div class="invalid-feedback">Please select any !</div>
+												</div>
+											</div>
+											<div class="col-2">
+												<div class="form-group">
+													<button type="button"
+														class="btn btn-sm btn-light pt-1 pb-1"
+														onclick="addCtoEElemet('append_ctoe_cutfill','cutfill');">
+														<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col text-center">
+											<button type="button" class="btn btn-primary btn-sm"
+												onclick="saveProductionDatas('cutfill',this);"
+												id="save-cutfill-btn">
+												<i class='zmdi zmdi-save'></i> Save
+											</button>
+										</div>
+									</div>
+							    </div>
+							  	</c:if>
+							</div>			
+						</div>
 					</div>
+				</div>
+					
 				</div>
 				<!-- include common footer start-->
 				<jsp:include page="../NewCommon/common-footer.jsp" />

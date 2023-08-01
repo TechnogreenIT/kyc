@@ -97,6 +97,7 @@ import com.tes.utilities.Validator;
  * @author Aashish Raut
  */
 @Controller
+@RequestMapping(value = {"/env"})
 @SessionAttributes({"empDataSession", "imgvalue", "multipleOperate", "emplogindata", "sessionIndustryType", "hmId",
 		"industryCat", "uId", "userRole", "companyName", "userProfilePic"})
 public class EnvironmentalOfficerIndexController extends BaseEnvironmentOfficerController

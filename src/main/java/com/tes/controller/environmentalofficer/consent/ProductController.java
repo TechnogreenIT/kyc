@@ -114,8 +114,8 @@ public class ProductController extends Constant
 					objAllProducts.setQuantity(quantitys[i]);
 					objAllProducts.setUnit(unit);
 					allProductsServices.save(objAllProducts);
-					flag++;
-				}
+		 flag++;
+			}
 			}
 			else
 			{

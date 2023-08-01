@@ -8,7 +8,7 @@ function saveProductionDatas(type, el) {
     var inps1 = document.getElementsByName(type + "_name[]");
     var inps2 = document.getElementsByName(type + "_quantity[]");
     var inps3 = document.getElementsByName(type + "_unit[]");
-    if (type == "hwp" || type == "hwpcf" || type == "bio") {
+    if (type == "hwp" || type == "hwpcf" || type == "bio" || type == "cdWaste") {
         var inps4 = document.getElementsByName(type + "_categories[]");
     }
 
@@ -17,8 +17,8 @@ function saveProductionDatas(type, el) {
         var inp2 = inps2[i];
         var inp3 = inps3[i];
 
-
-        if (type == "hwp" || type == "hwpcf" || type == "bio") {
+// || type == "eWaste" || type == "pWaste" || type == "bWaste"
+        if (type == "hwp" || type == "hwpcf" || type == "bio")  {
             var inp4 = inps4[i];
             if (inp4.value == "") {
                 flag--;
@@ -73,7 +73,7 @@ function saveProductionDatas(type, el) {
         $.ajax({
             type: "POST",
             url: "ajax-add-consentdata",
-            data: ({
+                        data: ({
                 productName: dataNames.toString(),
                 productType: type,
                 units: dataUnit.toString(),
@@ -88,7 +88,7 @@ function saveProductionDatas(type, el) {
                 var res = data; //alert(data);
                 //if(inps.length == res){}else{}
                 
-                if(type == "hwpcf"){
+                if(type == "cutfill"){
                 	window.location.replace("http://localhost:8080/env/dashboard");
                 }
             }

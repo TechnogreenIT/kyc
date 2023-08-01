@@ -1,5 +1,6 @@
 package com.tes.controller.environmentalofficer.consent;
 
+
 import java.io.Console;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,11 +14,13 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -55,6 +58,7 @@ import com.tes.utilities.Validator;
  */
 @Controller
 @RequestMapping(value = {"/env"})
+@SessionAttributes({"ecStatus"})
 public class CreateConsentController
 {
 
@@ -171,16 +175,18 @@ public class CreateConsentController
 			@RequestParam(value = "expandedConsentFilePath", required = false) MultipartFile expandedFile,
 			@RequestParam(value = "aml_e[]", required = false) int[] amulgamationEId,
 			@RequestParam(value = "aml_o[]", required = false) int[] amulgamationOId,
-			@RequestParam(value = "extendDate", required = false) String extendDate,			
+			@RequestParam(value = "extendDate", required = false) String extendDate,	
+			//@RequestParam(value = "ecId", required = false) Integer  ecId,
 			@RequestParam(value = "ecstatus", required = false) String ecStatus,	//ec	
-			@RequestParam(value = "ecFilePath", required = false) MultipartFile ecFile,//ec
-			@RequestParam(value = "eiastatus", required = false) String eiaStatus,	//ec
-			@RequestParam(value = "eia1", required = false) String eia1,	//ec
-			@RequestParam(value = "eia2", required = false) String eia2,	//ec
-			@RequestParam(value = "eia3", required = false) String eia3,	//ec					
+//			@RequestParam(value = "ecFilePath", required = false) MultipartFile ecFile,//ec
+//			@RequestParam(value = "eiastatus", required = false) String eiaStatus,	//ec
+//			@RequestParam(value = "eia1", required = false) String eia1,	//ec
+//			@RequestParam(value = "eia2", required = false) String eia2,	//ec
+//			@RequestParam(value = "eia3", required = false) String eia3,	//ec					
 			@RequestParam(value = "msg", required = false) String msg, HttpServletRequest request,
 			RedirectAttributes redirectAttributes)
 	{
+		request.getSession().setAttribute("ecStatus", ecStatus);
 		ModelAndView modelAndView = new ModelAndView();
  		EmpData empDataSession = null;
 		String compName = null;
@@ -193,18 +199,15 @@ public class CreateConsentController
 		renameFile = Utilities.renameFile(compName);
 		String consType = request.getParameter("consType");
 		Consent consent = new Consent();
-		EnvEC envEC = new EnvEC();
+	//	EnvEC envEC = new EnvEC();
 		Users user = new Users();
 		CompanyProfile companyProfile = new CompanyProfile();
 		String status = null;
 		// request.getParameter()
-
 		
 		try
 		{
-			
-			
-			
+				
 			// if(extendDate.isEmpty())
 			if (extendDate == null)
 			{
@@ -217,15 +220,17 @@ public class CreateConsentController
 				{
 					request.getSession().setAttribute("multipleOperate", request.getParameter("MultipleOP"));
 				}
-
 				user.setUsersId(empDataSession.getUsers().getUsersId());// if session is null it will give error
-				companyProfile.setCompanyProfileId(empDataSession.getCompanyProfile().getCompanyProfileId());
+				companyProfile.setCompanyProfileId(empDataSession.getCompanyProfile().getCompanyProfileId());				
 				consent.setUsers(user);
-				consent.setCompanyProfile(companyProfile);
+				consent.setCompanyProfile(companyProfile);	
+//				if(ecId!=null)
+//				{
+//				consent.setEcid(ecId);
+//				}
 				consent.setConsType(consType);
 				consent.setConsStatus(status);
 				consent.setExpansionStatus(que2);
-
 				if (Validator.isEmpty(request.getParameter("expand")))
 				{
 					int noStaff = 0;
@@ -236,7 +241,7 @@ public class CreateConsentController
 					else
 					{
 						noStaff = Integer.parseInt(request.getParameter("noStaff"));
-					}
+					}					
 					consent.setConsNo(request.getParameter("consNo"));
 					consent.setIssueDate(request.getParameter("issueDate"));
 					consent.setValidUpto(request.getParameter("validUpto"));
@@ -260,7 +265,6 @@ public class CreateConsentController
 					consent.setIssueDate(request.getParameter("expandedIssueDate"));
 					consent.setValidUpto(request.getParameter("expandedValidUpto"));
 				}
-
 				String file = null;
 				String mainFile = null;
 				byte[] bytes = null;
@@ -276,11 +280,11 @@ public class CreateConsentController
 				}
 				mainFile = renameFile + "_" + file;	
 				consent.setConsentFileName(mainFile);
+				
 				// Get the file and save it somewhere
 				Files.write(Paths.get(Constant.consent_file_path + mainFile), bytes); // if path is not getting ready it will show error ....by vishal
 				consent.setConsentFilePath(Constant.consent_file_path + mainFile);// if file size 0 it show error ....by vishal
 				consentServices.save(consent);
-
 				
 				
 				
@@ -306,6 +310,7 @@ public class CreateConsentController
 				{
 					if (consType.equalsIgnoreCase(Constant.CONSENT_TO_ESTABLISH))
 					{
+						modelAndView.addObject("ecstatus", ecStatus);
 						// modelAndView.addObject("msg", Constant.SUCCESS);
 						modelAndView.setViewName("redirect:elist-product");
 						// added by jemish
@@ -313,7 +318,6 @@ public class CreateConsentController
 						 * modelAndView.addObject("unit", unitServices.findAll());
 						 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
 						 */
-
 					}
 					else if (consType.equalsIgnoreCase(Constant.CONSENT_TO_OPERATE))
 					{// (consentServices.findByConsType(consType) need to change this query concern Amin ....by vishal
@@ -325,7 +329,7 @@ public class CreateConsentController
 							 * modelAndView.addObject("unit", unitServices.findAll());
 							 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
 							 */
-
+							modelAndView.addObject("ecstatus", ecStatus);
 							modelAndView.setViewName("redirect:elist-product");
 						}
 						else
@@ -341,7 +345,6 @@ public class CreateConsentController
 				}
 				else
 				{
-
 					modelAndView.addObject("msg", KycApplication.messageBundle.getString("consent.save.error"));
 					modelAndView.setViewName("EnvrOfficer/CreateConsent");
 				}
@@ -351,11 +354,9 @@ public class CreateConsentController
 				 * modelAndView.addObject("hwCategroriesList",hazardousWastesServices.findAll());
 				 */
 				// modelAndView.addObject("consentId", consent.getConsentId());
-
 			}
 			else
 			{
-
 				modelAndView.setViewName("redirect:dashboard");
 				int consentId = 0;
 				if (Validator.isEmpty(amulgamationEId))
@@ -375,7 +376,6 @@ public class CreateConsentController
 				}
 				else
 				{
-
 					ConsentExtendedDate consExeDate1 = new ConsentExtendedDate();
 					// consExeDate1.setConsent(consent);
 					consExeDate1.setInputDate(request.getParameter("expandedInputDate"));
@@ -391,7 +391,6 @@ public class CreateConsentController
 					}
 					catch (Exception e)
 					{
-
 						e.printStackTrace();
 					}
 				}
@@ -408,70 +407,70 @@ public class CreateConsentController
 			}
 			
 			
-
 			
 			//Ec form add here
-			if (request.getParameter("ecstatus").equalsIgnoreCase(Constant.YES)) 
-			{	
-				//String consentid=consent.getConsNo();
-				envEC.setEcNo(request.getParameter("ecNo"));
-				envEC.setEcvalid_date(request.getParameter("ecvalidupto"));
-//				if (!Validator.isEmpty(request.getParameter("eiastatus")))
-//				{
-				envEC.setEia_Notification(eiaStatus);
-					if (request.getParameter("eiastatus").equalsIgnoreCase(Constant.YES))
-					{	
-						envEC.setProtect_Area_Wildlife(eia1);
-						if(eia1==null){
-							eia1=Constant.NO;
-							envEC.setProtect_Area_Wildlife(eia1); 
-						}
-						envEC.setCriticalPoll_Area_Identify(eia2);
-						if(eia2==null){
-							eia2=Constant.NO;
-							envEC.setCriticalPoll_Area_Identify(eia2); 
-						}
-						envEC.setEcosensitive_Area(eia3);
-						if(eia3==null){
-							eia3=Constant.NO;
-							envEC.setEcosensitive_Area(eia3); 
-						}
-					}
-					else {
-						eia1=Constant.NO;
-						envEC.setProtect_Area_Wildlife(eia1);
-						eia2=Constant.NO;
-						envEC.setCriticalPoll_Area_Identify(eia2);
-						eia3=Constant.NO;
-						envEC.setEcosensitive_Area(eia3);
-					}
-//					
-////			//}
-			
-			//file uploading
-			String file1 = null;
-			String mainFile1 = null;
-			byte[] bytes1 = null;
-			if (!ecFile.isEmpty())
-			{
-				file1=ecFile.getOriginalFilename();
-				bytes1 = ecFile.getBytes();
-			}
-			
-			mainFile1 = renameFile + "_" + file1;	
-			envEC.setEcFileName(mainFile1);			 
-		  Files.write(Paths.get(Constant.ec_file_path + mainFile1), bytes1); // if path is not getting ready it will show error ....by vishal
-		  envEC.setEcFilePath(Constant.ec_file_path + mainFile1);			  
-		 
-		   envEC.setConsent(consent);  
-		  envECServices.save(envEC);
-			}
-		
+//			if (request.getParameter("ecstatus").equalsIgnoreCase(Constant.YES))
+//			{	
+//				//String consentid=consent.getConsNo();
+//				envEC.setEcNo(request.getParameter("ecNo"));
+//				envEC.setEcvalid_date(request.getParameter("ecvalidupto"));
+////				if (!Validator.isEmpty(request.getParameter("eiastatus")))
+////				{
+//				envEC.setEia_Notification(eiaStatus);
+//					if (request.getParameter("eiastatus").equalsIgnoreCase(Constant.YES))
+//					{	
+//						envEC.setProtect_Area_Wildlife(eia1);
+//						if(eia1==null){
+//							eia1=Constant.NO;
+//							envEC.setProtect_Area_Wildlife(eia1);
+//						}
+//						envEC.setCriticalPoll_Area_Identify(eia2);
+//						if(eia2==null){
+//							eia2=Constant.NO;
+//							envEC.setCriticalPoll_Area_Identify(eia2);
+//						}
+//						envEC.setEcosensitive_Area(eia3);
+//						if(eia3==null){
+//							eia3=Constant.NO;
+//							envEC.setEcosensitive_Area(eia3);
+//						}
+//					}
+//					else {
+//						eia1=Constant.NO;
+//						envEC.setProtect_Area_Wildlife(eia1);
+//						eia2=Constant.NO;
+//						envEC.setCriticalPoll_Area_Identify(eia2);
+//						eia3=Constant.NO;
+//						envEC.setEcosensitive_Area(eia3);
+//					}
+////					
+//////			//}
+//			
+//			//file uploading
+//			String file1 = null;
+//			String mainFile1 = null;
+//			byte[] bytes1 = null;
+//			if (!ecFile.isEmpty())
+//			{
+//				file1=ecFile.getOriginalFilename();
+//				bytes1 = ecFile.getBytes();
+//			}
+//			
+//			mainFile1 = renameFile + "_" + file1;	
+//			envEC.setEcFileName(mainFile1);			
+//		    Files.write(Paths.get(Constant.ec_file_path + mainFile1), bytes1); // if path is not getting ready it will show error ....by vishal
+//		    envEC.setEcFilePath(Constant.ec_file_path + mainFile1);			  		
+//		   // envEC.setConsent(consent);
+//		    envECServices.save(envEC);
+//		
+//			}
+//			
 		  // Ec form end here
 			
-			
+		
 			
 		}
+		
 		catch (IOException e)
 		{
 			LOGGER.error("IOException=" + e);
@@ -480,8 +479,18 @@ public class CreateConsentController
 		{
 			LOGGER.error(e);
 		}
+		
 		return modelAndView;
 	}
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * This method used to View consent Details including consent to Establish and consent to operate.

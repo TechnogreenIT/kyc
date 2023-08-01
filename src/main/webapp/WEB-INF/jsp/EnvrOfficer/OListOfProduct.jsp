@@ -48,6 +48,9 @@
 					<input type="hidden" name="consent_no" id="consent_no"
 						value="${consentId}"> <input type="hidden"
 						name="UserIdSession" value="${uId}">
+						<input type="hidden" name="ec_Id" id="ec_no"
+						value="${ecId}"> <input type="hidden"
+						name="UserIdSession" value="${uId}">
 					<div class="actions">
 						<span class="mantooltip hover p-1" data-jbox-title=""
 							data-jbox-content="Fill Your Consent To Operate Data."><a
@@ -312,9 +315,85 @@
 												</div>
 											</div>
 										</div>
-										<c:if test="${sessionIndustryType == 'Hospital'}">
+									
+										<c:if test="${ecStatus == 'yes'}">
+										<h3>E Waste</h3>
+										<div>
+											<div class="row mt-3" id="append_eWaste">
+												<div class="col-6 offset-1">
+													<p class="font-weight-bolder">E Waste</p>
+												</div>
+												<div class="col-3">
+													<p class="font-weight-bolder">Quantity</p>
+												</div>
+												<div class="col-2">
+													<p class="font-weight-bolder">Units</p>
+												</div>
+											</div>
+
+											<div class="row mt-4 mb-4">
+												<div class="col text-center">
+													<button type="button" class="btn btn-primary btn-sm"
+														onclick="saveData(this,'eWaste');" id="save-eWaste-btn">
+														<i class='zmdi zmdi-save'></i> Save
+													</button>
+												</div>
+											</div>
+										</div>
+												</c:if>
+										<c:if test="${ecStatus == 'yes'}">
+										<h3>Plastic Waste</h3>
+										<div>
+											<div class="row mt-3" id="append_pWaste">
+												<div class="col-6 offset-1">
+													<p class="font-weight-bolder">P Waste</p>
+												</div>
+												<div class="col-3">
+													<p class="font-weight-bolder">Quantity</p>
+												</div>
+												<div class="col-2">
+													<p class="font-weight-bolder">Units</p>
+												</div>
+											</div>
+
+											<div class="row mt-4 mb-4">
+												<div class="col text-center">
+													<button type="button" class="btn btn-primary btn-sm"
+														onclick="saveData(this,'pWaste');" id="save-pWaste-btn">
+														<i class='zmdi zmdi-save'></i> Save
+													</button>
+												</div>
+											</div>
+										</div>
+										</c:if>
+										<c:if test="${ecStatus == 'yes'}">
+										<h3>Batteries Waste</h3>
+										<div>
+											<div class="row mt-3" id="append_bWaste">
+												<div class="col-6 offset-1">
+													<p class="font-weight-bolder">B Waste</p>
+												</div>
+												<div class="col-3">
+													<p class="font-weight-bolder">Quantity</p>
+												</div>
+												<div class="col-2">
+													<p class="font-weight-bolder">Units</p>
+												</div>
+											</div>
+
+											<div class="row mt-4 mb-4">
+												<div class="col text-center">
+													<button type="button" class="btn btn-primary btn-sm"
+														onclick="saveData(this,'bWaste');" id="save-bWaste-btn">
+														<i class='zmdi zmdi-save'></i> Save
+													</button>
+												</div>
+											</div>
+										</div>
+										</c:if>
+									<c:if test="${sessionIndustryType == 'Hospital'}">
 											<h3>Bio-Medical Waste</h3>
-											<div>
+										<div>
 												<div class="row mt-3" id="append_bio">
 													<div class="col-6 offset-1">
 														<p class="font-weight-bolder">Bio-Medical Waste from
@@ -338,17 +417,70 @@
 												</div>
 											</div>
 										</c:if>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- include common footer start-->
+									<c:if test="${ecStatus == 'yes'}">	
+		                         <h3>C and D Waste</h3>
+										<div>
+											<div class="row mt-3" id="append_cdWaste">
+												<div class="col-6 offset-1">
+													<p class="font-weight-bolder">cd Waste</p>
+												</div>
+												<div class="col-3">
+													<p class="font-weight-bolder">Quantity</p>
+												</div>
+												<div class="col-2">
+													<p class="font-weight-bolder">Units</p>
+												</div>
+											</div>
+
+											<div class="row mt-4 mb-4">
+												<div class="col text-center">
+													<button type="button" class="btn btn-primary btn-sm"
+														onclick="saveData(this,'cdWaste');" id="save-cdWaste-btn">
+														<i class='zmdi zmdi-save'></i> Save
+													</button>
+												</div>
+											</div>
+											</div>
+											</c:if>	
+							      
+							             <h3>Cut and Fill</h3>
+							             <div>
+										<div id="cutandfillAccordion">
+										    <div> 
+							                    <div class="row mt-3" id="append_cutfill">
+												<div class="col-6 offset-1">
+													<p class="font-weight-bolder">Cut and Fill</p>
+												</div>
+												<div class="col-3">
+													<p class="font-weight-bolder">Quantity</p>
+												</div>
+												<div class="col-2">
+													<p class="font-weight-bolder">Units</p>
+												</div>
+											</div>
+
+											<div class="row mt-4 mb-4">
+												<div class="col text-center">
+													<button type="button" class="btn btn-primary btn-sm"
+														onclick="saveData(this,'cutfill');" id="save-cutfill-btn">
+														<i class='zmdi zmdi-save'></i> Save
+													</button>
+												</div>
+											</div>	
+						            </div>
+				               </div>
+			              </div>
+		            </div>
+	            </div>
+
+				
+		
+		    </div>
+		    <!-- include common footer start-->
 				<jsp:include page="../NewCommon/common-footer.jsp" />
 				<!-- include common footer end-->
-			</div>
 			<!-- inner container div end -->
+			</div>
 		</section>
 		<!-- Javascript -->
 		<!-- include common css start-->
