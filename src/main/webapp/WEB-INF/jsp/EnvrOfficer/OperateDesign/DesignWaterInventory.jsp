@@ -3,7 +3,7 @@
 		<div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
 			<div class="form-group">
 				<select class="select2" data-placeholder="Select Source"
-					name="waterSourceNames[]" id="appendWaterSources">
+					name="waterSourceNames[]" id="appendWaterSources" onchange="addcgwa();">
 					<option value="">Select Source</option>
 
 				</select>
@@ -32,9 +32,18 @@
 				onclick="addMoreWaterSource();">
 				<i class="zmdi zmdi-plus zmdi-hc-fw"></i>Add
 			</button>
-		</div>
+		</div>	
+		
+	
 	</div>
 	<div class="appendExtraWaterSource"></div>
+	
+	<!--<div class="row ">
+	    <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">-->
+		<div id="appendcgwc" ></div>
+		<!--</div>
+		</div>-->
+	
 </div>
 
 <!-- question House Canteen -->
@@ -194,7 +203,7 @@
 <div class="row mt-4 mb-4">
 	<div class="col text-center">
 		<button type="button" class="btn btn-primary btn-sm"
-			onclick="saveWaterInventory(this);" id="save-waterInventory-btn">
+			onclick="saveWaterInventory(this,'dataFile');" id="save-waterInventory-btn">
 			<i class='zmdi zmdi-save'></i> Save
 		</button>
 	</div>

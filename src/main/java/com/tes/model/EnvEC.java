@@ -22,25 +22,31 @@ public class EnvEC implements Serializable{
 	private int ecId;
 	
 	@ManyToOne
-	@JoinColumn(name = "consent_id")
-	private Consent consent;
-	
-	
+	@JoinColumn(name = "company_profile_id")
+	private CompanyProfile companyProfile;
 
-	
-	public Consent getConsent() {
-		return consent;
-	}
+//	@ManyToOne
+//	@JoinColumn(name = "consent_id")
+//	private Consent consent;
 
-	public void setConsent(Consent consent) {
-		this.consent = consent;
-	}
+//	public Consent getConsent() {
+//		return consent;
+//	}
+//
+//	public void setConsent(Consent consent) {
+//		this.consent = consent;
+//	}
 
 
 
 	@Column(name = "ec_no")
 	private String ecNo;
 	
+//	public EnvEC(CompanyProfile companyProfile) {
+//		super();
+//		this.companyProfile = companyProfile;
+//	}
+
 	@Column(name = "ecvalid_date")
 	private String ecvalid_date;
 	
@@ -137,6 +143,15 @@ public class EnvEC implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public CompanyProfile getCompanyProfile() {
+		return companyProfile;
+	}
+
+	public void setCompanyProfile(CompanyProfile companyProfile) {
+		this.companyProfile = companyProfile;
+	}
+
 
 //	public EnvEC(int ecId, String ecNo, String ecvalid_date, String ecFilePath, String ecFileName,
 //			String eia_Notification, String protect_Area_Wildlife, String criticalPoll_Area_Identify,
@@ -154,12 +169,11 @@ public class EnvEC implements Serializable{
 //		this.ecosensitive_Area = ecosensitive_Area;
 //	}
 
-	public EnvEC(int ecId, Consent consent, String ecNo, String ecvalid_date, String ecFilePath, String ecFileName,
+	public EnvEC(int ecId,String ecNo, String ecvalid_date, String ecFilePath, String ecFileName,
 			String eia_Notification, String protect_Area_Wildlife, String criticalPoll_Area_Identify,
 			String ecosensitive_Area) {
 		super();
-		this.ecId = ecId;
-		this.consent = consent;
+		this.ecId = ecId;		
 		this.ecNo = ecNo;
 		this.ecvalid_date = ecvalid_date;
 		this.ecFilePath = ecFilePath;
@@ -170,21 +184,37 @@ public class EnvEC implements Serializable{
 		this.ecosensitive_Area = ecosensitive_Area;
 	}
 
-
 	public EnvEC() {
 		// TODO Auto-generated constructor stub
 	}
 
+//mm
+	public EnvEC(String ecNo,String ecvalid_date, String ecFilePath, String ecFileName,
+			String eia_Notification, String protect_Area_Wildlife, String criticalPoll_Area_Identify,
+			String ecosensitive_Area) {
+		super();
+		this.ecNo = ecNo;
+		this.ecvalid_date = ecvalid_date;
+		this.ecFilePath = ecFilePath;
+		this.ecFileName = ecFileName;
+		this.eia_Notification = eia_Notification;
+		this.protect_Area_Wildlife = protect_Area_Wildlife;
+		this.criticalPoll_Area_Identify = criticalPoll_Area_Identify;
+		this.ecosensitive_Area = ecosensitive_Area;
+	}
 	
 
-	public void setConsent(String consNo) {
-		// TODO Auto-generated method stub
+//	public void setConsent(String consNo) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//mm
+	public EnvEC(int ecId,String ecNo) {
+		super();
+		this.ecId = ecId;		
+		this.ecNo = ecNo;
 		
 	}
 
-
-	
-	
-	
 	
 }

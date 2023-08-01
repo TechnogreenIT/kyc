@@ -580,7 +580,8 @@ function getEnvQualityETPDataWater() {
 				});
 			} 
 			else {
-				$("#noDataAirPerformance").html("No");
+			$("#noDataAirPerformance").html("No");
+			
 				}
 		},
 		error: function (dd) {
@@ -664,6 +665,8 @@ function makeMytollTipn(resonair,id) {
 	$("#" + id).append(html);
 	makeToolTip();
 }
+
+
 function getEnvQualityDataAir() {
 	$.ajax({
 		type: 'POST',    
@@ -672,6 +675,7 @@ function getEnvQualityDataAir() {
 		dataType: 'json',
 		success: function (data) {
 			var parseData = JSON.parse(data);
+			finalCombine=0;
 			if (parseData.length != 0) {
 				$.each(parseData, function (index, element) {
 					//		
@@ -694,8 +698,14 @@ function getEnvQualityDataAir() {
 						setFilter(meterName, finalStp, "performanceStat_STP");
 					}*/
 				});
-			} else {
-				$("#noDataWaterPerformance").html("No");
+			} 
+			else {
+			//	$("#noDataWaterPerformance").html("No");
+			reverseGaugeMeter(finalCombine, "airGaugeMeter", "airGaugeMeter-text");
+			setFilter(finalCombine, "performanceAir_State");
+			//makeMytollTipn(resonair,"addAirReson");
+				$("#noDataAirPerformance").html("No");
+				
 			}
 		},
 		error: function (dd) {

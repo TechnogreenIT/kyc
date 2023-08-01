@@ -40,6 +40,12 @@ public class Consent implements Serializable
 	// @ManyToOne
 	// private List<Users> users = new ArrayList<>();
 
+//	@ManyToOne
+//	@JoinColumn(name = "ec_id")
+	@Column(name = "ec_id")
+	private int ecid;
+
+	
 	@Column(name = "cons_no")
 	private String consNo;
 
@@ -132,6 +138,17 @@ public class Consent implements Serializable
 	public void setCompanyProfile(CompanyProfile companyProfile)
 	{
 		this.companyProfile = companyProfile;
+	}
+	
+	
+
+
+	public int getEcid() {
+		return ecid;
+	}
+
+	public void setEcid(int ecid) {
+		this.ecid = ecid;
 	}
 
 	public Users getUsers()
@@ -365,6 +382,7 @@ public class Consent implements Serializable
 			String consentFileName)
 	{
 		super();
+	//	this.ecid = ecid;
 		this.consNo = consNo;
 		this.consType = consType;
 		this.issueDate = issueDate;
@@ -378,7 +396,7 @@ public class Consent implements Serializable
 		this.consentFilePath = consentFilePath;
 		this.consentFileName = consentFileName;
 	}
-
+	
 	public Consent()
 	{
 	}
@@ -400,6 +418,7 @@ public class Consent implements Serializable
 	public Consent(int consentId, String consNo, String validUpto, float grossCi, String issueDate)
 	{
 		super();
+		//this.ecid = ecid;
 		this.consentId = consentId;
 		this.consNo = consNo;
 		this.validUpto = validUpto;

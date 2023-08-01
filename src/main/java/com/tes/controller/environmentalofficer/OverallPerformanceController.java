@@ -1621,7 +1621,9 @@ public class OverallPerformanceController
 						reqQuantity = regularDataServices.getAverageQuantityByPNameMonthYearForAhp(pname.get(j), month,
 								year);
 						///reson print
-						if(reqQuantity > consentQuan.get(j)) {//
+						 float cqty=consentQuan.get(j);
+						//if(reqQuantity > consentQuan.get(j)) {//
+						 if(reqQuantity > cqty) {
 						overallnameReson +=  pname.get(j)+ ",";
 						}
 						///

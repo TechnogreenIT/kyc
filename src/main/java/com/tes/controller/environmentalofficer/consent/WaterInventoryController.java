@@ -1,22 +1,38 @@
 package com.tes.controller.environmentalofficer.consent;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+
+import javax.activation.FileDataSource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.tes.model.Consent;
+import com.tes.model.EmpData;
 import com.tes.model.Prefilter;
 import com.tes.model.WastewaterRecycle;
 import com.tes.model.WastewaterTreatment;
@@ -29,8 +45,11 @@ import com.tes.services.environmentalofficer.waterinventory.WasteWaterRecycleSev
 import com.tes.services.environmentalofficer.waterinventory.WastewaterTreatmentServices;
 import com.tes.services.environmentalofficer.waterinventory.WaterInventoryServices;
 import com.tes.services.environmentalofficer.waterinventory.WaterSourceServices;
+import com.tes.utilities.Constant;
 import com.tes.utilities.Utilities;
 import com.tes.utilities.Validator;
+
+import antlr.Parser;
 
 /**
  * This class demonstrate used of the water inventory details .
@@ -289,36 +308,104 @@ public class WaterInventoryController
 	 */
 
 	// TODO documentation by vishal
+	
 	@PostMapping("ajax-water-inventory-c2o")
-	public @ResponseBody boolean getWaterInventoryData(@RequestBody JsonObject jsonObjWaterInventory)
+	public @ResponseBody boolean getWaterInventoryData(@RequestParam( value = "file", required = false) MultipartFile cgwaFile,@RequestParam( "alldata") String alldt,HttpServletRequest request)
 	{
 
-		JsonObject waterInventoryData = jsonObjWaterInventory.getAsJsonObject("waterInventory");
+		EmpData empDataSession = null;
+		String compName = null;
+		empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
+		compName = empDataSession.getCompanyProfile().getCompName();
+		String renameFile = null;
+		renameFile = Utilities.renameFile(compName);
+		JsonObject convertedObject = new Gson().fromJson(alldt, JsonObject.class);
+	    convertedObject.isJsonObject();
+//		JsonParser parser = new JsonParser();  
+//		JSONObject json = (JSONObject) parser.parse(stringToParse);  
+	//	JsonObject jsonObjWaterInventory = new JsonObject();
+		
+		JsonObject waterInventoryData =  convertedObject.getAsJsonObject("waterInventory");
 		WaterInventory objWaterInventory = new WaterInventory();
-
+	//	JsonArray waterSourcesDataList2 = convertedObject.getAsJsonArray("waterSources");
+		
 		boolean flag = false;
-		try
-		{
 
+		try
+		
+		{
 			Consent objConsent = new Consent();
-			objConsent.setConsentId(waterInventoryData.getAsJsonObject().get("consentId").getAsInt());
+			objConsent.setConsentId(waterInventoryData.getAsJsonObject().get("consentId").getAsInt());		
 			objWaterInventory.setConsent(objConsent);
 			objWaterInventory.setHouseCanteen(waterInventoryData.getAsJsonObject().get("isHouseCanteen").getAsBoolean());
 			objWaterInventory.setCookingCanteen(waterInventoryData.getAsJsonObject().get("isCookingCanteen").getAsBoolean());
 			objWaterInventory.setWaterTreatment(waterInventoryData.getAsJsonObject().get("isWaterTreatment").getAsBoolean());
 			objWaterInventory.setWastewaterTreatment(waterInventoryData.getAsJsonObject().get("iswasteWaterTreatment").getAsBoolean());
+			
+			//get sourcename purpose
+			JsonArray waterSourcesDataList1 = convertedObject.getAsJsonArray("waterSources");
+			for (JsonElement waterSources : waterSourcesDataList1)
+			{
+		
+     			WaterSource objWaterSource1 = new WaterSource();
+     			
+				objWaterSource1.setSourceName(waterSources.getAsJsonObject().get("sourceName").getAsString());
+				//if using bore well watersource then need to check cgwa permission
+				if(objWaterSource1.getSourceName().toString().equalsIgnoreCase ("Bore well")) 
+				{
+					// objWaterInventory.setIscgwapermissiion(waterInventoryData.getAsJsonObject().get("iscgwapermissiion").getAsString());
+					 objWaterInventory.setIscgwapermissiion(waterInventoryData.getAsJsonObject().get("iscgwapermissiion").getAsBoolean());
+					 //cgwa applied
+					 if(waterInventoryData.getAsJsonObject().get("iscgwapermissiion").getAsString().equalsIgnoreCase(Constant.YES)) 
+					 {		
+						 String file1 = null;
+							String mainFile1 = null;
+							byte[] bytes1 = null;
+							if (!cgwaFile.isEmpty())
+							{
+								file1=cgwaFile.getOriginalFilename();
+								bytes1 = cgwaFile.getBytes();
+							}
+							mainFile1 = renameFile + "_" + file1;	
+						 objWaterInventory.setCgwa_file_name(mainFile1);						
+						  Files.write(Paths.get(Constant.cgwa_file_path + mainFile1), bytes1); // if path is not getting ready it will show error ....by vishal
+						  objWaterInventory.setCgwa_file_path(Constant.cgwa_file_path + mainFile1);		
+					 }
+					 //cgwa not applied
+					 else
+					 { 
+						 objWaterInventory.setCgwa_file_name(Constant.NA);		
+						 objWaterInventory.setCgwa_file_path(Constant.NA);
+					 }
+					 
+				}
+				//if water source is not bore well
+				else {
+					 objWaterInventory.setIscgwapermissiion(waterInventoryData.getAsJsonObject().get("iscgwapermissiion").getAsBoolean());
+					 objWaterInventory.setCgwa_file_name(Constant.NA);		
+					 objWaterInventory.setCgwa_file_path(Constant.NA);
+				}
+				
+			}
+		//
+			
 			waterInventoryServices.save(objWaterInventory);
 
-			JsonArray waterSourcesDataList = jsonObjWaterInventory.getAsJsonArray("waterSources");
+			JsonArray waterSourcesDataList = convertedObject.getAsJsonArray("waterSources");
+		
+		
 			for (JsonElement waterSources : waterSourcesDataList)
 			{
 				WaterSource objWaterSource = new WaterSource();
+				//WaterSource objWaterSource1=convertedObject.getAsJsonObject(WaterSource)
 				objWaterSource.setWaterInventory(objWaterInventory);
 				objWaterSource.setSourceName(waterSources.getAsJsonObject().get("sourceName").getAsString());
 				objWaterSource.setSourceMeter(waterSources.getAsJsonObject().get("sourceMeter").getAsBoolean());
 				waterSourceServices.save(objWaterSource);
-
-				JsonArray preFilterDataList = waterSources.getAsJsonObject().getAsJsonArray("preFilter");
+				
+ 				
+				JsonArray preFilterDataList = waterSources.getAsJsonObject().get("preFilter").getAsJsonArray();			
+			 //jsonArray preFilterDataList = convertedObject.getAsJsonObject().getAsJsonArray("preFilter");
 				for (JsonElement preFilters : preFilterDataList)
 				{
 					Prefilter objPreFilter = new Prefilter();
@@ -330,6 +417,7 @@ public class WaterInventoryController
 					objPreFilter.setPrefilter(preFilters.getAsJsonObject().get("isPrefilter").getAsBoolean());
 					prefilterServices.save(objPreFilter);
 				}
+				
 
 			}
 
@@ -338,7 +426,7 @@ public class WaterInventoryController
 		}
 		catch (Exception e)
 		{
-			LOGGER.error(e);
+ 			LOGGER.error(e);
 		}
 
 		/*

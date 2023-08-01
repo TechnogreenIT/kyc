@@ -68,6 +68,20 @@
 							class="zmdi zmdi-view-headline zmdi-hc-fw"></i> View
 					</a></li>
 				</ul></li>
+				<!---EC add here-->
+				<li class="navigation__sub"><a href=""><i
+					class="zmdi zmdi-collection-text zmdi-hc-fw"></i> Environment Clearance <i
+					class="zmdi zmdi-plus float-right"></i></a>
+					<ul>
+					<li><a href="add-ec"> <i
+							class="zmdi zmdi-comment-edit zmdi-hc-fw"></i> Add
+					</a></li>
+					<li><a href="view-ecData"><i
+							class="zmdi zmdi-view-list zmdi-hc-fw"></i> Views</a>
+						</li>
+						</ul>
+				</li>
+				
 			<li class="navigation__sub"><a href=""><i
 					class="zmdi zmdi-collection-text zmdi-hc-fw"></i> Consent <i
 					class="zmdi zmdi-plus float-right"></i></a>

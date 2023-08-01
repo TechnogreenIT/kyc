@@ -177,6 +177,7 @@ public class CreateConsentController
 			@RequestParam(value = "aml_o[]", required = false) int[] amulgamationOId,
 			@RequestParam(value = "extendDate", required = false) String extendDate,	
 			//@RequestParam(value = "ecId", required = false) Integer  ecId,
+			@RequestParam(value = "ecId", required = false) Integer  ecId,
 			@RequestParam(value = "ecstatus", required = false) String ecStatus,	//ec	
 //			@RequestParam(value = "ecFilePath", required = false) MultipartFile ecFile,//ec
 //			@RequestParam(value = "eiastatus", required = false) String eiaStatus,	//ec
@@ -224,10 +225,10 @@ public class CreateConsentController
 				companyProfile.setCompanyProfileId(empDataSession.getCompanyProfile().getCompanyProfileId());				
 				consent.setUsers(user);
 				consent.setCompanyProfile(companyProfile);	
-//				if(ecId!=null)
-//				{
-//				consent.setEcid(ecId);
-//				}
+				if(ecId!=null)
+				{
+				consent.setEcid(ecId);
+				}
 				consent.setConsType(consType);
 				consent.setConsStatus(status);
 				consent.setExpansionStatus(que2);
@@ -857,4 +858,39 @@ public class CreateConsentController
 		}
 		return jsonArray.toString();
 	}
+	
+	//get Ec data
+		@RequestMapping("/ajax-getEcData")
+		public @ResponseBody String getEcData( HttpServletRequest request)
+		{
+			JSONArray FinalArray = new JSONArray();
+			EmpData empDataSession = null;
+			//List<Consent> consentDatas = new ArrayList<>();
+			List<EnvEC>envecDatas=new ArrayList<>();
+			try
+			{
+				if (!Validator.isEmpty(request.getSession().getAttribute("empDataSession")))
+				{
+					empDataSession = (EmpData) request.getSession().getAttribute("empDataSession");
+					String industry_type = empDataSession.getCompanyProfile().getIndustryCategory();
+					
+					envecDatas = envECServices.findBycmpId(empDataSession.getCompanyProfile().getCompanyProfileId(),Utilities.getTodaysDate());
+				
+					for (int i = 0; i < envecDatas.size(); i++)
+					{
+						HashMap<String, Object> hashMap = new HashMap<String, Object>();
+						hashMap.put("ecName", new String(envecDatas.get(i).getEcNo()));
+						hashMap.put("ecId", new Integer(envecDatas.get(i).getEcId()));
+						FinalArray.put(hashMap);
+					}
+				}
+
+			}
+			catch (Exception e)
+			{
+				LOGGER.error(e);
+			}
+			return FinalArray.toString();
+		}
+	//ec data end 
 }

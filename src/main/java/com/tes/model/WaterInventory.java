@@ -31,6 +31,7 @@ public class WaterInventory implements Serializable
 	@JoinColumn(name = "consent_id")
 	private Consent consent;
 
+	
 	@Column(name = "is_house_canteen")
 	private boolean isHouseCanteen;
 
@@ -43,6 +44,19 @@ public class WaterInventory implements Serializable
 	@Column(name = "is_wastewater_treatment")
 	private boolean isWastewaterTreatment;
 
+//	@Column(name = "is_cgwa_permission")
+//	private String iscgwapermissiion;
+
+	@Column(name = "is_cgwa_permission")
+	private boolean iscgwapermissiion;
+	
+	
+	@Column(name = "cgwa_file_path")
+	private String cgwa_file_path;
+	
+	@Column(name = "cgwa_file_name")
+	private String cgwa_file_name;
+	
 	@Transient
 	private List<WaterSource> waterSourceList = new ArrayList<>();
 
@@ -120,5 +134,12 @@ public class WaterInventory implements Serializable
 		super();
 		this.isHouseCanteen = houseCanteen;
 		this.isCookingCanteen = cookingCanteen;
+	}
+
+	public WaterInventory(boolean iscgwapermissiion, String cgwa_file_path, String cgwa_file_name) {
+		super();
+		this.iscgwapermissiion = iscgwapermissiion;
+		this.cgwa_file_path = cgwa_file_path;
+		this.cgwa_file_name = cgwa_file_name;
 	}
 }

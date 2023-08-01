@@ -2,7 +2,7 @@ var max_fields = 10; // maximum input boxes allowed
 var wrapper = $(".appendExtraWaterSource"); // Fields wrapper
 var add_button = $("#add_containers"); // Add button ID
 var source_count = 1; // initlal text box count
-var x = 0, pre = 0,can =0;
+var x = 0, pre = 0,can =0;cgwa=0;
 var divFlag = 0;
 var waterSourceOptions ="";
 var waterFiltersOptions ="";
@@ -14,10 +14,88 @@ $( document ).ready(function() {
   waterSourceOptions = getWaterSourcesOptions();
   $("#appendWaterSources").append(waterSourceOptions);
   
+  
   waterFiltersOptions = getWaterFiltersOptions();
   
   filter_use_Array = getWaterFilterUseName();
+
 });
+
+function cgwafileup(){	
+	 // var chkAppliedorYes = document.getElementById("ddlCGWAs");
+	 // var status = chkAppliedorYes.options[chkAppliedorYes.selectedIndex].text; 
+	   $("#upfileornot").empty();	
+	   var status = $("input[name='cgwastatus']:checked").val();
+						
+	  if(status=="Yes" ){
+	  	var htmlcontent="<div class='col-12'>"
+							    +"<div class='fileinput fileinput-new' data-provides='fileinput'>"
+							    +"<label>CGWA Acknowledgement/CGWA Applied Acknowledgement : "
+							    +"<span class='btn btn-primary btn-file'>"
+							    +"<span class='fileinput-new'>Select file</span>"
+							    +"<span class='fileinput-exists'>Change</span>"
+							    +"<input type='file' name='dataFile_file' id='cgwadataFile'  for='dataFile_file' >"
+							    +"</span>"
+							    +"<span class='fileinput-filename'></span> <a href='#' class='close fileinput-exists' data-dismiss='fileinput'>&times;</a>"
+							    +"</div>"
+					            +"</div>"
+					            	 $("#upfileornot").append(htmlcontent);
+					            }
+}
+
+
+
+/////mmm
+//try
+function addcgwa(){
+  
+	
+	if(cgwa==0){
+			
+	var chkborewell = document.getElementById("appendWaterSources");
+	var bw = chkborewell.options[chkborewell.selectedIndex].text; 
+	$("#appendcgwc").empty();	
+	if(bw=="Bore well"){
+	  			 var htmlcontent='<div class="row mt-5">'
+									 +'<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">'
+									// +'<div class="form-group">'
+									 +'<label class="font-weight-bold">i.Do You Have CGWA Permission?</label>'
+									 
+								    +'<div class="row mt-1">'
+							  
+										+"<div class='col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3'>"
+										+"<div class='radio radio--inline'>"
+												+"<input type='radio' name='cgwastatus' id='cgwa_y'  value='Yes' onchange='cgwafileup();'  required><label class='radio__label' for='cgwa_y'>Yes/Applied</label>"
+										+"</div>"
+										+"<div class='radio radio--inline'>"
+												+"<input type='radio' name='cgwastatus' id='cgwa_n' value='No' checked onchange='cgwafileup();'  required><label class='radio__label' for='cgwa_n'>No</label>"
+										+"</div>"													
+										+"</div>"
+																				 
+								      +'<div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">'
+								       +'<div id="upfileornot">'
+								     + '</div>'							   
+								     +'</div>'
+								   
+								  + '</div>'
+									//+ '</div>'
+									+'</div>'
+									
+									 $("#appendcgwc").append(htmlcontent);
+    			cgwa++;
+   			} 
+   		//	}
+	}
+	//else {
+		//if(data=="No"){
+		//	$("#appendcgwc").empty();
+		//	can--;
+		//}
+	//}
+ 
+}
+//
+
 
 function addMoreWaterSource(){
   var waterSources = $("[name='waterSourceNames[]']");
@@ -41,7 +119,7 @@ function addMoreWaterSource(){
       $(wrapper).append('<div class="row">'
                   +'<div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">'
                     +'<div class="form-group">'
-                      +'<select class="select2" data-placeholder="Select Source" name="waterSourceNames[]" id="waterSourceNames">'
+                      +'<select class="select2" data-placeholder="Select Source"  name="waterSourceNames[]" id="waterSourceNames" >'
                         +'<option value="">Select Source</option>'
                         +waterSourceOptions
                       +'</select>'
@@ -60,7 +138,7 @@ function addMoreWaterSource(){
                     +'<button type="button" class="btn btn-sm btn-warning pt-1 pb-1" onclick="removeExtraWaterSource(this);"><i class="zmdi zmdi-delete"></i> Remove</button>'
                   +'</div>'
               +'</div>'); // add input box
-      makeSelect2();
+      makeSelect2(); 
     }
     
   }
@@ -250,14 +328,14 @@ function getFilterIndustrialUse(el,idsUseName,useFltr){
     $("#"+idd).empty();
   }
 }
-function saveWaterInventory(el) {
+function saveWaterInventory(el,type) {
   // make an empty object
   var myObject = {};
   var waterDetails = new Array();
   var directUseWaterArray = new Array();
   var directIndUseWaterArray = new Array();
 
-  var waterDetails = new Array();
+ // var waterDetails = new Array();
   var water_source_names_array = new Array();
   var water_source_meter_array = new Array();
   var flag = 0;
@@ -269,8 +347,12 @@ function saveWaterInventory(el) {
  var acf ="false";
   var psf ="false";
  var dmf ="false";
+// var cgwapermission="";
+var cgwapermission="No";
  
   var consent_no= $("#consent_no").val();
+  //cgwa permission
+  
   // canteen value
   isCanteen = $('input[name=isHouseCanteen]:checked').val();
   
@@ -284,14 +366,52 @@ function saveWaterInventory(el) {
   // wastewater treatment
   iswasteWaterTreatment = $('input[name=wasteTreatmentPlantQuestion]:checked').val();
   
+ // cgwapermission=$('input[name=cgwastatus]:checked').val();//mm
+   var form_data = new FormData();
+ var chkborewell = document.getElementById("appendWaterSources");
+	  var bw = chkborewell.options[chkborewell.selectedIndex].text; 
+   //  var file;
+if(bw=="Bore well")
+ {
+	 cgwapermission=$('input[name=cgwastatus]:checked').val();
+	 if(cgwapermission=="Yes"){
+	    var valid = 0;
+    var filename = $('[name='+type+'_file]').val();  
+    if (filename != "") {
+
+        var file_data = $('[name=' + type + '_file]').prop('files')[0];
+       // filename = file_data;
+        if (filename == "") {
+			file_data = createDefaultFile();//n
+            valid--;
+        }
+    }   
+     else {
+        valid--;
+    }
+     if (valid == 0) {
+  
+	  form_data.append('file', file_data);
+   }
+   }
+  
+   
+ }
+
+ 	 
+   
+   
   var item = {}
   item["consentId"] = consent_no;
   item["isHouseCanteen"] = isCanteen;
   item["isCookingCanteen"] = isCanteenCooking;
   item["isWaterTreatment"] = isWaterTreatment;
   item["iswasteWaterTreatment"] = iswasteWaterTreatment;
+  item["iscgwapermissiion"] = cgwapermission;
+  //item["cgwa_file_path"] = FormData;
   myObject.waterInventory = item;
-  
+ 
+
   //waterSources
   var waterSources = $("[name='waterSourceNames[]']");
   for (var a = 0; a < waterSources.length; a++) {
@@ -356,19 +476,28 @@ function saveWaterInventory(el) {
       
 	 item["preFilter"] = preFilterData;
       waterDetails.push(item);
+       
     }
-  }
+  } 
+
   myObject.waterSources = waterDetails;
+ var alldata= JSON.stringify(myObject);
+  form_data.append("alldata",alldata);
   
+ // myObject.filedata = form_data;
+   
+   
   if (flag == 0) {
     $.ajax({
-      type : "POST",
+   //   type : "POST",
       url : "ajax-water-inventory-c2o",
-      contentType : "application/json",
-      data : JSON.stringify(myObject),
-      
+     // contentType : "application/json",
+     contentType : false,
+       processData: false,
+      data : form_data,
+       type : "POST",
       success : function(data) {
-    	  $("#save-waterInventory-btn").attr("disabled", true);
+    	  $("#save-waterInventory-btn").attr("disabled", true);  
           findNextAccordion(el);
           jBoxBottomRightBigNotice("Success", "Data Saved !!", "green", "2000");
       }
