@@ -337,6 +337,7 @@ public class CreateConsentController
 						{
 							// modelAndView.addObject("msg", Constant.SUCCESS);// record of Consent to Operate in consent table table
 							// mv.setViewName("EnvrOfficer/OListOfProduct");
+							modelAndView.addObject("ecstatus", ecStatus);
 							modelAndView.addObject("consentId", consent.getConsentId());
 							modelAndView.setViewName("redirect:olist-product");
 						}

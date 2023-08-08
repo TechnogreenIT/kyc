@@ -34,7 +34,7 @@ public class MultitenantConfiguration
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource()
 	{
-		File[] files = new File("E:\\WorkspaceJava\\tenants").listFiles();
+		File[] files = new File("E:\\WorkspaceJava1\\tenants").listFiles();
 
 		// File[] files = new File("/home/kycindia/JavaProjects/MyCompanys").listFiles();
 

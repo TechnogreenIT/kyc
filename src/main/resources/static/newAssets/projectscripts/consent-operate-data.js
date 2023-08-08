@@ -144,7 +144,7 @@ function saveData(el,type){
 				jBoxBottomRightBigNotice("Success", "Data Saved !!", "green", "2000");
 				
 				
-				if(type == "hwpcf"){
+				if(type == "cutfill"){
                 	window.location.replace("http://localhost:8080/env/dashboard");
                 }
 			}

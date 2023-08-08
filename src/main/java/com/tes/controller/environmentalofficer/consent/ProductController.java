@@ -339,7 +339,7 @@ public class ProductController extends Constant
 			String industrySession = (String) request.getSession().getAttribute("sessionIndustryType");
 			if (industrySession.equalsIgnoreCase("Industry"))
 			{
-				allProductsCatList = new ArrayList<>(Arrays.asList("product", "byproduct", "raw", "fuel", "hwp", "hwpcf", "nhwp", "nhwpcf"));
+				allProductsCatList = new ArrayList<>(Arrays.asList("product", "byproduct", "raw", "fuel", "hwp", "hwpcf", "nhwp", "nhwpcf","eWaste" ,"pWaste","bWaste","cdWaste","cutfill"));
 			}
 			else
 			{

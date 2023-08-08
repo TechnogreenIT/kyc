@@ -51,6 +51,8 @@
 						<input type="hidden" name="ec_Id" id="ec_no"
 						value="${ecId}"> <input type="hidden"
 						name="UserIdSession" value="${uId}">
+						<h2 hidden><%= request.getParameter("ecstatus")%></h2>	
+						
 					<div class="actions">
 						<span class="mantooltip hover p-1" data-jbox-title=""
 							data-jbox-content="Fill Your Consent To Operate Data."><a
@@ -315,9 +317,9 @@
 												</div>
 											</div>
 										</div>
-									
-										<c:if test="${ecStatus == 'yes'}">
-										<h3>E Waste</h3>
+									<!--chnges by pallavi-->
+										<c:if test="${param.ecstatus == 'Yes'}">
+										<h3>E-Waste</h3>
 										<div>
 											<div class="row mt-3" id="append_eWaste">
 												<div class="col-6 offset-1">
@@ -341,7 +343,7 @@
 											</div>
 										</div>
 												</c:if>
-										<c:if test="${ecStatus == 'yes'}">
+										<c:if test="${param.ecstatus == 'Yes'}">
 										<h3>Plastic Waste</h3>
 										<div>
 											<div class="row mt-3" id="append_pWaste">
@@ -366,7 +368,7 @@
 											</div>
 										</div>
 										</c:if>
-										<c:if test="${ecStatus == 'yes'}">
+										<c:if test="${param.ecstatus == 'Yes'}">
 										<h3>Batteries Waste</h3>
 										<div>
 											<div class="row mt-3" id="append_bWaste">
@@ -417,7 +419,7 @@
 												</div>
 											</div>
 										</c:if>
-									<c:if test="${ecStatus == 'yes'}">	
+										
 		                         <h3>C and D Waste</h3>
 										<div>
 											<div class="row mt-3" id="append_cdWaste">
@@ -441,8 +443,10 @@
 												</div>
 											</div>
 											</div>
-											</c:if>	
-							      
+											</div>
+											</div>
+										
+							      <c:if test="${param.ecstatus == 'Yes'}">
 							             <h3>Cut and Fill</h3>
 							             <div>
 										<div id="cutandfillAccordion">
@@ -467,9 +471,10 @@
 													</button>
 												</div>
 											</div>	
+												</c:if>	
 						            </div>
-				               </div>
-			              </div>
+				               <!--</div>-->
+			             <!-- </div>-->
 		            </div>
 	            </div>
 
