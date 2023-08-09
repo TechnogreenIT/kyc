@@ -17,8 +17,8 @@ $(document).ready(
 		var msg = "";
 		var j = 0;
 		if (isproduction == "Yes") {
-			var list = ["product", "byproduct", "raw", "fuel", "apc", "hwp", "hwpcf", "nhwp", "nhwpcf"];
-			var namesList = ["Product Details", "Byproduct Details", "Raw Material Details", "Fuel Details"," ", "Hazardous Waste from Process", "Hazardous Waste from Pollution Control Facility", "Non-Hazardous Waste from Process", "Non-Hazardous Waste from Pollution Control Facility"];
+			var list = ["product", "byproduct", "raw", "fuel", "apc", "hwp", "hwpcf", "nhwp", "nhwpcf" ,"eWaste","pWaste","bWaste","cdWaste","cutfill"];
+			var namesList = ["Product Details", "Byproduct Details", "Raw Material Details", "Fuel Details"," ", "Hazardous Waste from Process", "Hazardous Waste from Pollution Control Facility", "Non-Hazardous Waste from Process", "Non-Hazardous Waste from Pollution Control Facility" ,"E-Waste","Plastic Waste","Batteries Waste","C and D Waste","Cut and Fill"];
 		} else if (isproduction == "Bio-Medical") {
 			var list = ["bio", "medical", "fuel", "apc", "hwp", "hwpcf", "nhwp", "nhwpcf"];
 			var namesList = ["Bio Details", "Medical Details", "Fuel Details", " ", "Hazardous Waste from Process", "Hazardous Waste from Pollution Control Facility", "Non-Hazardous Waste from Process", "Non-Hazardous Waste from Pollution Control Facility"];
@@ -98,7 +98,7 @@ $(document).ready(
 							if (list[i] == "fuel" ) {
 								$("#fuelAccordion").append(finalData);
 							} 														
-							if (list[i] == "hwp" || list[i] == "hwpcf" || list[i] == "nhwp" || list[i] == "nhwpcf") {
+							if (list[i] == "hwp" || list[i] == "hwpcf" || list[i] == "nhwp" || list[i] == "nhwpcf" || list[i] == "eWaste" || list[i] == "pWaste" || list[i] == "bWaste" || list[i] == "cdWaste"|| list[i] == "cutfill") {
 								$("#solidWasteAccordion").append(finalData);
 							}
 						}

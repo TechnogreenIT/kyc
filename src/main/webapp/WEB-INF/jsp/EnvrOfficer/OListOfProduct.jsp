@@ -473,6 +473,7 @@
 											</div>	
 												</c:if>	
 						            </div>
+						           <!--cmnt by pallvi..-->
 				               <!--</div>-->
 			             <!-- </div>-->
 		            </div>

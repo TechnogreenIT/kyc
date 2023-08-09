@@ -862,10 +862,10 @@
 						</div>
 					      <c:if test="${param.ecstatus == 'Yes'}">
 						<h3>Cut and Fill</h3>
-							<div id="cutanfillAccordion">
+							<div id="cutandfillAccordion">
 						        <div> 
 						        <div class="mt-4" id="append_ctoe_cutfill">
-										<div class="row" id="appended_0_cutfill ">
+										<div class="row" id="appended_0_cutfill">
 											<div class="col-5">
 												<div class="form-group">
 													<input type="text" name="cutfill_name[]" class="form-control"

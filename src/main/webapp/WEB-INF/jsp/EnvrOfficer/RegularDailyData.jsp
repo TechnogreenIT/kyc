@@ -99,6 +99,12 @@
 									<div>
 										<div id="solidWasteAccordion"></div>
 									</div>
+									<h2>
+										<a href="#">Cut and Fill</a>
+									</h2>
+									<div>
+										<div id="cutandfillAccordion"></div>
+									</div>
 								</div>
 							</div>
 						</div>
